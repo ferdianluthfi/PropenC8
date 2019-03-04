@@ -1,3 +1,3 @@
 <?php
-echo "luthfi ganteng"
+echo "luthfi ganteng banget"
 ?>
