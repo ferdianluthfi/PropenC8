@@ -1,3 +1,1 @@
-<?php
-echo "luthfi ganteng"
-?>
+<h1>Hello <?=$name;?></h1>
