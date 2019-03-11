@@ -15,5 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/luthfi', function () {
-    return view('luthfi');
+    return view('luthfi',[ 'name' => "Ganteng"]);
 });
