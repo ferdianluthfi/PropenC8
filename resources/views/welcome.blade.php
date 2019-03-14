@@ -23,7 +23,8 @@ nav:after {
     clear: both;
 }
 #contentBody {
-    background: #0000;
+    
+    background-color: #F5F8F9;
     height: 100vh;
 }
 #content {
