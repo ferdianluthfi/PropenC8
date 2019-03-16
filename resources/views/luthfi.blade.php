@@ -18,6 +18,9 @@
                <a class="nav-link" href="/">TRAYEK</a>
             </li>
             <li>
+                <h1>LIIIZZZZZZ</h1>
+            </li>
+            <li>
                 @foreach ($tasks as $task)
 
                 <h1>{{$task->body}}</h1>
