@@ -24,8 +24,7 @@ nav:after {
     clear: both;
 }
 #contentBody {
-    
-    background-color: #F5F8F9;
+    background: #0000;
     height: 100vh;
 }
 #content {
@@ -185,16 +184,13 @@ ul ul a {
             </div> 
             
         </ul>
-<<<<<<< HEAD
+
         </nav>
         <div id="contentBody">
         <center>
         <img src="https://i.stack.imgur.com/12F8N.png" style="width:250px;height:250px;"/>
         <h2> Selamat Datang di Trayek, Luthfi!</h2>
         </center>
-=======
-        
->>>>>>> parent of 442b5de... benerin homepage
         </div>
         </nav>
         
