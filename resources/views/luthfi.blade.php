@@ -9,8 +9,9 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <h1>LUTHFI GANTENGG</h1>
+    <h1>LUTHFI GANTENGG BAATT</h1>
     <h1>LIZZZZZZ</h1>
-    <h1>PAK LIK</h1> 
+    <h1>PAK LIKZ</h1> 
+    <h1>Bu NUR</h1>
 </body>
 </html>
