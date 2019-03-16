@@ -15,6 +15,7 @@
     align-items: stretch;
 }
 nav {
+    border-top: 1px solid white;
     border-bottom: 1px solid black;
 } 
 nav:after {
@@ -177,17 +178,26 @@ ul ul a {
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark navbar-fixed-top">
         <a class="navbar-brand" href="https://upload.wikimedia.org/wikipedia/id/6/6d/Logo_Persija.png">Logo</a>
         <ul class="navbar-nav">
+            <div id="content">
             <button type="button" id="sidebarCollapse" >
                 <a> toogle collapse </a>
-            </button>
+                </button>
+            </div> 
+            
         </ul>
+<<<<<<< HEAD
         </nav>
         <div id="contentBody">
         <center>
         <img src="https://i.stack.imgur.com/12F8N.png" style="width:250px;height:250px;"/>
         <h2> Selamat Datang di Trayek, Luthfi!</h2>
         </center>
+=======
+        
+>>>>>>> parent of 442b5de... benerin homepage
         </div>
+        </nav>
+        
         
     </div> <!--Konten berakhir-->
     
