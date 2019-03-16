@@ -178,11 +178,10 @@ ul ul a {
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark navbar-fixed-top">
         <a class="navbar-brand" href="https://upload.wikimedia.org/wikipedia/id/6/6d/Logo_Persija.png">Logo</a>
         <ul class="navbar-nav">
-            <div id="content">
             <button type="button" id="sidebarCollapse" >
                 <a> toogle collapse </a>
                 </button>
-            </div> 
+            
             
         </ul>
 

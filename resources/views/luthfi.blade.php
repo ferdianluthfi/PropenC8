@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>TRAYEJ</title>
+    <title>TRAYEK</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
     <script src="main.js"></script>
@@ -15,9 +15,6 @@
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <ul class="navbar-nav">
             <li class="nav-item active">
-<<<<<<< HEAD
-               <a class="nav-link" href="/">TRAYEK/a>
-=======
                <a class="nav-link" href="/">TRAYEK</a>
             </li>
             <li>
@@ -26,7 +23,6 @@
                 <h1>{{$task->body}}</h1>
 
                 @endforeach
->>>>>>> luthfi
             </li>
         </ul>
     </nav>
