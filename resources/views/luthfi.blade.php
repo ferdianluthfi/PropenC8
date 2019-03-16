@@ -15,7 +15,14 @@
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <ul class="navbar-nav">
             <li class="nav-item active">
-               <a class="nav-link" href="/">TRAYEK/a>
+               <a class="nav-link" href="/">TRAYEK</a>
+            </li>
+            <li>
+                @foreach ($tasks as $task)
+
+                <h1>{{$task->body}}</h1>
+
+                @endforeach
             </li>
         </ul>
     </nav>
