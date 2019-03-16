@@ -164,7 +164,7 @@ ul ul a {
         </ul>
         <ul class="list-unstyled CTAs">
                 <li>
-                    <h6>Tentang Kami</h6>
+                    <h6>Tentang kirana</h6>
                     <h6>Hubungi Kami</h6>
                     <h6>Kritik dan saran</h6>
                     <h6>Tentang Kami</h6>
