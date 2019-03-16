@@ -22,6 +22,11 @@ nav:after {
     display: block;
     clear: both;
 }
+#contentBody {
+    
+    background-color: #F5F8F9;
+    height: 100vh;
+}
 #content {
     width: 100vw;
     background: #F5F8F9;
@@ -142,7 +147,7 @@ ul ul a {
             <center>
             <img src="https://i.stack.imgur.com/12F8N.png" style="width:100px;height:100px;"/>
             <h6> luthfi.ferdian </h6>
-            <h6> Role </h6>
+            <h6> Manajer Marketing </h6>
             </center>
             <li class="active">
                 <a href="/">Beranda</a>
@@ -177,8 +182,11 @@ ul ul a {
             </button>
         </ul>
         </nav>
-        <div>
+        <div id="contentBody">
+        <center>
         <img src="https://i.stack.imgur.com/12F8N.png" style="width:250px;height:250px;"/>
+        <h2> Selamat Datang di Trayek, Luthfi!</h2>
+        </center>
         </div>
         
     </div> <!--Konten berakhir-->
