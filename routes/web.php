@@ -15,5 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/luthfi', function () {
-    return view('luthfi',[ 'name' => "Ganteng"]);
+
+    $tasks = App\Task::all();
+    
+    return view('luthfi',compact('tasks'));
 });
