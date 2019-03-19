@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProyeksTable extends Migration
+class CreateKontraksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateProyeksTable extends Migration
      */
     public function up()
     {
-        Schema::create('proyeks', function (Blueprint $table) {
+        Schema::create('kontraks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->date('startDate');
-            $table->date('endDate');
-            $table->string('description');
-            $table->integer('projectValue');
-            $table->string('estimatedTime');
+            $table->date('contractDate');
             $table->integer('approvalStatus');
-            $table->string('projectAddress');
-            $table->boolean('isLPJExist');
-            
+
+            $table->bigInteger('proyek_id')->unsigned();
+            $table->foreign('proyek_id')
+            ->references('id')
+            ->on('proyeks')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
 
             $table->bigInteger('pengguna_id')->unsigned();
             $table->foreign('pengguna_id')
@@ -44,6 +43,6 @@ class CreateProyeksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proyeks');
+        Schema::dropIfExists('kontraks');
     }
 }

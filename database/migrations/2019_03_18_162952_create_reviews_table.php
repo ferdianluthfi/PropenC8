@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProyeksTable extends Migration
+class CreateReviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreateProyeksTable extends Migration
      */
     public function up()
     {
-        Schema::create('proyeks', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->date('startDate');
-            $table->date('endDate');
             $table->string('description');
-            $table->integer('projectValue');
-            $table->string('estimatedTime');
-            $table->integer('approvalStatus');
-            $table->string('projectAddress');
-            $table->boolean('isLPJExist');
-            
+            $table->date('createdDate');
+            $table->integer('rating');
+
+            $table->bigInteger('pelaksanaan_id')->unsigned();
+            $table->foreign('pelaksanaan_id')
+            ->references('id')
+            ->on('pelaksanaans')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
 
             $table->bigInteger('pengguna_id')->unsigned();
             $table->foreign('pengguna_id')
@@ -44,6 +44,6 @@ class CreateProyeksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proyeks');
+        Schema::dropIfExists('reviews');
     }
 }
