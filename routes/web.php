@@ -20,3 +20,8 @@ Route::get('/luthfi', function () {
     
     return view('luthfi',compact('tasks'));
 });
+
+Route::get('/momo', function () {
+    
+    return view('momo');
+});
