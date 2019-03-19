@@ -16,7 +16,22 @@ class CreateKontraksTable extends Migration
         Schema::create('kontraks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('contractDate');
-            $table->integer('contractValue');
+            $table->integer('approvalStatus');
+
+            $table->bigInteger('proyek_id')->unsigned();
+            $table->foreign('proyek_id')
+            ->references('id')
+            ->on('proyeks')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
+            $table->bigInteger('pengguna_id')->unsigned();
+            $table->foreign('pengguna_id')
+            ->references('id')
+            ->on('penggunas')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

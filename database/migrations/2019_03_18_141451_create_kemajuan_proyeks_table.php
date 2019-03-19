@@ -19,6 +19,15 @@ class CreateKemajuanProyeksTable extends Migration
             $table->date('reportDate');
             $table->binary('photo');
             $table->integer('percentage');
+
+            $table->bigInteger('pelaksanaan_id')->unsigned();
+            $table->foreign('pelaksanaan_id')
+            ->references('id')
+            ->on('pelaksanaans')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
+
             $table->timestamps();
         });
     }

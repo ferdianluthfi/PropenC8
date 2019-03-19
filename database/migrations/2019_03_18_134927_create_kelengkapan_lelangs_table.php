@@ -23,7 +23,9 @@ class CreateKelengkapanLelangsTable extends Migration
             ->on('proyeks')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-           
+            
+
+            //Punya requirements cuman, karena kita maunya LIZ of requirement jadinya dibikin shcema baru
             $table->timestamps();
         });
     }

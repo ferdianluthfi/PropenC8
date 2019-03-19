@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePelaksanaansTable extends Migration
+class CreateRequirementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,17 @@ class CreatePelaksanaansTable extends Migration
      */
     public function up()
     {
-        Schema::create('pelaksanaans', function (Blueprint $table) {
+        Schema::create('requirements', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('approvalStatus');
-            $table->date('createdDate');
-            
 
-            $table->bigInteger('proyek_id')->unsigned();
-            $table->foreign('proyek_id')
+            $table->bigInteger('kelengkapan_id')->unsigned();
+            $table->foreign('kelengkapan_id')
             ->references('id')
-            ->on('proyeks')
+            ->on('kelengkapan_lelangs')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-            
-            //Punya pertanggung jawaban cuma kita ga implementasi
+
+            $table->binary('requirement');
 
             $table->timestamps();
         });
@@ -39,6 +36,6 @@ class CreatePelaksanaansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pelaksanaans');
+        Schema::dropIfExists('requirements');
     }
 }
