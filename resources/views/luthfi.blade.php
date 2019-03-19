@@ -9,9 +9,15 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <h1>LUTHFI GANTENGG BAATT</h1>
-    <h1>LIZZZZZZ</h1>
-    <h1>PAK LIKZ</h1> 
-    <h1>Bu NUR</h1>
+    <ul>
+        <li>
+            {{$proyek->name}}
+        </li>
+        @foreach ($kelengkapanLelangs as $kelengkapanLelang)
+        <li>
+            {{$kelengkapanLelang->id}}
+        </li>
+        @endforeach
+    </ul>
 </body>
 </html>

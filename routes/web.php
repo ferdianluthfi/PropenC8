@@ -15,10 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/luthfi', function () {
+    $proyek = App\Proyek::find(1);
+    $kelengkapanLelangs = $proyek->kelengkapanLelangs->where('proyek_id', 1)->get();
+    //$proyek = $kelengkapanLelang->proyek()->where('id', 1)->get();
 
-    $tasks = App\Task::all();
-    
-    return view('luthfi',compact('tasks'));
+    return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
 });
 
 Route::get('/momo', function () {
