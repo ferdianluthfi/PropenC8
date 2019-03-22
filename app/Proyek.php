@@ -11,4 +11,9 @@ class Proyek extends Model
     {
         return $this->hasMany('App\KelengkapanLelang');
     }
+
+    public static function status()
+    {
+        return static::where('approvalStatus',0)->get();
+    }
 }

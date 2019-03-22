@@ -21,7 +21,7 @@ class CreateProyeksTable extends Migration
             $table->string('description');
             $table->integer('projectValue');
             $table->string('estimatedTime');
-            $table->integer('approvalStatus');
+            $table->integer('approvalStatus')->default(0);
             $table->string('projectAddress');
             $table->boolean('isLPJExist');
             $table->timestamps();

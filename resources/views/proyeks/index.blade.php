@@ -9,7 +9,14 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <h1>MOMO CEKICEKI</h1>
-    <h1>MOMO</h1>
+    <ul>
+        @foreach ($proyek as $proyeks)
+        <li>
+            <a href="/proyeks/{{ $proyeks->id }}"> 
+                {{$proyeks->name}}
+            </a>
+        </li>
+        @endforeach
+    </ul>
 </body>
 </html>
