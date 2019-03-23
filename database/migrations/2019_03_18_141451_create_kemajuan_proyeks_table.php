@@ -17,6 +17,7 @@ class CreateKemajuanProyeksTable extends Migration
             $table->bigIncrements('id');
             $table->string('description');
             $table->date('reportDate');
+            $table->integer('tipeKemajuan'); //ToDo buat ketentuan 1 2 3 itu kode untuk apaa
             $table->integer('percentage');
 
             $table->bigInteger('pelaksanaan_id')->unsigned();
