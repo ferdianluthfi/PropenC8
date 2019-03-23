@@ -10,9 +10,12 @@
 </head>
 <body>
     <ul>
+        @foreach ($proyeks as $proyek)
         <li>
-            {{$pengguna->name}}
+            {{ $proyek->name }}
         </li>
+        @endforeach
+        
     </ul>
 </body>
 </html>
