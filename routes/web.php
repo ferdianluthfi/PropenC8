@@ -23,23 +23,5 @@ Route::get('/luthfi', function () {
     dd($kelengkapanLelang);
     //return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
 });
-Route::get('wow', function () {
-    return view('belajar/about', [
-        'name' => "World",
-        'umur' => "12"
-    ]);
-});
-Route::get('/belajarPassView', function () {
-    $nama = "abdul";
-    $tes = "BETOOOL";
-    return view('belajar/pass', compact("nama", "tes"));
-});
 
-Route::get('/belajarPassViewz', function () {
-    $liz = ["Aku adalah lelaki",
-    "Yang tak pernah lelah mencari wanita",
-    "Teeezzz"];
-    return view('belajar/pass', compact("liz"));
-});
-
-
+Route::get('/kemajuanProyek', 'ProyekController@viewAll');
