@@ -16,10 +16,12 @@ class CreateProyeksTable extends Migration
         Schema::create('proyeks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('projectName');
+            $table->string('companyName');
             $table->date('startDate');
             $table->date('endDate');
-            $table->string('description');
-            $table->integer('projectValue');
+            $table->text('description');
+            $table->integer('projectValue'); //ToDo digunakan menjadi angka TERBILANG di kontrak
             $table->string('estimatedTime');
             $table->integer('approvalStatus');
             $table->string('projectAddress');
