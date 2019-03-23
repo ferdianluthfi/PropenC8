@@ -11,13 +11,8 @@
 <body>
     <ul>
         <li>
-            {{$proyek->name}}
+            {{$pengguna->name}}
         </li>
-        @foreach ($kelengkapanLelangs as $kelengkapanLelang)
-        <li>
-            {{$kelengkapanLelang->id}}
-        </li>
-        @endforeach
     </ul>
 </body>
 </html>
