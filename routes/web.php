@@ -23,3 +23,5 @@ Route::get('/luthfi', function () {
     dd($kelengkapanLelang);
     //return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
 });
+
+Route::get('/kemajuanProyek', 'ProyekController@viewAll');
