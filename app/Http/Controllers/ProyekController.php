@@ -29,4 +29,9 @@ class ProyekController extends Controller
         return view('viewProyek', compact('proyek'));
     }
 
+    public function getDataProyek(Proyek $proyek){
+
+        return $proyek->all();
+    }
+
 }

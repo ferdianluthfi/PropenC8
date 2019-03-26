@@ -25,15 +25,40 @@ Route::get('/luthfi', function () {
 });
 
 Route::get('/kemajuanProyek', 'ProyekController@viewAll');
-
-Route::get('/proyek/view', 'ProyekController@view');
-
-Route::get('/proyek/lelang/view', 'KelengkapanLelangController@view');
-Route::post('/proyek/lelang/view', 'ProyekController@getDataProyek')->name('detailProyek.store');
-Route::post('/proyek/lelang/view', 'ProyekController@getDataProyek')->name('detailProyek.store');
+Route::get('/viewproyek', 'ProyekController@view');
+Route::get('/kelolaLelang/{proyek_id}', 'KelengkapanLelangController@kelolaBerkas');
 
 
-Route::get('/kelolaLelang', 'KelengkapanLelangController@testkontroller');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//Route::get('/kemajuanProyek', 'ProyekController@viewAll');
+//
+//Route::get('/proyek/view', 'ProyekController@view');
+//
+//Route::get('/proyek/view/kelolaLelang/{proyek_id}', 'KelengkapanLelang@kelolaBerkas');
+//
+////Route::post(
+////Route::get('kelengkapanLelang', 'KelengkapanLelangController@view');
+////Route::post('/proyek/lelang/view', 'ProyekController@getDataProyek')->name('detailProyek.store');
+//
+//
+//Route::get('/kelolaLelang', 'KelengkapanLelangController@testkontroller');
 
 //};
 //

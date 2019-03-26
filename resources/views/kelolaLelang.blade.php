@@ -9,24 +9,7 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <h1>Ini halaman kelola berkas lelang</h1>
-    <p>Nama Proyek : {{ $proyek->projectName }}</p>
-    <p>Alamat Proyek : {{ $proyek->projectAddress }}</p>
-    <p>Nama User apa ini : {{ $proyek->name }}</p>
-    <p>Nama Perusahaan : {{ $proyek->companyName }}</p>
-    <p>Tanggal Mulai Proyek : {{ $proyek->startDate }}</p>
-    <p>Tanggal Selesai Proyek : {{ $proyek->endDate }}</p>
-    <p>Deskripsi : {{ $proyek->description }}</p>
-    <p>Nilai Proyek : {{ $proyek->projectValue }}</p>
-    <p>Perkiraan waktu pengerjaan proyek : {{ $proyek->estimatedTime }} hari</p>
-    <p>Deskripsi : {{ $proyek->description }}</p>
-
-    <form action="{{route('detailProyek.store')}}" method=post">
-        <input type="hidden" name="proyek_id" value="{{$proyek}}->id">
-        <input type="file" name="fileBerkas">
-        <button type="submit" value="send">
-            <a>submiet</a>
-        </button>
-    </form>
+<h1>hello he</h1>
+<p>Mari kita lihat proyek apakah ini {{ $proyek }}</p>
 </body>
 </html>

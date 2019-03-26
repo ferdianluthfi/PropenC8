@@ -8,13 +8,24 @@ use App\KelengkapanLelang;
 
 class KelengkapanLelangController extends Controller
 {
-    public function view(){
-        $proyek = Proyek::find(1);
+    public function kelolaBerkas($proyek_id){
+        $namaproyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->get();
+
+//        return view('kelolaLelang');
         return view('kelolaLelang', compact('proyek'));
     }
-    public function getDataProyek(Proyek $proyek){
 
-        return $proyek->all();
-    }
+
+<p>Nama Proyek : {{ $proyek->projectName }}</p>
+<p>Alamat Proyek : {{ $proyek->projectAddress }}</p>
+<p>Nama User apa ini : {{ $proyek->name }}</p>
+<p>Nama Perusahaan : {{ $proyek->companyName }}</p>
+<p>Tanggal Mulai Proyek : {{ $proyek->startDate }}</p>
+<p>Tanggal Selesai Proyek : {{ $proyek->endDate }}</p>
+<p>Deskripsi : {{ $proyek->description }}</p>
+<p>Nilai Proyek : {{ $proyek->projectValue }}</p>
+<p>Perkiraan waktu pengerjaan proyek : {{ $proyek->estimatedTime }} hari</p>
+<p>Deskripsi : {{ $proyek->description }}</p>
+
 
 }
