@@ -24,6 +24,15 @@ class CreateProyeksTable extends Migration
             $table->integer('approvalStatus')->default(0);
             $table->string('projectAddress');
             $table->boolean('isLPJExist');
+            
+
+            $table->bigInteger('pengguna_id')->unsigned();
+            $table->foreign('pengguna_id')
+            ->references('id')
+            ->on('penggunas')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

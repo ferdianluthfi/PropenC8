@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePelaksanaansTable extends Migration
+class CreateBerkasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,21 +12,20 @@ class CreatePelaksanaansTable extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::create('pelaksanaans', function (Blueprint $table) {
+    {   /**
+         *  List of Berkas dari kontrak
+         */
+        Schema::create('listBerkas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('approvalStatus');
-            $table->date('createdDate');
-            
+            $table->binary('berkas');
 
-            $table->bigInteger('proyek_id')->unsigned();
-            $table->foreign('proyek_id')
+            $table->bigInteger('kontrak_id')->unsigned();
+            $table->foreign('kontrak_id')
             ->references('id')
-            ->on('proyeks')
+            ->on('kontraks')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-            
-            //Punya pertanggung jawaban cuma kita ga implementasi
+
 
             $table->timestamps();
         });
@@ -39,6 +38,6 @@ class CreatePelaksanaansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pelaksanaans');
+        Schema::dropIfExists('listBerkas');
     }
 }

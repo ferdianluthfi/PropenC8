@@ -18,6 +18,21 @@ class CreateReviewsTable extends Migration
             $table->string('description');
             $table->date('createdDate');
             $table->integer('rating');
+
+            $table->bigInteger('pelaksanaan_id')->unsigned();
+            $table->foreign('pelaksanaan_id')
+            ->references('id')
+            ->on('pelaksanaans')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
+            $table->bigInteger('pengguna_id')->unsigned();
+            $table->foreign('pengguna_id')
+            ->references('id')
+            ->on('penggunas')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

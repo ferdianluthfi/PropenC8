@@ -16,6 +16,28 @@ class CreateAssignmentsTable extends Migration
         Schema::create('assignments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('assignmentDate');
+
+            $table->bigInteger('proyek_id')->unsigned();
+            $table->foreign('proyek_id')
+            ->references('id')
+            ->on('proyeks')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
+            $table->bigInteger('pengguna_id')->unsigned();
+            $table->foreign('pengguna_id')
+            ->references('id')
+            ->on('penggunas')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
+            $table->bigInteger('kemajuan_id')->unsigned();
+            $table->foreign('kemajuan_id')
+            ->references('id')
+            ->on('kemajuan_proyeks')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
             $table->timestamps();
         });
     }
