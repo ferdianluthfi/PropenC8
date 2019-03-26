@@ -25,3 +25,11 @@ Route::get('/luthfi', function () {
 });
 
 Route::get('/kemajuanProyek', 'ProyekController@viewAll');
+
+Route::get('/ahmad', function () {
+    $proyeg = Proyek::table('proyeks')->get();
+
+    return $proyeg;
+
+    return view('welcome');
+});
