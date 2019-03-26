@@ -10,14 +10,12 @@
 </head>
 <body>
     <ul>
+        @foreach ($kemajuans as $kemajuan)
         <li>
-            {{$proyek->name}}
-        </li>
-        @foreach ($kelengkapanLelangs as $kelengkapanLelang)
-        <li>
-            {{$kelengkapanLelang->id}}
+            {{ $kemajuan->description }}
         </li>
         @endforeach
+        
     </ul>
 </body>
 </html>

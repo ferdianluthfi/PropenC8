@@ -24,12 +24,21 @@ Route::get('/luthfi', function () {
     //return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
 });
 
-Route::get('/proyeks', function () {
-    $proyek = App\Proyek::all();
-    return view('proyeks.index', compact('proyek'));
-});
+// Route::get('/proyeks', function () {
+//     $proyek = App\Proyek::all();
+//     return view('proyeks.index', compact('proyek'));
+// });
 
-Route::get('/proyeks/{proyek}', function ($id) {
-    $proyek = App\Proyek::find($id);
-    return view('proyeks.show', compact('proyek'));
-});
+// Route::get('/proyeks/{proyek}', function ($id) {
+//     $proyek = App\Proyek::find($id);
+//     return view('proyeks.show', compact('proyek'));
+// });
+
+Route::get('/proyek', 'ProyekController@index');
+Route::get('/proyek/tambah', 'ProyekController@create');
+Route::post('/proyek/store', 'ProyekController@store');
+Route::post('/proyek/update', 'ProyekController@update');
+Route::get('/proyek/ubah/{id}', 'ProyekController@edit');
+Route::get('/proyek/hapus/{id}', 'ProyekController@destroy');
+Route::get('/proyek/lihat/{id}', 'ProyekController@show');
+

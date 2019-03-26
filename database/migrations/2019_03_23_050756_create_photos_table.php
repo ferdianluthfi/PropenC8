@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRequirementsTable extends Migration
+class CreatePhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,15 @@ class CreateRequirementsTable extends Migration
      */
     public function up()
     {
-        /**
-         * Database ini digunakan sebagai list of berkas kelengkapan lelang
-         */
-        Schema::create('requirements', function (Blueprint $table) {
+        Schema::create('listPhoto', function (Blueprint $table) {
             $table->bigIncrements('id');
-
-            $table->bigInteger('kelengkapan_id')->unsigned();
-            $table->foreign('kelengkapan_id')
+            $table->binary('photo');
+            $table->bigInteger('kemajuan_id')->unsigned();
+            $table->foreign('kemajuan_id')
             ->references('id')
-            ->on('kelengkapan_lelangs')
+            ->on('kemajuan_proyeks')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-
-            $table->binary('requirement');
-
             $table->timestamps();
         });
     }
@@ -39,6 +33,6 @@ class CreateRequirementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requirements');
+        Schema::dropIfExists('listPhoto');
     }
 }

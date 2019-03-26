@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Validator;
 use Illuminate\Http\Request;
 
 class ProyekController extends Controller
@@ -13,7 +15,9 @@ class ProyekController extends Controller
      */
     public function index()
     {
-        //
+        $proyek = DB::table('proyeks')
+                -> get();
+        return view('proyeks.index', ['proyek' => $proyek]);
     }
 
     /**
@@ -34,22 +38,44 @@ class ProyekController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'Nama Staf Marketing' => 'required',
-            'Nama Proyek' => 'required',
-            'Nama Perusahaan' => 'required',
-            'Alamat Proyek' => 'required',
-            'Deskripsi Proyek' => 'required',
-            'Nilai Proyek' => 'required',
-        ]);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+		    'projectName' => 'required',
+		    'companyName' => 'required',
+            'description' => 'required',
+            'projectValue' => 'required|integer',
+            'estimatedTime' => 'required|integer|min:1',
+            'projectAddress' => 'required'
+        ]);   
 
-        $proyek = new Proyek;
-
-       // $proyek->title = $request->title; contohnyaa
-
-       $proyek->save();
-
-       return redirect()->route('proyeks.index');
+        // return $request->all();
+        
+        if($validator->fails()) {
+            session()->flash('flash_message', 'Ada kesalahan input');
+            return redirect('/proyek/tambah')
+                ->withErrors($validator)
+                ->withInput();
+        //    return $request->all();
+        } else {
+            DB::table('proyeks')->insert([
+                'name' => $request->name,
+                'projectName' => $request->projectName,
+                'companyName' => $request->companyName,
+                'startDate' => '2019-01-01',
+                'endDate' => '2019-01-01',
+                'description' => $request->description,
+                'projectValue' => $request->projectValue,
+                'estimatedTime' => $request->estimatedTime,
+                'projectAddress' => $request->projectAddress,
+                'approvalStatus' => 0,
+                'isLPJExist'=>0,
+                'pengguna_id'=>3,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]); 
+            session()->flash('flash_message', 'Proyek berhasil ditambah');
+            return redirect('/proyek');
+        }
 
     }
 
@@ -61,12 +87,9 @@ class ProyekController extends Controller
      */
     public function show($id)
     {
-        $proyek = DB::table('proyeks')
-                -> where('proyeks.blablabla', '=', $id)
-                //sama
-                ->first();
-        return view('proyeks.show')
-            ->with('proyek' => $proyek);
+        $proyeks = DB::table('proyeks') -> where('id', $id) ->get();
+        return view('proyeks/show',['proyeks' => $proyeks]);
+    
     }
 
     /**
@@ -77,7 +100,11 @@ class ProyekController extends Controller
      */
     public function edit($id)
     {
-        //
+        // mengambil data pegawai berdasarkan id yang dipilih
+        $proyeks = DB::table('proyeks')->where('id',$id)->get();
+        // return $proyeks;
+	    // passing data pegawai yang didapat ke view edit.blade.php
+	    return view('proyeks/edit',['proyeks' => $proyeks]);
     }
 
     /**
@@ -87,25 +114,46 @@ class ProyekController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $request->validate([
-            'Nama Staf Marketing' => 'required',
-            'Nama Proyek' => 'required',
-            'Nama Perusahaan' => 'required',
-            'Alamat Proyek' => 'required',
-            'Deskripsi Proyek' => 'required',
-            'Nilai Proyek' => 'required',
-        ]);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+		    'projectName' => 'required',
+		    'companyName' => 'required',
+            'description' => 'required',
+            'projectValue' => 'required|integer',
+            'estimatedTime' => 'required|integer|min:1',
+            'projectAddress' => 'required'
+        ]);   
 
-        $proyek = Proyek::find(id);
-
-
-       // $proyek->title = $request->title; contohnyaa
-
-       $proyek->save();
-
-       return redirect()->route('proyeks.index', $proyek->proyek_id);
+        // return $request->all();
+        
+        if($validator->fails()) {
+            session()->flash('flash_message', 'Ada kesalahan input');
+            return redirect('/proyek/ubah/$request->id')
+                ->withErrors($validator)
+                ->withInput();
+        //    return $request->all();
+        } else {
+            DB::table('proyeks')->where('id',$request->id)->update([
+                'name' => $request->name,
+                'projectName' => $request->projectName,
+                'companyName' => $request->companyName,
+                'startDate' => '2019-01-01',
+                'endDate' => '2019-01-01',
+                'description' => $request->description,
+                'projectValue' => $request->projectValue,
+                'estimatedTime' => $request->estimatedTime,
+                'projectAddress' => $request->projectAddress,
+                'approvalStatus' => 0,
+                'isLPJExist'=>0,
+                'pengguna_id'=>3,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]); 
+            session()->flash('flash_message', 'Proyek berhasil ditambah');
+            return redirect('/proyek');
+        }
     }
 
     /**
@@ -116,10 +164,11 @@ class ProyekController extends Controller
      */
     public function destroy($id)
     {
-        $post = DB:table('proyeks')->where('proyek_id'),$id);
+        // menghapus data [proyek] berdasarkan id yang dipilih
+	    DB::table('proyeks')->where('id',$id)->delete();
+		
+	    // alihkan halaman ke halaman proyek
+	    return redirect('/proyek');
 
-        $post->delete();
-
-        return redirect()->route('proyeks.index');
     }
 }
