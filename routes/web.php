@@ -25,3 +25,13 @@ Route::get('/luthfi', function () {
 });
 
 Route::get('/kemajuanProyek', 'ProyekController@viewAll');
+
+Route::get('/viewproyek', function () {
+    return view('viewProyek');
+});
+Route::get('/kelolaLelang', 'KelengkapanLelangController@testkontroller');
+
+//};
+//
+//Route::get('/uc03-viewProyek', function () {
+//    return view('viewProyek');

@@ -25,7 +25,7 @@ class CreateProyeksTable extends Migration
             $table->string('estimatedTime');
             $table->integer('approvalStatus');
             $table->string('projectAddress');
-            $table->boolean('isLPJExist');
+            $table->boolean('isLPJExist')->default(false);
             
 
             $table->bigInteger('pengguna_id')->unsigned();
