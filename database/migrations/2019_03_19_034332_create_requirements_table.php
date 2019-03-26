@@ -13,6 +13,9 @@ class CreateRequirementsTable extends Migration
      */
     public function up()
     {
+        /**
+         * Database ini digunakan sebagai list of berkas kelengkapan lelang
+         */
         Schema::create('requirements', function (Blueprint $table) {
             $table->bigIncrements('id');
 
