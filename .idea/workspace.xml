@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="858886b3-e0b5-4b18-856c-f372040d947c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/KelengkapanLelangController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/KelengkapanLelangController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProyekController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProyekController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/kelolaLelang.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/kelolaLelang.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/viewLelang.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/viewLelang.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/viewProyek.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/viewProyek.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/KelengkapanLelangController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state relative-caret-position="323">
+              <caret line="19" column="10" lean-forward="true" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
               <folding>
                 <element signature="e#40#55#0#PHP" expanded="true" />
               </folding>
@@ -90,11 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/kelolaLelang.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+            <state relative-caret-position="238">
+              <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -132,8 +127,8 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/ProyekController.php" />
         <option value="$PROJECT_DIR$/resources/views/viewProyek.blade.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/resources/views/kelolaLelang.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/KelengkapanLelangController.php" />
+        <option value="$PROJECT_DIR$/resources/views/kelolaLelang.blade.php" />
       </list>
     </option>
   </component>
@@ -287,7 +282,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553633300538" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553633863968" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -323,12 +318,12 @@
       <updated>1552977726451</updated>
       <workItem from="1552977728761" duration="2924000" />
       <workItem from="1553575702447" duration="1066000" />
-      <workItem from="1553581372910" duration="19973000" />
+      <workItem from="1553581372910" duration="20535000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26619000" />
+    <option name="totallyTimeSpent" value="27181000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="489" y="0" width="807" height="688" extended-state="0" />
@@ -572,13 +567,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/kelolaLelang.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/viewProyek.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="321">
@@ -588,11 +576,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/KelengkapanLelangController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="323">
+          <caret line="19" column="10" lean-forward="true" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
           <folding>
             <element signature="e#40#55#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/kelolaLelang.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
         </state>
       </provider>
     </entry>

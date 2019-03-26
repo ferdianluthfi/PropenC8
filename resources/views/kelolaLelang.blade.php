@@ -9,7 +9,12 @@
     <script src="main.js"></script>
 </head>
 <body>
-<h1>hello he</h1>
-<p>Mari kita lihat proyek apakah ini {{ $proyek }}</p>
+    <h1>hello he</h1>
+    <p>Mari kita lihat proyek apakah ini {{ $proyek }}</p>
+    <form>
+        <input type="hidden">
+        <input type="file" name="fileBerkas">
+    </form>
+
 </body>
 </html>
