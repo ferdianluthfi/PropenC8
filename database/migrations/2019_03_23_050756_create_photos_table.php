@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKemajuanProyeksTable extends Migration
+class CreatePhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,15 @@ class CreateKemajuanProyeksTable extends Migration
      */
     public function up()
     {
-        Schema::create('kemajuan_proyeks', function (Blueprint $table) {
+        Schema::create('listPhoto', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('description');
-            $table->date('reportDate');
-            $table->integer('tipeKemajuan'); //ToDo buat ketentuan 1 2 3 itu kode untuk apaa
-            $table->integer('percentage');
-
-            $table->bigInteger('pelaksanaan_id')->unsigned();
-            $table->foreign('pelaksanaan_id')
+            $table->binary('photo');
+            $table->bigInteger('kemajuan_id')->unsigned();
+            $table->foreign('kemajuan_id')
             ->references('id')
-            ->on('pelaksanaans')
+            ->on('kemajuan_proyeks')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-
-
             $table->timestamps();
         });
     }
@@ -39,6 +33,6 @@ class CreateKemajuanProyeksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kemajuan_proyeks');
+        Schema::dropIfExists('listPhoto');
     }
 }
