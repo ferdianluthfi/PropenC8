@@ -24,6 +24,7 @@ Route::get('/luthfi', function () {
     //return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
 });
 
+<<<<<<< HEAD
 Route::get('/kemajuanProyek', 'ProyekController@viewAll');
 
 Route::get('/ahmad', function () {
@@ -33,3 +34,6 @@ Route::get('/ahmad', function () {
 
     return view('welcome');
 });
+=======
+Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
+>>>>>>> da65c5c2a4865678ef26436b5022da5b2e21abd8
