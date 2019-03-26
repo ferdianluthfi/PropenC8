@@ -17,8 +17,8 @@ Route::get('/', function () {
 Route::get('/luthfi', function () {
     $proyek = App\Proyek::find(1);
     $kelengkapanLelang = App\KelengkapanLelang::table('proyeks')
-    ->join('proyeks','proyeks.id','=','kelengkapan_lelangs','kelengkapan_lelangs.proyek_id')->where('kelengkapan_lelangs.proyek_id',1)
-    ->get();
+        ->join('proyeks','proyeks.id','=','kelengkapan_lelangs','kelengkapan_lelangs.proyek_id')->where('kelengkapan_lelangs.proyek_id',1)
+        ->get();
     //$proyek = $kelengkapanLelang->proyek()->where('id', 1)->get();
     dd($kelengkapanLelang);
     //return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
