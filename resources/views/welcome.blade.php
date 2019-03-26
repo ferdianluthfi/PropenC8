@@ -9,133 +9,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <style>
-.wrapper {
-    display: flex;
-    align-items: stretch;
-}
-nav {
-    border-top: 1px solid white;
-    border-bottom: 1px solid black;
-} 
-nav:after {
-    content: "";
-    display: block;
-    clear: both;
-}
-#contentBody {
-    
-    background-color: #F5F8F9;
-    height: 100vh;
-}
-#content {
-    width: 100vw;
-    background: #F5F8F9;
-}
-
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-}
-
-#sidebar.active {
-    margin-left: -250px;
-}
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    min-height: 100vh;
-}
-a[data-toggle="collapse"] {
-    position: relative;
-}
-
-.dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-}
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-}
-/*
-    ADDITIONAL DEMO STYLE, NOT IMPORTANT TO MAKE THINGS WORK BUT TO MAKE IT A BIT NICER :)
-*/
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-
-
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background: #fafafa;
-}
-
-p {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.1em;
-    font-weight: 300;
-    line-height: 1.7em;
-    color: #999;
-}
-
-a, a:hover, a:focus {
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-#sidebar {
-    /* don't forget to add all the previously mentioned styles here too */
-    background: #e4e5e6;
-    color: #000;
-    transition: all 0.3s;
-}
-
-#sidebar .sidebar-header {
-    padding: 20px;
-    background: #0000;
-}
-
-#sidebar ul.components {
-    border-bottom: 1px solid #47748b;
-}
-
-#sidebar ul p {
-    color: rgb(0, 0, 0);
-    padding: 10px;
-}
-
-#sidebar ul li a {
-    padding: 10px;
-    font-size: 1.1em;
-    display: block;
-}
-#sidebar ul li a:hover {
-    color: #7386D5;
-    background: #fff;
-}
-
-#sidebar ul li.active > a, a[aria-expanded="true"] {
-    color: rgb(0, 0, 0);
-    background: #e4e5e6;
-}
-ul ul a {
-    font-size: 0.9em !important;
-    padding-left: 30px !important;
-    background: #e4e5e6;
-}
-
-    </style>
-    
-
-    
 </head>
 <body>
 <div class="wrapper">
@@ -185,7 +58,7 @@ ul ul a {
             
         </ul>
 
-        </nav>
+        </nav> 
         <div id="contentBody">
         <center>
         <img src="https://i.stack.imgur.com/12F8N.png" style="width:250px;height:250px;"/>
