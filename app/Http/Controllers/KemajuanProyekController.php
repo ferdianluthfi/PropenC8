@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\KemajuanProyek;
+use App\Proyek;
+use App\Pelaksanaan;
+
 
 class KemajuanProyekController extends Controller
 {

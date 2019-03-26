@@ -24,7 +24,6 @@ Route::get('/luthfi', function () {
     dd($kelengkapanLelang);
     //return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
 });
-
 Route::get('/tomps', function () {
 
     $goals = [
@@ -40,5 +39,4 @@ Route::get('/tomps', function () {
 });
 
 Route::get('/informasikemajuan', function () {
-    
 });      
