@@ -8,7 +8,13 @@ use App\KelengkapanLelang;
 
 class KelengkapanLelangController extends Controller
 {
-    public function testkontroller(){
-        return view('kelolaLelang');
+    public function view(){
+        $proyek = Proyek::find(1);
+        return view('kelolaLelang', compact('proyek'));
     }
+    public function getDataProyek(Proyek $proyek){
+
+        return $proyek->all();
+    }
+
 }

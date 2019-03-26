@@ -9,8 +9,22 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <button type="button" onclick="window.location.href='/kelolaLelang'">
-        <a>kelola lelankkk</a>
-    </button>
+    <p>Nama Proyek : {{ $proyek->projectName }}</p>
+    <p>Alamat Proyek : {{ $proyek->projectAddress }}</p>
+    <p>Nama User apa ini : {{ $proyek->name }}</p>
+    <p>Nama Perusahaan : {{ $proyek->companyName }}</p>
+    <p>Tanggal Mulai Proyek : {{ $proyek->startDate }}</p>
+    <p>Tanggal Selesai Proyek : {{ $proyek->endDate }}</p>
+    <p>Deskripsi : {{ $proyek->description }}</p>
+    <p>Nilai Proyek : {{ $proyek->projectValue }}</p>
+    <p>Perkiraan waktu pengerjaan proyek : {{ $proyek->estimatedTime }} hari</p>
+    <p>Deskripsi : {{ $proyek->description }}</p>
+
+    <form action="{{route('detailProyek.store')}}" method=post">
+        <input type="hidden" name="proyek" value="{{$proyek}}">
+        <button type="submit" value="send">
+            <a>kelola lelankkk</a>
+        </button>
+    </form>
 </body>
 </html>

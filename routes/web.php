@@ -16,19 +16,23 @@ Route::get('/', function () {
 });
 Route::get('/luthfi', function () {
     $proyek = App\Proyek::find(1);
-    $kelengkapanLelang = App\KelengkapanLelang::table('proyeks')
-        ->join('proyeks','proyeks.id','=','kelengkapan_lelangs','kelengkapan_lelangs.proyek_id')->where('kelengkapan_lelangs.proyek_id',1)
-        ->get();
-    //$proyek = $kelengkapanLelang->proyek()->where('id', 1)->get();
-    dd($kelengkapanLelang);
+//    $kelengkapanLelang = App\KelengkapanLelang::table('proyeks')
+//        ->join('proyeks','proyeks.id','=','kelengkapan_lelangs','kelengkapan_lelangs.proyek_id')->where('kelengkapan_lelangs.proyek_id',1)
+//        ->get();
+//    //$proyek = $kelengkapanLelang->proyek()->where('id', 1)->get();
+//    dd($kelengkapanLelang);
     //return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
 });
 
 Route::get('/kemajuanProyek', 'ProyekController@viewAll');
 
-Route::get('/viewproyek', function () {
-    return view('viewProyek');
-});
+Route::get('/proyek/view', 'ProyekController@view');
+
+Route::get('/proyek/lelang/view', 'KelengkapanLelangController@view');
+Route::post('/proyek/lelang/view', 'ProyekController@getDataProyek')->name('detailProyek.store');
+Route::post('/proyek/lelang/view', 'ProyekController@getDataProyek')->name('detailProyek.store');
+
+
 Route::get('/kelolaLelang', 'KelengkapanLelangController@testkontroller');
 
 //};
