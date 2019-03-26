@@ -26,7 +26,7 @@
 		Nama Perusahaan <input type="text" name="companyName" required="required" value="{{ $proyek->companyName }}"> <br/>
 		Deskripsi <textarea name="description" required="required">{{ $proyek->description }}</textarea> <br/>
 		Nilai Proyek <input type="number" name="projectValue" required="required" value="{{ $proyek->projectValue }}"> <br/>
-        Estimasi Waktu Pengerjaan <input type="text" name="estimatedTime" required="required" value="{{ $proyek->estimatedTime }}"> <br/>
+        Estimasi Waktu Pengerjaan <input type="text" name="estimatedTime" required="required" value="{{ $proyek->estimatedTime }}"> hari <br/>
         Alamat Proyek <textarea name="projectAddress" required="required">{{ $proyek->projectAddress }}</textarea> <br/>
 		<input type="submit" value="Simpan Data">
 	</form>

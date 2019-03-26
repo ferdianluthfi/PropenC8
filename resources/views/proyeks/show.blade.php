@@ -31,7 +31,7 @@
 			<td>{{ $proyek->companyName }}</td>
 			<td>{{ $proyek->description }}</td>
 			<td>{{ $proyek->projectValue }}</td>
-			<td>{{ $proyek->estimatedTime }}</td>
+			<td>{{ $proyek->estimatedTime }} hari</td>
 			<td>{{ $proyek->projectAddress }}</td>
 		</tr>
 	</table>
