@@ -9,7 +9,7 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <h1>hello he</h1>
+    <h1>kelola berkas lelang</h1>
     <p>Mari kita lihat proyek apakah ini {{ $proyek }}</p>
     <form>
         <input type="hidden">
