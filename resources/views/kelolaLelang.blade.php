@@ -28,8 +28,19 @@
         {{ $object->created_at}}
         <br>
     @endforeach
+
+    <br>
+
     <form>
-        <input type="hidden">
+        <input type="hidden" value="{{ $proyek->id }}">
+        <select>
+            <option disabled selected value> -- Pilih Berkas Lelang -- </option>
+            @foreach ($templates as $template)
+            <option name ="template_id" value="{{ $template->id }}">{{ $template->nama_surat }}</option>
+            @endforeach
+        </select>
+        <br>
+        <br>
         <input type="file" name="fileBerkas">
     </form>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Proyek;
 use Illuminate\Http\Request;
 use App\KelengkapanLelang;
+use App\ListTemplateSurat;
 
 class KelengkapanLelangController extends Controller
 {
@@ -13,7 +14,8 @@ class KelengkapanLelangController extends Controller
 
         $berkass = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('proyek_id', $proyek_id)->get();
 //        return view('kelolaLelang');
-        return view('kelolaLelang', compact('proyek', 'berkass'));
+        $templates = ListTemplateSurat::select('list_template_surats.*')->get();
+        return view('kelolaLelang', compact('proyek', 'berkass', 'templates'));
 //    }
 //
 //
