@@ -9,8 +9,25 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <h1>kelola berkas lelang</h1>
-    <p>Mari kita lihat proyek apakah ini {{ $proyek }}</p>
+    <h1>Kelola Berkas Lelang</h1>
+
+    <p>Nama Proyek : {{ $proyek->projectName }}</p>
+    <p>Alamat Proyek : {{ $proyek->projectAddress }}</p>
+    <p>Nama User apa ini : {{ $proyek->name }}</p>
+    <p>Nama Perusahaan : {{ $proyek->companyName }}</p>
+    <p>Tanggal Mulai Proyek : {{ $proyek->startDate }}</p>
+    <p>Tanggal Selesai Proyek : {{ $proyek->endDate }}</p>
+    <p>Deskripsi : {{ $proyek->description }}</p>
+    <p>Nilai Proyek : {{ $proyek->projectValue }}</p>
+    <p>Perkiraan waktu pengerjaan proyek : {{ $proyek->estimatedTime }} hari</p>
+    <p>Deskripsi : {{ $proyek->description }}</p>
+
+    @foreach ($berkass as $object)
+        {{ $object->id }}
+        {{ $object->fileBerkas }}
+        {{ $object->created_at}}
+        <br>
+    @endforeach
     <form>
         <input type="hidden">
         <input type="file" name="fileBerkas">

@@ -9,10 +9,11 @@ use App\KelengkapanLelang;
 class KelengkapanLelangController extends Controller
 {
     public function kelolaBerkas($proyek_id){
-        $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->get();
+        $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
 
+        $berkass = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('proyek_id', $proyek_id)->get();
 //        return view('kelolaLelang');
-        return view('kelolaLelang', compact('proyek'));
+        return view('kelolaLelang', compact('proyek', 'berkass'));
 //    }
 //
 //
