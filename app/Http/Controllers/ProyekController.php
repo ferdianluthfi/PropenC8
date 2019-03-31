@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use DB;
+// use DB;
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProyekController extends Controller
 {
@@ -15,8 +16,8 @@ class ProyekController extends Controller
      */
     public function index()
     {
-        $proyek = DB::table('proyeks')
-                -> get();
+        $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
+        // return $proyek;
         return view('proyeks.index', ['proyek' => $proyek]);
     }
 
@@ -87,7 +88,7 @@ class ProyekController extends Controller
      */
     public function show($id)
     {
-        $proyeks = DB::table('proyeks') -> where('id', $id) ->get();
+        $proyeks = DB::table('proyeks') -> where('id', $id) -> get();
         return view('proyeks/show',['proyeks' => $proyeks]);
     
     }
@@ -151,7 +152,7 @@ class ProyekController extends Controller
                 'created_at' => now(),
                 'updated_at' => now()
             ]); 
-            session()->flash('flash_message', 'Proyek berhasil ditambah');
+            session()->flash('flash_message', 'Proyek telah ditambahkan.');
             return redirect('/proyek');
         }
     }
@@ -171,4 +172,16 @@ class ProyekController extends Controller
 	    return redirect('/proyek');
 
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    // public function datatable()
+    // {
+    //     $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
+    //     // return $proyek;
+    //     return view('proyeks.index', ['proyek' => $proyek]);
+    // }
 }
