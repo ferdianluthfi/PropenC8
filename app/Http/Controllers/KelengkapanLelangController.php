@@ -10,12 +10,14 @@ use App\ListTemplateSurat;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Storage;
+use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Expr\New_;
 
 class KelengkapanLelangController extends Controller
 {
-    public function kelolaBerkas($proyek_id){
+    public function kelolaBerkas($proyek_id)
+    {
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
-
         $berkass = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('proyek_id', $proyek_id)->get();
 
         $templates = ListTemplateSurat::select('list_template_surats.*')->get();
@@ -63,4 +65,16 @@ class KelengkapanLelangController extends Controller
     {
         return Storage::download($file->filename, $file->title);
     }
+
+    public function deleteBerkas($berkas_id)
+    {
+        $berkas = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('id', $berkas_id)->first();
+        $proyek = Proyek::select('proyeks.*')->where('id', $berkas->proyek_id)->first();
+		//        proyek_id = $proyek-id;
+        //        $proyek_id = $berkas->proyek_id;
+        $id = $berkas->id;
+        DB::delete('delete from kelengkapan_lelangs where id= :id', ['id' => $id]);
+        return $this->kelolaBerkas($proyek->id);
+    }
+
 }

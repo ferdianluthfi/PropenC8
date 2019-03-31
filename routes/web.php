@@ -27,12 +27,16 @@ Route::get('/luthfi', function () {
 Route::get('/kemajuanProyek', 'ProyekController@viewAll');
 Route::get('/viewproyek', 'ProyekController@view');
 Route::get('/kelolaLelang/{proyek_id}', 'KelengkapanLelangController@kelolaBerkas');
+<<<<<<< HEAD
 Route::get('/getBerkas/{id}', 'KelengkapanLelangController@getBerkas');
 Route::get('file/upload', 'KelengkapanLelangController@form')->name('file.form');
 Route::post('file/upload', 'KelengkapanLelangController@upload')->name('file.upload');
 Route::get('file/{file}/download', 'KelengkapanLelangController@download')->name('file.download');
 Route::get('file/{file}/response', 'KelengkapanLelangController@response')->name('file.response');
 
+=======
+Route::get('/kelolaLelang/delete/{berkas_id}', 'KelengkapanLelangController@deleteBerkas');
+>>>>>>> 32f765d2685898f183d490fde4c2972e6a5ca954
 
 
 
