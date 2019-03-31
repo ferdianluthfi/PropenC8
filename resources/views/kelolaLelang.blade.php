@@ -10,17 +10,75 @@
 </head>
 <body>
     <h1>Kelola Berkas Lelang</h1>
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    Nama Proyek
+                </td>
+                <td>
+                    :   {{ $proyek->projectName }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Alamat Proyek
+                </td>
+                <td>
+                    :   {{ $proyek->projectAddress }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Nama User apa ini
+                </td>
+                <td>
+                    :   {{ $proyek->name }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Nama Perusahaan
+                </td>
+                <td>
+                    :   {{ $proyek->companyName }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Alamat Proyek
+                </td>
+                <td>
+                    :   {{ $proyek->projectAddress }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Deskripsi
+                </td>
+                <td>
+                    :   {{ $proyek->description }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Nilai Proyek
+                </td>
+                <td>
+                    :   {{ $proyek->projectValue }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Perkiraan waktu pengerjaan proyek
+                </td>
+                <td>
+                    :   {{ $proyek->estimatedTime }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-    <p>Nama Proyek : {{ $proyek->projectName }}</p>
-    <p>Alamat Proyek : {{ $proyek->projectAddress }}</p>
-    <p>Nama User apa ini : {{ $proyek->name }}</p>
-    <p>Nama Perusahaan : {{ $proyek->companyName }}</p>
-    <p>Tanggal Mulai Proyek : {{ $proyek->startDate }}</p>
-    <p>Tanggal Selesai Proyek : {{ $proyek->endDate }}</p>
-    <p>Deskripsi : {{ $proyek->description }}</p>
-    <p>Nilai Proyek : {{ $proyek->projectValue }}</p>
-    <p>Perkiraan waktu pengerjaan proyek : {{ $proyek->estimatedTime }} hari</p>
-    <p>Deskripsi : {{ $proyek->description }}</p>
 
 <!--    @foreach ($berkass as $object)-->
 <!--        {{ $object->id }}-->
