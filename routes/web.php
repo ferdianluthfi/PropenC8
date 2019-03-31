@@ -27,7 +27,7 @@ Route::get('/luthfi', function () {
 Route::get('/kemajuanProyek', 'ProyekController@viewAll');
 Route::get('/viewproyek', 'ProyekController@view');
 Route::get('/kelolaLelang/{proyek_id}', 'KelengkapanLelangController@kelolaBerkas');
-
+Route::get('/kelolaLelang/delete/{berkas_id}', 'KelengkapanLelangController@deleteBerkas');
 
 
 

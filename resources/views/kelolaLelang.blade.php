@@ -22,26 +22,79 @@
     <p>Perkiraan waktu pengerjaan proyek : {{ $proyek->estimatedTime }} hari</p>
     <p>Deskripsi : {{ $proyek->description }}</p>
 
-    @foreach ($berkass as $object)
-        {{ $object->id }}
-        {{ $object->fileBerkas }}
-        {{ $object->created_at}}
-        <br>
-    @endforeach
+<!--    @foreach ($berkass as $object)-->
+<!--        {{ $object->id }}-->
+<!--        {{ $object->fileBerkas }}-->
+<!--        {{ $object->created_at}}-->
+<!--        <br>-->
+<!--    @endforeach-->
 
     <br>
-
-    <form>
-        <input type="hidden" value="{{ $proyek->id }}">
-        <select>
-            <option disabled selected value> -- Pilih Berkas Lelang -- </option>
-            @foreach ($templates as $template)
-            <option name ="template_id" value="{{ $template->id }}">{{ $template->nama_surat }}</option>
+    <table border="I">
+        <caption>Kelola Berkas Lelang</caption>
+        <thead>
+            <tr>
+                <th>Berkas</th>
+                <th>Hapus Berkas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($berkass as $object)
+            <tr>
+                <th>
+                    {{ $object->id }}
+                    {{ $object->fileBerkas }}
+                    {{ $object->created_at}}
+                </th>
+                <th>
+                    <button type="button" onclick="window.location.href='/kelolaLelang/delete/{{ $object->id }}'">
+                        <a>hapus</a>
+                    </button>
+                </th>
+            </tr>
             @endforeach
-        </select>
+            <tr>
+                <th>
+                    <input type="hidden" value="{{ $proyek->id }}">
+                    <select>
+                        <option disabled selected value> -- Pilih Berkas Lelang -- </option>
+                        @foreach ($templates as $template)
+                        <option name ="template_id" value="{{ $template->id }}">{{ $template->nama_surat }}</option>
+                        @endforeach
+                    </select>
+                    <input type="file" name="fileBerkas">
+                </th>
+                <th>
+
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <button>Tambah Berkas</button>
+                </th>
+            </tr>
+
+
+            <br>
+
+
+        </tbody>
+    </table>
+    <form>
+<!--        <input type="hidden" value="{{ $proyek->id }}">-->
+<!--        <select>-->
+<!--            <option disabled selected value> -- Pilih Berkas Lelang -- </option>-->
+<!--            @foreach ($templates as $template)-->
+<!--            <option name ="template_id" value="{{ $template->id }}">{{ $template->nama_surat }}</option>-->
+<!--            @endforeach-->
+<!--        </select>-->
         <br>
         <br>
         <input type="file" name="fileBerkas">
+        <br><br>
+        <button type="button">
+            <a>Simpan</a>
+        </button>
     </form>
 
 </body>
