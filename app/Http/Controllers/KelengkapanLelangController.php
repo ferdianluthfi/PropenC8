@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Proyek;
 use Illuminate\Http\Request;
 use App\KelengkapanLelang;
+use App\Files;
 use App\ListTemplateSurat;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Storage;
 
 class KelengkapanLelangController extends Controller
 {
@@ -13,22 +17,50 @@ class KelengkapanLelangController extends Controller
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
 
         $berkass = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('proyek_id', $proyek_id)->get();
-//        return view('kelolaLelang');
-        $templates = ListTemplateSurat::select('list_template_surats.*')->get();
-        return view('kelolaLelang', compact('proyek', 'berkass', 'templates'));
-//    }
-//
-//
-//<p>Nama Proyek : {{ $proyek->projectName }}</p>
-//<p>Alamat Proyek : {{ $proyek->projectAddress }}</p>
-//<p>Nama User apa ini : {{ $proyek->name }}</p>
-//<p>Nama Perusahaan : {{ $proyek->companyName }}</p>
-//<p>Tanggal Mulai Proyek : {{ $proyek->startDate }}</p>
-//<p>Tanggal Selesai Proyek : {{ $proyek->endDate }}</p>
-//<p>Deskripsi : {{ $proyek->description }}</p>
-//<p>Nilai Proyek : {{ $proyek->projectValue }}</p>
-//<p>Perkiraan waktu pengerjaan proyek : {{ $proyek->estimatedTime }} hari</p>
-//<p>Deskripsi : {{ $proyek->description }}</p>
-//
 
-}}
+        $templates = ListTemplateSurat::select('list_template_surats.*')->get();
+
+        $files = Files::orderBy('created_at', 'DESC')->paginate(30);
+        return view('kelolaLelang', compact('proyek', 'berkass', 'templates', 'files'));
+	}
+
+	public function form(): View {
+		return view('file.form');
+	}
+
+	public function upload(Request $request): RedirectResponse {
+		$this->validate($request, [
+            'title' => 'nullable|max:100',
+            'file' => 'required|file|max:2000'
+        ]);
+
+        $uploadedFile = $request->file('file');        
+
+        $path = $uploadedFile->store('public/files');
+
+        $file = Files::create([
+            'title' => $request->title ?? $uploadedFile->getClientOriginalName(),
+            'filename' => $path
+        ]);
+
+        return redirect()
+            ->back()
+            ->withSuccess(sprintf('File %s has been uploaded.', $file->title));     
+	}
+	
+	public function response(File $file)
+    {
+        return Storage::response($file->filename);
+    }
+
+    /**
+     * Download file directly.
+     *
+     * @param File $file
+     * @return void
+     */
+    public function download(File $file)
+    {
+        return Storage::download($file->filename, $file->title);
+    }
+}
