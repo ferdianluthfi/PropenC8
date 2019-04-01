@@ -16,9 +16,34 @@ class ProyekController extends Controller
      */
     public function index()
     {
-        $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
-        // return $proyek;
-        return view('proyeks.index', ['proyek' => $proyek]);
+        // $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
+        $status;
+        $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->get();
+        $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->orWhere('approvalStatus',3)->get();
+        
+        foreach($proyekPoten as $proyeg){
+            $statusNum = $proyeg-> approvalStatus;
+
+            if($statusNum == 0){
+                $status = "Menunggu Persetujuan";
+            }
+        }
+        foreach($proyekNonPoten as $proyeg){
+            $statusNum = $proyeg-> approvalStatus;
+            $temp = explode(" ", $proyeg->created_at)[0];
+            $temp = explode("-", $temp);
+            $proyeg->created_at = $temp[2] . "-" . $temp[1] . "-" . $temp[0];
+
+            if($statusNum == 1){
+                $status = "Disetujui Direksi";
+            }elseif($statusNum == 2){
+                $status = "Sedang Berjalan";
+            }else{
+                $status = "Ditolak";
+            }
+        }
+       
+        return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
     }
 
     /**
@@ -71,8 +96,8 @@ class ProyekController extends Controller
                 'approvalStatus' => 0,
                 'isLPJExist'=>0,
                 'pengguna_id'=>3,
-                'created_at' => now(),
-                'updated_at' => now()
+                'created_at' => now('GMT+7'),
+                'updated_at' => now('GMT+7'),
             ]); 
             session()->flash('flash_message', 'Proyek berhasil ditambah');
             return redirect('/proyek');
@@ -89,8 +114,23 @@ class ProyekController extends Controller
     public function show($id)
     {
         $proyeks = DB::table('proyeks') -> where('id', $id) -> get();
-        return view('proyeks/show',['proyeks' => $proyeks]);
-    
+        $status;
+        foreach($proyeks as $proyeg){
+            $statusNum = $proyeg-> approvalStatus;
+            if($statusNum == 0){
+                $status = "Menunggu Persetujuan";
+            }
+            elseif($statusNum == 1){
+                $status = "Disetujui Direksi";
+            }
+            elseif($statusNum == 2){
+                $status = "Sedang Berjalan";
+            }
+            elseif($statusNum == 3){
+                $status = "Ditolak";
+            }
+        }        
+        return view('proyeks/show',compact('proyeks', 'status'));
     }
 
     /**
@@ -149,8 +189,7 @@ class ProyekController extends Controller
                 'approvalStatus' => 0,
                 'isLPJExist'=>0,
                 'pengguna_id'=>3,
-                'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now('GMT+7'),
             ]); 
             session()->flash('flash_message', 'Proyek telah ditambahkan.');
             return redirect('/proyek');
@@ -172,16 +211,4 @@ class ProyekController extends Controller
 	    return redirect('/proyek');
 
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function datatable()
-    // {
-    //     $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
-    //     // return $proyek;
-    //     return view('proyeks.index', ['proyek' => $proyek]);
-    // }
 }
