@@ -1,5 +1,205 @@
 @font-face{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto-Reg', sans-serif;
     font-weight: 400;
     font-style: normal;
 }
+
+@font-face{
+    font-family: 'Roboto-Medium', sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'Roboto-Bold', sans-serif;
+    font-weight: 550;
+    font-style: normal;
+}
+
+body{
+    margin-bottom:120px;
+    margin-top: 80px;
+    background-color: #DFEFFF;
+}
+
+.bg-blue {
+    background-color: #DFEFFF;
+}
+
+.card {
+    background: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.07);
+    border-radius: 10px;
+  }
+  
+.card-main {
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 900px;
+    height: 700px;
+
+}
+
+.card-info {
+    width: 500px;
+    height: 290px;
+}
+
+.card-pm {
+    width: 300px;
+    height: 290px;
+}
+
+.card-button {
+    width: 250px;
+    height: 50px;
+}
+.card-proyek-list {
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 900px;
+    height: 300px;
+}
+
+.breadcrumb {
+    background-color: #DFEFFF;
+    width: 900px;
+    margin: 0 auto;
+}
+
+.breadcrumb > li + li:before {
+    color: #606060;
+    content: " > ";
+    padding: 0 5px;
+}
+
+.landing-image-direksi {
+   width: 400px;
+   margin: 0 auto;
+   vertical-align: center;
+}
+
+ul{
+    margin-left: -8px;
+    margin-top: 15px;
+}
+
+li {
+    list-style:none;
+    margin-top:-5px;
+    margin-bottom:-5px;
+}
+
+.judul {
+    padding-left: 30px;
+    padding-top: 20px;
+    margin-bottom: 5px;
+}
+
+.font-title {
+    font-family: 'Roboto-Bold';
+    font-size: 24px;
+    color: #606060;
+    vertical-align: center;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.font-subtitle-1 {
+	font-family: 'Roboto-Bold';
+    font-size: 20px;
+    text-align: center;
+    color: #606060;
+}
+
+.font-subtitle-2 {
+	font-family: 'Roboto-Bold';
+    font-size: 20px;
+    color: #606060;
+    padding-left: 40px;
+}
+
+.font-subtitle-3 {
+    font-family: 'Roboto-Medium';
+    font-size: 20px;
+    text-align: center;
+    color: #606060;
+}
+
+.font-subtitle-4 {
+    font-family: 'Roboto-Medium';
+    font-size: 16px;
+    color: #606060;
+}
+
+.font-subtitle-5 {
+    font-family: 'Roboto-Medium';
+    font-size: 16px;
+    color: #606060;
+    text-align:center;
+}
+
+.font-status-approval {
+    font-family: 'Roboto-Medium';
+    font-size: 13px;
+    color: #606060;
+}
+.font-desc {
+	font-family: 'Roboto-Reg', sans-serif;
+	font-size: 12px;
+    color: #606060;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.font-breadcrumb-inactive {
+	font-family: 'Roboto-Reg', sans-serif;
+	font-size: 15px;
+    color: #606060;
+    text-justify: inter-word;
+}
+
+.font-breadcrumb-active {
+	font-family: 'Roboto-Medium', sans-serif;
+	font-size: 15px;
+    color: rgb(40, 119, 198);;
+    text-justify: inter-word;
+}
+
+.font-desc-bold {
+	font-family: 'Roboto-Medium', sans-serif;
+	font-size: 12px;
+    color: #606060;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.font-approval {
+    font-family: 'Roboto-Medium', sans-serif;
+    font-size: 14px;
+
+}
+
+.navbar{
+    background-color: #ffffff;
+}
+
+.navbar-logo-trayek{
+    margin-top: 2px;
+    margin-bottom:-2px;
+    margin-left: 1px;
+}
+
+.font-nav {
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+    color: #606060;
+    margin-top:5px;
+}
+
+.font-nav-logo {
+	font-family: 'Roboto-Bold', sans-serif;
+	font-size: 18px; 
+    color: rgb(40, 119, 198);
+}
+
