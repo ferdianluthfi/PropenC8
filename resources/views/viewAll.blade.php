@@ -24,6 +24,9 @@
     line-height: 30px;
     color: white;
     }
+    .messageType{
+        cursor:pointer;
+    }
     </style>
 
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -34,26 +37,49 @@
         @foreach ($proyekDetail as $proyek)
             <li>{{$proyek['projectName']}}
             </li>
-            <div id="myProgressDetail" stye="display:none;"> 
+
+            <div id="myProgressDetail" style="display:none;"> 
                 <div id="myProgress">
                     <div id="myBar" style="width: <?php echo ($proyek['totalGaji']/ $proyek['maxValue'])*100 ?>%">
                         {{($proyek['totalGaji']/ $proyek['maxValue'])*100}}%
                     </div>
+                </div>
                 <div id="myProgress">
                     <div id="myBar" style="width: <?php echo ($proyek['totalBelanja']/ $proyek['maxValue'])*100 ?>%">
                         {{($proyek['totalBelanja']/ $proyek['maxValue'])*100}}%
+                    </div>
                 </div>
                 <div id="myProgress">
                     <div id="myBar" style="width: <?php echo ($proyek['totalAdministrasi']/ $proyek['maxValue'])*100 ?>%">
                         {{($proyek['totalAdministrasi']/ $proyek['maxValue'])*100}}%
                     </div>
+                </div>
             </div>
+            
             <div id="myProgress">
                 <div id="myBar" style="width: <?php echo ($proyek['totalKeseluruhan']/ $proyek['maxValue'])*100 ?>%">
-                {{($proyek['totalKeseluruhan']/ $proyek['maxValue'])*100}}%
+                    {{($proyek['totalKeseluruhan']/ $proyek['maxValue'])*100}}%
+                </div>
             </div>
-            </div>
+            <button id="messageType" onclick="showAll($proyek['projectName'])" >Tampilkan Lebih Banyak</button>
+            
         @endforeach
     </ul>
+
+    <script>
+        function showAll(data) {
+            if(document.getElementById("myProgressDetail").style.display == 'none'){
+                $('#myProgressDetail').show();
+                document.getElementById("myProgress").style.display = "none";
+                document.getElementById("messageType").innerHTML = "Tampilkan Lebih Sedikit";
+            }
+            else{
+                $('#myProgressDetail').hide()
+                $("#messageType").prop('value', 'Tampilkan Lebih Banyak');
+                document.getElementById("myProgress").style.display = "show";
+                document.getElementById("messageType").innerHTML = "Tampilkan Lebih Banyak";
+            }
+        }
+    </script>
 </body>
 </html>
