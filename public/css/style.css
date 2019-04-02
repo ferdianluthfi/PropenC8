@@ -532,6 +532,38 @@ iframe {
   padding: 15px;
 }
 
+.modal-content{
+  position: absolute;
+  width: 600px;
+  height: 195px;
+  margin: center;
+  top: 385px;
+}
+
+.berkas{
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  left: 210px;
+  top: 2px;
+}
+
+.lapjusik{
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  left: 425px;
+  top: 2px;
+}
+
+.lpj{
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  left: 580px;
+  top: 2px;
+  
+}
 
 /*------------------------------------------------------------------
 [ Responsive ]*/

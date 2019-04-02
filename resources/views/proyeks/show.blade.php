@@ -47,14 +47,14 @@
 				<hr style="background-color:black;"/><br><br>					
 				<h4 style="text-align:center;"> Belum Tersedia </h4>
 			</div>
-			<div class="col-md-12" style="padding:10px; margin:10px;">
-				<div style="float: left; display:inline-block;">
+			<div class="col-md-12" style="padding:20px; margin:20px;">
+				<div class="berkas">
 					<button type="button" class="btn btn-primary disabled">BERKAS KONTRAK </button>
 				</div>
-				<div style="float: center; display:inline-block;">
+				<div class="lapjusik">
 					<button type="button" class="btn btn-primary disabled">LAPJUSIK </button>
 				</div>
-				<div style="float: right; display:inline-block;">
+				<div class="lpj">
 					<button type="button" class="btn btn-primary disabled">LPJ </button>
 				</div>
 			</div>
