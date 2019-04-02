@@ -11,7 +11,7 @@
 <body>
 	@foreach($proyeks as $proyek)
 	<div class="container" style="padding:5%;">
-		<a href="/proyek/"> Proyek > Detail Proyek {{ $proyek->projectName}} </a><br>
+		<h3><a href="/proyek/"> Proyek > Detail Proyek {{ $proyek->projectName}} </a></h3><br>
 		<div class="row bigCard">
 			<h3 class="col-md-12" style="text-align:center;">Detail Proyek </h3>
 			
@@ -24,7 +24,7 @@
 			
 			<div class="col-md-8 card" style="width: 50%;">
 				
-				<h4 > Informasi Umum &emsp; <mark style="background-color:#f4f4f4;">{{$status}}</mark> </h4>
+				<h4 > Informasi Umum &emsp; <mark style="background-color:#e3f0f3;">{{$status}}</mark> </h4>
 				
 				<hr style="background-color:black;"/>				
 							<b>Nama Staf Marketing &nbsp;: {{ $proyek->name }}</b> <br>

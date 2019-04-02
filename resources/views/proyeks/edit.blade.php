@@ -23,10 +23,11 @@
 			@if(session()->has('flash_message'))
 				<p>{{session('flash_message')}}</p>
 			@endif
-			
+
+			<h3><a href="/proyek/"> Proyek > Ubah Proyek </a></h3>
 			@foreach($proyeks as $proyek)
 			<form action="/proyek/update" method="post" id="editForm">
-				<a href="/proyek/"> Proyek > Ubah Proyek </a>
+				
 				<h1 style="text-align:center;">Ubah Proyek Potensial</h1>
 				{{ csrf_field() }}
 
@@ -96,40 +97,38 @@
 		</div>
 	</div>
 	
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
-		
+	<!-- <div class="modal fade" id="myModal" role="dialog"> -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
 		<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Batalkan Proses</h4>
+				<h4 class="modal-title" style="text-align:center;">Batalkan Proses?</h4>
 			</div>
-			<div class="modal-body">
-				<p>Jika proses dibatalkan perubahan tidak akan disimpan.</p>
+			<div class="modal-body" style="text-align:center;">
+				<p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
 			</div>
 			<div class="modal-footer">
-			@foreach($proyeks as $proyek)
-				<a href="/proyek/ubah/{{ $proyek->id }}" class="btn btn-default">Tidak</button>
-			@endforeach
-				<a href="/proyek/" class="btn btn-default">Iya</a>
+					<a href="/proyek/" class="btn btn-default" style="color:red;">Iya</a>
+				@foreach($proyeks as $proyek)
+					<a href="/proyek/ubah/{{ $proyek->id }}" class="btn btn-primary">Tidak</a>
+				@endforeach
 			</div>
 		</div>
 		
 		</div>
 	</div>
 
-	<div id="myMod" class="modal fade">
-		<div class="modal-dialog modal-confirm">
+	<div class="modal fade" id="myMod" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
-				<div class="modal-header">
-					<div class="icon-box">
-						<i class="material-icons">&#xE876;</i>
-					</div>				
-					<h4 class="modal-title">Awesome!</h4>	
+				<div class="modal-header">				
+					<h4 class="modal-title" style="text-align:center;">Sukses!</h4>	
 				</div>
-				<div class="modal-body">
-					<p class="text-center">Your booking has been confirmed. Check your email for detials.</p>
+				<div class="modal-body text-center">
+					<!-- <img src="https://www.flaticon.com/free-icon/checked_291201#term=success&page=1&position=1" class="img-responsive"> -->
+					<p class="text-center">Data proyek berhasil diubah</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>

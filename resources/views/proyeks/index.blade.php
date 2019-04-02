@@ -22,7 +22,7 @@
 </head>
 <body style="background-color: #f4f4f4;">
 	<div class="container">
-		<a href="/proyek/"> Proyek > </a>
+		<h3><a href="/proyek/"> Proyek > </a></h3>
 		<div class="row bigCard">
 			<div class="col-md-12">
 				@if(session()->has('flash_message'))
@@ -33,13 +33,13 @@
 					</button>
 				</div>
 				@endif
-				<h1 style="text-align:center;">Daftar Proyek Potensial</h1>
+				<h2 style="text-align:center;">Daftar Proyek Potensial</h2><br>
 				<div class="row">
 					<div class="col-md-3">
 						<a href="/proyek/tambah">
 							<div class="add-project">
 								<center><img src="https://image.flaticon.com/icons/svg/109/109526.svg"   style="width:70px;height:100px;"><center>
-								<p> Tambah Proyek </p>
+								<p style="font-size:14pt; font-weight:bolder;"> Tambah Proyek </p>
 							</div>
 						</a>
 					</div>
@@ -48,11 +48,11 @@
 							@foreach($proyekPoten as $proyeks)
 								<!-- @if($proyeks->approvalStatus == 0) -->
 								<div class="col-md-6 project">
-									<a href="/proyek/lihat/{{$proyeks->id}}">
-										<center class="turncate"><a href="/proyek/lihat/{{$proyeks->id}}">{{ $proyeks->projectName }}</a><center>
+									<!-- <a href="/proyek/lihat/{{$proyeks->id}}"> -->
+										<center class="turncate"><a href="/proyek/lihat/{{$proyeks->id}}" style="font-size:12pt; font-weight:bolder;">{{ $proyeks->projectName }}</a><center>
 										<center class="turncate">{{ $proyeks->companyName }}<center>
-										<center><a href="/proyek/ubah/{{ $proyeks->id }}">Ubah</a> | <a href="/proyek/hapus/{{ $proyeks->id }}">Hapus</a><center>
-									</a>
+										<center><a class="btn btn-primary" href="/proyek/ubah/{{ $proyeks->id }}" style="font-size:8pt; font-weight:bolder;">Ubah</a> | <a class="btn btn-primary" href="/proyek/hapus/{{ $proyeks->id }}" style="font-size:8pt; font-weight:bolder;">Hapus</a><center>
+									<!-- </a> -->
 								</div>
 								<!-- @endif -->
 							@endforeach
@@ -106,7 +106,7 @@
 		<br>
 		<div class="row bigCard">
 			<div class="col-md-12">
-				<h1 style="text-align:center;">Riwayat Proyek Potensial</h1>
+				<h2 style="text-align:center;">Riwayat Proyek Potensial</h2><br>
 				<div class="card-table">
 					<div class="panel-body">
 						<table id="datatable">
