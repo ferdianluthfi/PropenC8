@@ -25,3 +25,9 @@ Route::get('/luthfi', function () {
 });
 
 Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
+Route::get('/testGraph', function () {
+    return view('viewSeluruhKemajuan');
+});
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

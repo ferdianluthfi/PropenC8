@@ -13,12 +13,23 @@ class CreateKemajuanProyeksTable extends Migration
      */
     public function up()
     {
+        /**
+         * Schema untuk menyimpan semua kemajuan proyek
+         */
         Schema::create('kemajuan_proyeks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('description');
             $table->date('reportDate');
-            $table->integer('tipeKemajuan'); //ToDo buat ketentuan 1 2 3 itu kode untuk apaa
-            $table->integer('percentage');
+
+            /**
+             * 1=Gaji
+             * 2=Belanja
+             * 3=Administrasi
+             */
+            $table->integer('tipeKemajuan');
+
+
+            $table->integer('value');
 
             $table->bigInteger('pelaksanaan_id')->unsigned();
             $table->foreign('pelaksanaan_id')
