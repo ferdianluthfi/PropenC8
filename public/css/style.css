@@ -20,6 +20,11 @@ body{
     margin-bottom:120px;
     margin-top: 80px;
     background-color: #DFEFFF;
+    background-image: url("../img/wave.svg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: right bottom;
+    background-size: 100%;
 }
 
 .bg-blue {
