@@ -8,7 +8,7 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('detail-proyek', $id) }}">Detail Proyek {{ $proyek->projectName }}</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek', $id) }}">Detail Proyek {{ $proyek->projectName }}</a></li>
   </ol>
 </nav>
 
@@ -21,7 +21,7 @@
         <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName }}</p>
         <br>
         </div>
-    <div class="row">
+    <div class="row ketengahin">
         <div class="col-sm-7">
         <div class="card card-info">
             <div class="row judul">
@@ -68,20 +68,20 @@
     </div>
     <div>
         <br>
-        <div class="row "></div>
-        <div class="col-sm-3 card card-button" href="{{ route('detail-kontrak', $id) }}"> <a>Berkas Kontrak</a></div>
-        <div class="col-sm-3 card card-button">LAPJUSIK</div>
-        <div class="col-sm-3 card card-button">LPJ</div>
+        <div class="row ketengahin">
+            <a href="{{ url('kontrak', $id) }}"><div class="col-sm-3 card card-button">
+                <p class="font-button-berkas">Berkas Kontrak<p>
+            </div></a>
+            <a href="#"><div class="col-sm-3 card card-button">
+                <p class="font-button-berkas-inactive">LAPJUSIK<p>
+            </div></a>
+            <a href="#"><div class="col-sm-3 card card-button">
+                <p class="font-button-berkas-inactive">LPJ<p>
+            </div></a>
+        </div>
     </div>
     
 
-</div>
-
-
-    
-<!-- tombol kontrak dll -->
-<div class="card card-main" href="{{ route('detail-kontrak', $id) }}">
-    <a>detail kontrak</a>
 </div>
 
 
