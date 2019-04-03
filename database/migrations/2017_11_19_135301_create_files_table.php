@@ -17,6 +17,13 @@ class CreateFilesTable extends Migration
             $table->increments('id');
             $table->string('title', 100);
             $table->string('filename', 100);
+            // $table->bigInteger('proyek_id')->unsigned();
+            // $table->foreign('proyek_id')
+            // ->references('id')
+            // ->on('proyeks')
+            // ->onUpdate('cascade')
+            // ->onDelete('cascade');
+            // $table->integer('flag_active')->default(1);
             $table->timestamps();
         });
     }

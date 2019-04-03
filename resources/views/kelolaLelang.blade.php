@@ -80,39 +80,50 @@
         </tbody>
     </table>
 
-
-<!--    @foreach ($berkass as $object)-->
-<!--        {{ $object->id }}-->
-<!--        {{ $object->fileBerkas }}-->
-<!--        {{ $object->created_at}}-->
-<!--        <br>-->
-<!--    @endforeach-->
-
     <br>
     <table border="I">
         <caption>Kelola Berkas Lelang</caption>
         <thead>
             <tr>
-                <th>Berkas</th>
-                <th>Hapus Berkas</th>
+                <th>Id</th>
+                <th>Title</th>
+                <th>File Name</th>
+                <th>Created_at</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($berkass as $object)
             <tr>
-                <th>
+                <td>
                     {{ $object->id }}
-                    {{ $object->fileBerkas }}
-                    {{ $object->created_at}}
-                </th>
-                <th>
-                    <button type="button" onclick="window.location.href='/kelolaLelang/delete/{{ $object->id }}'">
-                        <a>hapus</a>
-                    </button>
-                </th>
+                </td>
+                <td>
+                    {{ $object->title }}
+                </td>
+                <td>
+                    {{ $object->filename }}
+                </td>
+                <td>
+                    {{ $object->created_at->diffForHumans()}}
+                </td>
+                <td>
+                    <a href="{{ Storage::url($object->path) }}" title="View file {{ $object->title }}">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                    <a href="{{ route('file.response', $object->id) }}" title="Show or download file {{ $object->title }}">
+                        <i class="fa fa-expand fa-fw"></i>
+                    </a>
+                    <a href="{{ route('file.download', $object->id) }}" title="Download file {{ $object->title }}">
+                        <i class="fa fa-download fa-fw"></i>
+                    </a>
+                    <a href="/file/{{ $object->id }}/delete" title="Delete file {{ $object->title }}">
+                        <i class="fa fa-trash fa-fw"></i>
+                    </a>
+                </td>
             </tr>
             @endforeach
-            <tr>
+            <!-- <tr>
                 <th>
                     <input type="hidden" value="{{ $proyek->id }}">
                     <select>
@@ -131,81 +142,21 @@
                 <th>
                     <button>Tambah Berkas</button>
                 </th>
-            </tr>
-
-
-            <br>
-
-
+            </tr> -->
         </tbody>
     </table>
-    <form>
-<!--        <input type="hidden" value="{{ $proyek->id }}">-->
-<!--        <select>-->
-<!--            <option disabled selected value> -- Pilih Berkas Lelang -- </option>-->
-<!--            @foreach ($templates as $template)-->
-<!--            <option name ="template_id" value="{{ $template->id }}">{{ $template->nama_surat }}</option>-->
-<!--            @endforeach-->
-<!--        </select>-->
-        <br>
-        <br>
-        <input type="file" name="fileBerkas">
-        <br><br>
-        <button type="button">
-            <a>Simpan</a>
-        </button>
-    </form>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Upload New File</div>
-                    <div class="panel-body">
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-                        <p>
-                            <a href="{{ route('file.form') }}" class="btn btn-primary">Upload File</a>
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Path</th>
-                                        <th>Created</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($files as $file)
-                                        <tr>
-                                            <td>{{ $file->title }}</td>
-                                            <td>{{ $file->filename }}</td>
-                                            <td>{{ $file->created_at->diffForHumans() }}</td>
-                                            <td>
-                                            <a href="{{ Storage::url($file->filename) }}" title="View file {{ $file->title }}">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            <a href="{{ route('file.response', $file->id) }}" title="Show or download file {{ $file->title }}">
-                                                <i class="fa fa-expand fa-fw"></i>
-                                            </a>
-                                            <a href="{{ route('file.download', $file->id) }}" title="Download file {{ $file->title }}">
-                                                <i class="fa fa-download fa-fw"></i>
-                                            </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+    <br>
+    <br>
+    <div>Upload New File</div>
+    <div>
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
             </div>
-        </div>
+        @endif
     </div>
+    <p>
+        <a href="/file/upload/{{ $proyek->id }}" class="btn btn-primary">Upload File</a>
+    </p>
 </body>
 </html>

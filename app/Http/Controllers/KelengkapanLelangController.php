@@ -18,7 +18,7 @@ class KelengkapanLelangController extends Controller
     public function kelolaBerkas($proyek_id)
     {
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
-        $berkass = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('proyek_id', $proyek_id)->get();
+        $berkass = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('proyek_id', $proyek_id)->where('flag_active', '1')->get();
 
         $templates = ListTemplateSurat::select('list_template_surats.*')->get();
 
@@ -26,12 +26,13 @@ class KelengkapanLelangController extends Controller
         return view('kelolaLelang', compact('proyek', 'berkass', 'templates', 'files'));
 	}
 
-	public function form(): View {
-		return view('file.form');
+	public function form($proyek_id){
+        $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
+		return view('file.form', compact('proyek'));
 	}
 
-	public function upload(Request $request): RedirectResponse {
-		$this->validate($request, [
+    public function uploadKelengkapanLelang(Request $request): RedirectResponse {
+        $this->validate($request, [
             'title' => 'nullable|max:100',
             'file' => 'required|file|max:2000'
         ]);
@@ -40,19 +41,26 @@ class KelengkapanLelangController extends Controller
 
         $path = $uploadedFile->store('public/files');
 
-        $file = Files::create([
+        $proyek = Proyek::select('proyeks.*')->where('id', $request->proyekId)->first();
+
+        $filename = $proyek->projectName . ' - ' . $request->title;
+
+        $file = KelengkapanLelang::create([
             'title' => $request->title ?? $uploadedFile->getClientOriginalName(),
-            'filename' => $path
+            'filename' => $filename,
+            'ext' => $uploadedFile->getClientOriginalExtension(),
+            'path' => $path,
+            'proyek_id' => $request->proyekId
         ]);
 
         return redirect()
             ->back()
             ->withSuccess(sprintf('File %s has been uploaded.', $file->title));     
-	}
-	
-	public function response(File $file)
+    }
+    
+    public function responseKelengkapanLelang(KelengkapanLelang $file)
     {
-        return Storage::response($file->filename);
+        return Storage::response($file->path);
     }
 
     /**
@@ -61,19 +69,17 @@ class KelengkapanLelangController extends Controller
      * @param File $file
      * @return void
      */
-    public function download(File $file)
+    public function downloadKelengkapanLelang(KelengkapanLelang $file)
     {
-        return Storage::download($file->filename, $file->title);
+        return Storage::download($file->path, $file->filename . '.' . $file->ext);
     }
 
-    public function deleteBerkas($berkas_id)
+    public function deleteKelengkapanLelang(KelengkapanLelang $file)
     {
-        $berkas = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('id', $berkas_id)->first();
-        $proyek = Proyek::select('proyeks.*')->where('id', $berkas->proyek_id)->first();
-		//        proyek_id = $proyek-id;
-        //        $proyek_id = $berkas->proyek_id;
-        $id = $berkas->id;
-        DB::delete('delete from kelengkapan_lelangs where id= :id', ['id' => $id]);
+        $berkas = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('id', $file->id)->first();
+        $proyek = Proyek::select('proyeks.*')->where('id', $file->proyek_id)->first();
+        
+        KelengkapanLelang::where('id', $file->id)->update(['flag_active' => 0]);
         return $this->kelolaBerkas($proyek->id);
     }
 

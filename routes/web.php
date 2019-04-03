@@ -28,12 +28,11 @@ Route::get('/kemajuanProyek', 'ProyekController@viewAll');
 Route::get('/viewproyek', 'ProyekController@view');
 Route::get('/kelolaLelang/{proyek_id}', 'KelengkapanLelangController@kelolaBerkas');
 Route::get('/getBerkas/{id}', 'KelengkapanLelangController@getBerkas');
-Route::get('file/upload', 'KelengkapanLelangController@form')->name('file.form');
-Route::post('file/upload', 'KelengkapanLelangController@upload')->name('file.upload');
-Route::get('file/{file}/download', 'KelengkapanLelangController@download')->name('file.download');
-Route::get('file/{file}/response', 'KelengkapanLelangController@response')->name('file.response');
-
-Route::get('/kelolaLelang/delete/{berkas_id}', 'KelengkapanLelangController@deleteBerkas');
+Route::get('file/upload/{proyek_id}', 'KelengkapanLelangController@form');
+Route::post('file/upload', 'KelengkapanLelangController@uploadKelengkapanLelang')->name('file.upload');
+Route::get('file/{file}/download', 'KelengkapanLelangController@downloadKelengkapanLelang')->name('file.download');
+Route::get('file/{file}/response', 'KelengkapanLelangController@responseKelengkapanLelang')->name('file.response');
+Route::get('file/{file}/delete', 'KelengkapanLelangController@deleteKelengkapanLelang');
 
 
 
