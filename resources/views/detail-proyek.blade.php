@@ -13,7 +13,7 @@
 </nav>
 
 <!-- isinya -->
-<div class="container-fluid card card-main">
+<div class="container-fluid card card-detail-proyek">
     <br>
     <p class="font-subtitle-1">Detail Proyek</p>
     <hr>
@@ -39,7 +39,6 @@
                     <li><p>Alamat Proyek</p></li>
                     <li><p>Deskripsi Proyek</p></li>
                     <li><p>Nilai Proyek</p></li>
-                    <li><p>Data Proyek</p></li>
                 </ul>
             </div>
             <div class="col-sm-7 font-desc">
@@ -52,7 +51,6 @@
                     <li><p>:   {{ $proyek->projectAddress}}<p></li>
                     <li><p>:   {{ $proyek->description}}<p></li>
                     <li><p>:   {{ $proyek->projectValue}}<p></li>
-                    <li><p>:   -<p></li>
                 </ul>
             </div>
             </div>
