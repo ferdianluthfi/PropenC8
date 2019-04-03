@@ -29,7 +29,7 @@
         <p>Alamat Proyek     : {{ $p->projectAddress }}</p> 
         <p>Deskripsi Proyek  : {{ $p->description }}</p> 
         <p>Nilai Proyek      : Rp {{ $p->projectValue }},-</p> 
-        <p>Data Proyek       :</p>  
+        <p>Estimasi Waktu Pengerjaan	: {{ $p->estimatedTime }} hari</p>  
         <a href="">Berkas Kontrak</a>
         <a href="">LAPJUSIK</a>
         <a href="">LPJ</a>
