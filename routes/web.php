@@ -1,5 +1,6 @@
 <?php
 
+use App\Proyek;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +13,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    $proyeg = Proyek::select('*')->where('id',1)->get();
+    return $proyeg;
 });
 Route::get('/luthfi', function () {
     $proyek = App\Proyek::find(1);
@@ -24,16 +27,9 @@ Route::get('/luthfi', function () {
     //return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
 });
 
-<<<<<<< HEAD
-Route::get('/kemajuanProyek', 'ProyekController@viewAll');
-
-Route::get('/ahmad', function () {
-    $proyeg = Proyek::table('proyeks')->get();
-
-    return $proyeg;
-
-    return view('welcome');
-});
-=======
 Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
->>>>>>> da65c5c2a4865678ef26436b5022da5b2e21abd8
+Route::get('/proyek/setujuiProyek/{id}', 'ProyekController@approveProjectDetail');
+Route::post('/proyek/setujuiProyek/setuju/{id}', 'ProyekController@approveProject');
+Route::post('/proyek/setujuiProyek/tolak/{id}', 'ProyekController@rejectProject');
+Route::get('/proyek/daftarProyek', 'ProyekController@viewAllProject');
+Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutApprove');
