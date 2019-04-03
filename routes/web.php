@@ -33,6 +33,7 @@ Route::post('file/upload', 'KelengkapanLelangController@uploadKelengkapanLelang'
 Route::get('file/{file}/download', 'KelengkapanLelangController@downloadKelengkapanLelang')->name('file.download');
 Route::get('file/{file}/response', 'KelengkapanLelangController@responseKelengkapanLelang')->name('file.response');
 Route::get('file/{file}/delete', 'KelengkapanLelangController@deleteKelengkapanLelang');
+Route::get('generate-pdf','KelengkapanLelangController@generatePDF');
 
 
 

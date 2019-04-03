@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Storage;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Expr\New_;
+use PDF;
 
 class KelengkapanLelangController extends Controller
 {
@@ -78,9 +79,37 @@ class KelengkapanLelangController extends Controller
     {
         $berkas = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('id', $file->id)->first();
         $proyek = Proyek::select('proyeks.*')->where('id', $file->proyek_id)->first();
-        
+
         KelengkapanLelang::where('id', $file->id)->update(['flag_active' => 0]);
         return $this->kelolaBerkas($proyek->id);
     }
 
+    public function generatePDF()
+    {
+        $data = [
+            'title' => 'HEHEHEH BUUNNN alay ksl dekil wle',
+            'projectName' => 'Propensi Bunsyg',
+            'desc' => 'Kopek terus aja bibirnya sampe copot semua ok'
+        ];
+
+        $pdf = PDF::loadView('template-surat/myPDF', $data);
+
+        $dokumenname = 'Dokumen Bun 1.pdf';
+        
+        Storage::put($dokumenname, $pdf->output());
+
+        $proyek = Proyek::select('proyeks.*')->where('id', '1')->first();
+
+        // $filename = $proyek->projectName . ' - ' . $dokumenname;
+
+        // $file = KelengkapanLelang::create([
+        //     'title' => 'Autogenerate pdf',
+        //     'filename' => $filename,
+        //     'ext' => 'pdf',
+        //     'path' => $path,
+        //     'proyek_id' => $proyek->id
+        // ]);
+
+        return $pdf->download('hehehehe.pdf');
+    }
 }
