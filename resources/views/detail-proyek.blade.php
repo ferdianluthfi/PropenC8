@@ -60,6 +60,11 @@
             <div class="card card-pm">
                 <br>
                 <p class="font-subtitle-5">Project Manager</p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <p class="font-status-approval" style="text-align: center;">Belum ada.</p>
             </div>
         </div>
 
@@ -67,7 +72,7 @@
     <div>
         <br>
         <div class="row ketengahin">
-            <a href="{{ url('kontrak', $id) }}"><div class="col-sm-3 card card-button">
+            <a href="{{ route('detail-kontrak', $proyek->id) }}"><div class="col-sm-3 card card-button">
                 <p class="font-button-berkas">Berkas Kontrak<p>
             </div></a>
             <a href="#"><div class="col-sm-3 card card-button">

@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Kontrak;
+use App\Proyek;
 
 class KontrakController extends Controller
 {
  
     public function viewKontrak($id){
 
+        $proyek = Proyek::where('id', $id)->first();
         $kontrak = Kontrak::where('proyek_id', $id)->first();
         
         
@@ -22,7 +24,7 @@ class KontrakController extends Controller
             $statusHuruf = "DITOLAK";
         }
 
-        return view('detail-kontrak', ["statusHuruf" => $statusHuruf, "status" => $status, "kontrak" => $kontrak]);
+        return view('detail-kontrak', ["statusHuruf" => $statusHuruf, "status" => $status, "kontrak" => $kontrak, "proyek" => $proyek, "id" => $id]);
     }
 
     public function approveKontrak($id){

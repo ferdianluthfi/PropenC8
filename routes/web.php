@@ -33,5 +33,8 @@ Route::get('/proyek', 'ProyekController@viewAll')->name('view-all-proyek');
 Route::get('/proyek/{id}', 'ProyekController@viewDetailProyek')->name('detail-proyek');
 Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');
 
+Route::post('proyek/{id}/kontrak/approve', 'KontrakController@approveKontrak')->name('approve-kontrak');
+Route::post('proyek/{id}/kontrak/disapprove', 'KontrakController@disapproveKontrak')->name('disapprove-kontrak');
+
 
 Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
