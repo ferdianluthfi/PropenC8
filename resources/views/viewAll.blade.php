@@ -68,6 +68,7 @@
 
     <script>
         function showAll(data) {
+            
             if(document.getElementById("myProgressDetail").style.display == 'none'){
                 $('#myProgressDetail').show();
                 document.getElementById("myProgress").style.display = "none";
