@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Overview Kontrak Kerja</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    
+    <div id="header">
+        <h2>Overview Kontrak Kerja</h2>
+    </div>
+
+    @foreach($kontrak as $kontraks)
+        <div id="info">
+            <p>Informasi Kontrak Kerja</p>
+            <p style="text-align: right">Menunggu Persetujuan</p>
+        </div>
+
+        <div id="infoUmum">
+            <h3>Informasi Umum</h3>
+            <p>Nama Proyek          : </p>
+            <p>Nama Perusahan       : </p>
+            <p>Alamt Proyek         : </p>
+            <p>Nama Pelaksana       : </p>
+            <p>Nilai Proyek         : </p>
+            <p>Alamat Perusahaan    : </p>
+            <p>Tanggal Kontrak      : </p>
+            <p>Nilai Proyek Huruf   : </p>
+            <p>PenanggungJawab      : </p>
+        </div>
+    @endforeach
+
+    <div id="berkasSurat">
+        <h3>Surat Diproses</h3>
+        <ul>
+            <li>BBB CREAM PAPAPAA</li>
+            <li>LIPSTICK GUL MAMAMAMA</li>
+        </ul>
+    </div>
+
+    <div id="tombol">
+            <button>Batal</button>
+            <button>Buat Kontrak</button>
+    </div>
+    
+</body>
+</html>

@@ -33,3 +33,4 @@ Route::post('/proyek/setujuiProyek/setuju/{id}', 'ProyekController@approveProjec
 Route::post('/proyek/setujuiProyek/tolak/{id}', 'ProyekController@rejectProject');
 Route::get('/proyek/daftarProyek', 'ProyekController@viewAllProject');
 Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutApprove');
+Route::get('/proyek/kontrak/lihatKontrak/{idProyek}, ');

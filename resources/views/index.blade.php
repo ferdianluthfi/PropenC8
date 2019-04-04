@@ -20,9 +20,17 @@
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 </head>
-<body style="background-color: #f4f4f4;">
+<body>
+@section ('content')
+@include('layouts.nav')
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+		</ol>
+	</nav>
+
 	<div class="container">
-		<a href="/proyek/"> Proyek > </a>
 		<div class="row bigCard">
 			<div class="col-md-12">
 				@if(session()->has('flash_message'))
@@ -33,27 +41,21 @@
 					</button>
 				</div>
 				@endif
-				<h1 style="text-align:center;">Daftar Proyek Potensial</h1>
+				<h2 style="text-align:center;">Daftar Proyek Potensial</h2><br>
 				<div class="row">
-					<!-- <div class="col-md-3">
-						<a href="/proyek/tambah">
-							<div class="add-project">
-								<center><img src="https://image.flaticon.com/icons/svg/109/109526.svg"   style="width:70px;height:100px;"><center>
-								<p> Tambah Proyek </p>
-							</div>
-						</a>
-					</div> -->
+					
 					<div class="col-md-12">
 						<div class="your-class">
-							@foreach($proyekPoten as $pPotensial)
-								
+							@foreach($proyekPoten as $proyeks)
+								<!-- @if($proyeks->approvalStatus == 0) -->
 								<div class="col-md-6 project">
-									
-										<center class="turncate"><a href="/proyek/setujuiProyek/{{$pPotensial->id}}">{{ $pPotensial->projectName }}</a><center>
-										<center class="turncate">{{ $pPotensial->companyName }}<center>
+									<!-- <a href="/proyek/lihat/{{$proyeks->id}}"> -->
+										<center class="turncate"><a href="/proyek/setujuiProyek/{{ $proyeks->id }}" style="font-size:12pt; font-weight:bolder;">{{ $proyeks->projectName }}</a><center>
+										<center class="turncate">{{ $proyeks->companyName }}<center>
+										<!-- <center><a class="btn btn-primary" href="/proyek/ubah/{{ $proyeks->id }}" style="font-size:8pt; font-weight:bolder;">Ubah</a> | <a class="btn btn-primary" href="/proyek/hapus/{{ $proyeks->id }}" style="font-size:8pt; font-weight:bolder;">Hapus</a><center> -->
 									<!-- </a> -->
 								</div>
-
+								<!-- @endif -->
 							@endforeach
 						</div>
 					</div>
@@ -63,7 +65,7 @@
 		<br>
 		<div class="row bigCard">
 			<div class="col-md-12">
-				<h1 style="text-align:center;">Riwayat Proyek</h1>
+				<h2 style="text-align:center;">Riwayat Proyek Potensial</h2><br>
 				<div class="card-table">
 					<div class="panel-body">
 						<table id="datatable">
@@ -75,14 +77,14 @@
 								</tr>
 							</thead>
 							<tbody >
-							@foreach($proyekNonPoten as $pNonPotensial)
+							@foreach($proyekNonPoten as $proyeks)
 									<tr style="background-color: aliceblue;">
-										<td><a href="/proyek/detailProyek/{{ $pNonPotensial->id }}">{{ $pNonPotensial->projectName }}</a></td>
-										@if($pNonPotensial->approvalStatus === 1) <td> Disetujui Direksi </td>
+										<td><a href="/proyek/detailProyek/{{ $proyeks->id }}">{{ $proyeks->projectName }}</a></td>
+										@if($proyeks->approvalStatus === 1) <td> Disetujui Direksi </td>
 										@else	<td> Ditolak </td>
 										@endif
 										
-										<td>{{ $pNonPotensial->created_at }}</td>
+										<td>{{ $proyeks->created_at }}</td>
 									</tr>
 							@endforeach
 							</tbody>
@@ -91,8 +93,10 @@
 				</div>
 			</div>
 		</div>
-  </div>
+ 	</div>
+@endsection
 
+@section('scripts')
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js" integrity="sha256-+h0g0j7qusP72OZaLPCSZ5wjZLnoUUicoxbvrl14WxM=" crossorigin="anonymous"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -112,5 +116,6 @@
 		$('.alert').alert();
 	});
 	</script>
+@endsection
 </body>	
 </html>
