@@ -24,7 +24,7 @@
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
-			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="#">Tambah Proyek Potensial</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="#">Tambah Proyek Pot</a></li>
 		</ol>
 	</nav>
 
