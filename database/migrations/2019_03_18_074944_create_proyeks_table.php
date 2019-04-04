@@ -21,7 +21,7 @@ class CreateProyeksTable extends Migration
             $table->date('startDate');
             $table->date('endDate');
             $table->text('description');
-            $table->integer('projectValue'); //ToDo digunakan menjadi angka TERBILANG di kontrak
+            $table->integer('projectValue')->unsigned(); //ToDo digunakan menjadi angka TERBILANG di kontrak
             $table->integer('estimatedTime');
             $table->integer('approvalStatus')->default(0);
             $table->string('projectAddress');

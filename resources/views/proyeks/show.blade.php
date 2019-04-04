@@ -1,3 +1,4 @@
+@extends('layouts.layout')
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +11,14 @@
 </head>
 <body>
 	@foreach($proyeks as $proyek)
+	<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+		<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+		<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek', $id) }}">Detail Proyek {{ $proyek->projectName }}</a></li>
+	</ol>
+	</nav>
 	<div class="container" style="padding:5%;">
-		<h3><a href="/proyek/"> Proyek > Detail Proyek {{ $proyek->projectName}} </a></h3><br>
 		<div class="row bigCard">
 			<h3 class="col-md-12" style="text-align:center;">Detail Proyek </h3>
 			
@@ -63,3 +70,96 @@
 	@endforeach
 </body>
 </html>
+ 
+<!-- @extends('layouts.layout')
+
+@section ('content')
+@include('layouts.nav')
+
+<!-- Breadcrumbs (ini buat navigation yaa) -->
+<!-- <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+	<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+	<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek', $id) }}">Detail Proyek {{ $proyek->projectName }}</a></li>
+  </ol>
+</nav> -->
+
+<!-- isinya -->
+<!-- <div class="container-fluid card card-detail-proyek">
+    <br>
+    <p class="font-subtitle-1">Detail Proyek</p>
+    <hr>
+    <div>
+		@if($proyek->approvalStatus === 0)
+			<p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}} <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='/proyek/ubah/{{ $proyek->id }}'">UBAH</button> </p>
+		@else
+			<p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}} <button type="button" class="btn btn-primary disabled" style="float:right;" >UBAH</button> </p>
+		@endif
+        <br>
+    </div>
+    <div class="row ketengahin">
+        <div class="col-sm-7">
+        <div class="card card-info">
+            <div class="row judul">
+                <div class="col-sm-9 font-subtitle-4">Informasi Umum</div>
+                <div class="col-sm-1 font-status-approval">{{$status}}</div>
+			</div>
+			<!-- <hr style="background-color:black;"/>	 -->
+            <!-- <div class="row">
+            <div class="col-sm-5 font-desc-bold">
+                <ul>
+                    <li><p>Nama Staf Marketing</p></li>
+                    <li><p>Nama Proyek</p></li>
+                    <li><p>Nama Perusahaan</p></li>
+                    <li><p>Nilai Proyek</p></li>
+                    <li><p>Estimasi Waktu Pengerjaan</p></li>
+                    <li><p>Alamat Proyek</p></li>
+                    <li><p>Deskripsi Proyek</p></li>
+                </ul>
+            </div>
+            <div class="col-sm-7 font-desc">
+                <ul>
+                    <li><p>:   {{ $proyek->name}}<p></li>
+                    <li><p>:   {{ $proyek->projectName}}<p></li>
+                    <li><p>:   {{ $proyek->companyName}}<p></li>
+                    <li><p>:   {{ $proyek->projectValue}}<p></li>
+                    <li><p>:   {{ $proyek->estimatedTime}} Hari<p></li>
+                    <li><p>:   {{ $proyek->projectAddress}}<p></li>
+                    <li><p>:   {{ $proyek->description}}<p></li>
+                </ul>
+            </div>
+            </div>
+        </div>  
+        </div>
+        <div class="col-sm-2">
+            <div class="card card-pm">
+                <br>
+				<p class="font-subtitle-5">Project Manager</p>
+				<hr style="background-color:black;"/>
+                <br>
+                <br>
+                <br>
+                <br>
+                <p class="font-status-approval" style="text-align: center;">Belum Tersedia.</p>
+            </div>
+        </div>
+
+    </div>
+    <div>
+        <br>
+        <div class="row ketengahin">
+            <a href="#"><div class="col-sm-3 card card-button">
+                <p class="font-button-berkas-inactive">Berkas Kontrak<p>
+            </div></a>
+            <a href="#"><div class="col-sm-3 card card-button">
+                <p class="font-button-berkas-inactive">LAPJUSIK<p>
+            </div></a>
+            <a href="#"><div class="col-sm-3 card card-button">
+                <p class="font-button-berkas-inactive">LPJ<p>
+            </div></a>
+        </div>
+    </div>
+
+</div> -->
+  

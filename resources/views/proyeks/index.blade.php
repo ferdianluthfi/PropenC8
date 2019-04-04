@@ -1,3 +1,5 @@
+@extends('layouts.layout')
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css') }}" >
 	<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type=""> -->
 	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" type="">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" type=""> -->
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="">
 	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -20,9 +22,18 @@
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 </head>
-<body style="background-color: #f4f4f4;">
+
+<body>
+@section ('content')
+@include('layouts.nav')
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+		</ol>
+	</nav>
+
 	<div class="container">
-		<h3><a href="/proyek/"> Proyek > </a></h3>
 		<div class="row bigCard">
 			<div class="col-md-12">
 				@if(session()->has('flash_message'))
@@ -56,48 +67,6 @@
 								</div>
 								<!-- @endif -->
 							@endforeach
-							<div class="col-md-6 project">
-								<a href="/proyek/tambah">
-									<center><a href="/proyek/tambah">Nama Projek</a><center>
-									<center>Nama Perusahaan<center>
-									<center><a href="#">Ubah</a> | <a href="#">Hapus</a><center>
-								</a>
-							</div>
-							<div class="col-md-6 project">
-								<a href="/proyek/tambah">
-									<center><a href="/proyek/tambah">Nama Projek</a><center>
-									<center>Nama Perusahaan<center>
-									<center><a href="#">Ubah</a> | <a href="#">Hapus</a><center>
-								</a>
-							</div>
-							<div class="col-md-6 project">
-								<a href="/proyek/tambah">
-									<center><a href="/proyek/tambah">Nama Projek</a><center>
-									<center>Nama Perusahaan<center>
-									<center><a href="#">Ubah</a> | <a href="#">Hapus</a><center>
-								</a>
-							</div>
-							<div class="col-md-6 project">
-								<a href="/proyek/tambah">
-									<center><a href="/proyek/tambah">Nama Projek</a><center>
-									<center>Nama Perusahaan<center>
-									<center><a href="#">Ubah</a> | <a href="#">Hapus</a><center>
-								</a>
-							</div>
-							<div class="col-md-6 project">
-								<a href="/proyek/tambah">
-									<center><a href="/proyek/tambah">Nama Projek</a><center>
-									<center>Nama Perusahaan<center>
-									<center><a href="#">Ubah</a> | <a href="#">Hapus</a><center>
-								</a>
-							</div>
-							<div class="col-md-6 project">
-								<a href="/proyek/tambah">
-									<center><a href="/proyek/tambah">Nama Projek</a><center>
-									<center class="turncate">Nama Perusahaan Panjang Banget Ampun Sampai 2 Line<center>
-									<center><a href="#">Ubah</a> | <a href="#">Hapus</a><center>
-								</a>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -134,8 +103,10 @@
 				</div>
 			</div>
 		</div>
-  </div>
+ 	</div>
+@endsection
 
+@section('scripts')
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js" integrity="sha256-+h0g0j7qusP72OZaLPCSZ5wjZLnoUUicoxbvrl14WxM=" crossorigin="anonymous"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -155,5 +126,6 @@
 		$('.alert').alert();
 	});
 	</script>
+@endsection
 </body>	
 </html>
