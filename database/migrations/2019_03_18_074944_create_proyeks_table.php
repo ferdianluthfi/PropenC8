@@ -22,10 +22,14 @@ class CreateProyeksTable extends Migration
             $table->date('endDate');
             $table->text('description');
             $table->integer('projectValue'); //ToDo digunakan menjadi angka TERBILANG di kontrak
-            $table->string('estimatedTime');
-            $table->integer('approvalStatus');
+            $table->integer('estimatedTime');
+            $table->integer('approvalStatus')->defaut(0);
             $table->string('projectAddress');
+<<<<<<< HEAD
             $table->boolean('isLPJExist')->default(false);
+=======
+            $table->boolean('isLPJExist')->defaut(false);
+>>>>>>> 4cb3a86ab771332caf9d2076c1f202da89d7225d
             
 
             $table->bigInteger('pengguna_id')->unsigned();

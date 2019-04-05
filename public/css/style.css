@@ -1,108 +1,241 @@
-.wrapper {
-    display: flex;
-    width: 100%;
-    align-items: stretch;
-}
-.wrapper {
-    display: flex;
-    align-items: stretch;
+@font-face{
+    font-family: 'Roboto-Reg', sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
+@font-face{
+    font-family: 'Roboto-Medium', sans-serif;
+    font-weight: 500;
+    font-style: normal;
 }
 
-#sidebar.active {
-    margin-left: -250px;
-}
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    min-height: 100vh;
-}
-a[data-toggle="collapse"] {
-    position: relative;
+@font-face{
+    font-family: 'Roboto-Bold', sans-serif;
+    font-weight: 550;
+    font-style: normal;
 }
 
-.dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-}
-@media (max-width: 1400px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-}
-/*
-    ADDITIONAL DEMO STYLE, NOT IMPORTANT TO MAKE THINGS WORK BUT TO MAKE IT A BIT NICER :)
-*/
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background: #fafafa;
+body{
+    margin-bottom:120px;
+    margin-top: 80px;
+    background-color: #DFEFFF;
+    background-image: url("../img/wave.svg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: right bottom;
+    background-size: 100%;
 }
 
-p {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.1em;
-    font-weight: 300;
-    line-height: 1.7em;
-    color: #999;
+.bg-blue {
+    background-color: #DFEFFF;
 }
 
-a, a:hover, a:focus {
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-#sidebar {
-    /* don't forget to add all the previously mentioned styles here too */
-    background: #e4e5e6;
-    color: #fff;
-    transition: all 0.3s;
-}
-
-#sidebar .sidebar-header {
-    padding: 20px;
-    background: #000000;
-}
-
-#sidebar ul.components {
-    padding: 20px 0;
-    border-bottom: 1px solid #47748b;
-}
-
-#sidebar ul p {
-    color: rgb(0, 0, 0);
-    padding: 10px;
-}
-
-#sidebar ul li a {
-    padding: 10px;
-    font-size: 1.1em;
-    display: block;
-}
-#sidebar ul li a:hover {
-    color: #7386D5;
+.card {
     background: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.07);
+    border-radius: 10px;
+  }
+  
+.card-main {
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 900px;
+    height: 700px;
+}
+.card-detail-proyek {
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 900px;
+    height: 530px;
 }
 
-#sidebar ul li.active > a, a[aria-expanded="true"] {
-    color: rgb(0, 0, 0);
-    background: #e4e5e6;
+.card-info {
+    width: 500px;
+    height: 250px;
 }
-ul ul a {
-    font-size: 0.9em !important;
-    padding-left: 30px !important;
-    background: #e4e5e6;
+
+.card-pm {
+    width: 260px;
+    height: 250px;
+    margin-left: 30px;
 }
+
+.card-button {
+    width: 250px;
+    height: 50px;
+    margin: 12px;
+
+}
+.card-proyek-list {
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 900px;
+    height: 300px;
+}
+
+.ketengahin {
+margin-left: 20px;;
+
+}
+
+.breadcrumb {
+    background-color: #DFEFFF;
+    width: 900px;
+    margin: 0 auto;
+}
+
+.breadcrumb > li + li:before {
+    color: #606060;
+    content: " > ";
+    padding: 0 5px;
+}
+
+.landing-image-direksi {
+   width: 400px;
+   margin: 0 auto;
+   vertical-align: center;
+}
+
+ul{
+    margin-left: -8px;
+    margin-top: 15px;
+}
+
+li {
+    list-style:none;
+    margin-top:-5px;
+    margin-bottom:-5px;
+}
+
+
+.judul {
+    padding-left: 30px;
+    padding-top: 20px;
+    margin-bottom: 5px;
+}
+
+.font-title {
+    font-family: 'Roboto-Bold';
+    font-size: 24px;
+    color: #606060;
+    vertical-align: center;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.font-subtitle-1 {
+	font-family: 'Roboto-Bold';
+    font-size: 20px;
+    text-align: center;
+    color: #606060;
+}
+
+.font-subtitle-2 {
+	font-family: 'Roboto-Bold';
+    font-size: 20px;
+    color: #606060;
+    padding-left: 40px;
+}
+
+.font-subtitle-3 {
+    font-family: 'Roboto-Medium';
+    font-size: 20px;
+    text-align: center;
+    color: #606060;
+}
+
+.font-subtitle-4 {
+    font-family: 'Roboto-Medium';
+    font-size: 16px;
+    color: #606060;
+}
+
+.font-subtitle-5 {
+    font-family: 'Roboto-Medium';
+    font-size: 16px;
+    color: #606060;
+    text-align:center;
+}
+
+.font-status-approval {
+    font-family: 'Roboto-Medium';
+    font-size: 13px;
+    color: #606060;
+}
+
+.font-desc {
+	font-family: 'Roboto-Reg', sans-serif;
+	font-size: 12px;
+    color: #606060;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.font-button-berkas {
+    font-family: 'Roboto-Medium';
+    font-size: 16px;
+    text-align:center;
+    margin-top: 15px;
+    color: #606060;
+}
+
+.font-button-berkas-inactive {
+    font-family: 'Roboto-Medium';
+    font-size: 16px;
+    text-align:center;
+    margin-top: 15px;
+    color: #b5b5b5;
+}
+
+.font-breadcrumb-inactive {
+	font-family: 'Roboto-Reg', sans-serif;
+	font-size: 15px;
+    color: #606060;
+    text-justify: inter-word;
+}
+
+.font-breadcrumb-active {
+	font-family: 'Roboto-Medium', sans-serif;
+	font-size: 15px;
+    color: rgb(40, 119, 198);;
+    text-justify: inter-word;
+}
+
+.font-desc-bold {
+	font-family: 'Roboto-Medium', sans-serif;
+	font-size: 12px;
+    color: #606060;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.font-approval {
+    font-family: 'Roboto-Medium', sans-serif;
+    font-size: 14px;
+
+}
+
+.navbar{
+    background-color: #ffffff;
+}
+
+.navbar-logo-trayek{
+    margin-top: 2px;
+    margin-bottom:-2px;
+    margin-left: 1px;
+}
+
+.font-nav {
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+    color: #606060;
+    margin-top:5px;
+}
+
+.font-nav-logo {
+	font-family: 'Roboto-Bold', sans-serif;
+	font-size: 18px; 
+    color: rgb(40, 119, 198);
+}
+

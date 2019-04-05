@@ -31,13 +31,6 @@ class CreateAssignmentsTable extends Migration
             ->onUpdate('cascade')
             ->onDelete('cascade');
 
-            $table->bigInteger('kemajuan_id')->unsigned();
-            $table->foreign('kemajuan_id')
-            ->references('id')
-            ->on('kemajuan_proyeks')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
-
             $table->timestamps();
         });
     }

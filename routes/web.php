@@ -14,6 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/home', function () { 
+    return view('landing');
+});
+
 Route::get('/luthfi', function () {
     $proyek = App\Proyek::find(1);
 //    $kelengkapanLelang = App\KelengkapanLelang::table('proyeks')
@@ -24,8 +29,12 @@ Route::get('/luthfi', function () {
     //return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
 });
 
-Route::get('/kemajuanProyek', 'ProyekController@viewAll');
-Route::get('/viewproyek', 'ProyekController@view');
+Route::get('/proyek', 'ProyekController@index');
+Route::get('/proyek/lihat/{id}', 'ProyekController@show');
+
+//Route::get('/proyek/{id}', 'ProyekController@viewDetailProyek')->name('detail-proyek');
+//Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');
+Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
 Route::get('/kelolaLelang/{proyek_id}', 'KelengkapanLelangController@kelolaBerkas');
 Route::get('/getBerkas/{id}', 'KelengkapanLelangController@getBerkas');
 Route::get('file/upload/{proyek_id}', 'KelengkapanLelangController@form');
@@ -34,39 +43,3 @@ Route::get('file/{file}/download', 'KelengkapanLelangController@downloadKelengka
 Route::get('file/{file}/response', 'KelengkapanLelangController@responseKelengkapanLelang')->name('file.response');
 Route::get('file/{file}/delete', 'KelengkapanLelangController@deleteKelengkapanLelang');
 Route::get('generate-pdf','KelengkapanLelangController@generatePDF');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//Route::get('/kemajuanProyek', 'ProyekController@viewAll');
-//
-//Route::get('/proyek/view', 'ProyekController@view');
-//
-//Route::get('/proyek/view/kelolaLelang/{proyek_id}', 'KelengkapanLelang@kelolaBerkas');
-//
-////Route::post(
-////Route::get('kelengkapanLelang', 'KelengkapanLelangController@view');
-////Route::post('/proyek/lelang/view', 'ProyekController@getDataProyek')->name('detailProyek.store');
-//
-//
-//Route::get('/kelolaLelang', 'KelengkapanLelangController@testkontroller');
-
-//};
-//
-//Route::get('/uc03-viewProyek', function () {
-//    return view('viewProyek');
