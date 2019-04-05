@@ -23,7 +23,11 @@ class CreateProyeksTable extends Migration
             $table->text('description');
             $table->integer('projectValue'); //ToDo digunakan menjadi angka TERBILANG di kontrak
             $table->integer('estimatedTime');
+<<<<<<< HEAD
             $table->integer('approvalStatus')->defaut(0);
+=======
+            $table->integer('approvalStatus')->default(0);
+>>>>>>> momo
             $table->string('projectAddress');
             $table->boolean('isLPJExist')->defaut(false);
             
