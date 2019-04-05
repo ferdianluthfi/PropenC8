@@ -1,6 +1,5 @@
 @extends('layouts.layout')
 
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -17,19 +16,17 @@
 	
 </head>
 
-<body>
 @section ('content')
 @include('layouts.nav')
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
-			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="#">Tambah Proyek Pot</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="#">Tambah Proyek Potensial</a></li>
 		</ol>
 	</nav>
 
 	<div class="container" nonvalidate="nonvalidate" id="jqueryvalidation">
-
 		@if(session()->has('flash_message'))
 			<p>{{session('flash_message')}}</p>
 		@endif
@@ -43,43 +40,36 @@
 						<input class="inputs" type="text" name="name" placeholder="Masukkan Nama" data-error=".errorName">
 						<div class="errorMessage errorName"></div>
 			</div>
-
 			<div class="content bg1">
 						<span class="labels">Nama Proyek</span>
 						<input class="inputs" type="text" name="projectName" placeholder="Masukkan Nama Proyek" data-error=".errorProjectName">
 						<div class="errorMessage errorProjectName"></div>
 			</div>
-
 			<div class="content bg1" >
 						<span class="labels">Nama Perusahaan</span>
 						<input class="inputs" type="text" name="companyName" placeholder="Masukkan Nama Perusahaan" data-error=".errorCompanyName">
 						<div class="errorMessage errorCompanyName"></div>
 			</div>
-
 			<div class="content bg1" >
 						<span class="labels">Deskripsi</span>
 						<textarea class="inputs" type="text" name="description" placeholder="Penjelasan Proyek" style="height:150px" data-error=".errorDescription"></textarea>
 						<div class="errorMessage errorDescription"></div>
 			</div>
-
 			<div class="content bg1" >
 						<span class="labels">Nilai Proyek</span>
 						<input class="inputs" type="number" name="projectValue" placeholder="50.000.000" data-error=".errorValue">
 						<div class="errorMessage errorValue"></div>
 			</div>
-
 			<div class="content bg1" >
 						<span class="labels">Estimasi Waktu Pengerjaan</span>
 						<input class="inputs" type="number" name="estimatedTime" placeholder="120 (Hari)" data-error=".errorTime">
 						<div class="errorMessage errorTime"></div>
 			</div>
-
 			<div class="content bg1" >
 						<span class="labels">Alamat Proyek</span>
 						<textarea class="inputs" type="text" name="projectAddress" placeholder="Masukkan Alamat Proyek" data-error=".errorProjectAdd"></textarea>
 						<div class="errorMessage errorProjectAdd"></div>
 			</div>
-
 			<div class="container1-btn">
 					<a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
 						<span>
@@ -88,7 +78,6 @@
 						</span>
 					</a>
 			</div>
-			
 			<div class="container-btn">
 					<button class="container-form-btn" id="simpan">
 							<span>
@@ -224,5 +213,5 @@
   	});
 	</script>
 @endsection
-</body>	
+
 </html>

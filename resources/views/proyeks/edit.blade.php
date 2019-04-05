@@ -1,6 +1,5 @@
 @extends('layouts.layout')
 
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -16,7 +15,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
-<body>
 @section ('content')
 @include('layouts.nav')
 	<div class="container container-basic" nonvalidate="nonvalidate" id="jqueryvalidation">
@@ -30,7 +28,7 @@
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
-			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek', $id) }}">Ubah Data Proyek {{ $proyek->projectName }}</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href= "/proyek/ubah/{{ $proyek->id }}">Ubah Data Proyek {{ $proyek->projectName }}</a></li>
 		</ol>
 		</nav>
 		<form action="/proyek/update" method="post" id="editForm">
@@ -103,7 +101,6 @@
 		@endforeach
 	</div>
 	
-	<!-- <div class="modal fade" id="myModal" role="dialog"> -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 		<!-- Modal content-->
@@ -133,7 +130,6 @@
 					<h4 class="modal-title" style="text-align:center;">Sukses!</h4>	
 				</div>
 				<div class="modal-body text-center">
-					<!-- <img src="https://www.flaticon.com/free-icon/checked_291201#term=success&page=1&position=1" class="img-responsive"> -->
 					<p class="text-center">Data proyek berhasil diubah</p>
 				</div>
 				<div class="modal-footer">
@@ -233,5 +229,4 @@
 	</script>
 @endsection
 
-</body>	
 </html>

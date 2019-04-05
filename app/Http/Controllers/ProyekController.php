@@ -118,6 +118,9 @@ class ProyekController extends Controller
         
         foreach($proyeks as $proyeg){
             $statusNum = $proyeg-> approvalStatus;
+            $temp = number_format(10000, 2, ',','.');
+            $proyeg->projectValue = $temp;
+
             if($statusNum == 0){
                 $status = "Menunggu Persetujuan";
             }

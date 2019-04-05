@@ -1,32 +1,23 @@
 @extends('layouts.layout')
 
-<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>TRAYEK</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" >
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css') }}" >
-	<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type=""> -->
-	
-	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" type=""> -->
+
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="">
 	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 </head>
 
-<body>
 @section ('content')
 @include('layouts.nav')
-	<nav aria-label="breadcrumb">
+	<nav aria-label="breadcrumb" style="margin-left:10px;">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
@@ -49,23 +40,19 @@
 					<div class="col-md-3">
 						<a href="/proyek/tambah">
 							<div class="add-project">
-								<center><img src="https://image.flaticon.com/icons/svg/109/109526.svg"   style="width:70px;height:100px;"><center>
-								<p style="font-size:14pt; font-weight:bolder;"> Tambah Proyek </p>
+								<center><img src="https://image.flaticon.com/icons/svg/660/660529.svg"   style="width:70px;height:100px;color:blue;"><center>
+								<p style="font-size:14pt; font-weight:bolder; color:dodgerblue;"> Tambah Proyek </p>
 							</div>
 						</a>
 					</div>
 					<div class="col-md-9">
 						<div class="your-class">
 							@foreach($proyekPoten as $proyeks)
-								<!-- @if($proyeks->approvalStatus == 0) -->
 								<div class="col-md-6 project">
-									<!-- <a href="/proyek/lihat/{{$proyeks->id}}"> -->
-										<center class="turncate"><a href="/proyek/lihat/{{$proyeks->id}}" style="font-size:12pt; font-weight:bolder;">{{ $proyeks->projectName }}</a><center>
-										<center class="turncate">{{ $proyeks->companyName }}<center>
+										<center class="turncate"><a href="/proyek/lihat/{{$proyeks->id}}" style="font-size:14pt; font-weight:bolder;">{{ $proyeks->projectName }}</a><center>
+										<center class="turncate" style="font-size:12pt;">{{ $proyeks->companyName }}<center>
 										<center><a class="btn btn-primary" href="/proyek/ubah/{{ $proyeks->id }}" style="font-size:8pt; font-weight:bolder;">Ubah</a> | <a class="btn btn-primary" href="/proyek/hapus/{{ $proyeks->id }}" style="font-size:8pt; font-weight:bolder;">Hapus</a><center>
-									<!-- </a> -->
 								</div>
-								<!-- @endif -->
 							@endforeach
 						</div>
 					</div>
@@ -77,25 +64,26 @@
 			<div class="col-md-12">
 				<h2 style="text-align:center;">Riwayat Proyek Potensial</h2><br>
 				<div class="card-table">
-					<div class="panel-body">
-						<table id="datatable">
+					<div class="panel-body" style="text-align:center;">
+						<table id="datatable" class="table table-striped table-bordered text-center">
 							<thead>
-								<tr class="title">
-									<th>Nama Proyek</th>
-									<th>Status</th>
-									<th>Waktu</th>
+								<tr class="title" >
+									<th><center>Nama Proyek</th>
+									<th><center>Waktu</th>
+									<th><center>Status</th>
+									<th><center>Lihat Proyek</th>
 								</tr>
 							</thead>
 							<tbody >
 							@foreach($proyekNonPoten as $proyeks)
-									<tr style="background-color: aliceblue;">
-										<td><a href="/proyek/lihat/{{ $proyeks->id }}">{{ $proyeks->projectName }}</a></td>
-										@if($proyeks->approvalStatus === 1) <td> Disetujui Direksi </td>
-										@else	<td> Ditolak </td>
-										@endif
-										
-										<td>{{ $proyeks->created_at }}</td>
-									</tr>
+								<tr style="background-color: whitesmoke;">
+									<td>{{ $proyeks->projectName }}</td>
+									<td>{{ $proyeks->created_at }}</td>
+									@if($proyeks->approvalStatus === 1) <td style="color:limegreen; font-weight:bold;"> DISETUJUI</td>
+									@else <td style="color:red; font-weight:bold;"> DITOLAK </td>
+									@endif
+									<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+								</tr>
 							@endforeach
 							</tbody>
 						</table>
@@ -127,5 +115,5 @@
 	});
 	</script>
 @endsection
-</body>	
+
 </html>
