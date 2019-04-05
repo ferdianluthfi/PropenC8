@@ -41,8 +41,9 @@ body{
     margin: 0 auto;
     margin-top: 20px;
     width: 900px;
-    height: 700px;
+    min-height: 700px;
 }
+
 .card-detail-proyek {
     margin: 0 auto;
     margin-top: 20px;
@@ -75,7 +76,7 @@ body{
 }
 
 .ketengahin {
-margin-left: 20px;;
+margin-left: 20px;
 
 }
 

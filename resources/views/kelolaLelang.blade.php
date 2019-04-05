@@ -189,6 +189,7 @@
             <a href="/file/upload/{{ $proyek->id }}" class="btn btn-primary">Upload File</a>
         </p>
     </div>
+</div>
 
 
             <!-- <tr>
@@ -211,10 +212,6 @@
                     <button>Tambah Berkas</button>
                 </th>
             </tr> -->
-
-
-    <br>
-    <br>
 
 </body>
 </html>
