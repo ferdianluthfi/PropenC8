@@ -15,8 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () { 
-    return view('landing');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return view('home');
+   });
 });
 
 /**
@@ -36,3 +38,9 @@ Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detai
  * routing untuk kemajuan proyek
  */
 Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
+
+/**
+ * routing untuk home dan landing
+ */
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
