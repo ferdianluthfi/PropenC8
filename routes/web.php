@@ -36,10 +36,9 @@ Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
 Route::get('/proyek/setujuiProyek/{id}', 'ProyekController@approveProjectDetail');
 Route::post('/proyek/setujuiProyek/setuju/{id}', 'ProyekController@approveProject');
 Route::post('/proyek/setujuiProyek/tolak/{id}', 'ProyekController@rejectProject');
-Route::get('/proyek/daftarProyek', 'ProyekController@viewAllProject');
+Route::get('/proyek/', 'ProyekController@viewAllProject');
 Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutApprove');
-Route::get('/proyek/kontrak/lihatKontrak/{idProyek}, ');
-
+Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@viewKontrakz');
 // Route::get('/proyek', 'ProyekController@viewAll')->name('view-all-proyek');
 // Route::get('/proyek/{id}', 'ProyekController@viewDetailProyek')->name('detail-proyek');
 // Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');

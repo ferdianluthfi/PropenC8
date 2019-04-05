@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Kontrak;
+Use App\Proyek;
 use Illuminate\Support\Facades\DB;
 
 class KontrakController extends Controller
 {
     
     public function viewKontrakz($id){
-        $kontrak = DB::table('kontraks')->select('*')->get();
-        return view('viewKontrak', compact('kontrak'));
+        $kontrak = DB::table('kontraks')->select('*')->where('proyek_id', $id)->first();
+        $proyek = DB::table('proyeks')->select('*')->where('id', $id)->first();
+        return view('viewKontrak', compact('kontrak', 'proyek'));
+        
+        
     }
  
     // public function viewKontrak($id){

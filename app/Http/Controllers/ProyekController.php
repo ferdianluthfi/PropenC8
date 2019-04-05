@@ -64,23 +64,22 @@ class ProyekController extends Controller
     }
 
     public function projectDetailWithoutApprove($id){
-        $proyek = DB::table('proyeks') -> where('id', $id) -> get();
+        $proyek = DB::table('proyeks') ->select('*') -> where('id', $id) -> get()->first();
         $status;
-        foreach($proyek as $proyeks){
-            $statusNum = $proyeks-> approvalStatus;
-            if($statusNum == 0){
-                $status = "Menunggu Persetujuan";
-            }
-            elseif($statusNum == 1){
-                $status = "Disetujui Direksi";
-            }
-            elseif($statusNum == 2){
-                $status = "Sedang Berjalan";
-            }
-            elseif($statusNum == 3){
-                $status = "Ditolak";
-            }
-        }        
+        $statusNum = $proyek-> approvalStatus;
+        if($statusNum == 0){
+            $status = "Menunggu Persetujuan";
+        }
+        elseif($statusNum == 1){
+            $status = "Disetujui Direksi";
+        }
+        elseif($statusNum == 2){
+            $status = "Sedang Berjalan";
+        }
+        elseif($statusNum == 3){
+            $status = "Ditolak";
+        }
+            
         return view('projectDetail', compact('proyek', 'status'));
     }
 
@@ -89,14 +88,14 @@ class ProyekController extends Controller
         $proyekz = DB::table('proyeks')
             ->where('id', $id)
             ->update(['approvalStatus' => 1]);
-        return redirect('/proyek/daftarProyek');
+        return redirect('/proyek');
     }
 
     public function rejectProject($id){
         $proyekw = DB::table('proyeks')
             ->where('id', $id)
             ->update(['approvalStatus' => 3]);
-        return redirect('/proyek/daftarProyek');
+        return redirect('/proyek');
     }
     // public function viewDetailProyek($id){
     //     $proyek = Proyek::where('id', $id)->first();

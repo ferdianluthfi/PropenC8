@@ -1,32 +1,85 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Detail Proyek</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
-    <script src="main.js"></script>
-    <h1>Detail Proyek</h1>
-</head>
-<body>
-<!-- Jangan lupa ganti variabel pnya karena jelek -->
-    <h1>Detail Informasi Proyek Perangkat Lunak</h1>
-    <h3>Infomasi Umum<h3>
-    <p>{{$status}}</p>
-    @foreach($proyek as $p)    
-    <p>Staff Marketing   : {{ $p->name }}</p> 
-    <p>Nama Proyek       : {{ $p->projectName }}</p>
-    <p>Nama Perusahaan   : {{ $p->companyName }}</p> 
-    <p>Alamat Proyek     : {{ $p->projectAddress }}</p> 
-    <p>Deskripsi Proyek  : {{ $p->description }}</p> 
-    <p>Nilai Proyek      : Rp {{ $p->projectValue }},-</p> 
-    <p>Data Proyek       :</p>  
-    <a href="">Berkas Kontrak</a>
-    <a href="">LAPJUSIK</a>
-    <a href="">LPJ</a>
+@extends('layouts.layout')
+
+@section ('content')
+@include('layouts.nav')
+
+<!-- Breadcrumbs (ini buat navigation yaa) -->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="/proyek/detailProyek/{{ $proyek->id }}">Detail Proyek {{ $proyek->projectName }}</a></li>
+  </ol>
+</nav>
+
+<!-- isinya -->
+<div class="container-fluid card card-detail-proyek">
     <br>
-    <br>
-    @endforeach 
-</body>
-</html>
+    <p class="font-subtitle-1">Detail Proyek</p>
+    <hr>
+    <div>
+        <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName }}</p>
+        <br>
+        </div>
+    <div class="row ketengahin">
+        <div class="col-sm-7">
+        <div class="card card-info">
+            <div class="row judul">
+                <div class="col-sm-9 font-subtitle-4">Informasi Umum</div>
+                <div class="col-sm-1 font-status-approval">{{ $status }}</div>
+            </div>
+            <div class="row">
+            <div class="col-sm-5 font-desc-bold">
+                <ul>
+                    <li><p>Nama Staf Marketing</p></li>
+                    <li><p>Nama Proyek</p></li>
+                    <li><p>Nama Perusahaan</p></li>
+                    <li><p>Nilai Proyek</p></li>
+                    <li><p>Estimasi Waktu Pengerjaan</p></li>
+                    <li><p>Alamat Proyek</p></li>
+                    <li><p>Deskripsi Proyek</p></li>
+                    <li><p>Nilai Proyek</p></li>
+                </ul>
+            </div>
+            <div class="col-sm-7 font-desc">
+                <li><p>:   {{ $proyek->startDate}}<p></li>
+                <ul>
+                    <li><p>:   {{ $proyek->name}}<p></li>
+                    <li><p>:   {{ $proyek->projectName}}<p></li>
+                    <li><p>:   {{ $proyek->companyName}}<p></li>
+                    <li><p>:   {{ $proyek->endDate}}<p></li>
+                    <li><p>:   {{ $proyek->projectAddress}}<p></li>
+                    <li><p>:   {{ $proyek->description}}<p></li>
+                    <li><p>:   {{ $proyek->projectValue}}<p></li>
+                </ul>
+            </div>
+            </div>
+        </div>  
+        </div>
+        <div class="col-sm-2">
+            <div class="card card-pm">
+                <br>
+                <p class="font-subtitle-5">Project Manager</p>
+            </div>
+        </div>
+
+    </div>
+    <div>
+        <br>
+        <div class="row ketengahin">
+            <a href="/proyek/{{ $proyek->id }}/lihatKontrak"><div class="col-sm-3 card card-button">
+                <p class="font-button-berkas">Berkas Kontrak<p>
+            </div></a>
+            <a href="#"><div class="col-sm-3 card card-button">
+                <p class="font-button-berkas-inactive">LAPJUSIK<p>
+            </div></a>
+            <a href="#"><div class="col-sm-3 card card-button">
+                <p class="font-button-berkas-inactive">LPJ<p>
+            </div></a>
+        </div>
+    </div>
+    
+</div>
+
+
+

@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html>
+@extends ('layouts.layout')
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css') }}" >
 	<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type=""> -->
 	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" type="">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" type=""> -->
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="">
 	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -20,7 +19,6 @@
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 </head>
-<body>
 @section ('content')
 @include('layouts.nav')
 	<nav aria-label="breadcrumb">
@@ -47,15 +45,14 @@
 					<div class="col-md-12">
 						<div class="your-class">
 							@foreach($proyekPoten as $proyeks)
-								<!-- @if($proyeks->approvalStatus == 0) -->
+								
 								<div class="col-md-6 project">
-									<!-- <a href="/proyek/lihat/{{$proyeks->id}}"> -->
+									
 										<center class="turncate"><a href="/proyek/setujuiProyek/{{ $proyeks->id }}" style="font-size:12pt; font-weight:bolder;">{{ $proyeks->projectName }}</a><center>
 										<center class="turncate">{{ $proyeks->companyName }}<center>
-										<!-- <center><a class="btn btn-primary" href="/proyek/ubah/{{ $proyeks->id }}" style="font-size:8pt; font-weight:bolder;">Ubah</a> | <a class="btn btn-primary" href="/proyek/hapus/{{ $proyeks->id }}" style="font-size:8pt; font-weight:bolder;">Hapus</a><center> -->
-									<!-- </a> -->
+										
 								</div>
-								<!-- @endif -->
+							
 							@endforeach
 						</div>
 					</div>
@@ -65,7 +62,7 @@
 		<br>
 		<div class="row bigCard">
 			<div class="col-md-12">
-				<h2 style="text-align:center;">Riwayat Proyek Potensial</h2><br>
+				<h2 style="text-align:center;">Riwayat Proyek</h2><br>
 				<div class="card-table">
 					<div class="panel-body">
 						<table id="datatable">
@@ -117,5 +114,3 @@
 	});
 	</script>
 @endsection
-</body>	
-</html>

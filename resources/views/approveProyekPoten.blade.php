@@ -91,7 +91,7 @@
 					<h4 class="modal-title">SETUJUI!</h4>	
 				</div>
 				<div class="modal-body">
-					<p class="text-center">Your booking has been confirmed. Check your email for detials.</p>
+					<p class="text-center">Proyek potensial berhasil disetujui.</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
@@ -110,7 +110,7 @@
 					<h4 class="modal-title">TOLAK!</h4>	
 				</div>
 				<div class="modal-body">
-					<p class="text-center">Your booking has been confirmed. Check your email for detials.</p>
+					<p class="text-center">Proyek potensial berhasil ditolak</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
