@@ -23,6 +23,9 @@
         <h3 style="text-align:center;">
             {{$proyek['projectName']}}
         </h3>
+        <p style="text-align:center;">
+            {{$proyek['projectKlien']}}
+</p>
         <hr style="background-color:black;"/>
 
         <div id="myProgressDetail" style="display:none;" > 

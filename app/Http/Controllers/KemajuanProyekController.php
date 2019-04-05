@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\KemajuanProyek;
 use App\Proyek;
 use App\Pelaksanaan;
+use App\User;
+
 
 
 class KemajuanProyekController extends Controller
@@ -46,13 +48,15 @@ class KemajuanProyekController extends Controller
                     $sumAdministrasi += $kemajuan['value'];
                 }
             }
+            
             $proyekDetail[] = array(
                 "projectName" => $kemajuan['projectName'],
                 "totalGaji" => $sumGaji,
                 "totalBelanja" => $sumBelanja,
                 "totalAdministrasi" => $sumAdministrasi,
                 "totalKeseluruhan" => $sumGaji + $sumAdministrasi + $sumBelanja,
-                "maxValue" => $kemajuan['projectValue']
+                "maxValue" => $kemajuan['projectValue'],
+                "projectKlien" => $kemajuan['companyName'],
                 
             );
             $proyekPrint[$kemajuan['projectName']] = (($sumGaji + $sumAdministrasi + $sumBelanja) / $kemajuan['projectValue'])*100;
