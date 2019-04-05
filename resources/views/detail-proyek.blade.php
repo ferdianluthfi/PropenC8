@@ -28,7 +28,7 @@
                 <div class="col-sm-9 font-subtitle-4">Informasi Umum</div>
                 <div class="col-sm-1 font-status-approval">DISETUJUI</div>
             </div>
-            <div class="row">
+            <div class="row ketengahin">
             <div class="col-sm-5 font-desc-bold">
                 <ul>
                     <li><p>Nama Staf Marketing</p></li>

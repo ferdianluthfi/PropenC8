@@ -21,15 +21,15 @@ class CreateProyeksTable extends Migration
             $table->date('startDate');
             $table->date('endDate');
             $table->text('description');
-            $table->Biginteger('projectValue'); //ToDo digunakan menjadi angka TERBILANG di kontrak
-            $table->string('estimatedTime');
+            $table->bigInteger('projectValue'); //ToDo digunakan menjadi angka TERBILANG di kontrak
+            $table->integer('estimatedTime');
             /**
              * 0 = Belum di approve
              * 1 = Diterima direksi
              * 2 = Menang lelang
              * 3 = Tolak direksi atau kalah lelang
              */
-            $table->integer('approvalStatus');
+            $table->integer('approvalStatus')->default(0);
             $table->string('projectAddress');
             $table->boolean('isLPJExist')->defaut(false);
             

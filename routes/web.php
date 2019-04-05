@@ -21,19 +21,26 @@ Route::group(['middleware' => 'auth'], function () {
    });
 });
 
+/**
+ * routing untuk proyek
+ */
+Route::get('/proyek', 'ProyekController@index');
+Route::get('/proyek/tambah', 'ProyekController@create');
+Route::post('/proyek/store', 'ProyekController@store');
+Route::post('/proyek/update', 'ProyekController@update');
+Route::get('/proyek/ubah/{id}', 'ProyekController@edit');
+Route::get('/proyek/hapus/{id}', 'ProyekController@destroy');
+Route::get('/proyek/lihat/{id}', 'ProyekController@show');
+Route::get('/proyek/{id}', 'ProyekController@viewDetailProyek')->name('detail-proyek');
+Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');
 
-Route::get('/luthfi', function () {
-    $proyek = App\Proyek::find(1);
-    $kelengkapanLelang = App\KelengkapanLelang::table('proyeks')
-    ->join('proyeks','proyeks.id','=','kelengkapan_lelangs','kelengkapan_lelangs.proyek_id')->where('kelengkapan_lelangs.proyek_id',1)
-    ->get();
-    //$proyek = $kelengkapanLelang->proyek()->where('id', 1)->get();
-    dd($kelengkapanLelang);
-    //return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
-});
-
+/**
+ * routing untuk kemajuan proyek
+ */
 Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
 
+/**
+ * routing untuk home dan landing
+ */
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');

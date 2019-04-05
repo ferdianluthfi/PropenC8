@@ -33,6 +33,12 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
 
             $table->timestamps();
+
+            /**
+             * digunakan di iterasi ke dua
+             */
+            //$table->string('username');
+            //$table->binary('photo');
         });
     }
 

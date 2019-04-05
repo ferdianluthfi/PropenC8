@@ -54,6 +54,11 @@
         </div>
         <button id="messageType" onclick="showAll()" >Tampilkan Lebih Banyak</button>
         
+<<<<<<< HEAD
+    </ul>
+</body>
+</html>
+=======
     </div>
     @endforeach
 
@@ -78,3 +83,4 @@
         }
     </script>
 @endsection
+>>>>>>> luthfi
