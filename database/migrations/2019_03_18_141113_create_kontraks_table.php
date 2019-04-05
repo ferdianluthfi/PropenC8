@@ -37,7 +37,7 @@ class CreateKontraksTable extends Migration
             $table->bigInteger('pengguna_id')->unsigned();
             $table->foreign('pengguna_id')
             ->references('id')
-            ->on('penggunas')
+            ->on('users')
             ->onUpdate('cascade')
             ->onDelete('cascade');
 

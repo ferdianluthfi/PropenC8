@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section ('content')
-@include('layouts.nav') 
+@include('layouts.nav')
 
 <!-- Breadcrumbs (ini buat navigation yaa) -->
 <nav aria-label="breadcrumb ">
