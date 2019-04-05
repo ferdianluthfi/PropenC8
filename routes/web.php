@@ -17,6 +17,11 @@ Route::get('/', function () {
     $proyeg = Proyek::select('*')->where('id',1)->get();
     return $proyeg;
 });
+
+Route::get('/home', function () { 
+    return view('landing');
+});
+
 Route::get('/luthfi', function () {
     $proyek = App\Proyek::find(1);
     $kelengkapanLelang = App\KelengkapanLelang::table('proyeks')
@@ -34,3 +39,10 @@ Route::post('/proyek/setujuiProyek/tolak/{id}', 'ProyekController@rejectProject'
 Route::get('/proyek/daftarProyek', 'ProyekController@viewAllProject');
 Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutApprove');
 Route::get('/proyek/kontrak/lihatKontrak/{idProyek}, ');
+
+// Route::get('/proyek', 'ProyekController@viewAll')->name('view-all-proyek');
+// Route::get('/proyek/{id}', 'ProyekController@viewDetailProyek')->name('detail-proyek');
+// Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');
+
+
+// Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
