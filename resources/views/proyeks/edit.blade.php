@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@extends('layouts.layout')
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -12,92 +13,94 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<body>
-	<div class="bg-grey">-
-		<div class="container container-basic" nonvalidate="nonvalidate" id="jqueryvalidation">
+@section ('content')
+@include('layouts.nav')
+	<div class="container container-basic" nonvalidate="nonvalidate" id="jqueryvalidation">
 
-			@if(session()->has('flash_message'))
-				<p>{{session('flash_message')}}</p>
-			@endif
+		@if(session()->has('flash_message'))
+			<p>{{session('flash_message')}}</p>
+		@endif
 
-			<h3><a href="/proyek/"> Proyek > Ubah Proyek </a></h3>
-			@foreach($proyeks as $proyek)
-			<form action="/proyek/update" method="post" id="editForm">
-				
-				<h1 style="text-align:center;">Ubah Proyek Potensial</h1>
-				{{ csrf_field() }}
-
-				<input type="hidden" name="id" value="{{ $proyek->id }}"> <br/>
+		@foreach($proyeks as $proyek)
+		<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href= "/proyek/ubah/{{ $proyek->id }}">Ubah Data Proyek {{ $proyek->projectName }}</a></li>
+		</ol>
+		</nav>
+		<form action="/proyek/update" method="post" id="editForm">
 			
-				<div class="content bg1">
-							<span class="labels">Nama Staf Marketing</span>
-							<input class="inputs" type="text" name="name" value="{{ $proyek->name }}" data-error=".errorName">
-							<div class="errorMessage errorName"></div>
-				</div>
+			<h1 style="text-align:center;">Ubah Proyek Potensial</h1>
+			{{ csrf_field() }}
 
-				<div class="content bg1">
-							<span class="labels">Nama Proyek</span>
-							<input class="inputs" type="text" name="projectName" value="{{ $proyek->projectName }}" data-error=".errorProjectName">
-							<div class="errorMessage errorProjectName"></div>
-				</div>
+			<input type="hidden" name="id" value="{{ $proyek->id }}"> <br/>
+		
+			<div class="content bg1">
+						<span class="labels">Nama Staf Marketing</span>
+						<input class="inputs" type="text" name="name" value="{{ $proyek->name }}" data-error=".errorName">
+						<div class="errorMessage errorName"></div>
+			</div>
 
-				<div class="content bg1">
-							<span class="labels">Nama Perusahaan</span>
-							<input class="inputs" type="text" name="companyName" value="{{ $proyek->companyName }}" data-error=".errorCompanyName">
-							<div class="errorMessage errorCompanyName"></div>
-				</div>
+			<div class="content bg1">
+						<span class="labels">Nama Proyek</span>
+						<input class="inputs" type="text" name="projectName" value="{{ $proyek->projectName }}" data-error=".errorProjectName">
+						<div class="errorMessage errorProjectName"></div>
+			</div>
 
-				<div class="content bg1">
-							<span class="labels">Deskripsi</span>
-							<textarea class="inputs" type="text" name="description" style="height:150px" data-error=".errorDescription"> {{ $proyek->description }} </textarea>
-							<div class="errorMessage errorDescription"></div>
-				</div>
+			<div class="content bg1">
+						<span class="labels">Nama Perusahaan</span>
+						<input class="inputs" type="text" name="companyName" value="{{ $proyek->companyName }}" data-error=".errorCompanyName">
+						<div class="errorMessage errorCompanyName"></div>
+			</div>
 
-				<div class="content bg1">
-							<span class="labels">Nilai Proyek</span>
-							<input class="inputs" type="number" name="projectValue" value="{{ $proyek->projectValue }}" data-error=".errorValue">
-							<div class="errorMessage errorValue"></div>
-				</div>
+			<div class="content bg1">
+						<span class="labels">Deskripsi</span>
+						<textarea class="inputs" type="text" name="description" style="height:150px" data-error=".errorDescription"> {{ $proyek->description }} </textarea>
+						<div class="errorMessage errorDescription"></div>
+			</div>
 
-				<div class="content bg1">
-							<span class="labels">Estimasi Waktu Pengerjaan</span>
-							<input class="inputs" type="number" name="estimatedTime" value="{{ $proyek->estimatedTime }}" data-error=".errorTime">
-							<div class="errorMessage errorTime"></div>
-				</div>
+			<div class="content bg1">
+						<span class="labels">Nilai Proyek</span>
+						<input class="inputs" type="number" name="projectValue" value="{{ $proyek->projectValue }}" data-error=".errorValue">
+						<div class="errorMessage errorValue"></div>
+			</div>
 
-				<div class="content bg1">
-							<span class="labels">Alamat Proyek</span>
-							<textarea class="inputs" type="text" name="projectAddress" data-error=".errorProjectAdd"> {{ $proyek->projectAddress }} </textarea>
-							<div class="errorMessage errorProjectAdd"></div>
-				</div>
+			<div class="content bg1">
+						<span class="labels">Estimasi Waktu Pengerjaan</span>
+						<input class="inputs" type="number" name="estimatedTime" value="{{ $proyek->estimatedTime }}" data-error=".errorTime">
+						<div class="errorMessage errorTime"></div>
+			</div>
 
-				<div class="container1-btn">
-						<a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
+			<div class="content bg1">
+						<span class="labels">Alamat Proyek</span>
+						<textarea class="inputs" type="text" name="projectAddress" data-error=".errorProjectAdd"> {{ $proyek->projectAddress }} </textarea>
+						<div class="errorMessage errorProjectAdd"></div>
+			</div>
+
+			<div class="container1-btn">
+					<a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
+						<span>
+							Batal
+							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+						</span>
+					</a>
+			</div>
+				
+			<div class="container-btn">
+					<button class="container-form-btn" id="simpan">
 							<span>
-								Batal
+								Simpan Data
 								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
 							</span>
-						</a>
-				</div>
-					
-				<div class="container-btn">
-						<button class="container-form-btn" id="simpan">
-								<span>
-									Simpan Data
-									<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-								</span>
-						</button>
-				</div>
-			</form>
-			@endforeach
-		</div>
+					</button>
+			</div>
+		</form>
+		@endforeach
 	</div>
 	
-	<!-- <div class="modal fade" id="myModal" role="dialog"> -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 		<!-- Modal content-->
@@ -127,7 +130,6 @@
 					<h4 class="modal-title" style="text-align:center;">Sukses!</h4>	
 				</div>
 				<div class="modal-body text-center">
-					<!-- <img src="https://www.flaticon.com/free-icon/checked_291201#term=success&page=1&position=1" class="img-responsive"> -->
 					<p class="text-center">Data proyek berhasil diubah</p>
 				</div>
 				<div class="modal-footer">
@@ -136,7 +138,11 @@
 			</div>
 		</div>
 	</div>  
+@endsection
 
+@section('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
@@ -221,5 +227,6 @@
 		});
 	});
 	</script>
-</body>	
+@endsection
+
 </html>

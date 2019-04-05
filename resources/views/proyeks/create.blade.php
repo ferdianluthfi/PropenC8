@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@extends('layouts.layout')
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -12,84 +13,80 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 </head>
 
-<body>
-	<div class="bg-grey">
-		<div class="container" nonvalidate="nonvalidate" id="jqueryvalidation">
+@section ('content')
+@include('layouts.nav')
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="#">Tambah Proyek Potensial</a></li>
+		</ol>
+	</nav>
 
-			@if(session()->has('flash_message'))
-				<p>{{session('flash_message')}}</p>
-			@endif
+	<div class="container" nonvalidate="nonvalidate" id="jqueryvalidation">
+		@if(session()->has('flash_message'))
+			<p>{{session('flash_message')}}</p>
+		@endif
 
-			<h3><a href="/proyek/"> Proyek > Tambah Proyek </a></h3>
-			<form action="/proyek/store" method="post" id="addForm">
-				<h1 style="text-align:center;">Tambah Proyek Potensial</h1><br>
-				{{ csrf_field() }}
-			
-				<div class="content bg1">
-							<span class="labels">Nama Staf Marketing</span>
-							<input class="inputs" type="text" name="name" placeholder="Masukkan Nama" data-error=".errorName">
-							<div class="errorMessage errorName"></div>
-				</div>
-
-				<div class="content bg1">
-							<span class="labels">Nama Proyek</span>
-							<input class="inputs" type="text" name="projectName" placeholder="Masukkan Nama Proyek" data-error=".errorProjectName">
-							<div class="errorMessage errorProjectName"></div>
-				</div>
-
-				<div class="content bg1" >
-							<span class="labels">Nama Perusahaan</span>
-							<input class="inputs" type="text" name="companyName" placeholder="Masukkan Nama Perusahaan" data-error=".errorCompanyName">
-							<div class="errorMessage errorCompanyName"></div>
-				</div>
-
-				<div class="content bg1" >
-							<span class="labels">Deskripsi</span>
-							<textarea class="inputs" type="text" name="description" placeholder="Penjelasan Proyek" style="height:150px" data-error=".errorDescription"></textarea>
-							<div class="errorMessage errorDescription"></div>
-				</div>
-
-				<div class="content bg1" >
-							<span class="labels">Nilai Proyek</span>
-							<input class="inputs" type="number" name="projectValue" placeholder="50.000.000" data-error=".errorValue">
-							<div class="errorMessage errorValue"></div>
-				</div>
-
-				<div class="content bg1" >
-							<span class="labels">Estimasi Waktu Pengerjaan</span>
-							<input class="inputs" type="number" name="estimatedTime" placeholder="120 (Hari)" data-error=".errorTime">
-							<div class="errorMessage errorTime"></div>
-				</div>
-
-				<div class="content bg1" >
-							<span class="labels">Alamat Proyek</span>
-							<textarea class="inputs" type="text" name="projectAddress" placeholder="Masukkan Alamat Proyek" data-error=".errorProjectAdd"></textarea>
-							<div class="errorMessage errorProjectAdd"></div>
-				</div>
-
-				<div class="container1-btn">
-						<a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
+		<form action="/proyek/store" method="post" id="addForm">
+			<h1 style="text-align:center;">Tambah Proyek Potensial</h1><br>
+			{{ csrf_field() }}
+		
+			<div class="content bg1">
+						<span class="labels">Nama Staf Marketing</span>
+						<input class="inputs" type="text" name="name" placeholder="Masukkan Nama" data-error=".errorName">
+						<div class="errorMessage errorName"></div>
+			</div>
+			<div class="content bg1">
+						<span class="labels">Nama Proyek</span>
+						<input class="inputs" type="text" name="projectName" placeholder="Masukkan Nama Proyek" data-error=".errorProjectName">
+						<div class="errorMessage errorProjectName"></div>
+			</div>
+			<div class="content bg1" >
+						<span class="labels">Nama Perusahaan</span>
+						<input class="inputs" type="text" name="companyName" placeholder="Masukkan Nama Perusahaan" data-error=".errorCompanyName">
+						<div class="errorMessage errorCompanyName"></div>
+			</div>
+			<div class="content bg1" >
+						<span class="labels">Deskripsi</span>
+						<textarea class="inputs" type="text" name="description" placeholder="Penjelasan Proyek" style="height:150px" data-error=".errorDescription"></textarea>
+						<div class="errorMessage errorDescription"></div>
+			</div>
+			<div class="content bg1" >
+						<span class="labels">Nilai Proyek</span>
+						<input class="inputs" type="number" name="projectValue" placeholder="50.000.000" data-error=".errorValue">
+						<div class="errorMessage errorValue"></div>
+			</div>
+			<div class="content bg1" >
+						<span class="labels">Estimasi Waktu Pengerjaan</span>
+						<input class="inputs" type="number" name="estimatedTime" placeholder="120 (Hari)" data-error=".errorTime">
+						<div class="errorMessage errorTime"></div>
+			</div>
+			<div class="content bg1" >
+						<span class="labels">Alamat Proyek</span>
+						<textarea class="inputs" type="text" name="projectAddress" placeholder="Masukkan Alamat Proyek" data-error=".errorProjectAdd"></textarea>
+						<div class="errorMessage errorProjectAdd"></div>
+			</div>
+			<div class="container1-btn">
+					<a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
+						<span>
+							Batal
+							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+						</span>
+					</a>
+			</div>
+			<div class="container-btn">
+					<button class="container-form-btn" id="simpan">
 							<span>
-								Batal
+								Simpan Data
 								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
 							</span>
-						</a>
-				</div>
-				
-				<div class="container-btn">
-						<button class="container-form-btn" id="simpan">
-								<span>
-									Simpan Data
-									<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-								</span>
-						</button>
-				</div>
-			</form>
-		</div>
+					</button>
+			</div>
+		</form>
 	</div>
 
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -126,7 +123,11 @@
 			</div>
 		</div>
 	</div>     
+@endsection
 
+@section('scripts')
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
@@ -211,5 +212,6 @@
 		});
   	});
 	</script>
-</body>	
+@endsection
+
 </html>

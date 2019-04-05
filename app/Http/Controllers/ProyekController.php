@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Proyek;
 
 class ProyekController extends Controller
 {
@@ -35,11 +36,11 @@ class ProyekController extends Controller
             $proyeg->created_at = $temp[2] . "-" . $temp[1] . "-" . $temp[0];
 
             if($statusNum == 1){
-                $status = "Disetujui Direksi";
+                $status = "DISETUJUI";
             }elseif($statusNum == 2){
                 $status = "Sedang Berjalan";
             }else{
-                $status = "Ditolak";
+                $status = "DITOLAK";
             }
         }
        
@@ -115,22 +116,26 @@ class ProyekController extends Controller
     {
         $proyeks = DB::table('proyeks') -> where('id', $id) -> get();
         $status;
+        
         foreach($proyeks as $proyeg){
             $statusNum = $proyeg-> approvalStatus;
+            $temp = number_format(10000, 2, ',','.');
+            $proyeg->projectValue = $temp;
+
             if($statusNum == 0){
                 $status = "Menunggu Persetujuan";
             }
             elseif($statusNum == 1){
-                $status = "Disetujui Direksi";
+                $status = "DISETUJUI";
             }
             elseif($statusNum == 2){
                 $status = "Sedang Berjalan";
             }
             elseif($statusNum == 3){
-                $status = "Ditolak";
+                $status = "DITOLAK";
             }
         }        
-        return view('proyeks/show',compact('proyeks', 'status'));
+        return view('proyeks/show',compact('id', 'proyeks', 'status'));
     }
 
     /**
@@ -143,9 +148,9 @@ class ProyekController extends Controller
     {
         // mengambil data pegawai berdasarkan id yang dipilih
         $proyeks = DB::table('proyeks')->where('id',$id)->get();
-        // return $proyeks;
+  
 	    // passing data pegawai yang didapat ke view edit.blade.php
-	    return view('proyeks/edit',['proyeks' => $proyeks]);
+	    return view('proyeks/edit',["id" => $id, "proyeks" => $proyeks]);
     }
 
     /**
@@ -214,8 +219,6 @@ class ProyekController extends Controller
     public function viewDetailProyek($id){
         $proyek = Proyek::where('id', $id)->first();
         return view('detail-proyek', ["id" => $id, "proyek" => $proyek]);
+        return redirect('/proyek');
     }
-
-
-
 }
