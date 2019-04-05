@@ -15,9 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () { 
-    return view('landing');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return view('home');
+   });
 });
+
 
 Route::get('/luthfi', function () {
     $proyek = App\Proyek::find(1);
@@ -30,9 +33,7 @@ Route::get('/luthfi', function () {
 });
 
 Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
-Route::get('/testGraph', function () {
-    return view('viewSeluruhKemajuan');
-});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

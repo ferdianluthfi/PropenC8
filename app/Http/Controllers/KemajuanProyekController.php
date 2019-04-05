@@ -10,6 +10,11 @@ use App\Pelaksanaan;
 
 class KemajuanProyekController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * method untuk melihat daftar kemajuan seluruh proyek yang sedang berjalan
      */
