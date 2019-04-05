@@ -86,19 +86,20 @@ class KelengkapanLelangController extends Controller
 
     public function generatePDF()
     {
+        $proyek = Proyek::select('proyeks.*')->where('id', '1')->first();
+
         $data = [
-            'title' => 'HEHEHEH BUUNNN alay ksl dekil wle',
-            'projectName' => 'Propensi Bunsyg',
+            'title' => $proyek->id,
+            'projectName' => 'Propensi ',
             'desc' => 'Kopek terus aja bibirnya sampe copot semua ok'
         ];
 
         $pdf = PDF::loadView('template-surat/myPDF', $data);
 
-        $dokumenname = 'Dokumen Bun 1.pdf';
+        $dokumenname = 'Dokumen 1.pdf';
         
         Storage::put($dokumenname, $pdf->output());
 
-        $proyek = Proyek::select('proyeks.*')->where('id', '1')->first();
 
         // $filename = $proyek->projectName . ' - ' . $dokumenname;
 
