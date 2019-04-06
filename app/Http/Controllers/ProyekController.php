@@ -200,6 +200,26 @@ class ProyekController extends Controller
             return redirect('/proyek');
         }
     }
+    public function viewDetailProyek($id){
+        $proyek = Proyek::where('id', $id)->first();
+        $statusHuruf;
+
+        $status = $proyek->approvalStatus; // ini kontrak belum tentu adakan. kalo dia gapunya nanti returnnya null
+        if($status == 0){
+            $statusHuruf = "MENUNGGU PERSETUJUAN";
+        } elseif($status == 1){
+            $statusHuruf = "DISETUJUI";
+        } elseif($status == 2){
+            $statusHuruf = "SEDANG BERJALAN";
+        }elseif($status == 3){
+            $statusHuruf = "DITOLAK";
+        }
+
+        return view('detail-proyek', ["id" => $id, "proyek" => $proyek, "statusHuruf" => $statusHuruf]);
+    }
+
+    
+
 
     /**
      * Remove the specified resource from storage.
@@ -217,9 +237,4 @@ class ProyekController extends Controller
 
     }
 
-    public function viewDetailProyek($id){
-        $proyek = Proyek::where('id', $id)->first();
-        return view('detail-proyek', ["id" => $id, "proyek" => $proyek]);
-        return redirect('/proyek');
-    }
 }

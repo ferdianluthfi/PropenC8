@@ -47,6 +47,7 @@ body{
 .card-detail-proyek {
     margin: 0 auto;
     margin-top: 20px;
+
     width: 900px;
     min-height: 530px;
     margin-bottom:20px;
@@ -63,6 +64,12 @@ body{
     min-height: 250px;
     display: inline-block;
     margin-left: 30px;
+}
+
+.card-kontrak {
+    width:780px;
+    min-height:220px;
+    margin: 0 auto;
 }
 
 .card-button {
@@ -117,6 +124,33 @@ li {
     list-style:none;
     margin-top:-5px;
     margin-bottom:-5px;
+}
+hr{
+    margin:15px;
+}
+
+.button-approve{
+    background-color:#63A2F6;
+    border-radius:10px;
+    width:130px;
+    height:45px;
+    text-align:center;
+    text-decoration: none;
+    display: inline-block;
+    border:none;
+    color:#ffffff;
+}
+
+.button-disapprove{
+    background-color:#fff;
+    border-radius:10px;
+    width:130px;
+    height:45px;
+    text-align:center;
+    text-decoration: none;
+    display: inline-block;
+    border:1.5px solid #63A2F6;
+    color:#63A2F6;
 }
 
 hr {
@@ -625,15 +659,15 @@ iframe {
 .font-breadcrumb-inactive {
 	font-family: 'Roboto-Reg', sans-serif;
 	font-size: 15px;
-  color: rgb(40, 119, 198);
-  text-justify: inter-word;
+    color: rgb(40, 119, 198);
+    text-justify: inter-word;
 }
 
 .font-breadcrumb-active {
 	font-family: 'Roboto-Medium', sans-serif;
 	font-size: 15px;
-  color: #606060;
-  text-justify: inter-word;
+    color: #606060;
+    text-justify: inter-word;
 }
 
 .font-desc-bold {
