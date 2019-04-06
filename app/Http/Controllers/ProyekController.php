@@ -7,6 +7,7 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Proyek;
+//use Config\auth;
 
 class ProyekController extends Controller
 {
@@ -96,7 +97,7 @@ class ProyekController extends Controller
                 'projectAddress' => $request->projectAddress,
                 'approvalStatus' => 0,
                 'isLPJExist'=>0,
-                'pengguna_id'=>3,
+                'pengguna_id'=> \Auth::user()->id,
                 'created_at' => now('GMT+7'),
                 'updated_at' => now('GMT+7'),
             ]); 

@@ -670,19 +670,41 @@ iframe {
 
 #myProgress {
     width: 100%;
-    background-color: #ddd;
+    height:25px;
+    background-color: #fff;
+    border-radius: 25px;
+    border: 1px solid #ddd;
 }
-#myProgressDetail {
+.myProgressDetail {
     width: 100%;
-    background-color: #ddd;
+    background-color: #fff;
+    border-radius: 25px;
+}
+#myProgressDetail-1 {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 25px;
+}#myProgressDetail {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 25px;
+}#myProgressDetail {
+    width: 100%;
+    background-color: rgba(226, 8, 8, 0.651);
+    border-radius: 25px;
 }
 #myBar {
     width: 10%;
-    height: 30px;
-    background-color: #4CAF50;
+    height: 19px;
+    margin-top: 2px;
+    background-color: rgb(40, 119, 198);
     text-align: center;
-    line-height: 30px;
+    line-height: 18px;
     color: white;
+    border-radius: 25px;
+    margin-left: 2px;
+    margin-right: -2px;
+    max-width: 99%;
 }
 .messageType{
     cursor:pointer;
