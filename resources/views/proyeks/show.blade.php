@@ -64,7 +64,7 @@
                             <li><p>:   {{ $proyek->name}}<p></li>
                             <li><p>:   {{ $proyek->projectName}}<p></li>
                             <li><p>:   {{ $proyek->companyName}}<p></li>
-                            <li><p>:   Rp {{ $proyek->projectValue}}<p></li>
+                            <li><p>:   Rp{{ $proyek->projectValue}}<p></li>
                             <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
                             <li><p>:   {{ $proyek->projectAddress}}<p></li>
                             <li><p class="deskripsi" style="margin-bottom:10px;" >: {{ $proyek->description}}<p></li>
