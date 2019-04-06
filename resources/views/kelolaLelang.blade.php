@@ -7,7 +7,7 @@
 <!-- isinya -->
 <div class="container-fluid card card-detail-proyek">
     <br>
-    <p class="font-subtitle-1">Detail Proyek</p>
+    <p class="font-subtitle-1">Rincian Berkas Lelang</p>
     <hr>
     <div>
         <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName }}</p>
@@ -26,7 +26,6 @@
                             <li><p>Nama Staf Marketing</p></li>
                             <li><p>Nama Proyek</p></li>
                             <li><p>Nama Perusahaan</p></li>
-                            <li><p>Nilai Proyek</p></li>
                             <li><p>Estimasi Waktu Pengerjaan</p></li>
                             <li><p>Alamat Proyek</p></li>
                             <li><p>Deskripsi Proyek</p></li>
@@ -38,8 +37,7 @@
                             <li><p>:   {{ $proyek->name}}<p></li>
                             <li><p>:   {{ $proyek->projectName}}<p></li>
                             <li><p>:   {{ $proyek->companyName}}<p></li>
-                            <li><p>:   {{ $proyek->startDate}}<p></li>
-                            <li><p>:   {{ $proyek->endDate}}<p></li>
+                            <li><p>:   {{ $proyek->estimatedTime}}<p></li>
                             <li><p>:   {{ $proyek->projectAddress}}<p></li>
                             <li><p>:   {{ $proyek->description}}<p></li>
                             <li><p>:   {{ $proyek->projectValue}}<p></li>
@@ -185,6 +183,13 @@
             </div>
             @endif
         </div>
+        <p>Tambah Berkas</p>
+        <p>
+            <a href="/generate-pdf/{{ $proyek->id }}" class="btn btn-primary">Surat Penawaran Rekanan</a>
+        </p>
+        <p>
+            <a href="/generate-pdf2{{ $proyek->id }}" class="btn btn-primary">Surat Permohonan Jaminan Bank</a>
+        </p>
         <p>
             <a href="/file/upload/{{ $proyek->id }}" class="btn btn-primary">Upload File</a>
         </p>

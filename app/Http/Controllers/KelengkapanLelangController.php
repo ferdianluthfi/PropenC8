@@ -43,7 +43,7 @@ class KelengkapanLelangController extends Controller
         $path = $uploadedFile->store('public/files');
 
         $proyek = Proyek::select('proyeks.*')->where('id', $request->proyekId)->first();
-
+        $proyek_id = $proyek->id;
         $filename = $proyek->projectName . ' - ' . $request->title;
 
         $file = KelengkapanLelang::create([
@@ -84,12 +84,12 @@ class KelengkapanLelangController extends Controller
         return $this->kelolaBerkas($proyek->id);
     }
 
-    public function generatePDF()
+    public function generatePDF($proyek_id)
     {
-        $proyek = Proyek::select('proyeks.*')->where('id', '1')->first();
+        $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
 
         $data = [
-            'title' => $proyek->id,
+            'title' => $proyek->name,
             'projectName' => 'Propensi ',
             'desc' => 'Kopek terus aja bibirnya sampe copot semua ok'
         ];
@@ -98,6 +98,36 @@ class KelengkapanLelangController extends Controller
 
         $dokumenname = 'Dokumen 1.pdf';
         
+        Storage::put($dokumenname, $pdf->output());
+
+
+        // $filename = $proyek->projectName . ' - ' . $dokumenname;
+
+        // $file = KelengkapanLelang::create([
+        //     'title' => 'Autogenerate pdf',
+        //     'filename' => $filename,
+        //     'ext' => 'pdf',
+        //     'path' => $path,
+        //     'proyek_id' => $proyek->id
+        // ]);
+
+        return $pdf->download('hehehehe.pdf');
+    }
+
+    public function generatePDF2($proyek_id)
+    {
+        $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
+
+        $data = [
+            'title' => $proyek->namaProyek,
+            'projectName' => 'Propensi ',
+            'desc' => 'Kopek terus aja bibirnya sampe copot semua ok'
+        ];
+
+        $pdf = PDF::loadView('template-surat/myPDF', $data);
+
+        $dokumenname = 'Dokumen 2.pdf';
+
         Storage::put($dokumenname, $pdf->output());
 
 

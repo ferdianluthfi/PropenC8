@@ -42,4 +42,5 @@ Route::post('file/upload', 'KelengkapanLelangController@uploadKelengkapanLelang'
 Route::get('file/{file}/download', 'KelengkapanLelangController@downloadKelengkapanLelang')->name('file.download');
 Route::get('file/{file}/response', 'KelengkapanLelangController@responseKelengkapanLelang')->name('file.response');
 Route::get('file/{file}/delete', 'KelengkapanLelangController@deleteKelengkapanLelang');
-Route::get('generate-pdf','KelengkapanLelangController@generatePDF');
+Route::get('generate-pdf/{proyek_id}','KelengkapanLelangController@generatePDF');
+Route::get('generate-pdf2/{proyek_id}','KelengkapanLelangController@generatePDF2');

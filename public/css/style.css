@@ -41,14 +41,14 @@ body{
     margin: 0 auto;
     margin-top: 20px;
     width: 900px;
-    min-height: 700px;
+    height: 700px;
 }
 
 .card-detail-proyek {
     margin: 0 auto;
     margin-top: 20px;
     width: 900px;
-    height: 530px;
+    min-height: 530px;
 }
 
 .card-info {
