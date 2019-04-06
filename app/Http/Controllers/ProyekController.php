@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 // use DB;
+use App\Proyek;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +26,7 @@ class ProyekController extends Controller
             $statusNum = $proyeg-> approvalStatus;
 
             if($statusNum == 0){
-                $status = "Menunggu Persetujuan";
+                $status = "MENUNGGU PERSETUJUAN";
             }
         }
         foreach($proyekNonPoten as $proyeg){
@@ -37,7 +38,7 @@ class ProyekController extends Controller
             if($statusNum == 1){
                 $status = "DISETUJUI";
             }elseif($statusNum == 2){
-                $status = "Sedang Berjalan";
+                $status = "SEDANG BERJALAN";
             }else{
                 $status = "DITOLAK";
             }
@@ -122,13 +123,13 @@ class ProyekController extends Controller
             $proyeg->projectValue = $temp;
 
             if($statusNum == 0){
-                $status = "Menunggu Persetujuan";
+                $status = "MENUNGGU PERSETUJUAN";
             }
             elseif($statusNum == 1){
                 $status = "DISETUJUI";
             }
             elseif($statusNum == 2){
-                $status = "Sedang Berjalan";
+                $status = "SEDANG BERJALAN";
             }
             elseif($statusNum == 3){
                 $status = "DITOLAK";
@@ -212,29 +213,12 @@ class ProyekController extends Controller
 	    DB::table('proyeks')->where('id',$id)->delete();
 		
 	    // alihkan halaman ke halaman proyek
-        return redirect('/proyek');
+	    return redirect('/proyek');
+
     }
 
-    // public function viewAll(){
-    //     $proyeks = Proyek::all();
-    //     $proyekPotensial = $proyeks->filter(function ($proyek){
-    //         return $proyek->approvalStatus == 0;
-    //     });
-        
-    // //     // dd($proyekPotensial);
-    // //     // dd($proyeks);
-
-    // //     //$proyek = Proyek::find(1);
-    // //     //$pengguna = Proyek::select('proyeks.*')->join('penggunas','penggunas.id','=','proyeks.pengguna_id')->where('pengguna_id',1)->get();
-    // //     //dd(Proyek::select('penggunas.name')->join('penggunas','penggunas.id','=','proyeks.pengguna_id')->where('pengguna_id',1)->get());
-    // //     //dd($pengguna);
-    // //     // $penggunas = Pengguna::select('penggunas.*')->where('id',1)->get();
-    // //     // $proyeks = Proyek::select('proyeks.*')->where('isLPJExist',1)->get();
-        
-    //     return view('view-all-proyek', ['proyeks' => $proyeks, 'proyekPotensial' => $proyekPotensial]);
-    // }
-    // public function viewDetailProyek($id){
-    //     $proyek = Proyek::where('id', $id)->first();
-    //     return view('detail-proyek', ["id" => $id, "proyek" => $proyek]);
-    // }
+    public function viewDetailProyek($id){
+        $proyek = Proyek::where('id', $id)->first();
+        return view('detail-proyek', ["id" => $id, "proyek" => $proyek]);
+    }
 }

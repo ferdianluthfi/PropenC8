@@ -43,8 +43,8 @@
         <div class="col-sm-7">
             <div class="card card-info">
                 <div class="row judul">
-                    <div class="col-sm-7 font-subtitle-4">Informasi Umum</div>
-                    <div class="col-sm-4 font-status-approval" style="margin-left:15px;">{{$status}}</div>
+                    <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
+                    <div class="col-sm-5 font-status-approval" style="margin-left:15px;">{{$status}}</div>
                 </div>
                 <hr style="background-color:black;"/>
                 <div class="row">
@@ -65,7 +65,7 @@
                             <li><p>:   {{ $proyek->projectName}}<p></li>
                             <li><p>:   {{ $proyek->companyName}}<p></li>
                             <li><p>:   Rp {{ $proyek->projectValue}}<p></li>
-                            <li><p>:   {{ $proyek->estimatedTime}} Hari<p></li>
+                            <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
                             <li><p>:   {{ $proyek->projectAddress}}<p></li>
                             <li><p class="deskripsi" style="margin-bottom:10px;" >: {{ $proyek->description}}<p></li>
                         </ul>

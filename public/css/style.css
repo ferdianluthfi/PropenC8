@@ -85,7 +85,7 @@ body{
 }
 
 .ketengahin {
-margin-left: 20px;;
+margin-left: 20px;
 
 }
 
@@ -109,13 +109,17 @@ margin-left: 20px;;
 
 ul{
     margin-left: -8px;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 li {
     list-style:none;
     margin-top:-5px;
     margin-bottom:-5px;
+}
+
+hr {
+  margin: 10px;
 }
 
 
@@ -572,7 +576,7 @@ iframe {
   width: 600px;
   height: 195px;
   margin: center;
-  top: 385px;
+  top: 250px;
 }
 
 .deskripsi{

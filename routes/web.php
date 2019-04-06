@@ -46,11 +46,6 @@ Route::post('/proyek/update', 'ProyekController@update');
 Route::get('/proyek/ubah/{id}', 'ProyekController@edit');
 Route::get('/proyek/hapus/{id}', 'ProyekController@destroy');
 Route::get('/proyek/lihat/{id}', 'ProyekController@show');
-Route::get('/proyek/{id}', 'ProyekController@show');
-
-// Route::get('/proyek', 'ProyekController@viewAll')->name('view-all-proyek');
-// Route::get('/proyek/{id}', 'ProyekController@viewDetailProyek')->name('detail-proyek');
-// Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');
-
-
+Route::get('/proyek/{id}', 'ProyekController@viewDetailProyek')->name('detail-proyek');
+Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');
 Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
