@@ -38,7 +38,7 @@
         <p>Nama Pelaksana       : </p>
         <p>Nilai Proyek         : {{ $proyek->projectValue }}</p>
         <p>Alamat Perusahaan    : {{ $proyek->projectAddress }}</p>
-        <p>Tanggal Kontrak      : {{ $kontrak->contractDate }}</p>
+        <p>Tanggal Kontrak      : {{ $tanggals }}</p>
         <p>Nilai Proyek Huruf   : </p>
         <p>PenanggungJawab      : </p>
     </div>

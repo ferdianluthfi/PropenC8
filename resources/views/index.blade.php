@@ -1,4 +1,5 @@
 @extends ('layouts.layout')
+<html>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,7 +25,7 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
-			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek') }}">Proyek</a></li>
 		</ol>
 	</nav>
 
@@ -78,6 +79,7 @@
 									<tr style="background-color: aliceblue;">
 										<td><a href="/proyek/detailProyek/{{ $proyeks->id }}">{{ $proyeks->projectName }}</a></td>
 										@if($proyeks->approvalStatus === 1) <td> Disetujui Direksi </td>
+										@elseif($proyeks->approvalStatus === 2) <td> Sedang Berjalan </td>
 										@else	<td> Ditolak </td>
 										@endif
 										
@@ -114,3 +116,4 @@
 	});
 	</script>
 @endsection
+</html>
