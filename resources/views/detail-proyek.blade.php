@@ -24,8 +24,8 @@
         <div class="col-sm-7">
         <div class="card card-info">
             <div class="row judul">
-                <div class="col-sm-9 font-subtitle-4">Informasi Umum</div>
-                <div class="col-sm-2 font-status-approval">{{ $statusHuruf }}</div>
+                <div class="col-sm-7 font-subtitle-4">Informasi Umum</div>
+                <div class="col-sm-5 font-status-approval">{{ $statusHuruf }}</div>
             </div>
             <hr>
             <div class="row">

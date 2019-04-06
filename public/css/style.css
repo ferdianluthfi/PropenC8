@@ -46,8 +46,9 @@ body{
 .card-detail-proyek {
     margin: 0 auto;
     margin-top: 20px;
+
     width: 900px;
-    height: 530px;
+    min-height: 530px;
 }
 
 .card-info {
@@ -63,7 +64,7 @@ body{
 
 .card-kontrak {
     width:780px;
-    min-height:250px;
+    min-height:220px;
     margin: 0 auto;
 }
 
@@ -115,6 +116,30 @@ li {
 }
 hr{
     margin:15px;
+}
+
+.button-approve{
+    background-color:#63A2F6;
+    border-radius:10px;
+    width:130px;
+    height:45px;
+    text-align:center;
+    text-decoration: none;
+    display: inline-block;
+    border:none;
+    color:#ffffff;
+}
+
+.button-disapprove{
+    background-color:#fff;
+    border-radius:10px;
+    width:130px;
+    height:45px;
+    text-align:center;
+    text-decoration: none;
+    display: inline-block;
+    border:1.5px solid #63A2F6;
+    color:#63A2F6;
 }
 
 
