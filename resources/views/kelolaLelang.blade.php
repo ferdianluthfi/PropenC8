@@ -182,15 +182,15 @@
                 {{ session('success') }}
             </div>
             @endif
-        </div>
-        <p>Tambah Berkas</p>
-        <p>
-            <a href="/generate-pdf/{{ $proyek->id }}" class="btn btn-primary">Surat Penawaran Rekanan</a>
+<!--        </div>-->
+<!--        <p>Tambah Berkas</p>-->
+        <p>Surat Penawaran Rekanan
+            <a href="/generate-pdf/{{ $proyek->id }}" class="btn btn-primary">Buat Surat</a>
         </p>
-        <p>
-            <a href="/generate-pdf2/{{ $proyek->id }}" class="btn btn-primary">Surat Permohonan Jaminan Bank</a>
+        <p>Surat Permohonan Jaminan Bank
+            <a href="/generate-pdf2/{{ $proyek->id }}" class="btn btn-primary">Buat Surat</a>
         </p>
-        <p>
+        <p>Upload Surat ke Sistem
             <a href="/file/upload/{{ $proyek->id }}" class="btn btn-primary">Upload File</a>
         </p>
     </div>
