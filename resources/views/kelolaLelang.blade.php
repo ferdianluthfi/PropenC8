@@ -188,7 +188,7 @@
             <a href="/generate-pdf/{{ $proyek->id }}" class="btn btn-primary">Surat Penawaran Rekanan</a>
         </p>
         <p>
-            <a href="/generate-pdf2{{ $proyek->id }}" class="btn btn-primary">Surat Permohonan Jaminan Bank</a>
+            <a href="/generate-pdf2/{{ $proyek->id }}" class="btn btn-primary">Surat Permohonan Jaminan Bank</a>
         </p>
         <p>
             <a href="/file/upload/{{ $proyek->id }}" class="btn btn-primary">Upload File</a>
