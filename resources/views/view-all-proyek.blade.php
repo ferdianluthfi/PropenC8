@@ -31,7 +31,7 @@
 <div class="container-fluid card card-proyek-list">
 
     <br>
-    <p class="font-subtitle-1">Proyek Potensial</p>
+    <p class="font-subtitle-1">Riwayat Proyek</p>
     <hr>
 
     @foreach ($proyeks as $proyek)
@@ -41,7 +41,6 @@
         </div>
     </a>
     @endforeach
-</ul>
 </div>
 
 

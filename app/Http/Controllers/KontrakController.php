@@ -24,7 +24,10 @@ class KontrakController extends Controller
             $statusHuruf = "DITOLAK";
         }
 
-        return view('detail-kontrak', ["statusHuruf" => $statusHuruf, "status" => $status, "kontrak" => $kontrak, "proyek" => $proyek, "id" => $id]);
+        $formatValue = number_format($proyek->projectValue, 2, ',','.');
+
+
+        return view('detail-kontrak', ["statusHuruf" => $statusHuruf, "status" => $status, "kontrak" => $kontrak, "proyek" => $proyek, "id" => $id, 'formatValue' => $formatValue]);
     }
 
     public function approveKontrak($id){

@@ -19,15 +19,15 @@
     <hr>
     <div>
         <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName }}</p>
-        <br>
         </div>
     <div class="row ketengahin">
         <div class="col-sm-7">
         <div class="card card-info">
             <div class="row judul">
                 <div class="col-sm-9 font-subtitle-4">Informasi Umum</div>
-                <div class="col-sm-1 font-status-approval">DISETUJUI</div>
+                <div class="col-sm-2 font-status-approval">{{ $statusHuruf }}</div>
             </div>
+            <hr>
             <div class="row">
             <div class="col-sm-5 font-desc-bold">
                 <ul>
@@ -38,7 +38,6 @@
                     <li><p>Estimasi Waktu Pengerjaan</p></li>
                     <li><p>Alamat Proyek</p></li>
                     <li><p>Deskripsi Proyek</p></li>
-                    <li><p>Nilai Proyek</p></li>
                 </ul>
             </div>
             <div class="col-sm-7 font-desc">
@@ -46,11 +45,10 @@
                     <li><p>:   {{ $proyek->name}}<p></li>
                     <li><p>:   {{ $proyek->projectName}}<p></li>
                     <li><p>:   {{ $proyek->companyName}}<p></li>
-                    <li><p>:   {{ $proyek->startDate}}<p></li>
-                    <li><p>:   {{ $proyek->endDate}}<p></li>
+                    <li><p>:   Rp {{ $proyek->projectValue}}<p></li>
+                    <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
                     <li><p>:   {{ $proyek->projectAddress}}<p></li>
                     <li><p>:   {{ $proyek->description}}<p></li>
-                    <li><p>:   {{ $proyek->projectValue}}<p></li>
                 </ul>
             </div>
             </div>
@@ -60,7 +58,7 @@
             <div class="card card-pm">
                 <br>
                 <p class="font-subtitle-5">Project Manager</p>
-                <br>
+                <hr>
                 <br>
                 <br>
                 <br>
@@ -70,7 +68,6 @@
 
     </div>
     <div>
-        <br>
         <div class="row ketengahin">
             <a href="{{ route('detail-kontrak', $proyek->id) }}"><div class="col-sm-3 card card-button">
                 <p class="font-button-berkas">Berkas Kontrak<p>

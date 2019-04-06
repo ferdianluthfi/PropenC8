@@ -18,10 +18,56 @@
     <br>
     <p class="font-subtitle-1">Menyetujui Kontrak Kerja</p>
     <hr>
-    <div class="row">
-        <div class="col-sm-7 font-subtitle-2">Informasi Kontrak Kerja</div>
-        <div class="col-sm-3 font-status-approval">{{ $statusHuruf }}</div>
-
+    <div class="row judul" style="margin-bottom:15px; margin-top:-10px;">
+        <p class="col-sm-9 font-subtitle-2">Informasi Kontrak Kerja</p>
+        <p class="col-sm-3 font-status-approval" style="margin-top:7px; margin-left:-40px;">{{ $statusHuruf }}</p>
+    </div>
+    <div class="container-fluid card card-kontrak">
+    <div class="row judul">
+                <div class="col-sm-9 font-subtitle-4">Informasi Umum</div>
+            </div>
+    <hr>
+    <div class="row" style="margin-left: -30px;">
+        <div class="col-sm-7">
+                <div class="col-sm-6 font-desc-bold">
+                    <ul>
+                        <li><p>Nama Proyek</p></li>
+                        <li><p>Nama Perusahaan</p></li>
+                        <li><p>Estimasi Waktu Pengerjaan</p></li>
+                        <li><p>Alamat Proyek</p></li>
+                        <li><p>Nama Pelaksana</p></li>
+                        <li><p>Nilai Proyek</p></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 font-desc">
+                    <ul>
+                        <li><p>:   {{ $proyek->projectName}}<p></li>
+                        <li><p>:   {{ $proyek->companyName}}<p></li>
+                        <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
+                        <li><p>:   {{ $proyek->projectAddress}}<p></li>
+                        <li><p>:   Masih dummy beb<p></li>
+                        <li><p>:   Rp {{ $formatValue }}
+                    </ul>
+                </div>
+            </div>
+        <div class="col-sm-5" style="margin-left:-50px;">
+                <div class="col-sm-6 font-desc-bold">
+                    <ul>
+                        <li><p>Tanggal Kontrak</p></li>
+                        <li><p>Nilai Proyek Huruf</p></li>
+                        <li><p>Penanggungjawab</p></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 font-desc">
+                    <ul>
+                        <li><p>:   {{ $kontrak->contractDate}}<p></li>
+                        <li><p>:   nilaiproyek<p></li>
+                        <li><p>:   staf<p></li>
+                    </ul>
+                </div>
+                </div>
+        </div>
+    </div>
 
     </div>
 </div>
