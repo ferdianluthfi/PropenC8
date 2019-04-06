@@ -36,6 +36,11 @@
                                     </button>
                                 </div>
                             </form>
+                            <div  class="container-btn">
+                                <button class="container-form-btn" onclick="window.location.href='/kelolaLelang/{{ $proyek->id }}'">
+                                    <span>Kembali</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
