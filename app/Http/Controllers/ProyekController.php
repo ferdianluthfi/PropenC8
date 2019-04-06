@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 // use DB;
+use App\Proyek;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Proyek;
 use App\Pengguna;
 
 
@@ -95,6 +95,26 @@ class ProyekController extends Controller
             
         return view('projectDetail', compact('proyek', 'status', 'statusKontrak'));
     }
+    public function viewDetailProyek($id){
+        $proyek = Proyek::where('id', $id)->first();
+        $statusHuruf;
+
+        $status = $proyek->approvalStatus; // ini kontrak belum tentu adakan. kalo dia gapunya nanti returnnya null
+        if($status == 0){
+            $statusHuruf = "MENUNGGU PERSETUJUAN";
+        } elseif($status == 1){
+            $statusHuruf = "DISETUJUI";
+        } elseif($status == 2){
+            $statusHuruf = "SEDANG BERJALAN";
+        }elseif($status == 3){
+            $statusHuruf = "DITOLAK";
+        }
+
+        return view('detail-proyek', ["id" => $id, "proyek" => $proyek, "statusHuruf" => $statusHuruf]);
+    }
+
+    
+
 
 
     public function approveProject($id){
