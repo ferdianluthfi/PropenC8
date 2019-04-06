@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 // use DB;
+use App\Proyek;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Proyek;
 
 class ProyekController extends Controller
 {
@@ -26,7 +26,7 @@ class ProyekController extends Controller
             $statusNum = $proyeg-> approvalStatus;
 
             if($statusNum == 0){
-                $status = "Menunggu Persetujuan";
+                $status = "MENUNGGU PERSETUJUAN";
             }
         }
         foreach($proyekNonPoten as $proyeg){
@@ -38,7 +38,7 @@ class ProyekController extends Controller
             if($statusNum == 1){
                 $status = "DISETUJUI";
             }elseif($statusNum == 2){
-                $status = "Sedang Berjalan";
+                $status = "SEDANG BERJALAN";
             }else{
                 $status = "DITOLAK";
             }
@@ -119,17 +119,17 @@ class ProyekController extends Controller
         
         foreach($proyeks as $proyeg){
             $statusNum = $proyeg-> approvalStatus;
-            $temp = number_format(10000, 2, ',','.');
+            $temp = number_format($proyeg->projectValue, 2, ',','.');
             $proyeg->projectValue = $temp;
 
             if($statusNum == 0){
-                $status = "Menunggu Persetujuan";
+                $status = "MENUNGGU PERSETUJUAN";
             }
             elseif($statusNum == 1){
                 $status = "DISETUJUI";
             }
             elseif($statusNum == 2){
-                $status = "Sedang Berjalan";
+                $status = "SEDANG BERJALAN";
             }
             elseif($statusNum == 3){
                 $status = "DITOLAK";
@@ -216,6 +216,7 @@ class ProyekController extends Controller
 	    return redirect('/proyek');
 
     }
+
     public function viewDetailProyek($id){
         $proyek = Proyek::where('id', $id)->first();
         return view('detail-proyek', ["id" => $id, "proyek" => $proyek]);

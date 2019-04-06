@@ -25,7 +25,7 @@
 
 		@foreach($proyeks as $proyek)
 		<nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
+		<ol class="breadcrumb" style="margin-left:0px;">
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href= "/proyek/ubah/{{ $proyek->id }}">Ubah Data Proyek {{ $proyek->projectName }}</a></li>

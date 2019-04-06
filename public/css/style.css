@@ -85,7 +85,7 @@ body{
 }
 
 .ketengahin {
-margin-left: 20px;;
+margin-left: 20px;
 
 }
 
@@ -101,6 +101,7 @@ margin-left: 20px;;
     padding: 0 5px;
 }
 
+
 .landing-image-direksi {
    width: 400px;
    margin: 0 auto;
@@ -109,13 +110,17 @@ margin-left: 20px;;
 
 ul{
     margin-left: -8px;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 li {
     list-style:none;
     margin-top:-5px;
     margin-bottom:-5px;
+}
+
+hr {
+  margin: 10px;
 }
 
 
@@ -572,7 +577,7 @@ iframe {
   width: 600px;
   height: 195px;
   margin: center;
-  top: 385px;
+  top: 250px;
 }
 
 .deskripsi{
@@ -620,15 +625,15 @@ iframe {
 .font-breadcrumb-inactive {
 	font-family: 'Roboto-Reg', sans-serif;
 	font-size: 15px;
-    color: #606060;
-    text-justify: inter-word;
+  color: rgb(40, 119, 198);
+  text-justify: inter-word;
 }
 
 .font-breadcrumb-active {
 	font-family: 'Roboto-Medium', sans-serif;
 	font-size: 15px;
-    color: rgb(40, 119, 198);;
-    text-justify: inter-word;
+  color: #606060;
+  text-justify: inter-word;
 }
 
 .font-desc-bold {
