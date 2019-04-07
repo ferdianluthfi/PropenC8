@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', function () { 
+    return view('landing');
+});
+
 Route::get('/luthfi', function () {
     $proyek = App\Proyek::find(1);
     $kelengkapanLelang = App\KelengkapanLelang::table('proyeks')
@@ -24,19 +28,13 @@ Route::get('/luthfi', function () {
     dd($kelengkapanLelang);
     //return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
 });
-Route::get('/tomps', function () {
 
-    $goals = [
-        "i always thought",
-        "if i jumped off a bridge",
-        "it would be over a girl",
-        "and i'd be nude",
-        "and listening to the smiths."
-    ];
-    
-     $name = "Darkness My Old Friend~";
-    return view('tomps', compact('name','goals'));
-});
-
-Route::get('/informasikemajuan', function () {
-});      
+Route::get('/proyek', 'KemajuanProyekController@viewProyek');
+Route::get('/proyek/detail/{id}', 'KemajuanProyekController@detailProyek');
+Route::get('/informasi/{id}', 'KemajuanProyekController@viewInfo');
+Route::get('/informasi/detail/{id}', 'KemajuanProyekController@detailInfo');
+Route::get('/info/tambah/{idpelaksanaan}', 'KemajuanProyekController@tambahInformasi');
+Route::post('/info/submit/{idPelaksanaan}', 'KemajuanProyekController@simpanInformasi');
+Route::get('/info/edit/{id}', 'KemajuanProyekController@editInformasi');
+Route::post('/info/update/{id}', 'KemajuanProyekController@updateInformasi');
+Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');

@@ -6,19 +6,227 @@ use Illuminate\Http\Request;
 use App\KemajuanProyek;
 use App\Proyek;
 use App\Pelaksanaan;
-
+use App\Assignment;
+use App\ListPhoto;
+use DB;
+use Validator;
 
 class KemajuanProyekController extends Controller
 {
      /**
      * method untuk melihat daftar informasi kemajuan proyek
      */
-    public function viewInformasi(){
+
+    public function viewProyek(){
+        $idPm = Assignment::select('assignments.pengguna_id')->where('proyek_id',1)->get();  
+        $listProyek = Proyek::select('proyeks.*')->whereIn('pengguna_id',$idPm)->get(); 
+        return view('listProyek', compact('listProyek'));
+    }
+
+    public function detailProyek($id) {
+        $proyek = Proyek::find($id);
+        $temp = number_format($proyek->projectValue, 2, ',','.');
+        $proyek->projectValue = $temp;     
+
+        return view('detailProyek', compact('proyek'));
+    }
+
+    public function viewKemajuan(){
 
         $idProyeks = Proyek::select('proyeks.id')->where('isLPJExist', 0)->get();
         $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->whereIn('proyek_id',$idProyeks)->get();
         $kemajuans = KemajuanProyek::select('kemajuan_proyeks.*')->whereIn('pelaksanaan_id',$idPelaksanaan)->get();
         
         return view('viewAll', compact('kemajuans'));
+    }
+
+    public function viewInfo($id){
+        $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->where('proyek_id',$id)->get();
+        $listInformasi = KemajuanProyek::select('kemajuan_proyeks.*')->whereIn('pelaksanaan_id',$idPelaksanaan)->get();
+        $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$id],['approvalStatus','=',0]])->first();
+
+        if($pelaksanaan == null) {
+            DB::table('pelaksanaans')->insert([
+                'approvalStatus' => 0,
+                'createdDate' => now('GMT+7'),
+                'proyek_id' => $id,
+                'created_at' => now('GMT+7'),
+                'updated_at' => now('GMT+7')
+            ]);
+            $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$id],['approvalStatus','=',0]])->first();         
+        }
+            return view('listInformasi', compact('listInformasi','pelaksanaan'));
+    }
+
+    public function detailInfo($id) {
+        $idPelaksanaan = KemajuanProyek::select('kemajuan_proyeks.pelaksanaan_id')->where('id',$id)->get();
+        $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$idPelaksanaan)->get();
+        $proyek = Proyek::find($idProyek[0]->proyek_id);
+        $informasi = KemajuanProyek::find($id);
+        $temp = number_format($informasi->value, 2, ',','.');
+        $informasi->value = $temp;
+        $tanggalInfo = $informasi->reportDate;
+        $tanggal = $this->waktu($tanggalInfo);
+
+        $daftarFoto = ListPhoto::select('listphoto.*')->where('kemajuan_id',$id);
+        //dd($daftarFoto);
+
+        return view('detailInformasi', compact('informasi','proyek','tanggal','daftarFoto'));
+    }
+
+    public function tambahInformasi($id){
+        $pelaksanaan = Pelaksanaan::find($id);
+        return view('tambahInformasi',compact('pelaksanaan'));
+    }
+
+    /*
+    @param \Illuminate\Http\Request
+    @return \Illuminate\Http\Response
+    */
+    public function simpanInformasi($id, Request $request){
+
+        $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->where('id',$id)->get();
+        $data = json_decode($idProyek);
+
+        $validator = Validator::make($request->all(),[
+            'description' => 'required',
+            'reportDate' => 'required',
+            'tipeKemajuan' => 'required',
+            'value' => 'required',
+            'pelaksanaan_id' => 'required',
+            'file' => 'required|file|max:2000'
+        ]);
+ 
+        DB::table('kemajuan_proyeks')->insert([
+    		'description' => $request->description,
+            'reportDate' => $request->reportdate,
+            'tipeKemajuan' => $request->tipekemajuan,
+            'value' => $request->nilai,
+            'pelaksanaan_id' => $id,
+            'created_at' => now('GMT+7'),
+            'updated_at' => now('GMT+7')
+        ]);
+
+        $kemajuans = KemajuanProyek::select('kemajuan_proyeks.*')->where('pelaksanaan_id', $id)->get()->last();
+        $kemajuan_id = $kemajuans->id;
+
+        if ($request->file != null) {
+            foreach($request->file as $file) {
+                $uploadedFile = $file;        
+                $path = $uploadedFile->store('public/files');
+    
+                DB::table('listphoto')->insert([
+                    'ext' => $uploadedFile->getClientOriginalExtension(),
+                    'path' => $path,
+                    'kemajuan_id' => $kemajuan_id,
+                    'created_at' => now('GMT+7'),
+                    'updated_at' => now('GMT+7')
+                ]);
+            }
+        }
+        return redirect()->action('KemajuanProyekController@viewInfo',['id'=>$data[0]->proyek_id]);
+    }
+
+    public function editInformasi($id){
+        $idPelaksanaan = KemajuanProyek::select('kemajuan_proyeks.pelaksanaan_id')->where('id',$id)->get();
+        $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$idPelaksanaan)->get();
+        $proyek = Proyek::find($idProyek[0]->proyek_id);
+        $kemajuans = KemajuanProyek::find($id);
+
+        $daftarFoto = DB::table('listPhoto')->select('listPhoto.*')->where('kemajuan_id',$id)->get();
+        //dd($daftarFoto);
+        return view('editInformasi', compact('kemajuans','proyek','daftarFoto'));
+    }
+
+    public function updateInformasi($id, Request $request){
+        $idPelaksanaan = KemajuanProyek::select('kemajuan_proyeks.pelaksanaan_id')->where('id',$id)->get();
+        $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$idPelaksanaan)->get();
+        $data = json_decode($idProyek);
+        $validator = Validator::make($request->all(),[
+            'description' => 'required',
+            'reportDate' => 'required',
+            'tipeKemajuan' => 'required',
+            'value' => 'required',
+            'pelaksanaan_id' => 'required'
+    	]);
+
+        $kemajuans = KemajuanProyek::find($id);
+        $kemajuans->description = $request->description;
+        $kemajuans->reportDate = $request->reportdate;
+        $kemajuans->value = $request->nilai;
+        $kemajuans->tipeKemajuan = $request->tipekemajuan;
+        $kemajuans->save();
+
+        return redirect()->action('KemajuanProyekController@viewInfo',['id'=>$data[0]->proyek_id]);
+    }
+
+    public function hapusInformasi($id){
+        $idPelaksanaan = KemajuanProyek::select('kemajuan_proyeks.pelaksanaan_id')->where('id',$id)->get();
+        $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$idPelaksanaan)->get();
+        $data = json_decode($idProyek);
+        $kemajuans = KemajuanProyek::find($id);
+        $kemajuans->delete();
+        return redirect()->action('KemajuanProyekController@viewInfo',['id'=>$data[0]->proyek_id]);
+    }
+
+    public function waktu($tanggal){
+        
+        
+        $bulan = date("m", strtotime($tanggal));
+        $tahun = date("Y", strtotime($tanggal));
+        $day = substr($tanggal, 8, 9);
+        $dayz = strval($day);
+        $tahunz = strval($tahun);
+        //dd(var_dump($tahunz));
+        //$wew = date("d F Y", strtotime($tanggal));
+        
+        
+        $bulanTerbilang;
+        if($bulan == "1"){
+            $bulanTerbilang = "Januari";
+        }
+        
+        elseif($bulan == "2"){
+            $bulanTerbilang = "Februari";
+        }
+        
+        elseif($bulan == "3"){
+            $bulanTerbilang = "Maret";
+        }
+        
+        elseif($bulan == "4"){
+            $bulanTerbilang = "April";
+        }
+        
+        elseif($bulan == "5"){
+            $bulanTerbilang = "Mei";
+        }
+        elseif($bulan == "6"){
+            $bulanTerbilang = "Juni";
+        }
+        elseif($bulan == "7"){
+            $bulanTerbilang = "Juli";
+        }
+        elseif($bulan == "8"){
+            $bulanTerbilang = "Agustus";
+        }
+        if($bulan == "9"){
+            $bulanTerbilang = "September";
+        }
+        
+        elseif($bulan == "10"){
+            $bulanTerbilang = "Oktober";
+        }
+        elseif($bulan == "11"){
+            $bulanTerbilang = "November";
+        }
+        
+        elseif($bulan == "12"){ 
+            $bulanTerbilang = "Desember";
+        }
+        
+        $waktoe = "$dayz $bulanTerbilang $tahunz";
+        return($waktoe);   
+           
     }
 }
