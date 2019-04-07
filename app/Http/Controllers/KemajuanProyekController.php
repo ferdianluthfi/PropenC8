@@ -72,9 +72,8 @@ class KemajuanProyekController extends Controller
             }
         }
         else{
-            return view('home'); //TODO: BIKIN HALAMAN ANDA TIDAK MEMILIKI AKSES
+            return view('no-access'); //TODO: BIKIN HALAMAN ANDA TIDAK MEMILIKI AKSES
         }
-        
         
     }
 }
