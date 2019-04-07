@@ -97,7 +97,7 @@ class ProyekController extends Controller
                 'projectAddress' => $request->projectAddress,
                 'approvalStatus' => 0,
                 'isLPJExist'=>0,
-                'pengguna_id'=> 3, #\Auth::user()->id,
+                'pengguna_id'=> \Auth::user()->id,
                 'created_at' => now('GMT+7'),
                 'updated_at' => now('GMT+7'),
             ]); 
