@@ -12,7 +12,7 @@
         <li><a href="/kemajuanProyek" class="font-nav">Kemajuan Proyek</a></li>
         @endif
 
-        <li class="dropdown font-nav"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
+        <li class="dropdown font-nav"><a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li>
             
