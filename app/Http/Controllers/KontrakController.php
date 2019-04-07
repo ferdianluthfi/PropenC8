@@ -13,13 +13,23 @@ class KontrakController extends Controller
     public function viewKontrakz($id){
         $kontrak = DB::table('kontraks')->select('*')->where('proyek_id', $id)->first();
         $proyek = DB::table('proyeks')->select('*')->where('id', $id)->first();
+        $formatValue = number_format($proyek->projectValue, 2, ',','.');
+        $proyek->projectValue = $formatValue;
         $tanggalKontrak = $kontrak->contractDate; 
         $tanggals = $this->waktu($tanggalKontrak);
-        //dd($tanggals);
-        
-        return view('viewKontrak', compact('kontrak', 'proyek', 'tanggals'));
-        
+        $status = $kontrak->approvalStatus;
+        if($status == 0){
+            $statusHuruf = "MENUNGGU PERSETUJUAN";
+        } 
+        elseif($status == 1){
+            $statusHuruf = "DISETUJUI";
+        } 
+        elseif($status == 2){
+            $statusHuruf = "DITOLAK";
+        }
+        return view('viewKontrak', compact('kontrak', 'proyek', 'tanggals', 'statusHuruf'));
     }
+        
 
     public function waktu($tanggal){
         

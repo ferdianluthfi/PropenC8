@@ -49,8 +49,9 @@
 								
 								<div class="col-md-6 project">
 									
-										<center class="turncate"><a href="/proyek/setujuiProyek/{{ $proyeks->id }}" style="font-size:12pt; font-weight:bolder;">{{ $proyeks->projectName }}</a><center>
+										<center class="turncate" style="font-size:12pt; font-weight:bolder;">{{ $proyeks->projectName }}<center>
 										<center class="turncate">{{ $proyeks->companyName }}<center>
+										<center><a class="btn btn-primary" href="/proyek/setujuiProyek/{{ $proyeks->id }}" style="font-size:8pt; font-weight:bolder;">Lihat</a> <center>
 										
 								</div>
 							

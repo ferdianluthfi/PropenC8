@@ -24,8 +24,8 @@
 
 	<nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" data-toggle="modal" data-target="#myModd">Beranda</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" data-toggle="modal" data-target="#myModd">Proyek</a></li>
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="/proyek/detailProyek/{{ $proyek->id }}">Setujui {{ $proyek->projectName }}</a></li>
   </ol>
 </nav>
@@ -36,58 +36,56 @@
     <br>
     <p class="font-subtitle-1">Detail Proyek</p>
     <hr>
-    <div>
-        <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName }}</p>
-        <br>
-        </div>
+
     <div class="row ketengahin">
         <div class="col-sm-7">
-        <div class="card card-info">
-            <div class="row judul">
-                <div class="col-sm-9 font-subtitle-4">Informasi Umum</div>
-                <div class="col-sm-1 font-status-approval">{{ $status }}</div>
-            </div>
-            <div class="row">
-            <div class="col-sm-5 font-desc-bold">
-                <ul>
-                    <li><p>Nama Staf Marketing</p></li>
-                    <li><p>Nama Proyek</p></li>
-                    <li><p>Nama Perusahaan</p></li>
-                    <li><p>Nilai Proyek</p></li>
-                    <li><p>Estimasi Waktu Pengerjaan</p></li>
-                    <li><p>Alamat Proyek</p></li>
-                    <li><p>Deskripsi Proyek</p></li>
-                    <li><p>Nilai Proyek</p></li>
-                </ul>
-            </div>
-            <div class="col-sm-7 font-desc">
-            <li><p>:   {{ $proyek->startDate}}<p></li>
-                <ul>
-                    <li><p>:  abdol <p></li>
-                    <li><p>:   {{ $proyek->projectName}}<p></li>
-                    <li><p>:   {{ $proyek->companyName}}<p></li>
-                    <li><p>:   {{ $proyek->projectValue}}<p></li>
-                    <li><p>:   {{ $proyek->estimatedTime}}<p></li>
-                    <li><p>:   {{ $proyek->projectAddress}}<p></li>
-                    <li><p>:   {{ $proyek->description}}<p></li>
-                    <li><p>:   {{ $proyek->projectValue}}<p></li>
-                </ul>
-            </div>
-            </div>
-        </div>  
+            <div class="card card-info">
+                <div class="row judul">
+                    <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
+                    <div class="col-sm-5 font-status-approval" style="margin-left:15px;">{{$status}}</div>
+                </div>
+                <hr style="background-color:black;"/>
+                <div class="row">
+                    <div class="col-sm-5 font-desc-bold" style="margin-left: 30px;">
+                        <ul>
+                            <li><p>Nama Staf Marketing</p></li>
+                            <li><p>Nama Proyek</p></li>
+                            <li><p>Nama Perusahaan</p></li>
+                            <li><p>Alamat Proyek</p></li>
+                            <li><p>Estimasi Waktu Pengerjaan</p></li>
+                            <li><p>Nilai Proyek</p></li>
+                            <li><p>Deskripsi Proyek</p></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 font-desc" >
+                        <ul>
+                            <li><p>:   {{ $proyek->name}}<p></li>
+                            <li><p>:   {{ $proyek->projectName}}<p></li>
+                            <li><p>:   {{ $proyek->companyName}}<p></li>
+                            <li><p>:   {{ $proyek->projectAddress}}<p></li>
+                            <li><p>:   {{ $proyek->estimatedTime}} Hari<p></li>
+                            <li><p>:   Rp {{ $proyek->projectValue}}<p></li>
+                            <li><p class="deskripsi" style="margin-bottom:10px;" >: {{ $proyek->description}}<p></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>  
         </div>
         <div class="col-sm-2">
             <div class="card card-pm">
                 <br>
-                <p class="font-subtitle-5">Staf Marketing</p>
+				<p class="font-subtitle-5">Staf Marketing</p>
+				<hr style="background-color:black;"/>
+                <br> <br> <br>
+                <p class="font-status-approval" style="text-align: center;">{{ $proyek->name}}</p>
             </div>
         </div>
-
     </div>
     <div>
         <br>
         <div class="row ketengahin">
-            <a href=""><div class="col-sm-3 card card-button">
+            <!-- bikin kondisi dulu -->
+            <a href="#"><div class="col-sm-3 card card-button">
                 <p class="font-button-berkas-inactive">Berkas Kontrak<p>
             </div></a>
             <a href="#"><div class="col-sm-3 card card-button">
@@ -97,70 +95,103 @@
                 <p class="font-button-berkas-inactive">LPJ<p>
             </div></a>
         </div>
-    </div>  		
+    </div>  
+
+    <div class="row" style="margin-top: 20px; ">
+    <div class="col-sm-4"> </div>
+    <div class="col-sm-2"> 
+        <form action="/proyek/setujuiProyek/tolak/{{ $proyek->id }}" method="POST" id="reject">
+            @csrf
+            <button id="tolak" class="button-disapprove font-approval">TOLAK</button>
+        </form> 
+    </div>
+    <div class="col-sm-2"> 
+        <form action="/proyek/setujuiProyek/setuju/{{ $proyek->id }}" method="POST" id="save">
+            @csrf
+            <button id="simpan" class="button-approve font-approval">SETUJUI</button>
+        </form>    
+    </div>
+    <div class="col-sm-4"> </div>
 
 </div>
+</div>
 
-<form action="/proyek/setujuiProyek/setuju/{{ $proyek->id }}" method="post" id="save">
-            <input type = "hidden" name = "_token" value = "<?php echo csrf_token() ?>">
-            <div class="container-btn">
-                    <button class="container-form-btn" id="simpan">
-                            <span>
-                                SETUJUI
-                            </span>
-                    </button>
-            </div>  
-        </form> 
-        <form action="/proyek/setujuiProyek/tolak/{{ $proyek->id }}" method="post" id="reject">
-            <input type = "hidden" name = "_token" value = "<?php echo csrf_token() ?>">
-            <div class="container1-btn">
-                    <button class="container1-form-btn" id="tolak">
-                        <span>
-                            TOLAK
-                        </span>
-                    </button>
-            </div>
-	</form>
-	
-	<div id="myMod" class="modal fade">
-		<div class="modal-dialog modal-confirm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div class="icon-box">
-						<i class="material-icons">&#xE876;</i>
-					</div>				
-					<h4 class="modal-title">SETUJUI!</h4>	
-				</div>
-				<div class="modal-body">
-					<p class="text-center">Proyek potensial berhasil disetujui.</p>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
-				</div>
+<!-- <form action="/proyek/setujuiProyek/setuju/{{ $proyek->id }}" method="post" id="save">
+    <input type = "hidden" name = "_token" value = "<?php echo csrf_token() ?>">
+    <div class="container-btn">
+            <button class="container-form-btn" id="simpan">
+                <span>
+                    SETUJUI!
+                    <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                </span>
+            </button>
+    </div>  
+</form> 
+<form action="/proyek/setujuiProyek/tolak/{{ $proyek->id }}" method="post" id="reject">
+    <input type = "hidden" name = "_token" value = "<?php echo csrf_token() ?>">
+    <div class="container1-btn">
+            <button class="container1-form-btn" id="tolak">
+                <span>
+                    TOLAK
+                    <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                </span>
+            </button>
+    </div>
+</form> -->
+    
+    <div class="modal fade" id="myModd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title" style="text-align:center;">Batalkan Proses?</h4>
+			</div>
+			<div class="modal-body" style="text-align:center;">
+				<p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
+			</div>
+			<div class="modal-footer">
+					<a href="/proyek/" class="btn btn-default" style="color:red;">Iya</a>
+				
+					<a href="/proyek/setujuiProyek/{{ $proyek->id }}" class="btn btn-primary">Tidak</a>
+			
 			</div>
 		</div>
-	</div>     
-
+		
+		</div>
+	</div>
+    
     <div id="mod" class="modal fade">
 		<div class="modal-dialog modal-confirm">
 			<div class="modal-content">
-				<div class="modal-header">
-					<div class="icon-box">
-						<i class="material-icons">&#xE876;</i>
-					</div>				
-					<h4 class="modal-title">TOLAK!</h4>	
+				<div class="modal-header">				
+					<h4 class="modal-title" style="text-align:center;">Tolak!</h4>	
 				</div>
 				<div class="modal-body">
-					<p class="text-center">Proyek potensial berhasil ditolak</p>
+					<p class="text-center">Proyek berhasil ditolak</p>
 				</div>
-				<div class="modal-footer">
+				<div class="modal-footer text-center">
 					<button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
 				</div>
 			</div>
 		</div>
-	</div> 
+	</div>  
 
-
+	<div id="myMod" class="modal fade">
+		<div class="modal-dialog modal-confirm">
+			<div class="modal-content">
+				<div class="modal-header">				
+					<h4 class="modal-title" style="text-align:center;">Setuju!</h4>	
+				</div>
+				<div class="modal-body">
+					<p class="text-center">Proyek berhasil disetujui</p>
+				</div>
+				<div class="modal-footer text-center">
+					<button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>  
 
 	
 
@@ -172,7 +203,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
 	<script>
 	$( document ).ready(function() {
-        console.log("hhh");
 		$("#simpan").click(function(e){
 			e.preventDefault();
 			//checks if it's valid

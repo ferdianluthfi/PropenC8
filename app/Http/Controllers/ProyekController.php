@@ -47,8 +47,10 @@ class ProyekController extends Controller
         //masih pake dummy blm ambil dari web idnya
         //buat nampilin detailproyek
         $proyek = DB::table('proyeks')->select('*')->where('id',$id)->get()->first();
+        $formatValue = number_format($proyek->projectValue, 2, ',','.');
+        $proyek->projectValue = $formatValue;
         $status;
-        
+
         $statusNum = $proyek-> approvalStatus;
         
         if($statusNum == 0){

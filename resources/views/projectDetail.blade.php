@@ -32,9 +32,9 @@
                             <li><p>Nama Staf Marketing</p></li>
                             <li><p>Nama Proyek</p></li>
                             <li><p>Nama Perusahaan</p></li>
-                            <li><p>Nilai Proyek</p></li>
-                            <li><p>Estimasi Waktu Pengerjaan</p></li>
                             <li><p>Alamat Proyek</p></li>
+                            <li><p>Estimasi Waktu Pengerjaan</p></li>
+                            <li><p>Nilai Proyek</p></li>
                             <li><p>Deskripsi Proyek</p></li>
                         </ul>
                     </div>
@@ -43,9 +43,9 @@
                             <li><p>:   {{ $proyek->name}}<p></li>
                             <li><p>:   {{ $proyek->projectName}}<p></li>
                             <li><p>:   {{ $proyek->companyName}}<p></li>
+                            <li><p>:   {{ $proyek->projectAddress}}<p></li>
                             <li><p>:   {{ $proyek->estimatedTime}} Hari<p></li>
                             <li><p>:   Rp {{ $proyek->projectValue}}<p></li>
-                            <li><p>:   {{ $proyek->projectAddress}}<p></li>
                             <li><p class="deskripsi" style="margin-bottom:10px;" >: {{ $proyek->description}}<p></li>
                         </ul>
                     </div>
@@ -58,7 +58,7 @@
 				<p class="font-subtitle-5">Staf Marketing</p>
 				<hr style="background-color:black;"/>
                 <br> <br> <br>
-                <p class="font-status-approval" style="text-align: center;">Belum Tersedia.</p>
+                <p class="font-status-approval" style="text-align: center;"> {{ $proyek->name}}</p>
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
         <div class="row ketengahin">
             <!-- bikin kondisi dulu -->
             @if($statusKontrak == "false")
-            <a href=""><div class="col-sm-3 card card-button">
+            <a href="#"><div class="col-sm-3 card card-button">
                 <p class="font-button-berkas-inactive">Berkas Kontrak<p>
             </div></a>
             @else
