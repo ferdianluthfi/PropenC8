@@ -13,7 +13,6 @@
 <!-- isinya -->
 <div class="container-fluid card card-main">
     <br>
-    <br>
     <div class="text-center font-title">
         <p>Oops!</p>
     </div>
