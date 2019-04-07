@@ -1,8 +1,14 @@
 @extends('layouts.layout')
 
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
 @section ('content')
 @include('layouts.nav')
-<html>
 <body>
 <!-- isinya -->
 <div class="container-fluid card card-detail-proyek">
@@ -53,6 +59,44 @@
             </div>
         </div>
     </div>
+    <div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-xs-4 card-button" style="margin: 10px; height: 60px; ">
+                <span> Surat Penawaran Rekanan </span>
+                <a href="/generate-pdf/{{ $proyek->id }}" class="btn btn-primary">Buat Surat</a>
+            </div>
+            <div class="col-xs-4 card-button" style="margin: 10px;  height: 60px; ">
+                <span> Surat Permohonan Jaminan Bank </span>
+                <a href="/generate-pdf2/{{ $proyek->id }}" class="btn btn-primary center" style="position:center;">Buat Surat</a>
+            </div>
+            <div class="col-xs-4 card-button" style="margin: 10px; height: 60px; ">
+                <span> Upload Surat ke Sistem </span>
+                <a href="/file/upload/{{ $proyek->id }}" class="btn btn-primary">Upload File</a>
+            </div>
+        </div>
+
+        <!--        <div>-->
+<!--            @if(session('success'))-->
+<!--            <div class="alert alert-success">-->
+<!--                {{ session('success') }}-->
+<!--            </div>-->
+<!--            @endif-->
+<!--                    </div>-->-->
+<!--                    <p>Tambah Berkas</p>-->-->
+<!--            <p>Surat Penawaran Rekanan-->
+<!--                <a href="/generate-pdf/{{ $proyek->id }}" class="btn btn-primary">Buat Surat</a>-->
+<!--            </p>-->
+<!--            <p>Surat Permohonan Jaminan Bank-->
+<!--                <a href="/generate-pdf2/{{ $proyek->id }}" class="btn btn-primary">Buat Surat</a>-->
+<!--            </p>-->
+<!--            <p>Upload Surat ke Sistem-->
+<!--                <a href="/file/upload/{{ $proyek->id }}" class="btn btn-primary">Upload File</a>-->
+<!--            </p>-->
+<!--        </div>-->
+    </div>
+</div>
 <!--    <div class="container" style="padding:5%;">-->
 <!--        <div class="row bigCard">-->
 <!--            <h3 class="col-md-12" style="text-align:center;">Kelola Berkas Lelang</h3>-->
@@ -127,9 +171,9 @@
 <!--        </table>-->
 <!--    </div>-->
 
-    <div class="col-sm-9 ketengahin">
-        <table class="table table-bordered table-hover">
-            <caption>Kelola Berkas Lelang</caption>
+    <div class="container-fluid card card-detail-proyek">
+        <table id="datatable" class="table table-striped table-bordered text-center">
+            <caption style="text-align: center">Kelola Berkas Lelang</caption>
             <thead>
             <tr style="text-align: center">
                 <th>Id</th>
@@ -173,28 +217,8 @@
             </tbody>
         </table>
     </div>
-    <div class="col-sm-2 ketengahin">
-        <br>
-        <br>
-        <div>
-            @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-            @endif
-<!--        </div>-->
-<!--        <p>Tambah Berkas</p>-->
-        <p>Surat Penawaran Rekanan
-            <a href="/generate-pdf/{{ $proyek->id }}" class="btn btn-primary">Buat Surat</a>
-        </p>
-        <p>Surat Permohonan Jaminan Bank
-            <a href="/generate-pdf2/{{ $proyek->id }}" class="btn btn-primary">Buat Surat</a>
-        </p>
-        <p>Upload Surat ke Sistem
-            <a href="/file/upload/{{ $proyek->id }}" class="btn btn-primary">Upload File</a>
-        </p>
-    </div>
-</div>
+
+
 
 
             <!-- <tr>
@@ -219,4 +243,19 @@
             </tr> -->
 
 </body>
+@endsection
+@section('scripts')
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js" integrity="sha256-+h0g0j7qusP72OZaLPCSZ5wjZLnoUUicoxbvrl14WxM=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/umd/util.js"></script> -->
+
+<script>
+    $(document).ready( function () {
+        $('#datatable').DataTable();
+    });
+</script>
+@endsection
 </html>
+
