@@ -20,7 +20,7 @@ class ProyekController extends Controller
         // $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
         $status;
         $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->get();
-        $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->orWhere('approvalStatus',3)->get();
+        $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->orWhere('approvalStatus',2)->orWhere('approvalStatus',3)->get();
         
         foreach($proyekPoten as $proyeg){
             $statusNum = $proyeg-> approvalStatus;
@@ -30,10 +30,11 @@ class ProyekController extends Controller
             }
         }
         foreach($proyekNonPoten as $proyeg){
+
             $statusNum = $proyeg-> approvalStatus;
-            $temp = explode(" ", $proyeg->created_at)[0];
-            $temp = explode("-", $temp);
-            $proyeg->created_at = $temp[2] . "-" . $temp[1] . "-" . $temp[0];
+            $temp = explode(" ",$proyeg->created_at)[0];
+            $date = $this->waktu($temp);
+            $proyeg->created_at = $date;
 
             if($statusNum == 1){
                 $status = "DISETUJUI";
@@ -78,7 +79,7 @@ class ProyekController extends Controller
         // return $request->all();
         
         if($validator->fails()) {
-            session()->flash('flash_message', 'Ada kesalahan input');
+            session()->flash('error', 'Ada kesalahan input');
             return redirect('/proyek/tambah')
                 ->withErrors($validator)
                 ->withInput();
@@ -96,14 +97,13 @@ class ProyekController extends Controller
                 'projectAddress' => $request->projectAddress,
                 'approvalStatus' => 0,
                 'isLPJExist'=>0,
-                'pengguna_id'=>3,
+                'pengguna_id'=> 3, #\Auth::user()->id,
                 'created_at' => now('GMT+7'),
                 'updated_at' => now('GMT+7'),
             ]); 
-            session()->flash('flash_message', 'Proyek berhasil ditambah');
+            session()->flash('flash_message', 'Proyek telah ditambahkan.');
             return redirect('/proyek');
         }
-
     }
 
     /**
@@ -175,7 +175,7 @@ class ProyekController extends Controller
         // return $request->all();
         
         if($validator->fails()) {
-            session()->flash('flash_message', 'Ada kesalahan input');
+            session()->flash('error', 'Ada kesalahan input');
             return redirect('/proyek/ubah/$request->id')
                 ->withErrors($validator)
                 ->withInput();
@@ -193,10 +193,10 @@ class ProyekController extends Controller
                 'projectAddress' => $request->projectAddress,
                 'approvalStatus' => 0,
                 'isLPJExist'=>0,
-                'pengguna_id'=>3,
+                'pengguna_id'=>3, #\Auth::user()->id,
                 'updated_at' => now('GMT+7'),
             ]); 
-            session()->flash('flash_message', 'Proyek telah ditambahkan.');
+            session()->flash('flash_message', 'Data proyek telah diubah.');
             return redirect('/proyek');
         }
     }
@@ -233,8 +233,73 @@ class ProyekController extends Controller
 	    DB::table('proyeks')->where('id',$id)->delete();
 		
 	    // alihkan halaman ke halaman proyek
-	    return redirect('/proyek');
+	    return redirect()->back()->with('flash_message', 'Proyek telah dihapus.');
 
+    }
+    
+    public function waktu($tanggal){
+        
+        
+        $bulan = date("m", strtotime($tanggal));
+        $tahun = date("Y", strtotime($tanggal));
+        $day = substr($tanggal, 8, 9);
+        $days = strval($day);
+        $tahuns = strval($tahun);
+        
+        
+        
+        $bulanTerbilang;
+        if($bulan == "1"){
+            $bulanTerbilang = "Januari";
+        }
+        
+        elseif($bulan == "2"){
+            $bulanTerbilang = "Februari";
+        }
+        
+        elseif($bulan == "3"){
+            $bulanTerbilang = "Maret";
+        }
+        
+        elseif($bulan == "4"){
+            $bulanTerbilang = "April";
+        }
+        
+        elseif($bulan == "5"){
+            $bulanTerbilang = "Mei";
+        }
+
+        elseif($bulan == "6"){
+            $bulanTerbilang = "Juni";
+        }
+
+        elseif($bulan == "7"){
+            $bulanTerbilang = "Juli";
+        }
+
+        elseif($bulan == "8"){
+            $bulanTerbilang = "Agustus";
+        }
+
+        if($bulan == "9"){
+            $bulanTerbilang = "September";
+        }
+        
+        elseif($bulan == "10"){
+            $bulanTerbilang = "Oktober";
+        }
+
+        elseif($bulan == "11"){
+            $bulanTerbilang = "November";
+        }
+        
+        elseif($bulan == "12"){ 
+            $bulanTerbilang = "Desember";
+        }
+        
+        $waktu = "$days $bulanTerbilang $tahuns";
+        return($waktu);   
+           
     }
 
 }

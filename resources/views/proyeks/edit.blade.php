@@ -19,8 +19,11 @@
 @include('layouts.nav')
 	<div class="container container-basic" nonvalidate="nonvalidate" id="jqueryvalidation">
 
-		@if(session()->has('flash_message'))
-			<p>{{session('flash_message')}}</p>
+		@if(session('error'))
+			<div class="alert alert-warning alert-dismissible" style="margin: 15px;" role="alert">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<strong> {{ session('error') }} </strong>
+			</div>
 		@endif
 
 		@foreach($proyeks as $proyek)
