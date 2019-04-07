@@ -17,7 +17,7 @@
     <br>
     <p class="font-subtitle-1">Detail Proyek</p>
     <hr>
-    <div>
+        <div>
         <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName }}</p>
         </div>
     <div class="row ketengahin">
@@ -54,6 +54,7 @@
             </div>
         </div>  
         </div>
+
         <div class="col-sm-2">
             <div class="card card-pm">
                 <br>
@@ -67,22 +68,26 @@
         </div>
 
     </div>
-    <div>
-        <div class="row ketengahin">
-            <a href="{{ route('detail-kontrak', $proyek->id) }}"><div class="col-sm-3 card card-button">
+    <div class="row ketengahin">
+        <a href="{{ route('detail-kontrak', $proyek->id) }}">
+            <div class="col-sm-3 card card-button">
                 <p class="font-button-berkas">Berkas Kontrak<p>
-            </div></a>
-            <a href="#"><div class="col-sm-3 card card-button">
+            </div>
+        </a>
+        <a href="#">
+            <div class="col-sm-3 card card-button">
                 <p class="font-button-berkas-inactive">LAPJUSIK<p>
-            </div></a>
-            <a href="#"><div class="col-sm-3 card card-button">
+            </div>
+        </a>
+        <a href="#">
+            <div class="col-sm-3 card card-button">
                 <p class="font-button-berkas-inactive">LPJ<p>
-            </div></a>
-        </div>
+            </div>
+        </a>
     </div>
     
 
 </div>
-
+@endsection
 
 

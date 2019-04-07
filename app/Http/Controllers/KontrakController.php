@@ -11,11 +11,13 @@ class KontrakController extends Controller
  
     public function viewKontrak($id){
 
+
+        
         $proyek = Proyek::where('id', $id)->first();
         $kontrak = Kontrak::where('proyek_id', $id)->first();
         
-        
-        $status = $kontrak->approvalStatus; // ini kontrak belum tentu adakan. kalo dia gapunya nanti returnnya null
+        if($kontrak != null){
+            $status = $kontrak->approvalStatus; // ini kontrak belum tentu adakan. kalo dia gapunya nanti returnnya null
         if($status == 0){
             $statusHuruf = "MENUNGGU PERSETUJUAN";
         } elseif($status == 1){
@@ -28,6 +30,10 @@ class KontrakController extends Controller
 
 
         return view('detail-kontrak', ["statusHuruf" => $statusHuruf, "status" => $status, "kontrak" => $kontrak, "proyek" => $proyek, "id" => $id, 'formatValue' => $formatValue]);
+        } else{
+            return redirect('/error');
+        }
+        
     }
 
     public function approveKontrak($id){

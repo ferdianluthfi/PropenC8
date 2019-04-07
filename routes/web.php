@@ -19,6 +19,10 @@ Route::get('/home', function () {
     return view('landing');
 });
 
+Route::get('/error', function () {
+    return view('error-message');
+});
+
 Route::get('/luthfi', function () {
     $proyek = App\Proyek::find(1);
     $kelengkapanLelang = App\KelengkapanLelang::table('proyeks')

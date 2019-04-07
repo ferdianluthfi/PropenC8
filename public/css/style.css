@@ -104,6 +104,12 @@ margin-left: 20px;;
    vertical-align: center;
 }
 
+.error-404-image {
+    width:500px;
+    margin: 0 auto;
+    vertical-align:center;
+}
+
 ul{
     margin-left: -8px;
     margin-top: 10px;
