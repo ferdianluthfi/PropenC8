@@ -96,20 +96,18 @@ class KelengkapanLelangController extends Controller
 
         $pdf = PDF::loadView('template-surat/myPDF', $data);
 
-        $dokumenname = 'Dokumen 1.pdf';
+        $dokumenname = 'Dokumen 1';
         
+        $ext = '.pdf';
         Storage::put($dokumenname, $pdf->output());
 
-
-        // $filename = $proyek->projectName . ' - ' . $dokumenname;
-
-        // $file = KelengkapanLelang::create([
-        //     'title' => 'Autogenerate pdf',
-        //     'filename' => $filename,
-        //     'ext' => 'pdf',
-        //     'path' => $path,
-        //     'proyek_id' => $proyek->id
-        // ]);
+        $file = KelengkapanLelang::create([
+            'title' => 'Dokumen 1',
+            'filename' => $proyek->name . ' - ' . $dokumenname,
+            'ext' => '.pdf',
+            'path' => 'public/files/' . $dokumenname . $ext,
+            'proyek_id' => $proyek->id
+        ]);
 
         return $pdf->download('hehehehe.pdf');
     }
