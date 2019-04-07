@@ -83,8 +83,8 @@
 <!--                {{ session('success') }}-->
 <!--            </div>-->
 <!--            @endif-->
-<!--                    </div>-->-->
-<!--                    <p>Tambah Berkas</p>-->-->
+<!--                    </div>-->
+<!--                    <p>Tambah Berkas</p>-->
 <!--            <p>Surat Penawaran Rekanan-->
 <!--                <a href="/generate-pdf/{{ $proyek->id }}" class="btn btn-primary">Buat Surat</a>-->
 <!--            </p>-->

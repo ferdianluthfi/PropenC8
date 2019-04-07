@@ -106,7 +106,7 @@ class KelengkapanLelangController extends Controller
             'title' => 'Dokumen 1',
             'filename' => $proyek->name . ' - ' . $dokumenname,
             'ext' => '.pdf',
-            'path' => 'public/files/' . $dokumenname . $ext,
+            'path' => 'files/' . $dokumenname . $ext,
             'proyek_id' => $proyek->id
         ]);
 
@@ -135,7 +135,7 @@ class KelengkapanLelangController extends Controller
             'title' => 'Dokumen 2',
             'filename' => $proyek->name . ' - ' . $dokumenname,
             'ext' => '.pdf',
-            'path' => 'public/files/' . $dokumenname . $ext,
+            'path' => 'files/' . $dokumenname . $ext,
             'proyek_id' => $proyek->id
         ]);
 
