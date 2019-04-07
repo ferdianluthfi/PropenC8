@@ -125,7 +125,7 @@ class KelengkapanLelangController extends Controller
 
         $pdf = PDF::loadView('template-surat/myPDF', $data);
 
-        $dokumenname = 'Dokumen 2.pdf';
+        $dokumenname = 'Dokumen 2';
 
         Storage::put($dokumenname, $pdf->output());
 

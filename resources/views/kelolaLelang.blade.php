@@ -205,9 +205,9 @@
                     <a href="{{ route('file.response', $object->id) }}" title="Show or download file {{ $object->title }}">
                         <span class="glyphicon glyphicon-save"></span>
                     </a>
-<!--                    <a href="{{ route('file.download', $object->id) }}" title="Download file {{ $object->title }}">-->
-<!--                        <i class="fa fa-download fa-fw"></i>-->
-<!--                    </a>-->
+                    <a href="{{ route('file.download', $object->id) }}" title="Download file {{ $object->title }}">
+                        <i class="glyphicon glyphicon-download"></i>
+                    </a>
                     <a href="/file/{{ $object->id }}/delete" title="Delete file {{ $object->title }}">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
