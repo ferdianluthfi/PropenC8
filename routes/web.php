@@ -23,6 +23,10 @@ Route::get('/error', function () {
     return view('error-message');
 });
 
+Route::get('/no-access', function () {
+    return view('no-access');
+});
+
 Route::get('/luthfi', function () {
     $proyek = App\Proyek::find(1);
     $kelengkapanLelang = App\KelengkapanLelang::table('proyeks')

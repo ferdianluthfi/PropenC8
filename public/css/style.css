@@ -1,5 +1,3 @@
-
-
 @font-face{
     font-family: 'Roboto-Reg', sans-serif;
     src: url(/public/font/Roboto-Regular.ttf);
@@ -111,6 +109,12 @@ margin-left: 20px;;
 
 .error-404-image {
     width:500px;
+    margin: 0 auto;
+    vertical-align:center;
+}
+
+.no-access-image {
+    width:400px;
     margin: 0 auto;
     vertical-align:center;
 }
