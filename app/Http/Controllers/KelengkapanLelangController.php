@@ -98,8 +98,9 @@ class KelengkapanLelangController extends Controller
 
         $dokumenname = 'Dokumen 1';
         
-        $ext = '.pdf';
         Storage::put($dokumenname, $pdf->output());
+        
+        $ext = '.pdf';
 
         $file = KelengkapanLelang::create([
             'title' => 'Dokumen 1',
@@ -128,16 +129,15 @@ class KelengkapanLelangController extends Controller
 
         Storage::put($dokumenname, $pdf->output());
 
+        $ext = '.pdf';
 
-        // $filename = $proyek->projectName . ' - ' . $dokumenname;
-
-        // $file = KelengkapanLelang::create([
-        //     'title' => 'Autogenerate pdf',
-        //     'filename' => $filename,
-        //     'ext' => 'pdf',
-        //     'path' => $path,
-        //     'proyek_id' => $proyek->id
-        // ]);
+        $file = KelengkapanLelang::create([
+            'title' => 'Dokumen 2',
+            'filename' => $proyek->name . ' - ' . $dokumenname,
+            'ext' => '.pdf',
+            'path' => 'public/files/' . $dokumenname . $ext,
+            'proyek_id' => $proyek->id
+        ]);
 
         return $pdf->download('hehehehe.pdf');
     }
