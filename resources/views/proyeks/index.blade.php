@@ -27,13 +27,11 @@
 	<div class="container">
 		<div class="row bigCard">
 			<div class="col-md-12">
-				@if(session()->has('flash_message'))
-				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					<strong><i class="material-icons">&#xE876;</i>Berhasil!</strong> {{session('flash_message')}}
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
+				@if(session('flash_message'))
+					<div class="alert alert-success alert-dismissible" style="margin: 15px;" role="alert">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							<strong> {{ session('flash_message') }} </strong>
+					</div>
 				@endif
 				<h2 style="text-align:center;">Daftar Proyek Potensial</h2><br>
 				<div class="row">
@@ -79,8 +77,9 @@
 								<tr style="background-color: whitesmoke;">
 									<td>{{ $proyeks->projectName }}</td>
 									<td>{{ $proyeks->created_at }}</td>
-									@if($proyeks->approvalStatus === 1) <td style="color:limegreen; font-weight:bold;"> DISETUJUI</td>
-									@else <td style="color:red; font-weight:bold;"> DITOLAK </td>
+									@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
+									@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
+									@else <td style="color:red;"> DITOLAK </td>
 									@endif
 									<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
 								</tr>
