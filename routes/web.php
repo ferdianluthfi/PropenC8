@@ -29,7 +29,7 @@ Route::get('/luthfi', function () {
     //return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
 });
 
-Route::get('/proyek', 'KemajuanProyekController@viewProyek');
+Route::get('/assignedproyek', 'KemajuanProyekController@viewProyek');
 Route::get('/proyek/detail/{id}', 'KemajuanProyekController@detailProyek');
 Route::get('/informasi/{id}', 'KemajuanProyekController@viewInfo');
 Route::get('/informasi/detail/{id}', 'KemajuanProyekController@detailInfo');
@@ -38,3 +38,36 @@ Route::post('/info/submit/{idPelaksanaan}', 'KemajuanProyekController@simpanInfo
 Route::get('/info/edit/{id}', 'KemajuanProyekController@editInformasi');
 Route::post('/info/update/{id}', 'KemajuanProyekController@updateInformasi');
 Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
+/**
+ * routing untuk home dan landing
+ */
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return view('home');
+   });
+});
+
+/**
+ * routing untuk proyek
+ */
+Route::get('/proyek', 'ProyekController@index');
+Route::get('/proyek/tambah', 'ProyekController@create');
+Route::post('/proyek/store', 'ProyekController@store');
+Route::post('/proyek/update', 'ProyekController@update');
+Route::get('/proyek/ubah/{id}', 'ProyekController@edit');
+Route::get('/proyek/hapus/{id}', 'ProyekController@destroy');
+Route::get('/proyek/lihat/{id}', 'ProyekController@show'); //Fungsi ini adalah untuk lihat detail proyek potensial(belum ikut lelang)
+Route::get('/proyek/{id}', 'ProyekController@viewDetailProyek')->name('detail-proyek'); //Fungsi ini untuk lihat proyek yang sudah diapprove oleh direksi(tappi kontrak kerja belum tentnu dikasih liat)
+Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');
+Route::post('proyek/{id}/kontrak/approve', 'KontrakController@approveKontrak')->name('approve-kontrak');
+Route::post('proyek/{id}/kontrak/disapprove', 'KontrakController@disapproveKontrak')->name('disapprove-kontrak');
+
+/**
+ * routing untuk kemajuan proyek
+ */
+Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
+
+
+

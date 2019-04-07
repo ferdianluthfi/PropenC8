@@ -23,7 +23,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('assignedproyek') }}">Proyek</a></li>
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/proyek/detail/{{$pelaksanaan->proyek_id}}'>Detail Proyek</a></li>
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/informasi/{{$pelaksanaan->proyek_id}}'>Informasi Kemajuan</a></li>
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href='/info/tambah/{{$pelaksanaan->proyek_id}}'>Tambah Kemajuan</a></li>

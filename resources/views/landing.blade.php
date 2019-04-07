@@ -6,7 +6,7 @@
 <!-- Breadcrumbs (ini buat navigation yaa) -->
 <nav aria-label="breadcrumb ">
   <ol class="breadcrumb">
-    <li class="font-breadcrumb-active" aria-current="page"><a href="{{ url('home') }}">Beranda</a></li>
+    <li class="breadcrumb-item active font-breadcrumb-active" aria-current="page"><a href="{{ url('home') }}">Beranda</a></li>
   </ol>
 </nav>
 
@@ -29,10 +29,10 @@
 
 
 
-<div class="row">
 
 <!-- 
 <div class="container-fluid">
+    <div class="row">
         <div class="col-sm-1"></div>
         <div class="col-sm-10 card card-main ">
             <div class="text-center font-subtitle-1">
@@ -47,3 +47,10 @@
         <div class="col-sm-1"></div>
 </div>
 </div> -->
+
+
+
+
+
+
+
