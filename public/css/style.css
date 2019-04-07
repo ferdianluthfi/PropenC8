@@ -1,5 +1,8 @@
+
+
 @font-face{
     font-family: 'Roboto-Reg', sans-serif;
+    src: url(/public/font/Roboto-Regular.ttf);
     font-weight: 400;
     font-style: normal;
     src: ('https://fonts.googleapis.com/css?family=Roboto');
@@ -7,6 +10,7 @@
 
 @font-face{
     font-family: 'Roboto-Medium', sans-serif;
+    src: url(/public/font/Roboto-Medium.ttf);
     font-weight: 500;
     font-style: normal;
     src: ('https://fonts.googleapis.com/css?family=Roboto');
@@ -14,6 +18,7 @@
 
 @font-face{
     font-family: 'Roboto-Bold', sans-serif;
+    src: url(/public/font/Roboto-Bold.ttf);
     font-weight: 550;
     font-style: normal;
     src: ('https://fonts.googleapis.com/css?family=Roboto');
@@ -116,6 +121,12 @@ margin-left: 20px;
    width: 400px;
    margin: 0 auto;
    vertical-align: center;
+}
+
+.error-404-image {
+    width:500px;
+    margin: 0 auto;
+    vertical-align:center;
 }
 
 ul{
