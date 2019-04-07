@@ -20,7 +20,7 @@
 	<nav aria-label="breadcrumb" style="margin-left:10px;">
 		<ol class="breadcrumb" style="margin-left:150px;">
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
-			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek') }}">Proyek</a></li>
 		</ol>
 	</nav>
 
