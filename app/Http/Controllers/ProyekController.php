@@ -11,32 +11,40 @@ class ProyekController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+//    public function index()
+//    {
+//        // $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
+//        $status;
+//        $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->get();
+//        $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->orWhere('approvalStatus',3)->get();
+//
+//        foreach($proyekPoten as $proyeg){
+//            $statusNum = $proyeg-> approvalStatus;
+//            if($statusNum == 0){
+//                $status = "Menunggu Persetujuan";
+//            }
+//        }
+//        foreach($proyekNonPoten as $proyeg){
+//            $statusNum = $proyeg-> approvalStatus;
+//            $temp = explode(" ", $proyeg->created_at)[0];
+//            $temp = explode("-", $temp);
+//            $proyeg->created_at = $temp[2] . "-" . $temp[1] . "-" . $temp[0];
+//            if($statusNum == 1){
+//                $status = "DISETUJUI";
+//            }elseif($statusNum == 2){
+//                $status = "Sedang Berjalan";
+//            }else{
+//                $status = "DITOLAK";
+//            }
+//        }
+//
+//        return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
+//    }
+
     public function index()
     {
-        // $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
-        $status;
-        $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->get();
-        $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->orWhere('approvalStatus',3)->get();
 
-        foreach($proyekPoten as $proyeg){
-            $statusNum = $proyeg-> approvalStatus;
-            if($statusNum == 0){
-                $status = "Menunggu Persetujuan";
-            }
-        }
-        foreach($proyekNonPoten as $proyeg){
-            $statusNum = $proyeg-> approvalStatus;
-            $temp = explode(" ", $proyeg->created_at)[0];
-            $temp = explode("-", $temp);
-            $proyeg->created_at = $temp[2] . "-" . $temp[1] . "-" . $temp[0];
-            if($statusNum == 1){
-                $status = "DISETUJUI";
-            }elseif($statusNum == 2){
-                $status = "Sedang Berjalan";
-            }else{
-                $status = "DITOLAK";
-            }
-        }
+        $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->get();
 
         return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
     }
