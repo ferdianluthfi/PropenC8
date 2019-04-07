@@ -40,7 +40,7 @@ class KelengkapanLelangController extends Controller
 
         $uploadedFile = $request->file('file');        
 
-        $path = $uploadedFile->store('public/files');
+        $path = $uploadedFile->store('files');
 
         $proyek = Proyek::select('proyeks.*')->where('id', $request->proyekId)->first();
         $proyek_id = $proyek->id;
