@@ -13,7 +13,7 @@ class CreateTemplateSuratTable extends Migration
      */
     public function up()
     {
-        Schema::create('listTemplateSurat', function (Blueprint $table) {
+        Schema::create('list_template_surats', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama_surat');
             $table->binary('surat');

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 // use DB;
@@ -17,35 +16,42 @@ class ProyekController extends Controller
      */
     public function index()
     {
-        // $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
-        $status;
-        $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->get();
-        $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->orWhere('approvalStatus',2)->orWhere('approvalStatus',3)->get();
+        if(\Auth::user()->role == 3){
+                // $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
+            $status;
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->get();
+            $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->orWhere('approvalStatus',2)->orWhere('approvalStatus',3)->get();
+            
+            foreach($proyekPoten as $proyeg){
+                $statusNum = $proyeg-> approvalStatus;
+
+                if($statusNum == 0){
+                    $status = "MENUNGGU PERSETUJUAN";
+                }
+            }
+            foreach($proyekNonPoten as $proyeg){
+
+                $statusNum = $proyeg-> approvalStatus;
+                $temp = explode(" ",$proyeg->created_at)[0];
+                $date = $this->waktu($temp);
+                $proyeg->created_at = $date;
+
+                if($statusNum == 1){
+                    $status = "DISETUJUI";
+                }elseif($statusNum == 2){
+                    $status = "SEDANG BERJALAN";
+                }else{
+                    $status = "DITOLAK";
+                }
+            }
         
-        foreach($proyekPoten as $proyeg){
-            $statusNum = $proyeg-> approvalStatus;
-
-            if($statusNum == 0){
-                $status = "MENUNGGU PERSETUJUAN";
-            }
+            return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
         }
-        foreach($proyekNonPoten as $proyeg){
-
-            $statusNum = $proyeg-> approvalStatus;
-            $temp = explode(" ",$proyeg->created_at)[0];
-            $date = $this->waktu($temp);
-            $proyeg->created_at = $date;
-
-            if($statusNum == 1){
-                $status = "DISETUJUI";
-            }elseif($statusNum == 2){
-                $status = "SEDANG BERJALAN";
-            }else{
-                $status = "DITOLAK";
-            }
+        else{
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->get();
+            return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
         }
-       
-        return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
+        
     }
 
     /**
@@ -217,9 +223,6 @@ class ProyekController extends Controller
 
         return view('detail-proyek', ["id" => $id, "proyek" => $proyek, "statusHuruf" => $statusHuruf]);
     }
-
-    
-
 
     /**
      * Remove the specified resource from storage.

@@ -1,10 +1,10 @@
- <?php
+<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKelengkapanLelangsTable extends Migration
+class CreateNewKelengkapanLelangs extends Migration
 {
     /**
      * Run the migrations.
@@ -15,19 +15,19 @@ class CreateKelengkapanLelangsTable extends Migration
     {
         Schema::create('kelengkapan_lelangs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title', 100);
-            $table->string('filename', 100);
-            $table->string('path', 100);
-            $table->string('ext', 100);
+            $table->string('name', 255);
+            $table->string('mime', 255);
+            $table->bigInteger('size')->unsigned();
             $table->bigInteger('proyek_id')->unsigned();
             $table->foreign('proyek_id')
             ->references('id')
             ->on('proyeks')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-            $table->integer('flag_active')->default(1);
             $table->timestamps();
         });
+
+        DB::statement("ALTER TABLE kelengkapan_lelangs ADD file LONGBLOB");
     }
 
     /**

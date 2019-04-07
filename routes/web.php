@@ -47,4 +47,15 @@ Route::post('proyek/{id}/kontrak/disapprove', 'KontrakController@disapproveKontr
 Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
 
 
-
+/**
+ * routing untuk kelola lelang
+ */
+Route::get('/kelolaLelang/{proyek_id}', 'KelengkapanLelangController@kelolaBerkas');
+Route::get('/getBerkas/{id}', 'KelengkapanLelangController@getBerkas');
+Route::get('file/upload/{proyek_id}', 'KelengkapanLelangController@form');
+Route::post('file/upload', 'KelengkapanLelangController@uploadKelengkapanLelang')->name('file.upload');
+Route::get('file/{file}/download', 'KelengkapanLelangController@downloadKelengkapanLelang')->name('file.download');
+Route::get('file/{file}/response', 'KelengkapanLelangController@responseKelengkapanLelang')->name('file.response');
+Route::get('file/{file}/delete', 'KelengkapanLelangController@deleteKelengkapanLelang');
+Route::get('generate-pdf/{proyek_id}','KelengkapanLelangController@generatePDF');
+Route::get('generate-pdf2/{proyek_id}','KelengkapanLelangController@generatePDF2');
