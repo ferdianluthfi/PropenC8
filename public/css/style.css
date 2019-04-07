@@ -181,6 +181,15 @@ li {
     text-align: justify;
     text-justify: inter-word;
 }
+
+.font-desc-white{
+    font-family: 'Roboto-Reg', sans-serif;
+	font-size: 12px;
+    color: #fff;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
@@ -601,6 +610,8 @@ iframe {
   }
 }
 
+
+
 .font-button-berkas {
     font-family: 'Roboto-Medium';
     font-size: 16px;
@@ -619,15 +630,15 @@ iframe {
 
 .font-breadcrumb-inactive {
 	font-family: 'Roboto-Reg', sans-serif;
-	font-size: 15px;
-    color: #606060;
+    font-size: 15px;
+    color: rgb(40, 119, 198);
     text-justify: inter-word;
 }
 
 .font-breadcrumb-active {
 	font-family: 'Roboto-Medium', sans-serif;
 	font-size: 15px;
-    color: rgb(40, 119, 198);;
+    color: #606060;
     text-justify: inter-word;
 }
 

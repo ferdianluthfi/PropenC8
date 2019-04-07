@@ -2,17 +2,15 @@
 
 @section ('content')
 @include('layouts.nav')
+
 <!-- Breadcrumbs (ini buat navigation yaa) -->
-<nav aria-label="breadcrumb ">
+<nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item active font-breadcrumb-active" aria-current="page">
-        <a href="{{ url('home') }}">Beranda</a>
-    </li>
-    <li class="breadcrumb-item active font-breadcrumb-active" aria-current="page">
-    <a href="{{ url('kemajuanProyek') }}">Kemajuan Proyek</a>
-    </li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('kemajuanProyek') }}">Kemajuan Proyek</a></li>
   </ol>
 </nav>
+
 
 <div class="container-fluid card card-main">
     <div class="text-center font-title">
@@ -34,6 +32,7 @@
 </p>
         <hr style="background-color:black; margin-top:10px"/>
         
+        <!-- semuanya -->
         <div id= "myProgressDetail-<?php echo $id ?>" class="myProgressDetail" style="display:none;" value="1"> 
             
             <p style="margin-left:4px">Gaji Karyawan : Rp{{number_format($proyek['totalGaji'], 2, ',','.')}}</p>
@@ -59,10 +58,11 @@
 
         </div>
 
+        <!-- satu doang -->
         <p id="title-<?php echo $id ?>" style="margin-left:4px">Total Penggunaan Dana : Rp{{number_format($proyek['totalKeseluruhan'], 2, ',','.')}}</p>
-        <div id="myProgress-<?php echo $id ?>" style="display:block;background-color: #fff; border-radius: 25px; border: 1px solid #ddd;height: 30px;">
+        <div id="myProgress-<?php echo $id ?>" style="display:block; background-color: #fff; border-radius: 25px; border: 1px solid #ddd;height: 30px;">
             @if((($proyek['totalKeseluruhan']/ $proyek['maxValue'])*100) > 100 )
-                <div id="myBar" style="width: 100%; background-color: #B22222; ">
+                <div id="myBar" style="width: 100%; background-color: #B22222; vertica">
                  Anggaran Berlebihan!
                 </div>
             @else
@@ -71,6 +71,9 @@
             </div>
             @endif
         </div>
+
+
+
         <center><button id="messageType-<?php echo $id ?>" onclick="showAll(<?php echo $id ?>)" style="margin:5px;">Tampilkan Lebih Banyak</button></center>
         @php
         $id++;
@@ -103,5 +106,8 @@
                 document.getElementById("messageType-"+$data).innerHTML = "Tampilkan Lebih Banyak";
             }
         }
+
+
+
     </script>
 @endsection
