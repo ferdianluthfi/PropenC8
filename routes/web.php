@@ -1,5 +1,6 @@
 <?php
 
+use App\Proyek;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,18 +11,53 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/luthfi', function () {
-    $proyek = App\Proyek::find(1);
-    $kelengkapanLelang = App\KelengkapanLelang::table('proyeks')
-    ->join('proyeks','proyeks.id','=','kelengkapan_lelangs','kelengkapan_lelangs.proyek_id')->where('kelengkapan_lelangs.proyek_id',1)
-    ->get();
-    //$proyek = $kelengkapanLelang->proyek()->where('id', 1)->get();
-    dd($kelengkapanLelang);
-    //return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return view('home');
+   });
 });
 
+
+
+/**
+ * routing untuk kelola lelang
+ */
+Route::get('/kelolaLelang/{proyek_id}', 'KelengkapanLelangController@kelolaBerkas');
+Route::get('/getBerkas/{id}', 'KelengkapanLelangController@getBerkas');
+Route::get('file/upload/{proyek_id}', 'KelengkapanLelangController@form');
+Route::post('file/upload', 'KelengkapanLelangController@uploadKelengkapanLelang')->name('file.upload');
+Route::get('file/{file}/download', 'KelengkapanLelangController@downloadKelengkapanLelang')->name('file.download');
+Route::get('file/{file}/response', 'KelengkapanLelangController@responseKelengkapanLelang')->name('file.response');
+Route::get('file/{file}/delete', 'KelengkapanLelangController@deleteKelengkapanLelang');
+Route::get('generate-pdf/{proyek_id}','KelengkapanLelangController@generatePDF');
+Route::get('generate-pdf2/{proyek_id}','KelengkapanLelangController@generatePDF2');
+
+/**
+ * routing untuk proyek
+ */
+Route::get('/proyek', 'ProyekController@index');
+Route::get('/proyek/tambah', 'ProyekController@create');
+Route::post('/proyek/store', 'ProyekController@store');
+Route::post('/proyek/update', 'ProyekController@update');
+Route::get('/proyek/ubah/{id}', 'ProyekController@edit');
+Route::get('/proyek/hapus/{id}', 'ProyekController@destroy');
+Route::get('/proyek/lihat/{id}', 'ProyekController@show'); //Fungsi ini adalah untuk lihat detail proyek potensial(belum ikut lelang)
+Route::get('/proyek/{id}', 'ProyekController@viewDetailProyek')->name('detail-proyek'); //Fungsi ini untuk lihat proyek yang sudah diapprove oleh direksi(tappi kontrak kerja belum tentnu dikasih liat)
+Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');
+Route::post('proyek/{id}/kontrak/approve', 'KontrakController@approveKontrak')->name('approve-kontrak');
+Route::post('proyek/{id}/kontrak/disapprove', 'KontrakController@disapproveKontrak')->name('disapprove-kontrak');
+Route::get('/proyek/setujuiProyek/{id}', 'ProyekController@approveProjectDetail');
+Route::post('/proyek/setujuiProyek/setuju/{id}', 'ProyekController@approveProject');
+Route::post('/proyek/setujuiProyek/tolak/{id}', 'ProyekController@rejectProject');
+Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutApprove');
+Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@viewKontrakz');
+
+/**
+ * routing untuk kemajuan proyek
+ */
 Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
+
+
+
