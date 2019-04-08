@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hi</title>
+    <title>Surat Pengajuan Jaminan Bank</title>
 </head>
 <body>
-<h1>Bismillah - {{ $title }}</h1>
 <p>Nama Proyek : {{ $projectName }} </p>
-
-<p>:   {{ $proyek->projectName}}<p>
-<p>:   {{ $proyek->companyName}}<p>
-<p>:   {{ $proyek->projectAddress}}<p>
-<p>:   {{ $proyek->projectValue}}<p>
+<p>Nama Perusahaan : {{ $comp }} </p>
+<p>Alamat Proyek : {{ $addr }} </p>
+<p>Nilai Proyek: Rp {{ $val }} </p>
 </body>
 </html>

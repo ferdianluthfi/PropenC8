@@ -48,7 +48,7 @@ class ProyekController extends Controller
             return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
         }
         else{
-            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->get();
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',1)->get();
             return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
         }
         

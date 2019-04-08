@@ -104,7 +104,6 @@ class KelengkapanLelangController extends Controller
         $proyek->projectValue = $temp;
 
         $data = [
-            'title' => $proyek->name,
             'projectName' => $proyek->projectName,
             'comp' => $proyek->companyName,
             'addr' => $proyek->projectAddress,
@@ -139,14 +138,13 @@ class KelengkapanLelangController extends Controller
         $proyek->projectValue = $temp;
 
         $data = [
-            'title' => $proyek->name,
             'projectName' => $proyek->projectName,
             'comp' => $proyek->companyName,
             'addr' => $proyek->projectAddress,
             'val' => $proyek->projectValue,
         ];
 
-        $pdf = PDF::loadView('template-surat/myPDF2', $data);
+        $pdf = PDF::loadView('template-surat/myPDF-2', $data);
 
         $dokumenname = 'Dokumen 2';
 
