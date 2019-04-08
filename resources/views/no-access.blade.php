@@ -14,7 +14,7 @@
 <div class="container-fluid card card-main">
     <br>
     <div class="text-center font-title">
-        <p>Oops!</p>
+        Oops!
     </div>
     <br>
     <div class="no-access-image">
@@ -23,8 +23,8 @@
     <br>
     <br>
     <div class="text-center font-subtitle-4">
-        <p>Anda tidak memiliki akses untuk halaman ini.</p>
-        <p>Kembali ke <a href="{{ url('home') }}">Beranda</a> </p>
+        <p class="text-center font-subtitle-4">Anda tidak memiliki akses untuk halaman ini.</p>
+        <p class="text-center font-subtitle-4">Kembali ke <a href="{{ url('home') }}">Beranda</a> </p>
     </div>
 </div>
 
