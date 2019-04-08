@@ -18,7 +18,7 @@ class ProyekController extends Controller
         if(\Auth::user()->role == 3){
             // $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
             $status;
-            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->get();
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->where('pengguna_id', \Auth::user()->id)->get();
             $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->orWhere('approvalStatus',2)->orWhere('approvalStatus',3)->get();
             
             foreach($proyekPoten as $proyeg){
@@ -60,6 +60,14 @@ class ProyekController extends Controller
                 $temp = explode(" ",$proyekNonP->created_at)[0];
                 $date = $this->waktu($temp);
                 $proyekNonP->created_at = $date;
+                // $statusNum = $proyekNonP->approvalStatus;
+                // if($statusNum == 1){
+                //     $status = "DISETUJUI";
+                // }elseif($statusNum == 2){   
+                //     $status = "SEDANG BERJALAN";
+                // }else{
+                //     $status = "DITOLAK";
+                // }
             }
             return view('proyeks.index', compact('proyekPoten','proyekNonPoten'));
         }
