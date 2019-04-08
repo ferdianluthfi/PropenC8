@@ -5,11 +5,11 @@
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('assignedproyek') }}">Proyek</a></li>
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/proyek/detail/{{$pelaksanaan->proyek_id}}'>Detail Proyek</a></li>
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/informasi/{{$pelaksanaan->proyek_id}}'>Informasi Kemajuan</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href='/informasi/detail/{{$kemajuan->id}}'>Detail Kemajuan</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/informasi/detail/{{$kemajuan->id}}'>Detail Kemajuan</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href='/informasi/detail/tambah/{{$kemajuan->id}}'>Tambah Foto</a></li>
   </ol>
 </nav>
 
@@ -58,8 +58,8 @@
             <p>Jika proses dibatalkan, foto tidak akan disimpan.</p>
         </div>
         <div class="modal-footer">
-            <a href="/assignedproyek" class="btn btn-default" style="color:red;">Iya</a>
-            <a href="#" class="btn btn-primary ">Tidak</a>
+            <a href='/informasi/{{$pelaksanaan->proyek_id}}' class="btn btn-default" style="color:red;">Iya</a>
+            <a href='{{$kemajuan->id}}' class="btn btn-primary ">Tidak</a>
         </div>
     </div>
     </div>
