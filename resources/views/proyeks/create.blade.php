@@ -38,8 +38,8 @@
 			{{ csrf_field() }}
 		
 			<div class="content bg1">
-						<span class="labels">Nama Staf Marketing</span>
-						<input class="inputs" type="text" name="name" placeholder="Masukkan Nama" data-error=".errorName">
+						<span class="labels" >Nama Staf Marketing</span>
+						<input class="inputs" type="text" name="name" placeholder="{{Auth::user()->name}}" data-error=".errorName" value="{{Auth::user()->name}}">
 						<div class="errorMessage errorName"></div>
 			</div>
 			<div class="content bg1">
