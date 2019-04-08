@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Proyek;
 use Illuminate\Http\Request;
 use App\KelengkapanLelang;
@@ -13,39 +11,41 @@ use Storage;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Expr\New_;
 use PDF;
-
 class KelengkapanLelangController extends Controller
 {
     public function kelolaBerkas($proyek_id)
     {
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
         $berkass = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('proyek_id', $proyek_id)->where('flag_active', '1')->get();
-
-        $templates = ListTemplateSurat::select('list_template_surats.*')->get();
-
-        $files = Files::orderBy('created_at', 'DESC')->paginate(30);
-        return view('kelolaLelang', compact('proyek', 'berkass', 'templates', 'files'));
+        $temp = number_format($proyek->projectValue, 2, ',','.');
+        $proyek->projectValue = $temp;
+        $statusNum = $proyek-> approvalStatus;
+        if($statusNum == 1){
+            $status = "DISETUJUI";
+        }elseif($statusNum == 2){
+            $status = "SEDANG BERJALAN";
+        }else{
+            $status = "DITOLAK";
+        }
+//        $templates = ListTemplateSurat::select('list_template_surats.*')->get();
+//
+//        $files = Files::orderBy('created_at', 'DESC')->paginate(30);
+        return view('kelolaLelang', compact('proyek', 'berkass', 'status'));
 	}
-
 	public function form($proyek_id){
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
 		return view('file.form', compact('proyek'));
 	}
-
     public function uploadKelengkapanLelang(Request $request): RedirectResponse {
         $this->validate($request, [
-            'title' => 'nullable|max:100',
+            'title' => 'required|max:100',
             'file' => 'required|file|max:2000'
         ]);
-
         $uploadedFile = $request->file('file');        
-
         $path = $uploadedFile->store('files');
-
         $proyek = Proyek::select('proyeks.*')->where('id', $request->proyekId)->first();
         $proyek_id = $proyek->id;
         $filename = $proyek->projectName . ' - ' . $request->title;
-
         $file = KelengkapanLelang::create([
             'title' => $request->title ?? $uploadedFile->getClientOriginalName(),
             'filename' => $filename,
@@ -53,7 +53,6 @@ class KelengkapanLelangController extends Controller
             'path' => $path,
             'proyek_id' => $request->proyekId
         ]);
-
         return redirect()
             ->back()
             ->withSuccess(sprintf('File %s has been uploaded.', $file->title));     
@@ -63,7 +62,6 @@ class KelengkapanLelangController extends Controller
     {
         return Storage::response($file->path);
     }
-
     /**
      * Download file directly.
      *
@@ -74,71 +72,62 @@ class KelengkapanLelangController extends Controller
     {
         return Storage::download($file->path, $file->filename . '.' . $file->ext);
     }
-
     public function deleteKelengkapanLelang(KelengkapanLelang $file)
     {
         $berkas = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('id', $file->id)->first();
         $proyek = Proyek::select('proyeks.*')->where('id', $file->proyek_id)->first();
-
         KelengkapanLelang::where('id', $file->id)->update(['flag_active' => 0]);
         return $this->kelolaBerkas($proyek->id);
     }
-
     public function generatePDF($proyek_id)
     {
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
-
+        $temp = number_format($proyek->projectValue, 2, ',','.');
+        $proyek->projectValue = $temp;
         $data = [
-            'title' => $proyek->name,
-            'projectName' => 'Propensi ',
-            'desc' => 'Kopek terus aja bibirnya sampe copot semua ok'
+            'projectName' => $proyek->projectName,
+            'comp' => $proyek->companyName,
+            'addr' => $proyek->projectAddress,
+            'val' => $proyek->projectValue,
         ];
-
         $pdf = PDF::loadView('template-surat/myPDF', $data);
-
         $dokumenname = 'Dokumen 1';
         
         Storage::put($dokumenname, $pdf->output());
         
         $ext = '.pdf';
-
         $file = KelengkapanLelang::create([
             'title' => 'Dokumen 1',
-            'filename' => $proyek->name . ' - ' . $dokumenname,
+            'filename' => $proyek->projectName . ' - ' . $dokumenname,
             'ext' => '.pdf',
             'path' => 'files/' . $dokumenname . $ext,
             'proyek_id' => $proyek->id
         ]);
-
         return $pdf->download('hehehehe.pdf');
     }
-
     public function generatePDF2($proyek_id)
     {
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
-
+        $temp = number_format($proyek->projectValue, 2, ',','.');
+        $proyek->projectValue = $temp;
         $data = [
-            'title' => $proyek->namaProyek,
-            'projectName' => 'Propensi ',
-            'desc' => 'Kopek terus aja bibirnya sampe copot semua ok'
+            'projectName' => $proyek->projectName,
+            'comp' => $proyek->companyName,
+            'addr' => $proyek->projectAddress,
+            'val' => $proyek->projectValue,
         ];
-
-        $pdf = PDF::loadView('template-surat/myPDF', $data);
-
+        $pdf = PDF::loadView('template-surat/myPDF-2', $data);
         $dokumenname = 'Dokumen 2';
-
         Storage::put($dokumenname, $pdf->output());
-
         $ext = '.pdf';
-
         $file = KelengkapanLelang::create([
             'title' => 'Dokumen 2',
-            'filename' => $proyek->name . ' - ' . $dokumenname,
+            'filename' => $proyek->projectName . ' - ' . $dokumenname,
             'ext' => '.pdf',
             'path' => 'files/' . $dokumenname . $ext,
             'proyek_id' => $proyek->id
         ]);
-
         return $pdf->download('hehehehe.pdf');
     }
+
 }

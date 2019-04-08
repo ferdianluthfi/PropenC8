@@ -46,3 +46,31 @@ Route::get('file/{file}/response', 'KelengkapanLelangController@responseKelengka
 Route::get('file/{file}/delete', 'KelengkapanLelangController@deleteKelengkapanLelang');
 Route::get('generate-pdf/{proyek_id}','KelengkapanLelangController@generatePDF');
 Route::get('generate-pdf2/{proyek_id}','KelengkapanLelangController@generatePDF2');
+
+/**
+ * routing untuk proyek
+ */
+Route::get('/proyek', 'ProyekController@index');
+Route::get('/proyek/tambah', 'ProyekController@create');
+Route::post('/proyek/store', 'ProyekController@store');
+Route::post('/proyek/update', 'ProyekController@update');
+Route::get('/proyek/ubah/{id}', 'ProyekController@edit');
+Route::get('/proyek/hapus/{id}', 'ProyekController@destroy');
+Route::get('/proyek/lihat/{id}', 'ProyekController@show'); //Fungsi ini adalah untuk lihat detail proyek potensial(belum ikut lelang)
+Route::get('/proyek/{id}', 'ProyekController@viewDetailProyek')->name('detail-proyek'); //Fungsi ini untuk lihat proyek yang sudah diapprove oleh direksi(tappi kontrak kerja belum tentnu dikasih liat)
+Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');
+Route::post('proyek/{id}/kontrak/approve', 'KontrakController@approveKontrak')->name('approve-kontrak');
+Route::post('proyek/{id}/kontrak/disapprove', 'KontrakController@disapproveKontrak')->name('disapprove-kontrak');
+Route::get('/proyek/setujuiProyek/{id}', 'ProyekController@approveProjectDetail');
+Route::post('/proyek/setujuiProyek/setuju/{id}', 'ProyekController@approveProject');
+Route::post('/proyek/setujuiProyek/tolak/{id}', 'ProyekController@rejectProject');
+Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutApprove');
+Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@viewKontrakz')->name('view-kontrak');
+
+/**
+ * routing untuk kemajuan proyek
+ */
+Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
+
+
+

@@ -96,8 +96,41 @@ class KontrakController extends Controller
         $waktoe = "$dayz $bulanTerbilang $tahunz";
         return($waktoe);   
            
+    }
+        public function viewKontrak($id){
+        
+        $proyek = Proyek::where('id', $id)->first();
+        $kontrak = Kontrak::where('proyek_id', $id)->first();
+        
+        if($kontrak != null){
+             $status = $kontrak->approvalStatus; // ini kontrak belum tentu adakan. kalo dia gapunya nanti returnnya null
+            if($status == 0){
+                $statusHuruf = "MENUNGGU PERSETUJUAN";
+            } elseif($status == 1){
+                $statusHuruf = "DISETUJUI";
+            } elseif($status == 2){
+                $statusHuruf = "DITOLAK";
+            }
+            
+            $formatValue = number_format($proyek->projectValue, 2, ',','.');
+            return view('detail-kontrak', ["statusHuruf" => $statusHuruf, "status" => $status, "kontrak" => $kontrak, "proyek" => $proyek, "id" => $id, 'formatValue' => $formatValue]);
+        } 
+        else{
+            return redirect('/error');
+        }
         
     }
+    public function approveKontrak($id){
+        $kontrak = Kontrak::where('proyek_id', $id)->first()->update(['approvalStatus' => 1]);
+        return redirect('/proyek');
+    
+    }
+    public function disapproveKontrak($id){
+        $kontrak = Kontrak::where('proyek_id', $id)->first()->update(['approvalStatus' => 2]);
+        return redirect('/proyek');
+    }
+        
+
     
 
    

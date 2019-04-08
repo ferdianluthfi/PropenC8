@@ -558,6 +558,7 @@ position: relative;
 border: 1px solid #e6e6e6;
 border-radius: 14px;
 padding: 5%;
+margin-bottom:20px;
 }
 
 .card-table:hover {
@@ -577,6 +578,7 @@ position: relative;
 border: 1px solid #c7c6c6;
 border-radius: 13px;
 padding: 2rem;
+margin-bottom:20px;
 
 font-size: 20px;
 line-height: 2.5;
@@ -607,6 +609,7 @@ line-height: 2.5;
 -o-transition: all 0.4s;
 -moz-transition: all 0.4s;
 transition: all 0.4s;
+margin-bottom:20px;
 }
 
 .project:hover {
@@ -628,7 +631,7 @@ margin: 0;
 /* Add shadows to create the "card" effect */
 box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 transition: 0.3s;
-background-color:#f4f4f4;
+background-color:white;
 position: relative;
 border: 1px solid #c9c8c8;
 border-radius: 12px;
