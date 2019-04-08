@@ -116,28 +116,6 @@
 </div>
 </div>
 
-<!-- <form action="/proyek/setujuiProyek/setuju/{{ $proyek->id }}" method="post" id="save">
-    <input type = "hidden" name = "_token" value = "<?php echo csrf_token() ?>">
-    <div class="container-btn">
-            <button class="container-form-btn" id="simpan">
-                <span>
-                    SETUJUI!
-                    <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                </span>
-            </button>
-    </div>  
-</form> 
-<form action="/proyek/setujuiProyek/tolak/{{ $proyek->id }}" method="post" id="reject">
-    <input type = "hidden" name = "_token" value = "<?php echo csrf_token() ?>">
-    <div class="container1-btn">
-            <button class="container1-form-btn" id="tolak">
-                <span>
-                    TOLAK
-                    <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                </span>
-            </button>
-    </div>
-</form> -->
     
     <div class="modal fade" id="myModd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">

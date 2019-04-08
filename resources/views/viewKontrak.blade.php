@@ -7,9 +7,9 @@
 <!-- Breadcrumbs (ini buat navigation yaa) -->
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="#">Proyek</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/proyek">Proyek</a></li>
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/proyek/detailProyek/{{ $proyek->id }}">Detail Proyek {{ $proyek->projectName }}</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="/proyek/{{ $proyek->id }}/lihatKontrak/">Overview Kontrak Kerja</a></li>  
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="/proyek/{{ $proyek->id }}/lihatKontrak/">Overview Kontrak Kerja {{ $proyek->projectName }}</a></li>  
   </ol>
 </nav>
 
@@ -79,9 +79,9 @@
     <div class="row" style="margin-top: 20px; margin-left: 350px;">
     <div class="col-sm-4"> </div>
     <div class="col-sm-2"> 
-        <form action="#" method="POST" id="reject">
+        <form action="/proyek/detailProyek/{{ $proyek->id }}" method="POST" id="reject">
             @csrf
-            <button id="tolak" class="button-disapprove font-approval" style="height:35px; width:100px; margin-left:40px">Batal</button>
+            <button id="tolak" class="button-disapprove font-approval" data-toggle="modal" data-target="#myModd" style="height:35px; width:100px; margin-left:40px">Batal</button>
         </form> 
     </div>
     <div class="col-sm-2"> 
@@ -97,3 +97,55 @@
     </div>
 </div>
 
+<div class="modal fade" id="myModd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title" style="text-align:center;">Batalkan Proses?</h4>
+			</div>
+			<div class="modal-body" style="text-align:center;">
+				<p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
+			</div>
+			<div class="modal-footer">
+					<a href="/proyek/detailProyek/{{ $proyek->id }}" class="btn btn-default" style="color:red;">Iya</a>
+				
+					<a href="/proyek/{{ $proyek->id }}/lihatKontrak/" class="btn btn-primary">Tidak</a>
+			
+			</div>
+		</div>
+		
+		</div>
+	</div>
+
+    @section('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+	<script>
+	$( document ).ready(function() {
+		$("#simpan").click(function(e){
+			e.preventDefault();
+			//checks if it's valid
+		//horray it's valid
+			$("#myMod").modal("show");
+			
+		});
+		$("#OK").click(function(e){
+		   $('#save').submit();
+		});
+
+        $("#tolak").click(function(e){
+			e.preventDefault();
+			//checks if it's valid
+		//horray it's valid
+			$("#mod").modal("show");
+			
+		});
+		$("#NO").click(function(e){
+		   $('#reject').submit();
+		});
+  	});
+	</script>
+@endsection 

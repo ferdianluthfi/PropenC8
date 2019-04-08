@@ -11,16 +11,15 @@ use App\Proyek;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-
-    $proyeg = Proyek::select('*')->where('id',1)->get();
-    return $proyeg;
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return view('home');
+   });
 });
 
-Route::get('/home', function () { 
-    return view('landing');
-});
+
 
 Route::get('/luthfi', function () {
     $proyek = App\Proyek::find(1);

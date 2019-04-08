@@ -13,6 +13,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="main.js"></script>
+    
+
 </head>
 <body>
 

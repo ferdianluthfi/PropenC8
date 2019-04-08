@@ -144,7 +144,7 @@
                         <li><p>:   {{ $proyek->companyName}}<p></li>
                         <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
                         <li><p>:   {{ $proyek->projectAddress}}<p></li>
-                        <li><p>:   Masih dummy beb<p></li>
+                        <li><p>:   Abdul Jannah<p></li>
                         <li><p>:   Rp {{ $formatValue }}
                     </ul>
                 </div>
@@ -161,7 +161,7 @@
                     <ul>
                         <li><p>:   {{ $kontrak->contractDate}}<p></li>
                         <li><p>:   nilaiproyek<p></li>
-                        <li><p>:   staf<p></li>
+                        <li><p>:   {{ $proyek->name}}<p></li>
                     </ul>
                 </div>
                 </div>

@@ -8,7 +8,7 @@
     <div class="text-center font-subtitle-3">
             <br>
             <br>
-            <p>Selamat Datang di Trayek,</p>
+            Selamat Datang di Trayek,
     </div>
     <div class="card-body">
         <!-- Gua masih gatau fungsi if disini buat apaan-->
@@ -18,7 +18,7 @@
             </div>
         @endif
         <div class="text-center font-title">
-            <p>{{Auth::user()->name}}!</p>
+            {{Auth::user()->name}}!
         </div>
         <br>
         <br>

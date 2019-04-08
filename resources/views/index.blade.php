@@ -7,18 +7,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" >
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css') }}" >
-	<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type=""> -->
-	
-	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" type=""> -->
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="">
 	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+	
 </head>
 @section ('content')
 @include('layouts.nav')
@@ -32,13 +26,11 @@
 	<div class="container">
 		<div class="row bigCard">
 			<div class="col-md-12">
-				@if(session()->has('flash_message'))
-				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					<strong><i class="material-icons">&#xE876;</i>Berhasil!</strong> {{session('flash_message')}}
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
+				@if(session('flash_message'))
+					<div class="alert alert-success alert-dismissible" style="margin: 15px;" role="alert">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							<strong> {{ session('flash_message') }} </strong>
+					</div>
 				@endif
 				<h2 style="text-align:center;">Daftar Proyek Potensial</h2><br>
 				<div class="row">
@@ -70,22 +62,23 @@
 						<table id="datatable">
 							<thead>
 								<tr class="title">
-									<th>Nama Proyek</th>
-									<th>Status</th>
-									<th>Waktu</th>
+									<th><center>Nama Proyek</th>
+									<th><center>Waktu</th>
+									<th><center>Status</th>
+									<th><center>Lihat Proyek</th>
 								</tr>
 							</thead>
 							<tbody >
 							@foreach($proyekNonPoten as $proyeks)
-									<tr style="background-color: aliceblue;">
-										<td><a href="/proyek/detailProyek/{{ $proyeks->id }}">{{ $proyeks->projectName }}</a></td>
-										@if($proyeks->approvalStatus === 1) <td> Disetujui Direksi </td>
-										@elseif($proyeks->approvalStatus === 2) <td> Sedang Berjalan </td>
-										@else	<td> Ditolak </td>
-										@endif
-										
-										<td>{{ $proyeks->created_at }}</td>
-									</tr>
+								<tr style="background-color: whitesmoke;">
+									<td><center>{{ $proyeks->projectName }}</td>
+									<td><center>{{ $proyeks->created_at }}</td>
+									@if($proyeks->approvalStatus === 1) <td style="color:blue; "><center> DISETUJUI</td>
+									@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"><center> SEDANG BERJALAN </td>
+									@else <td style="color:red;"><center> DITOLAK </td>
+									@endif
+									<td><center><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+								</tr>
 							@endforeach
 							</tbody>
 						</table>

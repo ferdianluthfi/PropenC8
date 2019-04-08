@@ -12,24 +12,6 @@ use App\Pengguna;
 
 class ProyekController extends Controller
 {
-    public function viewAll(){
-        $proyeks = Proyek::all();
-        $proyekPotensial = $proyeks->filter(function ($proyek){
-            return $proyek->approvalStatus == 0;
-        });
-        
-        // dd($proyekPotensial);
-        // dd($proyeks);
-
-        //$proyek = Proyek::find(1);
-        //$pengguna = Proyek::select('proyeks.*')->join('penggunas','penggunas.id','=','proyeks.pengguna_id')->where('pengguna_id',1)->get();
-        //dd(Proyek::select('penggunas.name')->join('penggunas','penggunas.id','=','proyeks.pengguna_id')->where('pengguna_id',1)->get());
-        //dd($pengguna);
-        // $penggunas = Pengguna::select('penggunas.*')->where('id',1)->get();
-        // $proyeks = Proyek::select('proyeks.*')->where('isLPJExist',1)->get();
-        
-        return view('view-all-proyek', ['proyeks' => $proyeks, 'proyekPotensial' => $proyekPotensial]);
-    }
 
     public function viewAllProject(){
         //buat liat list proyek
@@ -40,12 +22,21 @@ class ProyekController extends Controller
         'approvalStatus')
         ->where('approvalStatus', 1)->orWhere('approvalStatus',2)->orWhere('approvalStatus',3)->get();
         
+        foreach($proyekNonPoten as $proyekNonP){
+            $temp = explode(" ",$proyekNonP->created_at)[0];
+            $date = $this->waktu($temp);
+            $proyekNonP->created_at = $date;
+        }
+
+       
+        
+
         return view('index', compact('proyekPoten','proyekNonPoten'));
+
+        
     }
 
     public function approveProjectDetail($id){
-        //masih pake dummy blm ambil dari web idnya
-        //buat nampilin detailproyek
         $proyek = DB::table('proyeks')->select('*')->where('id',$id)->get()->first();
         $formatValue = number_format($proyek->projectValue, 2, ',','.');
         $proyek->projectValue = $formatValue;
@@ -54,16 +45,16 @@ class ProyekController extends Controller
         $statusNum = $proyek-> approvalStatus;
         
         if($statusNum == 0){
-            $status = "Menunggu Persetujuan";
+            $status = "MENUNGGU PERSETUJUAN";
         }
         elseif($statusNum == 1){
-            $status = "Disetujui Direksi";
+            $status = "DISETUJUI DIREKSI";
         }
         elseif($statusNum == 2){
-            $status = "Sedang Berjalan";
+            $status = "SEDANG BERJALAN";
         }
         elseif($statusNum == 3){
-            $status = "Ditolak";
+            $status = "DITOLAK";
         }
         return view('approveProyekPoten', compact('proyek', 'status')); 
     }
@@ -97,27 +88,7 @@ class ProyekController extends Controller
             
         return view('projectDetail', compact('proyek', 'status', 'statusKontrak'));
     }
-    public function viewDetailProyek($id){
-        $proyek = Proyek::where('id', $id)->first();
-        $statusHuruf;
-
-        $status = $proyek->approvalStatus; // ini kontrak belum tentu adakan. kalo dia gapunya nanti returnnya null
-        if($status == 0){
-            $statusHuruf = "MENUNGGU PERSETUJUAN";
-        } elseif($status == 1){
-            $statusHuruf = "DISETUJUI";
-        } elseif($status == 2){
-            $statusHuruf = "SEDANG BERJALAN";
-        }elseif($status == 3){
-            $statusHuruf = "DITOLAK";
-        }
-
-        return view('detail-proyek', ["id" => $id, "proyek" => $proyek, "statusHuruf" => $statusHuruf]);
-    }
-
-    
-
-
+  
 
     public function approveProject($id){
         $proyekz = DB::table('proyeks')
@@ -132,11 +103,71 @@ class ProyekController extends Controller
             ->update(['approvalStatus' => 3]);
         return redirect('/proyek');
     }
-    // public function viewDetailProyek($id){
-    //     $proyek = Proyek::where('id', $id)->first();
-    //     return view('detail-proyek', ["id" => $id, "proyek" => $proyek]);
-    // }
+    
+    public function waktu($tanggal){
+        
+        
+        $bulan = date("m", strtotime($tanggal));
+        $tahun = date("Y", strtotime($tanggal));
+        $day = substr($tanggal, 8, 9);
+        $days = strval($day);
+        $tahuns = strval($tahun);
+        
+        
+        
+        $bulanTerbilang;
+        if($bulan == "1"){
+            $bulanTerbilang = "Januari";
+        }
+        
+        elseif($bulan == "2"){
+            $bulanTerbilang = "Februari";
+        }
+        
+        elseif($bulan == "3"){
+            $bulanTerbilang = "Maret";
+        }
+        
+        elseif($bulan == "4"){
+            $bulanTerbilang = "April";
+        }
+        
+        elseif($bulan == "5"){
+            $bulanTerbilang = "Mei";
+        }
 
+        elseif($bulan == "6"){
+            $bulanTerbilang = "Juni";
+        }
+
+        elseif($bulan == "7"){
+            $bulanTerbilang = "Juli";
+        }
+
+        elseif($bulan == "8"){
+            $bulanTerbilang = "Agustus";
+        }
+
+        if($bulan == "9"){
+            $bulanTerbilang = "September";
+        }
+        
+        elseif($bulan == "10"){
+            $bulanTerbilang = "Oktober";
+        }
+
+        elseif($bulan == "11"){
+            $bulanTerbilang = "November";
+        }
+        
+        elseif($bulan == "12"){ 
+            $bulanTerbilang = "Desember";
+        }
+        
+        $waktu = "$days $bulanTerbilang $tahuns";
+        return($waktu);   
+           
+    }
 
 
 }
