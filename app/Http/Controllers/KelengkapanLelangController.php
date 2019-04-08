@@ -21,10 +21,22 @@ class KelengkapanLelangController extends Controller
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
         $berkass = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('proyek_id', $proyek_id)->where('flag_active', '1')->get();
 
-        $templates = ListTemplateSurat::select('list_template_surats.*')->get();
+        $temp = number_format($proyek->projectValue, 2, ',','.');
+        $proyek->projectValue = $temp;
 
-        $files = Files::orderBy('created_at', 'DESC')->paginate(30);
-        return view('kelolaLelang', compact('proyek', 'berkass', 'templates', 'files'));
+        $statusNum = $proyek-> approvalStatus;
+        if($statusNum == 1){
+            $status = "DISETUJUI";
+        }elseif($statusNum == 2){
+            $status = "SEDANG BERJALAN";
+        }else{
+            $status = "DITOLAK";
+        }
+
+//        $templates = ListTemplateSurat::select('list_template_surats.*')->get();
+//
+//        $files = Files::orderBy('created_at', 'DESC')->paginate(30);
+        return view('kelolaLelang', compact('proyek', 'berkass', 'status'));
 	}
 
 	public function form($proyek_id){
@@ -34,7 +46,7 @@ class KelengkapanLelangController extends Controller
 
     public function uploadKelengkapanLelang(Request $request): RedirectResponse {
         $this->validate($request, [
-            'title' => 'nullable|max:100',
+            'title' => 'required|max:100',
             'file' => 'required|file|max:2000'
         ]);
 
@@ -88,10 +100,16 @@ class KelengkapanLelangController extends Controller
     {
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
 
+        $temp = number_format($proyek->projectValue, 2, ',','.');
+        $proyek->projectValue = $temp;
+
         $data = [
             'title' => $proyek->name,
-            'projectName' => 'Propensi ',
-            'desc' => 'Kopek terus aja bibirnya sampe copot semua ok'
+            'projectName' => $proyek->projectName,
+            'comp' => $proyek->companyName,
+            'addr' => $proyek->projectAddress,
+            'val' => $proyek->projectValue,
+
         ];
 
         $pdf = PDF::loadView('template-surat/myPDF', $data);
@@ -104,7 +122,7 @@ class KelengkapanLelangController extends Controller
 
         $file = KelengkapanLelang::create([
             'title' => 'Dokumen 1',
-            'filename' => $proyek->name . ' - ' . $dokumenname,
+            'filename' => $proyek->projectName . ' - ' . $dokumenname,
             'ext' => '.pdf',
             'path' => 'files/' . $dokumenname . $ext,
             'proyek_id' => $proyek->id
@@ -117,13 +135,18 @@ class KelengkapanLelangController extends Controller
     {
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
 
+        $temp = number_format($proyek->projectValue, 2, ',','.');
+        $proyek->projectValue = $temp;
+
         $data = [
-            'title' => $proyek->namaProyek,
-            'projectName' => 'Propensi ',
-            'desc' => 'Kopek terus aja bibirnya sampe copot semua ok'
+            'title' => $proyek->name,
+            'projectName' => $proyek->projectName,
+            'comp' => $proyek->companyName,
+            'addr' => $proyek->projectAddress,
+            'val' => $proyek->projectValue,
         ];
 
-        $pdf = PDF::loadView('template-surat/myPDF', $data);
+        $pdf = PDF::loadView('template-surat/myPDF2', $data);
 
         $dokumenname = 'Dokumen 2';
 
@@ -133,7 +156,7 @@ class KelengkapanLelangController extends Controller
 
         $file = KelengkapanLelang::create([
             'title' => 'Dokumen 2',
-            'filename' => $proyek->name . ' - ' . $dokumenname,
+            'filename' => $proyek->projectName . ' - ' . $dokumenname,
             'ext' => '.pdf',
             'path' => 'files/' . $dokumenname . $ext,
             'proyek_id' => $proyek->id
