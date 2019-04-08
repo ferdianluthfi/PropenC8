@@ -108,26 +108,25 @@ class KelengkapanLelangController extends Controller
             'comp' => $proyek->companyName,
             'addr' => $proyek->projectAddress,
             'val' => $proyek->projectValue,
-
         ];
 
         $pdf = PDF::loadView('template-surat/myPDF', $data);
 
-        $dokumenname = 'Dokumen 1';
+        $dokumenname = 'Surat Penawaran Rekanan';
         
         Storage::put($dokumenname, $pdf->output());
         
         $ext = '.pdf';
 
         $file = KelengkapanLelang::create([
-            'title' => 'Dokumen 1',
+            'title' => $dokumenname . $ext,
             'filename' => $proyek->projectName . ' - ' . $dokumenname,
             'ext' => '.pdf',
-            'path' => 'files/' . $dokumenname . $ext,
+            'path' => $dokumenname,
             'proyek_id' => $proyek->id
         ]);
 
-        return $pdf->download('hehehehe.pdf');
+        return $pdf->download($proyek->projectName . ' - ' . $dokumenname . '.pdf');
     }
 
     public function generatePDF2($proyek_id)
@@ -146,20 +145,20 @@ class KelengkapanLelangController extends Controller
 
         $pdf = PDF::loadView('template-surat/myPDF-2', $data);
 
-        $dokumenname = 'Dokumen 2';
+        $dokumenname = 'Surat Permohonan Jaminan Bank';
 
         Storage::put($dokumenname, $pdf->output());
 
         $ext = '.pdf';
 
         $file = KelengkapanLelang::create([
-            'title' => 'Dokumen 2',
+            'title' => $dokumenname,
             'filename' => $proyek->projectName . ' - ' . $dokumenname,
             'ext' => '.pdf',
-            'path' => 'files/' . $dokumenname . $ext,
+            'path' => $dokumenname,
             'proyek_id' => $proyek->id
         ]);
 
-        return $pdf->download('hehehehe.pdf');
+        return $pdf->download($proyek->projectName . ' - ' . $dokumenname . '.pdf');
     }
 }
