@@ -9,6 +9,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css') }}" >
 
+    <!-- Bootstrap CSS CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+     <!-- Our Custom CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type='text/css'>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="">
 	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -83,7 +91,11 @@
 									@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
 									@else <td style="color:red;"> DITOLAK </td>
 									@endif
+									@if($proyeks->approvalStatus === 2)
+									<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+									@else
 									<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+									@endif
 								</tr>
 							@endforeach
 							</tbody>
@@ -95,8 +107,9 @@
  	</div>
 @endsection
 
-<!--INI PUNYA SI PROJECT MANAGERR-->
-@elseif(Auth::user()->role == 7)
+
+<!--INI PUNYA SI PROGRAM MANAGERR-->
+@elseif(Auth::user()->role == 5)
 @section ('content')
 @include('layouts.nav')
 <nav aria-label="breadcrumb">
@@ -117,26 +130,106 @@
                 </button>
             </div>
             @endif
-            <h2 style="text-align:center;">Daftar Proyek Siap Lelang</h2><br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="your-class">
-                        @foreach($proyekPoten as $proyeks)
-                        <!-- @if($proyeks->approvalStatus == 0) -->
-                        <div class="col-md-6 project">
-                            <!-- <a href="/proyek/lihat/{{$proyeks->id}}"> -->
-                            <center class="turncate"><a href="/proyek/lihat/{{$proyeks->id}}" style="font-size:12pt; font-weight:bolder;">{{ $proyeks->projectName }}</a><center>
-                        </div>
-                        <!-- @endif -->
-                        @endforeach
-                    </div>
-                </div>
-            </div>
+			<h2 style="text-align:center;">Daftar Proyek Siap Lelang</h2><br>
+			<div class="row">
+					<div class="col-md-12">
+							<div class="your-class">
+								@foreach($proyekPoten as $proyeks)
+									<div class="col-md-6 project">
+											<center class="turncate" style="font-size:14pt; font-weight:bolder;">{{ $proyeks->projectName }}<center>
+											<center class="turncate" style="font-size:12pt;">{{ $proyeks->companyName }}<center>
+											<center><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a><center>
+									</div>
+								@endforeach
+							</div>
+					</div>
+			</div>
         </div>
     </div>
     <br>
 </div>
 @endsection
+
+
+
+<!-- INI PUNYA DIREKSI -->
+@elseif(Auth::user()->role == 2)
+@section ('content')
+@include('layouts.nav')
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek') }}">Proyek</a></li>
+		</ol>
+	</nav>
+
+	<div class="container">
+		<div class="row bigCard">
+			<div class="col-md-12">
+				@if(session('flash_message'))
+					<div class="alert alert-success alert-dismissible" style="margin: 15px;" role="alert">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							<strong> {{ session('flash_message') }} </strong>
+					</div>
+				@endif
+				<h2 style="text-align:center;">Daftar Proyek Potensial</h2><br>
+				<div class="row">
+					
+					<div class="col-md-12">
+						<div class="your-class">
+							@foreach($proyekPoten as $proyeks)
+								
+								<div class="col-md-6 project">
+									
+										<center class="turncate" style="font-size:12pt; font-weight:bolder;">{{ $proyeks->projectName }}<center>
+										<center class="turncate">{{ $proyeks->companyName }}<center>
+										<center><a class="btn btn-primary" href="/proyek/setujuiProyek/{{ $proyeks->id }}" style="font-size:8pt; font-weight:bolder;">Lihat</a> <center>
+										
+								</div>
+							
+							@endforeach
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row bigCard">
+			<div class="col-md-12">
+				<h2 style="text-align:center;">Riwayat Proyek</h2><br>
+				<div class="card-table">
+					<div class="panel-body">
+						<table id="datatable">
+							<thead>
+								<tr class="title">
+									<th><center>Nama Proyek</th>
+									<th><center>Waktu</th>
+									<th><center>Status</th>
+									<th><center>Lihat Proyek</th>
+								</tr>
+							</thead>
+							<tbody >
+							@foreach($proyekNonPoten as $proyeks)
+								<tr style="background-color: whitesmoke;">
+									<td><center>{{ $proyeks->projectName }}</td>
+									<td><center>{{ $proyeks->created_at }}</td>
+									@if($proyeks->approvalStatus === 1) <td style="color:blue; "><center> DISETUJUI</td>
+									@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"><center> SEDANG BERJALAN </td>
+									@else <td style="color:red;"><center> DITOLAK </td>
+									@endif
+									<td><center><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+								</tr>
+							@endforeach
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+ 	</div>
+@endsection
+
+
 @endif
 
 @section('scripts')

@@ -55,7 +55,7 @@
                     <ul>
                         <li><p>Tanggal Kontrak</p></li>
                         <li><p>Nilai Proyek Huruf</p></li>
-                        <li><p>Penanggungjawab</p></li>
+                        <li><p>Penanggung Jawab</p></li>
                     </ul>
                 </div>
                 <div class="col-sm-6 font-desc">

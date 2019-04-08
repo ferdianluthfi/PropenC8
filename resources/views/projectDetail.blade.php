@@ -4,12 +4,12 @@
 @include('layouts.nav')
 
 <!-- Breadcrumbs (ini buat navigation yaa) -->
-@foreach($proyeks as $proyek)
+
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
 	<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
-	<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek', $id) }}">Detail Proyek {{ $proyek->projectName }}</a></li>
+	<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="/proyek/detailProyek/{{ $proyek->id }}">Detail Proyek {{ $proyek->projectName }}</a></li>
   </ol>
 </nav>
 <!-- isinya -->
@@ -17,25 +17,7 @@
     <br>
     <p class="font-subtitle-1">Detail Proyek</p>
     <hr>
-    <div>
-        @if($proyek->approvalStatus === 0)
-            <div class="row">
-                <div class="col-sm-10"> 
-                    <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}}</p>
-                </div>
-                <div class="col-sm-2">
-                    <button type="button" class="btn btn-primary"  onclick="window.location.href='/proyek/ubah/{{ $proyek->id }}'">Ubah</button> 
-                </div>
-            </div>
-        @else
-            <div class="row">
-                <div class="col-sm-10"> 
-                    <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}}</p>
-                </div>
-            </div>
-        @endif
-        <br>
-    </div>
+
     <div class="row ketengahin">
         <div class="col-sm-7">
             <div class="card card-info">
@@ -50,9 +32,9 @@
                             <li><p>Nama Staf Marketing</p></li>
                             <li><p>Nama Proyek</p></li>
                             <li><p>Nama Perusahaan</p></li>
-                            <li><p>Nilai Proyek</p></li>
-                            <li><p>Estimasi Waktu Pengerjaan</p></li>
                             <li><p>Alamat Proyek</p></li>
+                            <li><p>Estimasi Waktu Pengerjaan</p></li>
+                            <li><p>Nilai Proyek</p></li>
                             <li><p>Deskripsi Proyek</p></li>
                         </ul>
                     </div>
@@ -61,9 +43,9 @@
                             <li><p>:   {{ $proyek->name}}<p></li>
                             <li><p>:   {{ $proyek->projectName}}<p></li>
                             <li><p>:   {{ $proyek->companyName}}<p></li>
-                            <li><p>:   Rp{{ $proyek->projectValue}}<p></li>
-                            <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
                             <li><p>:   {{ $proyek->projectAddress}}<p></li>
+                            <li><p>:   {{ $proyek->estimatedTime}} Hari<p></li>
+                            <li><p>:   Rp {{ $proyek->projectValue}}<p></li>
                             <li><p class="deskripsi" style="margin-bottom:10px;" >: {{ $proyek->description}}<p></li>
                         </ul>
                     </div>
@@ -73,22 +55,33 @@
         <div class="col-sm-2">
             <div class="card card-pm">
                 <br>
-				<p class="font-subtitle-5">Project Manager</p>
+				<p class="font-subtitle-5">Staf Marketing</p>
 				<hr style="background-color:black;"/>
                 <br> <br> <br>
-                <p class="font-status-approval" style="text-align: center;">Belum Tersedia.</p>
+                <p class="font-status-approval" style="text-align: center;"> {{ $proyek->name}}</p>
             </div>
         </div>
     </div>
     <div>
+        <br>
         <div class="row ketengahin">
-        @if($proyek->approvalStatus === 1)
-            <a href=" /kelolaLelang/{{ $proyek->id }}"><div class="col-sm-12 card card-button-1">
-                <p class="font-button-berkas">Kelola Lelang<p>
+            <!-- bikin kondisi dulu -->
+            @if($statusKontrak == "false")
+            <a href="#"><div class="col-sm-3 card card-button">
+                <p class="font-button-berkas-inactive">Berkas Kontrak<p>
             </div></a>
-        @endif
+            @else
+            <a href="{{ route('detail-kontrak', $proyek->id) }}"><div class="col-sm-3 card card-button">
+                <p class="font-button-berkas">Berkas Kontrak<p>
+            </div></a>
+            @endif
+            <a href="#"><div class="col-sm-3 card card-button">
+                <p class="font-button-berkas-inactive">LAPJUSIK<p>
+            </div></a>
+            <a href="#"><div class="col-sm-3 card card-button">
+                <p class="font-button-berkas-inactive">LPJ<p>
+            </div></a>
         </div>
-    </div>
+    </div>  
 </div>
-@endforeach
 @endsection
