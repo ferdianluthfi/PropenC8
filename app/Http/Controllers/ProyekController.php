@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 // use DB;
@@ -96,7 +95,7 @@ class ProyekController extends Controller
             ->update(['approvalStatus' => 1]);
         return redirect('/proyek');
     }
-
+ 
     public function rejectProject($id){
         $proyekw = DB::table('proyeks')
             ->where('id', $id)
@@ -168,6 +167,5 @@ class ProyekController extends Controller
         return($waktu);   
            
     }
-
 
 }

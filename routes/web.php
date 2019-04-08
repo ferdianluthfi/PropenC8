@@ -21,16 +21,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-Route::get('/luthfi', function () {
-    $proyek = App\Proyek::find(1);
-    $kelengkapanLelang = App\KelengkapanLelang::table('proyeks')
-    ->join('proyeks','proyeks.id','=','kelengkapan_lelangs','kelengkapan_lelangs.proyek_id')->where('kelengkapan_lelangs.proyek_id',1)
-    ->get();
-    //$proyek = $kelengkapanLelang->proyek()->where('id', 1)->get();
-    dd($kelengkapanLelang);
-    //return view('luthfi',compact('proyek', 'kelengkapanLelangs'));
-});
-
 Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
 Route::get('/proyek/setujuiProyek/{id}', 'ProyekController@approveProjectDetail');
 Route::post('/proyek/setujuiProyek/setuju/{id}', 'ProyekController@approveProject');
@@ -44,3 +34,15 @@ Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@viewKontrakz');
 
 
 // Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
+/**
+ * routing untuk kelola lelang
+ */
+Route::get('/kelolaLelang/{proyek_id}', 'KelengkapanLelangController@kelolaBerkas');
+Route::get('/getBerkas/{id}', 'KelengkapanLelangController@getBerkas');
+Route::get('file/upload/{proyek_id}', 'KelengkapanLelangController@form');
+Route::post('file/upload', 'KelengkapanLelangController@uploadKelengkapanLelang')->name('file.upload');
+Route::get('file/{file}/download', 'KelengkapanLelangController@downloadKelengkapanLelang')->name('file.download');
+Route::get('file/{file}/response', 'KelengkapanLelangController@responseKelengkapanLelang')->name('file.response');
+Route::get('file/{file}/delete', 'KelengkapanLelangController@deleteKelengkapanLelang');
+Route::get('generate-pdf/{proyek_id}','KelengkapanLelangController@generatePDF');
+Route::get('generate-pdf2/{proyek_id}','KelengkapanLelangController@generatePDF2');

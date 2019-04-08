@@ -1,4 +1,6 @@
-@extends ('layouts.layout')
+@extends('layouts.layout')
+
+<!-- Punya Momo -->
 <html>
 <head>
 	<meta charset="utf-8">
@@ -14,6 +16,8 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	
 </head>
+<!-- INI PUNYA STAFF MARKETING -->
+@if(Auth::user()->role == 3)
 @section ('content')
 @include('layouts.nav')
 	<nav aria-label="breadcrumb">
@@ -88,6 +92,50 @@
 		</div>
  	</div>
 @endsection
+
+<!--INI PUNYA SI PROJECT MANAGERR-->
+@elseif(Auth::user()->role == 7)
+@section ('content')
+@include('layouts.nav')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+    </ol>
+</nav>
+
+<div class="container">
+    <div class="row bigCard">
+        <div class="col-md-12">
+            @if(session()->has('flash_message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong><i class="material-icons">&#xE876;</i>Berhasil!</strong> {{session('flash_message')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
+            <h2 style="text-align:center;">Daftar Proyek Siap Lelang</h2><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="your-class">
+                        @foreach($proyekPoten as $proyeks)
+                        <!-- @if($proyeks->approvalStatus == 0) -->
+                        <div class="col-md-6 project">
+                            <!-- <a href="/proyek/lihat/{{$proyeks->id}}"> -->
+                            <center class="turncate"><a href="/proyek/lihat/{{$proyeks->id}}" style="font-size:12pt; font-weight:bolder;">{{ $proyeks->projectName }}</a><center>
+                        </div>
+                        <!-- @endif -->
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+@endsection
+@endif
 
 @section('scripts')
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
