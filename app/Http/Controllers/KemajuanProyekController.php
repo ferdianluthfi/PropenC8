@@ -22,10 +22,13 @@ class KemajuanProyekController extends Controller
      */
     public function viewKemajuan(){
         if(\Auth::user()->role == 2){
-            $idProyeks = Proyek::select('proyeks.id')->where('isLPJExist', 3)->get();
+            $idProyeks = Proyek::select('proyeks.id')->where('isLPJExist', 0)->get();
             if($idProyeks->isEmpty() == false){
                 $proyeks = Proyek::select('proyeks.*')->where('isLPJExist', 0)->get();
                 $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->whereIn('proyek_id',$idProyeks)->get();
+                if($idPelaksanaan->isEmpty()){
+                    return view('viewAll-EmptyKemajuan', compact('proyeks'));
+                }
                 $pelaksanaans = Pelaksanaan::select('pelaksanaans.*','proyeks.*','kemajuan_proyeks.*')
                 ->join('proyeks','proyeks.id','=','pelaksanaans.proyek_id')
                 ->join('kemajuan_proyeks','kemajuan_proyeks.pelaksanaan_id','=','pelaksanaans.id')
@@ -58,13 +61,11 @@ class KemajuanProyekController extends Controller
                         "totalKeseluruhan" => $sumGaji + $sumAdministrasi + $sumBelanja,
                         "maxValue" => $kemajuan['projectValue'],
                         "projectKlien" => $kemajuan['companyName'],
+                        "projectId" => $kemajuan['proyek_id'],
                         
                     );
                     $proyekPrint[$kemajuan['projectName']] = (($sumGaji + $sumAdministrasi + $sumBelanja) / $kemajuan['projectValue'])*100;
-                }    
-                //dd($proyekDetail);
-                $test = 50;
-                //print json_encode($proyekDetail);
+                }
                 return view('viewAll', compact('proyekPrint','proyekDetail','test'));
             }
             else{

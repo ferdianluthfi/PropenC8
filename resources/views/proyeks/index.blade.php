@@ -62,7 +62,7 @@
 		<br>
 		<div class="row bigCard">
 			<div class="col-md-12">
-				<h2 style="text-align:center;">Riwayat Proyek Potensial</h2><br>
+				<h2 style="text-align:center;">Riwayat Proyek</h2><br>
 				<div class="card-table">
 					<div class="panel-body" style="text-align:center;">
 						<table id="datatable" class="table table-striped table-bordered text-center">
@@ -96,7 +96,7 @@
 @endsection
 
 <!--INI PUNYA SI PROJECT MANAGERR-->
-elseif(Auth::user()->role == 7)
+@elseif(Auth::user()->role == 7)
 @section ('content')
 @include('layouts.nav')
 <nav aria-label="breadcrumb">

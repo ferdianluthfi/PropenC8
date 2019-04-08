@@ -16,8 +16,8 @@ class ProyekController extends Controller
      */
     public function index()
     {
-        if(\Auth::user()->role == 3){
-                // $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
+        if(\Auth::user()->role == 3 || \Auth::user()->role == 2 ){
+            // $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
             $status;
             $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->get();
             $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->orWhere('approvalStatus',2)->orWhere('approvalStatus',3)->get();
@@ -47,9 +47,12 @@ class ProyekController extends Controller
         
             return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
         }
-        else{
+        elseif(\Auth::user()->role == 3){
             $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->get();
             return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
+        }
+        else{
+            return view('no-access');
         }
         
     }

@@ -21,7 +21,7 @@
     @php
     $id =1;
     @endphp
-    @foreach ($proyekDetail as $proyek)
+    @foreach ($proyeks as $proyek)
 
     <div class="container-fluid card card-info" style="margin:10px auto;min-height:100px;min-width: -webkit-fill-available;">
         <a href="/assignedproyek/detil/{{$proyek['id']}}">
@@ -35,45 +35,32 @@
         <!-- semuanya -->
         <div id= "myProgressDetail-<?php echo $id ?>" class="myProgressDetail" style="display:none;" value="1"> 
             
-            <p style="margin-left:4px">Gaji Karyawan : Rp{{number_format($proyek['totalGaji'], 2, ',','.')}}</p>
+            <p style="margin-left:4px">Gaji Karyawan : Rp{{number_format(0, 2, ',','.')}}</p>
             <div id="myProgress" style="margin-bottom:3px"> 
-                <div id="myBar" style="width: <?php echo ($proyek['totalGaji']/ $proyek['maxValue'])*100 ?>%; margin-bottom:10px;">
-                    {{($proyek['totalGaji']/ $proyek['maxValue'])*100}}%
+                <div id="myBar" style="width: 0%; margin-bottom:10px;">
                 </div>
             </div>
 
-            <p style="margin-left:4px">Belanja : Rp{{number_format($proyek['totalBelanja'], 2, ',','.')}}</p>
+            <p style="margin-left:4px">Belanja : Rp{{number_format(0, 2, ',','.')}}</p>
             <div id="myProgress" style="margin-bottom:3px">
-                <div id="myBar" style="width: <?php echo ($proyek['totalBelanja']/ $proyek['maxValue'])*100 ?>%; margin-bottom:10px;">
-                    {{($proyek['totalBelanja']/ $proyek['maxValue'])*100}}%
+            <div id="myBar" style="width: 0%; margin-bottom:10px;">
                 </div>
             </div>
 
-            <p style="margin-left:4px">Administrasi : Rp{{number_format($proyek['totalAdministrasi'], 2, ',','.')}}</p> 
+            <p style="margin-left:4px">Administrasi : Rp{{number_format(0, 2, ',','.')}}</p> 
             <div id="myProgress" style="margin-bottom:3px">
-                <div id="myBar" style="width: <?php echo ($proyek['totalAdministrasi']/ $proyek['maxValue'])*100 ?>%; margin-bottom:10px;">
-                    {{($proyek['totalAdministrasi']/ $proyek['maxValue'])*100}}%
+            <div id="myBar" style="width: 0%; margin-bottom:10px;">
                 </div>
             </div>
 
         </div>
 
         <!-- satu doang -->
-        <p id="title-<?php echo $id ?>" style="margin-left:4px">Total Penggunaan Dana : Rp{{number_format($proyek['totalKeseluruhan'], 2, ',','.')}}</p>
+        <p id="title-<?php echo $id ?>" style="margin-left:4px">Total Penggunaan Dana : Rp{{number_format(0, 2, ',','.')}}</p>
         <div id="myProgress-<?php echo $id ?>" style="display:block; background-color: #fff; border-radius: 25px; border: 1px solid #ddd;height: 30px;">
-            @if((($proyek['totalKeseluruhan']/ $proyek['maxValue'])*100) > 100 )
-                <div id="myBar" style="width: 100%; background-color: #B22222; vertica">
-                 Anggaran Berlebihan!
+            <div id="myBar" style="width: 0%; margin-bottom:10px;">
                 </div>
-            @else
-            <div id="myBar" style="width: <?php echo ($proyek['totalKeseluruhan']/ $proyek['maxValue'])*100 ?>%;">
-            {{($proyek['totalKeseluruhan']/ $proyek['maxValue'])*100}}%
-            </div>
-            @endif
         </div>
-
-
-
         <center><button id="messageType-<?php echo $id ?>" onclick="showAll(<?php echo $id ?>)" style="margin:5px;">Tampilkan Lebih Banyak</button></center>
         @php
         $id++;
