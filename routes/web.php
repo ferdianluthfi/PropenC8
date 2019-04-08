@@ -33,6 +33,8 @@ Route::get('/assignedproyek', 'KemajuanProyekController@viewProyek');
 Route::get('/proyek/detail/{id}', 'KemajuanProyekController@detailProyek');
 Route::get('/informasi/{id}', 'KemajuanProyekController@viewInfo');
 Route::get('/informasi/detail/{id}', 'KemajuanProyekController@detailInfo');
+Route::get('/informasi/detail/tambah/{id}', 'KemajuanProyekController@tambahFoto');
+Route::post('/foto/submit/{id}', 'KemajuanProyekController@simpanFoto');
 Route::get('/info/tambah/{idpelaksanaan}', 'KemajuanProyekController@tambahInformasi');
 Route::post('/info/submit/{idPelaksanaan}', 'KemajuanProyekController@simpanInformasi');
 Route::get('/info/edit/{id}', 'KemajuanProyekController@editInformasi');

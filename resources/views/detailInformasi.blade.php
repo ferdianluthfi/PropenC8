@@ -122,8 +122,8 @@
         </div>
     </div><br><br>
         
+        <a class="btn btn-primary" href="tambah/{{$informasi->id}}" style="font-size:12pt; font-weight:bolder;">Tambah Foto</a>
         <center><a class="btn btn-primary" href="/info/edit/{{$informasi->id}}" style="font-size:12pt; font-weight:bolder;">Ubah</a>  
-        <!--<a class="btn btn-danger" href="/info/delete/{{$informasi->id}}" style="font-size:12pt; font-weight:bolder;" aria-hidden="true" data-toggle="modal" data-target="#myModal">Hapus</a><center>-->
         
         <a class="btn btn-danger" data-toggle="modal" data-target="#myModal" style="font-size:12pt; font-weight:bolder;">
             <span>

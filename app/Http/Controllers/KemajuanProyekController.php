@@ -146,6 +146,38 @@ class KemajuanProyekController extends Controller
         return view('tambahInformasi',compact('pelaksanaan'));
     }
 
+    public function tambahFoto($id){
+        $kemajuan = KemajuanProyek::find($id);
+        $idPelaksanaan = $kemajuan->pelaksanaan_id;
+        $pelaksanaan = Pelaksanaan::find($idPelaksanaan);
+        //dd($pelaksanaan);
+        return view('tambahFoto',compact('kemajuan','pelaksanaan'));
+    }
+
+    public function simpanFoto($id,Request $request){
+        $validator = Validator::make($request->all(),[
+            'file' => 'required|image'
+        ]);
+
+        if ($request->file != null) {
+            foreach($request->file as $file) {
+                $uploadedFile = $file;
+                //dd($uploadedFile);   
+                $path = $uploadedFile->storeAs('public/upload',$file->getClientOriginalName());
+                $publicPath = \Storage::url($path);
+    
+                DB::table('listphoto')->insert([
+                    'ext' => $uploadedFile->getClientOriginalExtension(),
+                    'path' => $publicPath,
+                    'kemajuan_id' => $id,
+                    'created_at' => now('GMT+7'),
+                    'updated_at' => now('GMT+7')
+                ]);
+            }
+        }
+        return redirect()->action('KemajuanProyekController@detailInfo',['id'=>$id]);
+    }
+
     /*
     @param \Illuminate\Http\Request
     @return \Illuminate\Http\Response
