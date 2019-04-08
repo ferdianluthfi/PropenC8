@@ -13,6 +13,9 @@ use App\Proyek;
 */
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/error', function(){
+    return view('error-message');
+});
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', function () {
         return view('home');

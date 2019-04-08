@@ -31,7 +31,7 @@ class CreateProyeksTable extends Migration
              */
             $table->integer('approvalStatus')->default(0);
             $table->string('projectAddress');
-            $table->boolean('isLPJExist')->defaut(false);
+            $table->boolean('isLPJExist')->default(false);
             
 
             $table->bigInteger('pengguna_id')->unsigned();
