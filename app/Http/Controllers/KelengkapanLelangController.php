@@ -125,8 +125,12 @@ class KelengkapanLelangController extends Controller
             'path' => $dokumenname,
             'proyek_id' => $proyek->id
         ]);
+        
+        $pdf->download($proyek->projectName . ' - ' . $dokumenname . '.pdf');
 
-        return $pdf->download($proyek->projectName . ' - ' . $dokumenname . '.pdf');
+        return redirect()
+            ->back()
+            ->withSuccess(sprintf('File %s has been generated.', $file->filename));
     }
 
     public function generatePDF2($proyek_id)
@@ -159,6 +163,10 @@ class KelengkapanLelangController extends Controller
             'proyek_id' => $proyek->id
         ]);
 
-        return $pdf->download($proyek->projectName . ' - ' . $dokumenname . '.pdf');
+        $pdf->download($proyek->projectName . ' - ' . $dokumenname . '.pdf');
+        
+        return redirect()
+            ->back()
+            ->withSuccess(sprintf('File %s has been generated.', $file->filename));
     }
 }
