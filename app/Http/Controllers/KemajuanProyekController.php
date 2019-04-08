@@ -10,6 +10,7 @@ use App\Assignment;
 use App\ListPhoto;
 use DB;
 use Validator;
+use Illuminate\Support\Facades\Storage;
 
 class KemajuanProyekController extends Controller
 {
@@ -128,11 +129,16 @@ class KemajuanProyekController extends Controller
         $informasi->value = $temp;
         $tanggalInfo = $informasi->reportDate;
         $tanggal = $this->waktu($tanggalInfo);
+        $foto = DB::table('listPhoto')->where('kemajuan_id',$id)->get();
+        // $banyakFoto = DB::table('listPhoto')->where('kemajuan_id',$id)->get()->count();
+        // $listFoto = array();
+        // for($i=0; i<$banyakFoto; i++){
+        //     $listFoto[$i] = $foto[$i]
+        // }
+        // $daftarFoto = ListPhoto::select('listphoto.*')->where('kemajuan_id',$id);
+        //dd($foto);
 
-        $daftarFoto = ListPhoto::select('listphoto.*')->where('kemajuan_id',$id);
-        //dd($daftarFoto);
-
-        return view('detailInformasi', compact('informasi','proyek','tanggal','daftarFoto'));
+        return view('detailInformasi', compact('informasi','proyek','tanggal','foto'));
     }
 
     public function tambahInformasi($id){
@@ -155,7 +161,7 @@ class KemajuanProyekController extends Controller
             'tipeKemajuan' => 'required',
             'value' => 'required',
             'pelaksanaan_id' => 'required',
-            'file' => 'required|file|max:2000'
+            'file' => 'required|image'
         ]);
  
         DB::table('kemajuan_proyeks')->insert([
@@ -174,17 +180,22 @@ class KemajuanProyekController extends Controller
         if ($request->file != null) {
             foreach($request->file as $file) {
                 $uploadedFile = $file;        
-                $path = $uploadedFile->store('public/files');
+                $path = $uploadedFile->storeAs('public/upload',$file->getClientOriginalName());
+                $publicPath = \Storage::url($path);
     
                 DB::table('listphoto')->insert([
                     'ext' => $uploadedFile->getClientOriginalExtension(),
-                    'path' => $path,
+                    'path' => $publicPath,
                     'kemajuan_id' => $kemajuan_id,
                     'created_at' => now('GMT+7'),
                     'updated_at' => now('GMT+7')
                 ]);
             }
         }
+
+        /*if($request->file!= null) {
+            $path = $uploadedFile->store('/files');
+        }*/
         return redirect()->action('KemajuanProyekController@viewInfo',['id'=>$data[0]->proyek_id]);
     }
 
@@ -194,12 +205,16 @@ class KemajuanProyekController extends Controller
         $proyek = Proyek::find($idProyek[0]->proyek_id);
         $kemajuans = KemajuanProyek::find($id);
 
-        $daftarFoto = DB::table('listPhoto')->select('listPhoto.*')->where('kemajuan_id',$id)->get();
-        //dd($daftarFoto);
-        return view('editInformasi', compact('kemajuans','proyek','daftarFoto'));
+        $foto = DB::table('listPhoto')->select('listPhoto.*')->where('kemajuan_id',$id)->get();
+        //dd($foto);
+        return view('editInformasi', compact('kemajuans','proyek','foto'));
     }
 
     public function updateInformasi($id, Request $request){
+        // foreach($listId as $id) {
+        //     $deletedFoto = ListPhoto::find($id);
+        //     $deletedFoto->delete();
+        // }
         $idPelaksanaan = KemajuanProyek::select('kemajuan_proyeks.pelaksanaan_id')->where('id',$id)->get();
         $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$idPelaksanaan)->get();
         $data = json_decode($idProyek);

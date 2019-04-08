@@ -35,10 +35,9 @@
                     <p>{{session('flash_message')}}</p>
                 @endif
 
-                <h2 style="text-align:center;">Tambah Informasi Proyek</h2> <br>
 
                 <form method="post" action="/info/submit/{{$pelaksanaan->id}}" id="addForm" enctype="multipart/form-data">
-
+                <h2 style="text-align:center;">Tambah Informasi Proyek</h2> <br>
                     {{ csrf_field() }}
 
                     <div class="content bg1">
@@ -117,7 +116,7 @@
                     <p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="/proyek/" class="btn btn-default" style="color:red;">Iya</a>
+                    <a href="/informasi/{{$pelaksanaan->proyek_id}}" class="btn btn-default" style="color:red;">Iya</a>
                     <a href="/info/tambah/{{$pelaksanaan->id}}" class="btn btn-primary ">Tidak</a>
                 </div>
             </div>
@@ -154,7 +153,6 @@
                 i++;  
                 $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" name="file[]" class="help-block text-danger"/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
             });  
-
 
             $(document).on('click', '.btn_remove', function(){  
                 var button_id = $(this).attr("id");   

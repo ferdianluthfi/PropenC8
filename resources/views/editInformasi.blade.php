@@ -88,20 +88,18 @@
                 </div>
                 <br>
 
-                <div class="form-group {{ !$errors->has('file') ?: 'has-error' }}">
+                <div class="form-group {{ !$errors->has('photo') ?: 'has-error' }}">
                     <label>Foto</label>
-
-                    <table class="table table-bordered" id="dynamic_field">  
-                        <tr> 
-                            @foreach($daftarFoto as $foto)
-                                <img src=<?php echo $foto->path ?> >
-                                <td><input type="file" name="file[]" class="help-block text-danger" value="{{$foto->path}}"> {{ $errors->first('file') }}</td>
-                                <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></td>
-                            @endforeach  
-                        </tr>  
-                    </table>  
-
                 </div>
+
+                @foreach($foto as $fot)
+                <div class="content bg1">
+                        <img src="{{asset($fot->path)}}" width="400" height="400">
+                        <a class="btn btn-danger foto" id="{{$fot->id}}" href="" style="font-size:12pt; font-weight:bolder;"> Hapus</a>
+                        <!--<td><input type="photo" name="photo[]" class="help-block text-danger" value="{{$fot->path}}"> {{ $errors->first('photo') }}</td>
+                        <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></td>-->
+                </div>
+                @endforeach  
 
                 <div class="container1-btn">
                     <a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
@@ -136,7 +134,7 @@
                     <p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="/proyek/" class="btn btn-default" style="color:red;">Iya</a>
+                    <a href="/informasi/{{$proyek->id}}" class="btn btn-default" style="color:red;">Iya</a>
                     <a href="/info/edit/{{$kemajuans->id}}" class="btn btn-primary ">Tidak</a>
                 </div>
             </div>
@@ -167,6 +165,17 @@
 	<script>
 
         $( document ).ready(function() {
+            var bufferDelete=[];
+
+            $('.foto').on('click',function(event){
+                event.preventDefault();
+                var imgName = $(this).attr("id");
+                bufferDelete.push(imgName);
+                $(this).parent().detach();
+                console.log(bufferDelete);
+                console.log("test")
+            })
+
             $("#editForm").validate({
                 rules:{
                     description:{
@@ -214,9 +223,19 @@
             $("#simpan").click(function(e){
                 e.preventDefault();
                 if($('#editForm').valid()){ //checks if it's valid
-            //horray it's valid
+                //horray it's valid
+                //console.log(bufferDelete);
                 $("#myMod").modal("show");
                 };
+                /*$.ajax({
+                    url:'',
+                    method:'POST',
+                    data:'',
+                    type:'json',
+                    success:function(data){
+
+                    }
+                });*/
             });
             $("#OK").click(function(e){
             $('#editForm').submit();
