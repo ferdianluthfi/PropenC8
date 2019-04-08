@@ -139,10 +139,7 @@
 @endsection
 
 <!--INI BUAT STAFF MARKETING-->
-<<<<<<< HEAD
 @elseif(Auth::user()->role == 3)
-=======
->>>>>>> jesper
 @section ('content')
 @include('layouts.nav')
 <body>

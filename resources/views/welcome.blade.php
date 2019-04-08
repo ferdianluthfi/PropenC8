@@ -20,8 +20,8 @@
         <ul class="list-unstyled components">
             <center>
             <img src="https://i.stack.imgur.com/12F8N.png" style="width:100px;height:100px;"/>
-            <h6> luthfi.ferdian </h6>
-            <h6> Manajer Marketing </h6>
+            <h6> atta.harlilintar </h6>
+            <h6> >>>ASHIAP<<< </h6>
             </center>
             <li class="active">
                 <a href="/">Beranda</a>
@@ -62,7 +62,7 @@
         <div id="contentBody">
         <center>
         <img src="https://i.stack.imgur.com/12F8N.png" style="width:250px;height:250px;"/>
-        <h2> Selamat Datang di Trayek, Luthfi!</h2>
+        <h2> Selamat Datang di Trayek, Toeloes!</h2>
         </center>
         </div>
         </nav>
