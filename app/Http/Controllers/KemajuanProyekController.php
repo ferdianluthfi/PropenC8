@@ -179,7 +179,8 @@ class KemajuanProyekController extends Controller
 
         if ($request->file != null) {
             foreach($request->file as $file) {
-                $uploadedFile = $file;        
+                $uploadedFile = $file;
+                //dd($uploadedFile);   
                 $path = $uploadedFile->storeAs('public/upload',$file->getClientOriginalName());
                 $publicPath = \Storage::url($path);
     
@@ -211,10 +212,15 @@ class KemajuanProyekController extends Controller
     }
 
     public function updateInformasi($id, Request $request){
-        // foreach($listId as $id) {
-        //     $deletedFoto = ListPhoto::find($id);
-        //     $deletedFoto->delete();
-        // }
+        
+        
+        $allId = DB::table('listPhoto')->select('listPhoto.id')->where('kemajuan_id',$id)->whereNotIn('id',$request->listId)->get();
+        $deletedId = json_decode($allId);
+        for($i=0;$i<sizeof($allId);$i++) {
+
+            DB::table('listPhoto')->where('id',$deletedId[$i]->id)->delete();
+        }
+        //dd($deletedId[0]->id);
         $idPelaksanaan = KemajuanProyek::select('kemajuan_proyeks.pelaksanaan_id')->where('id',$id)->get();
         $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$idPelaksanaan)->get();
         $data = json_decode($idProyek);
@@ -223,7 +229,8 @@ class KemajuanProyekController extends Controller
             'reportDate' => 'required',
             'tipeKemajuan' => 'required',
             'value' => 'required',
-            'pelaksanaan_id' => 'required'
+            'pelaksanaan_id' => 'required',
+            'file' => 'required|image'
     	]);
 
         $kemajuans = KemajuanProyek::find($id);

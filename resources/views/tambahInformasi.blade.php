@@ -147,6 +147,7 @@
         $( document ).ready(function() {
 
             var postURL = "<?php echo url('addmore'); ?>";
+            console.log(postURL);
             var i=1;  
 
             $('#add').click(function(){  
@@ -167,7 +168,7 @@
             });
 
 
-            $('#submit').click(function(){            
+            /*$('#submit').click(function(){            
                 $.ajax({  
                         url:postURL,  
                         method:"POST",  
@@ -188,7 +189,7 @@
                             }
                         }  
                 });  
-            });  
+            });*/
 
 
             function printErrorMsg (msg) {

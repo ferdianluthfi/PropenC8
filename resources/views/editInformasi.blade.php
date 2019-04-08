@@ -92,14 +92,30 @@
                     <label>Foto</label>
                 </div>
 
+                
+
                 @foreach($foto as $fot)
                 <div class="content bg1">
                         <img src="{{asset($fot->path)}}" width="400" height="400">
-                        <a class="btn btn-danger foto" id="{{$fot->id}}" href="" style="font-size:12pt; font-weight:bolder;"> Hapus</a>
+                        {{$fot->id}}
+                        <input name="listId[]" style="display:none" id="input-<?php echo $fot->id?>" value=" {{$fot->id}}">
+                        <a class="btn btn-danger foto" id="button-{{$fot->id}}" onclick="addDeletedPhoto({{$fot->id}})" style="font-size:12pt; font-weight:bolder;"> Hapus</a>
                         <!--<td><input type="photo" name="photo[]" class="help-block text-danger" value="{{$fot->path}}"> {{ $errors->first('photo') }}</td>
                         <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></td>-->
                 </div>
-                @endforeach  
+                @endforeach 
+                
+                <!--<div class="form-group {{ !$errors->has('file') ?: 'has-error' }}">
+                    <label>Tambah Foto</label>
+
+                    <table class="table table-bordered" id="dynamic_field">  
+                        <tr>  
+                            <td><input type="file" name="file[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>  
+                            <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></td>  
+                        </tr>  
+                    </table>  
+
+                </div>-->
 
                 <div class="container1-btn">
                     <a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
@@ -165,6 +181,38 @@
 	<script>
 
         $( document ).ready(function() {
+            var postURL = "<?php echo url('addmore'); ?>";
+            console.log(postURL);
+            var i=1;  
+
+            $('#add').click(function(){  
+                i++;  
+                $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" name="file[]" class="help-block text-danger"/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+            });  
+
+            $(document).on('click', '.btn_remove', function(){  
+                var button_id = $(this).attr("id");   
+                $('#row'+button_id+'').remove();  
+            });  
+
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            }); 
+
+
+            function printErrorMsg (msg) {
+                $(".print-error-msg").find("ul").html('');
+                $(".print-error-msg").css('display','block');
+                $(".print-success-msg").css('display','none');
+                $.each( msg, function( key, value ) {
+                    $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+                });
+            }
+
+
             var bufferDelete=[];
 
             $('.foto').on('click',function(event){
@@ -173,7 +221,6 @@
                 bufferDelete.push(imgName);
                 $(this).parent().detach();
                 console.log(bufferDelete);
-                console.log("test")
             })
 
             $("#editForm").validate({
@@ -227,20 +274,26 @@
                 //console.log(bufferDelete);
                 $("#myMod").modal("show");
                 };
-                /*$.ajax({
-                    url:'',
-                    method:'POST',
-                    data:'',
-                    type:'json',
-                    success:function(data){
-
-                    }
-                });*/
+                $.ajax({
+                    url: '/info/submit/6',
+                    dataType: 'json',
+                    type: 'post',
+                    contentType: 'application/json',
+                    data: JSON.stringify({'listId': bufferDelete} ),
+                    processData: false,
+                });
             });
             $("#OK").click(function(e){
             $('#editForm').submit();
             });
         });
+        </script>
+        <script>
+            function addDeletedPhoto($data){
+                console.log('input-'+$data);
+                console.log(document.getElementById('input-'+$data).value);
+                document.getElementById('input'+$data).value = $data;
+            }
         </script>
         @endsection
 </html>
