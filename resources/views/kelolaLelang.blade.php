@@ -14,6 +14,12 @@
 <!-- INI BUAT PROGRAM MANAGER -->
 <div class="container-fluid card card-detail-proyek">
     <br>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    <br>
     <p class="font-subtitle-1">Rincian Berkas Lelang</p>
     <hr>
     <div>
@@ -133,7 +139,10 @@
 @endsection
 
 <!--INI BUAT STAFF MARKETING-->
+<<<<<<< HEAD
 @elseif(Auth::user()->role == 3)
+=======
+>>>>>>> jesper
 @section ('content')
 @include('layouts.nav')
 <body>
