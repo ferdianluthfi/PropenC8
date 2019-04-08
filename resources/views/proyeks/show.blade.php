@@ -43,7 +43,14 @@
             <div class="card card-info">
                 <div class="row judul">
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
-                    <div class="col-sm-5 font-status-approval" style="margin-left:15px;">{{$status}}</div>
+                    @if($status == 'DISETUJUI') <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:blue;">{{$status}}</div>
+                    {{-- <td style="color:blue; "> DISETUJUI</td> --}}
+                    @elseif($status == 'SEDANG BERJALAN') <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:limegreen;">{{$status}}</div>
+                     {{-- <td style="color:limegreen;"> SEDANG BERJALAN </td> --}}
+                    @elseif($status == 'DITOLAK') <div class="col-sm-5 font-status-approval" style="margin-left:15px;color:red;">{{$status}}</div>
+                    @else <div class="col-sm-5 font-status-approval" style="margin-left:15px;color:orange;">{{$status}}</div>
+					@endif
+                    
                 </div>
                 <hr style="background-color:black;"/>
                 <div class="row">
@@ -169,7 +176,7 @@
     <div>
         <div class="row ketengahin">
             <a href=" /kelolaLelang/{{ $proyek->id }}"><div class="col-sm-12 card card-button-1">
-                    <p class="font-button-berkas-inactive">Kelola Lelang<p>
+                    <p class="font-button-berkas">Kelola Lelang<p>
                 </div></a>
         </div>
     </div>

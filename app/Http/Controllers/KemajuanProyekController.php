@@ -14,20 +14,19 @@ use Illuminate\Support\Facades\Storage;
 
 class KemajuanProyekController extends Controller
 {
-     /**
-     * method untuk melihat daftar informasi kemajuan proyek
-use App\User;
 
-
-
-class KemajuanProyekController extends Controller
-{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
+     /**
+     * method untuk melihat daftar informasi kemajuan proyek
      * method untuk melihat daftar kemajuan seluruh proyek yang sedang berjalan
      */
 

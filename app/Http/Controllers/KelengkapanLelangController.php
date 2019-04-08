@@ -13,6 +13,16 @@ use PhpParser\Node\Expr\New_;
 use PDF;
 class KelengkapanLelangController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function kelolaBerkas($proyek_id)
     {
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
