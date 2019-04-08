@@ -22,21 +22,32 @@ class KemajuanProyekController extends Controller
      */
     public function viewKemajuan(){
         if(\Auth::user()->role == 2){
-            $idProyeks = Proyek::select('proyeks.id')->where('isLPJExist', 0)->get();
+            $idProyeks = Proyek::select('proyeks.id')->where('isLPJExist', 0)->where('approvalStatus',2)->get();
             if($idProyeks->isEmpty() == false){
-                $proyeks = Proyek::select('proyeks.*')->where('isLPJExist', 0)->get();
+                $proyeks = Proyek::select('proyeks.*')->where('isLPJExist', 0)->where('approvalStatus',2)->get();
+                //dd($proyeks);
+                $proyekPrint = [];
+                
+
                 $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->whereIn('proyek_id',$idProyeks)->get();
                 if($idPelaksanaan->isEmpty()){
                     return view('viewAll-EmptyKemajuan', compact('proyeks'));
                 }
+
+
+
                 $pelaksanaans = Pelaksanaan::select('pelaksanaans.*','proyeks.*','kemajuan_proyeks.*')
                 ->join('proyeks','proyeks.id','=','pelaksanaans.proyek_id')
                 ->join('kemajuan_proyeks','kemajuan_proyeks.pelaksanaan_id','=','pelaksanaans.id')
                 ->whereIn('proyek_id',$idProyeks)->get();
-                $kemajuans = KemajuanProyek::select('kemajuan_proyeks.*')->whereIn('pelaksanaan_id',$idPelaksanaan)->get();
-                $proyekPrint = [];
+
+                //$kemajuans = KemajuanProyek::select('kemajuan_proyeks.*')->whereIn('pelaksanaan_id',$idPelaksanaan)->get();
+                
+                
                 $proyekDetail = [];
+                
                 $data = $pelaksanaans->groupBy('proyek_id');
+                //dd($data);
                 foreach ($data as $proyek) {
                     $sumGaji = 0;
                     $sumBelanja = 0;
@@ -52,7 +63,7 @@ class KemajuanProyekController extends Controller
                             $sumAdministrasi += $kemajuan['value'];
                         }
                     }
-                    
+                    //dd($kemajuan);
                     $proyekDetail[] = array(
                         "projectName" => $kemajuan['projectName'],
                         "totalGaji" => $sumGaji,
@@ -64,7 +75,6 @@ class KemajuanProyekController extends Controller
                         "projectId" => $kemajuan['proyek_id'],
                         
                     );
-                    $proyekPrint[$kemajuan['projectName']] = (($sumGaji + $sumAdministrasi + $sumBelanja) / $kemajuan['projectValue'])*100;
                 }
                 return view('viewAll', compact('proyekPrint','proyekDetail','test'));
             }
@@ -73,7 +83,7 @@ class KemajuanProyekController extends Controller
             }
         }
         else{
-            return view('no-access'); //TODO: BIKIN HALAMAN ANDA TIDAK MEMILIKI AKSES
+            return view('no-access'); 
         }
         
     }

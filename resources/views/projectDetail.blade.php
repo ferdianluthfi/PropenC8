@@ -71,7 +71,7 @@
                 <p class="font-button-berkas-inactive">Berkas Kontrak<p>
             </div></a>
             @else
-            <a href="{{ route('detail-kontrak', $proyek->id) }}"><div class="col-sm-3 card card-button">
+            <a href="{{ route('view-kontrak', $proyek->id) }}"><div class="col-sm-3 card card-button">
                 <p class="font-button-berkas">Berkas Kontrak<p>
             </div></a>
             @endif

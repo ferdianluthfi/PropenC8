@@ -13,6 +13,9 @@ use App\Proyek;
 */
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/error', function(){
+    return view('error-message');
+});
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', function () {
         return view('home');
@@ -52,7 +55,7 @@ Route::get('/proyek/setujuiProyek/{id}', 'ProyekController@approveProjectDetail'
 Route::post('/proyek/setujuiProyek/setuju/{id}', 'ProyekController@approveProject');
 Route::post('/proyek/setujuiProyek/tolak/{id}', 'ProyekController@rejectProject');
 Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutApprove');
-Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@viewKontrakz');
+Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@viewKontrakz')->name('view-kontrak');
 
 /**
  * routing untuk kemajuan proyek

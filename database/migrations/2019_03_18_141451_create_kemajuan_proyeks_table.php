@@ -29,7 +29,7 @@ class CreateKemajuanProyeksTable extends Migration
             $table->integer('tipeKemajuan');
 
 
-            $table->integer('value');
+            $table->bigInteger('value');
 
             $table->bigInteger('pelaksanaan_id')->unsigned();
             $table->foreign('pelaksanaan_id')

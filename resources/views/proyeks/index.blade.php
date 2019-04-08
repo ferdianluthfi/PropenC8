@@ -217,7 +217,7 @@
 									@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"><center> SEDANG BERJALAN </td>
 									@else <td style="color:red;"><center> DITOLAK </td>
 									@endif
-									<td><center><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+									<td><center><a class="btn btn-primary" href="/proyek/{{ $proyeks->id }}">Lihat</a>
 								</tr>
 							@endforeach
 							</tbody>
