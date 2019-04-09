@@ -31,8 +31,8 @@ class KemajuanProyekController extends Controller
      */
 
     public function viewProyek(){
-        $idPm = Assignment::select('assignments.pengguna_id')->where('proyek_id',1)->get();  
-        $listProyek = Proyek::select('proyeks.*')->whereIn('pengguna_id',$idPm)->get(); 
+        $idProyek = Assignment::select('assignments.proyek_id')->where('pengguna_id',\Auth::user()->id)->get();
+        $listProyek = Proyek::select('proyeks.*')->whereIn('id',$idProyek)->get(); 
         return view('listProyek', compact('listProyek'));
     }
 

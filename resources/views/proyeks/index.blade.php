@@ -115,7 +115,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
-        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek') }}">Proyek</a></li>
     </ol>
 </nav>
 
@@ -131,7 +131,9 @@
             </div>
             @endif
 			<h2 style="text-align:center;">Daftar Proyek Siap Lelang</h2><br>
+			
 			<div class="row">
+					@if(count($proyekPoten) > 0)
 					<div class="col-md-12">
 							<div class="your-class">
 								@foreach($proyekPoten as $proyeks)
@@ -143,6 +145,11 @@
 								@endforeach
 							</div>
 					</div>
+					@else
+						<p class="font-subtitle-2" style="text-align:center;padding-left: 0px;">
+							Belum terdapat proyek.
+						</p>
+					@endif
 			</div>
         </div>
     </div>
