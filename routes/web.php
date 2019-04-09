@@ -80,3 +80,10 @@ Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
 
 
 
+/**
+ * Errors
+ */
+Route::any('{catchall}', function() {
+    return view('error-message');
+  })->where('catchall', '.*');
+  

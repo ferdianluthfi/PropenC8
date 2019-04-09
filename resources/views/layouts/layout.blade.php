@@ -12,11 +12,8 @@
      <!-- Our Custom CSS -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type='text/css'>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-<<<<<<< HEAD
     
 
-=======
->>>>>>> reza
 </head>
 <body>
 

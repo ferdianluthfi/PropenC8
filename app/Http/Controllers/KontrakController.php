@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\DB;
 
 class KontrakController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     
     public function viewKontrakz($id){
         $kontrak = DB::table('kontraks')->select('*')->where('proyek_id', $id)->first();
