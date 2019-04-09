@@ -140,6 +140,7 @@ class KemajuanProyekController extends Controller
         $tanggalInfo = $informasi->reportDate;
         $tanggal = $this->waktu($tanggalInfo);
         $foto = DB::table('listPhoto')->where('kemajuan_id',$id)->get();
+        //dd($foto);
         // $banyakFoto = DB::table('listPhoto')->where('kemajuan_id',$id)->get()->count();
         // $listFoto = array();
         // for($i=0; i<$banyakFoto; i++){
@@ -222,7 +223,7 @@ class KemajuanProyekController extends Controller
         if ($request->file != null) {
             foreach($request->file as $file) {
                 $uploadedFile = $file;
-                //dd($uploadedFile);   
+                ($uploadedFile);   
                 $path = $uploadedFile->storeAs('public/upload',$file->getClientOriginalName());
                 $publicPath = \Storage::url($path);
     
