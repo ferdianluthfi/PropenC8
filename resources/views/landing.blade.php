@@ -15,10 +15,10 @@
     <div class="text-center font-subtitle-3">
         <br>
         <br>
-        <p>Selamat Datang di Trayek,</p>
+        <h3>Selamat Datang di Trayek,</h3>
     </div>
     <div class="text-center font-title">
-        <p>Risa!</p>
+        <h4>Juanita!</h4>
     </div>
     <br>
     <br>

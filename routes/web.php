@@ -11,8 +11,16 @@ use App\Proyek;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+/**
+ * routing untuk home dan landing
+ */
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/error', function(){
+    return view('error-message');
+});
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', function () {
         return view('home');
@@ -52,12 +60,23 @@ Route::get('/proyek/setujuiProyek/{id}', 'ProyekController@approveProjectDetail'
 Route::post('/proyek/setujuiProyek/setuju/{id}', 'ProyekController@approveProject');
 Route::post('/proyek/setujuiProyek/tolak/{id}', 'ProyekController@rejectProject');
 Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutApprove');
-Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@viewKontrakz');
+Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@viewKontrakz')->name('view-kontrak');
 
 /**
  * routing untuk kemajuan proyek
  */
 Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
+Route::get('/assignedproyek', 'KemajuanProyekController@viewProyek');
+Route::get('/proyek/detail/{id}', 'KemajuanProyekController@detailProyek');
+Route::get('/informasi/{id}', 'KemajuanProyekController@viewInfo');
+Route::get('/informasi/detail/{id}', 'KemajuanProyekController@detailInfo');
+Route::get('/informasi/detail/tambah/{id}', 'KemajuanProyekController@tambahFoto');
+Route::post('/foto/submit/{id}', 'KemajuanProyekController@simpanFoto');
+Route::get('/info/tambah/{idpelaksanaan}', 'KemajuanProyekController@tambahInformasi');
+Route::post('/info/submit/{idPelaksanaan}', 'KemajuanProyekController@simpanInformasi');
+Route::get('/info/edit/{id}', 'KemajuanProyekController@editInformasi');
+Route::post('/info/update/{id}', 'KemajuanProyekController@updateInformasi');
+Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
 
 
 

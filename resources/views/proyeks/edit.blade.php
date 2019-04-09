@@ -43,7 +43,7 @@
 		
 			<div class="content bg1">
 						<span class="labels">Nama Staf Marketing</span>
-						<input class="inputs" type="text" name="name" value="{{ $proyek->name }}" data-error=".errorName">
+						<input class="inputs" type="text" name="name" readonly="readonly" value="{{ $proyek->name }}" data-error=".errorName">
 						<div class="errorMessage errorName"></div>
 			</div>
 

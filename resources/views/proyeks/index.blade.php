@@ -174,22 +174,26 @@
 				@endif
 				<h2 style="text-align:center;">Daftar Proyek Potensial</h2><br>
 				<div class="row">
-					
+					@if(count($proyekPoten) > 0)
 					<div class="col-md-12">
 						<div class="your-class">
+							
 							@foreach($proyekPoten as $proyeks)
 								
 								<div class="col-md-6 project">
-									
 										<center class="turncate" style="font-size:12pt; font-weight:bolder;">{{ $proyeks->projectName }}<center>
 										<center class="turncate">{{ $proyeks->companyName }}<center>
-										<center><a class="btn btn-primary" href="/proyek/setujuiProyek/{{ $proyeks->id }}" style="font-size:8pt; font-weight:bolder;">Lihat</a> <center>
-										
+										<center><a class="btn btn-primary" href="/proyek/setujuiProyek/{{ $proyeks->id }}" style="font-size:8pt; font-weight:bolder;">Lihat</a> <center>							
 								</div>
-							
 							@endforeach
 						</div>
 					</div>
+					
+					@else
+						<p class="font-subtitle-2" style="text-align:center;padding-left: 0px;">
+							Belum terdapat proyek.
+						</p>
+					@endif
 				</div>
 			</div>
 		</div>
@@ -217,7 +221,7 @@
 									@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"><center> SEDANG BERJALAN </td>
 									@else <td style="color:red;"><center> DITOLAK </td>
 									@endif
-									<td><center><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+									<td><center><a class="btn btn-primary" href="/proyek/{{ $proyeks->id }}">Lihat</a>
 								</tr>
 							@endforeach
 							</tbody>

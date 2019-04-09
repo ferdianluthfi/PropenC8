@@ -13,12 +13,24 @@ use PhpParser\Node\Expr\New_;
 use PDF;
 class KelengkapanLelangController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function kelolaBerkas($proyek_id)
     {
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
         $berkass = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('proyek_id', $proyek_id)->where('flag_active', '1')->get();
+
         $temp = number_format($proyek->projectValue, 2, ',','.');
         $proyek->projectValue = $temp;
+
         $statusNum = $proyek-> approvalStatus;
         if($statusNum == 1){
             $status = "DISETUJUI";
@@ -91,43 +103,59 @@ class KelengkapanLelangController extends Controller
             'val' => $proyek->projectValue,
         ];
         $pdf = PDF::loadView('template-surat/myPDF', $data);
-        $dokumenname = 'Dokumen 1';
+
+        $dokumenname = 'Surat Penawaran Rekanan';
         
         Storage::put($dokumenname, $pdf->output());
         
         $ext = '.pdf';
         $file = KelengkapanLelang::create([
-            'title' => 'Dokumen 1',
+            'title' => $dokumenname . $ext,
             'filename' => $proyek->projectName . ' - ' . $dokumenname,
             'ext' => '.pdf',
-            'path' => 'files/' . $dokumenname . $ext,
+            'path' => $dokumenname,
             'proyek_id' => $proyek->id
         ]);
-        return $pdf->download('hehehehe.pdf');
+        
+        $pdf->download($proyek->projectName . ' - ' . $dokumenname . '.pdf');
+
+        return redirect()
+            ->back()
+            ->withSuccess(sprintf('File %s has been generated.', $file->filename));
     }
     public function generatePDF2($proyek_id)
     {
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
+
         $temp = number_format($proyek->projectValue, 2, ',','.');
         $proyek->projectValue = $temp;
+
         $data = [
             'projectName' => $proyek->projectName,
             'comp' => $proyek->companyName,
             'addr' => $proyek->projectAddress,
             'val' => $proyek->projectValue,
         ];
+
         $pdf = PDF::loadView('template-surat/myPDF-2', $data);
-        $dokumenname = 'Dokumen 2';
+
+        $dokumenname = 'Surat Permohonan Jaminan Bank';
+
         Storage::put($dokumenname, $pdf->output());
         $ext = '.pdf';
         $file = KelengkapanLelang::create([
-            'title' => 'Dokumen 2',
+            'title' => $dokumenname,
             'filename' => $proyek->projectName . ' - ' . $dokumenname,
             'ext' => '.pdf',
-            'path' => 'files/' . $dokumenname . $ext,
+            'path' => $dokumenname,
             'proyek_id' => $proyek->id
         ]);
-        return $pdf->download('hehehehe.pdf');
+
+        $pdf->download($proyek->projectName . ' - ' . $dokumenname . '.pdf');
+        
+        return redirect()
+            ->back()
+            ->withSuccess(sprintf('File %s has been generated.', $file->filename));
     }
 
 }

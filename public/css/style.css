@@ -8,7 +8,7 @@
     src: url(/public/font/Roboto-Regular.ttf);
     font-weight: 400;
     font-style: normal;
-    src: ('https://fonts.googleapis.com/css?family=Roboto');
+    src: url('https://fonts.googleapis.com/css?family=Roboto');
 }
 
 @font-face{
@@ -16,15 +16,14 @@
     src: url(/public/font/Roboto-Medium.ttf);
     font-weight: 500;
     font-style: normal;
-    src: ('https://fonts.googleapis.com/css?family=Roboto');
+    src: url('https://fonts.googleapis.com/css?family=Roboto');
 }
 
 @font-face{
     font-family: 'Roboto-Bold', sans-serif;
     src: url(/public/font/Roboto-Bold.ttf);
-    font-weight: 550;
     font-style: normal;
-    src: ('https://fonts.googleapis.com/css?family=Roboto');
+    src: url('https://fonts.googleapis.com/css?family=Roboto');
 }
 
 body{
@@ -313,6 +312,11 @@ list-style-type: none;
 input {
 outline: none;
 border: none;
+}
+
+.inputsearch {
+    outline: none;
+    border: 1px;
 }
 
 input[type="number"] {

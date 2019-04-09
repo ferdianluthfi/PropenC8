@@ -24,7 +24,7 @@
     @foreach ($proyekDetail as $proyek)
 
     <div class="container-fluid card card-info" style="margin:10px auto;min-height:100px;min-width: -webkit-fill-available;">
-        <a href="/assignedproyek/detil/{{$proyek['id']}}">
+        <a href="/proyek/{{$proyek['projectId']}}">
             <h3 style="text-align:center; margin-bottom:5px; margin-top:10px" >{{$proyek['projectName']}}</h3>
         </a>
         <p style="text-align:center;">
@@ -38,21 +38,21 @@
             <p style="margin-left:4px">Gaji Karyawan : Rp{{number_format($proyek['totalGaji'], 2, ',','.')}}</p>
             <div id="myProgress" style="margin-bottom:3px"> 
                 <div id="myBar" style="width: <?php echo ($proyek['totalGaji']/ $proyek['maxValue'])*100 ?>%; margin-bottom:10px;">
-                    {{($proyek['totalGaji']/ $proyek['maxValue'])*100}}%
+                    {{number_format((float)($proyek['totalGaji']/ $proyek['maxValue'])*100, 2, '.', '')}}%
                 </div>
             </div>
 
             <p style="margin-left:4px">Belanja : Rp{{number_format($proyek['totalBelanja'], 2, ',','.')}}</p>
             <div id="myProgress" style="margin-bottom:3px">
                 <div id="myBar" style="width: <?php echo ($proyek['totalBelanja']/ $proyek['maxValue'])*100 ?>%; margin-bottom:10px;">
-                    {{($proyek['totalBelanja']/ $proyek['maxValue'])*100}}%
+                    {{number_format((float)($proyek['totalBelanja']/ $proyek['maxValue'])*100, 2, '.', '')}}%
                 </div>
             </div>
 
             <p style="margin-left:4px">Administrasi : Rp{{number_format($proyek['totalAdministrasi'], 2, ',','.')}}</p> 
             <div id="myProgress" style="margin-bottom:3px">
                 <div id="myBar" style="width: <?php echo ($proyek['totalAdministrasi']/ $proyek['maxValue'])*100 ?>%; margin-bottom:10px;">
-                    {{($proyek['totalAdministrasi']/ $proyek['maxValue'])*100}}%
+                    {{number_format((float)($proyek['totalAdministrasi']/ $proyek['maxValue'])*100, 2, '.', '')}}%
                 </div>
             </div>
 
@@ -67,7 +67,7 @@
                 </div>
             @else
             <div id="myBar" style="width: <?php echo ($proyek['totalKeseluruhan']/ $proyek['maxValue'])*100 ?>%;">
-            {{($proyek['totalKeseluruhan']/ $proyek['maxValue'])*100}}%
+            {{number_format((float)($proyek['totalKeseluruhan']/ $proyek['maxValue'])*100, 2, '.', '')}}%
             </div>
             @endif
         </div>
