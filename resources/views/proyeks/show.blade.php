@@ -43,13 +43,11 @@
             <div class="card card-info">
                 <div class="row judul">
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
-                    @if($status == 'DISETUJUI') <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:blue;">{{$status}}</div>
-                    {{-- <td style="color:blue; "> DISETUJUI</td> --}}
-                    @elseif($status == 'SEDANG BERJALAN') <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:limegreen;">{{$status}}</div>
-                     {{-- <td style="color:limegreen;"> SEDANG BERJALAN </td> --}}
+                    @if($status == 'DISETUJUI') @if($status == 'DISETUJUI') <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:blue;">{{$status}}</div>
+                    @elseif($status == "SEDANG BERJALAN") <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:green;">{{$status}}</div>
                     @elseif($status == 'DITOLAK') <div class="col-sm-5 font-status-approval" style="margin-left:15px;color:red;">{{$status}}</div>
                     @else <div class="col-sm-5 font-status-approval" style="margin-left:15px;color:orange;">{{$status}}</div>
-					@endif
+                    @endif
                     
                 </div>
                 <hr style="background-color:black;"/>

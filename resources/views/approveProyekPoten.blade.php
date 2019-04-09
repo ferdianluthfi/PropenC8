@@ -37,12 +37,21 @@
     <p class="font-subtitle-1">Detail Proyek</p>
     <hr>
 
+    <div> 
+        <div class="row">
+            <div class="col-sm-10"> 
+                <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}}</p>
+            </div>
+        </div>
+    <br>
+    </div>
+
     <div class="row ketengahin">
         <div class="col-sm-7">
             <div class="card card-info">
                 <div class="row judul">
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
-                    <div class="col-sm-5 font-status-approval" style="margin-left:15px;">{{$status}}</div>
+                    <div class="col-sm-5 font-status-approval" style="margin-left:15px;color:orange;">{{$status}}</div>
                 </div>
                 <hr style="background-color:black;"/>
                 <div class="row">
