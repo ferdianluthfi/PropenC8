@@ -68,43 +68,334 @@
 			</div>
 		</div>
 		<br>
-		<div class="row bigCard">
-			<div class="col-md-12">
-				<h2 style="text-align:center;">Riwayat Proyek</h2><br>
-				<div class="card-table">
-					<div class="panel-body" style="text-align:center;">
-						<table id="datatable" class="table table-striped table-bordered text-center">
-							<thead>
-								<tr class="title" >
-									<th><center>Nama Proyek</th>
-									<th><center>Waktu</th>
-									<th><center>Status</th>
-									<th><center>Lihat Proyek</th>
-								</tr>
-							</thead>
-							<tbody >
-							@foreach($proyekNonPoten as $proyeks)
-								<tr style="background-color: whitesmoke;">
-									<td>{{ $proyeks->projectName }}</td>
-									<td>{{ $proyeks->created_at }}</td>
-									@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
-									@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
-									@else <td style="color:red;"> DITOLAK </td>
-									@endif
-									@if($proyeks->approvalStatus === 2)
-									<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
-									@else
-									<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
-									@endif
-								</tr>
-							@endforeach
-							</tbody>
-						</table>
+
+		<ul class="nav nav-tabs" style="background-color:aliceblue;">
+			<li class="nav-item">
+				<a class="nav-link active" data-toggle="tab" href="#pra">Pra-Lelang</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link " data-toggle="tab" href="#lelang">Lelang</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link " data-toggle="tab" href="#pasca">Pasca Lelang</a>
+			</li>
+		</ul>
+		<div id="myTabContent" class="tab-content">
+			<div class="tab-pane fade" id="pra" >
+				<div class="col-md-12" style="background-color:whitesmoke;">
+						<div class="card-table">
+							<h4 style="text-align:center;">Riwayat Proyek Pra-Lelang</h4><br>
+							<hr>
+							<div class="panel-body" style="text-align:center;">
+								<table id="datatable" class="table table-striped table-bordered text-center">
+									<thead>
+										<tr class="title" >
+											<th><center>Nama Proyek</th>
+											<th><center>Waktu</th>
+											<th><center>Status Proyek</th>
+											<th><center>Lihat Proyek</th>
+										</tr>
+									</thead>
+									<tbody >
+									@foreach($proyekNonPoten as $proyeks)
+										<tr style="background-color: whitesmoke;">
+											<td>{{ $proyeks->projectName }}</td>
+											<td>{{ $proyeks->created_at }}</td>
+											@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
+											@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
+											@else <td style="color:red;"> DITOLAK </td>
+											@endif
+											@if($proyeks->approvalStatus === 2)
+											<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+											@else
+											<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+											@endif
+										</tr>
+									@endforeach
+									</tbody>
+								</table>
+							</div>
+						</div>
+				</div>
+			</div>
+			<div class="tab-pane fade active show" id="lelang">
+				<div class="col-md-12" style="background-color:whitesmoke;">
+					<div class="card-table">
+						<h4 style="text-align:center;">Riwayat Proyek Lelang</h4><br>
+						<hr>
+						<div class="panel-body" style="text-align:center;">
+							<table id="datatable" class="table table-striped table-bordered text-center">
+								<thead>
+									<tr class="title" >
+										<th><center>Nama Proyek</th>
+										<th><center>Waktu</th>
+										<th><center>Status Proyek</th>
+										<th><center>Lihat Proyek</th>
+									</tr>
+								</thead>
+								<tbody >
+								@foreach($proyekNonPoten as $proyeks)
+									<tr style="background-color: whitesmoke;">
+										<td>{{ $proyeks->projectName }}</td>
+										<td>{{ $proyeks->created_at }}</td>
+										@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
+										@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
+										@else <td style="color:red;"> DITOLAK </td>
+										@endif
+										@if($proyeks->approvalStatus === 2)
+										<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+										@else
+										<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+										@endif
+									</tr>
+								@endforeach
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div class="tab-pane fade active show" id="pasca" >
+					<div class="col-md-12" style="background-color:whitesmoke;">
+							
+								<h4 style="text-align:center;">Riwayat Proyek Pra-Lelang</h4><br>
+								<hr>
+								<div class="panel-body" style="text-align:center;">
+									<table id="datatable" class="table table-striped table-bordered text-center">
+										<thead>
+											<tr class="title" >
+												<th><center>Nama Proyek</th>
+												<th><center>Waktu</th>
+												<th><center>Status Proyek</th>
+												<th><center>Lihat Proyek</th>
+											</tr>
+										</thead>
+										<tbody >
+										@foreach($proyekNonPoten as $proyeks)
+											<tr style="background-color: whitesmoke;">
+												<td>{{ $proyeks->projectName }}</td>
+												<td>{{ $proyeks->created_at }}</td>
+												@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
+												@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
+												@else <td style="color:red;"> DITOLAK </td>
+												@endif
+												@if($proyeks->approvalStatus === 2)
+												<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+												@else
+												<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+												@endif
+											</tr>
+										@endforeach
+										</tbody>
+									</table>
+								</div>
+							</div>
+					</div>
+			</div>
 		</div>
- 	</div>
+
+		{{-- <nav>
+			<div class="nav nav-tabs" id="nav-tab" role="tablist">
+				<a class="nav-item nav-link active" id="nav-pra-tab" data-toggle="tab" href="#nav-pra" role="tab" aria-controls="nav-pra" aria-selected="true">Pra-Lelang</a>
+				<a class="nav-item nav-link" id="nav-lelang-tab" data-toggle="tab" href="#nav-lelang" role="tab" aria-controls="nav-lelang" aria-selected="false">Lelang</a>
+				<a class="nav-item nav-link" id="nav-pasca-tab" data-toggle="tab" href="#nav-pasca" role="tab" aria-controls="nav-pasca" aria-selected="false">Pasca Lelang</a>
+			</div>
+		</nav>
+		<div class="tab-content" id="nav-tabContent">
+				<div class="tab-pane fade show active" id="nav-pra" role="tabpanel" aria-labelledby="nav-pra-tab">
+						<div class="col-md-12" style="background-color:whitesmoke;">
+								<div class="card-table">
+									<h4 style="text-align:center;">Riwayat Proyek Pra-Lelang</h4><br>
+									<hr>
+									<div class="panel-body" style="text-align:center;">
+										<table id="datatable" class="table table-striped table-bordered text-center">
+											<thead>
+												<tr class="title" >
+													<th><center>Nama Proyek</th>
+													<th><center>Waktu</th>
+													<th><center>Status Proyek</th>
+													<th><center>Lihat Proyek</th>
+												</tr>
+											</thead>
+											<tbody >
+											@foreach($proyekNonPoten as $proyeks)
+												<tr style="background-color: whitesmoke;">
+													<td>{{ $proyeks->projectName }}</td>
+													<td>{{ $proyeks->created_at }}</td>
+													@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
+													@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
+													@else <td style="color:red;"> DITOLAK </td>
+													@endif
+													@if($proyeks->approvalStatus === 2)
+													<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+													@else
+													<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+													@endif
+												</tr>
+											@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+						</div>
+				</div>
+				<div class="tab-pane fade" id="nav-lelang" role="tabpanel" aria-labelledby="nav-lelang-tab">...</div>
+				<div class="tab-pane fade" id="nav-pasca" role="tabpanel" aria-labelledby="nav-pasca-tab">
+						<div class="col-md-12" style="background-color:whitesmoke;">
+								<div class="card-table">
+									<h4 style="text-align:center;">Riwayat Proyek Pra-Lelang</h4><br>
+									<hr>
+									<div class="panel-body" style="text-align:center;">
+										<table id="datatable" class="table table-striped table-bordered text-center">
+											<thead>
+												<tr class="title" >
+													<th><center>Nama Proyek</th>
+													<th><center>Waktu</th>
+													<th><center>Status Proyek</th>
+													<th><center>Lihat Proyek</th>
+												</tr>
+											</thead>
+											<tbody >
+											@foreach($proyekNonPoten as $proyeks)
+												<tr style="background-color: whitesmoke;">
+													<td>{{ $proyeks->projectName }}</td>
+													<td>{{ $proyeks->created_at }}</td>
+													@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
+													@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
+													@else <td style="color:red;"> DITOLAK </td>
+													@endif
+													@if($proyeks->approvalStatus === 2)
+													<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+													@else
+													<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+													@endif
+												</tr>
+											@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+						</div>
+				</div>
+		</div> --}}
+		
+				
+				
+		</div>
+		{{-- <div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade show active" id="pra" role="tabpanel" aria-labelledby="pra-tab">
+						<div class="col-md-12" style="background-color:whitesmoke;">
+								<div class="card-table">
+									<h4 style="text-align:center;">Riwayat Proyek Pra-Lelang</h4><br>
+									<hr>
+									<div class="panel-body" style="text-align:center;">
+										<table id="datatable" class="table table-striped table-bordered text-center">
+											<thead>
+												<tr class="title" >
+													<th><center>Nama Proyek</th>
+													<th><center>Waktu</th>
+													<th><center>Status Proyek</th>
+													<th><center>Lihat Proyek</th>
+												</tr>
+											</thead>
+											<tbody >
+											@foreach($proyekNonPoten as $proyeks)
+												<tr style="background-color: whitesmoke;">
+													<td>{{ $proyeks->projectName }}</td>
+													<td>{{ $proyeks->created_at }}</td>
+													@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
+													@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
+													@else <td style="color:red;"> DITOLAK </td>
+													@endif
+													@if($proyeks->approvalStatus === 2)
+													<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+													@else
+													<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+													@endif
+												</tr>
+											@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+						</div>
+				</div>
+				<div class="tab-pane fade" id="lelang" role="tabpanel" aria-labelledby="lelang-tab">
+						<div class="col-md-12" style="background-color:whitesmoke;">
+								<div class="card-table">
+									<h4 style="text-align:center;">Riwayat Proyek Lelang</h4><br>
+									<hr>
+									<div class="panel-body" style="text-align:center;">
+										<table id="datatable" class="table table-striped table-bordered text-center">
+											<thead>
+												<tr class="title" >
+													<th><center>Nama Proyek</th>
+													<th><center>Waktu</th>
+													<th><center>Status Proyek</th>
+													<th><center>Lihat Proyek</th>
+												</tr>
+											</thead>
+											<tbody >
+											@foreach($proyekNonPoten as $proyeks)
+												<tr style="background-color: whitesmoke;">
+													<td>{{ $proyeks->projectName }}</td>
+													<td>{{ $proyeks->created_at }}</td>
+													@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
+													@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
+													@else <td style="color:red;"> DITOLAK </td>
+													@endif
+													@if($proyeks->approvalStatus === 2)
+													<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+													@else
+													<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+													@endif
+												</tr>
+											@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+						</div>
+				</div>
+				<div class="tab-pane fade" id="pasca" role="tabpanel" aria-labelledby="pasca-tab">
+						<div class="col-md-12" style="background-color:whitesmoke;">
+								<div class="card-table">
+									<h4 style="text-align:center;">Riwayat Proyek Pra-Lelang</h4><br>
+									<hr>
+									<div class="panel-body" style="text-align:center;">
+										<table id="datatable" class="table table-striped table-bordered text-center">
+											<thead>
+												<tr class="title" >
+													<th><center>Nama Proyek</th>
+													<th><center>Waktu</th>
+													<th><center>Status Proyek</th>
+													<th><center>Lihat Proyek</th>
+												</tr>
+											</thead>
+											<tbody >
+											@foreach($proyekNonPoten as $proyeks)
+												<tr style="background-color: whitesmoke;">
+													<td>{{ $proyeks->projectName }}</td>
+													<td>{{ $proyeks->created_at }}</td>
+													@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
+													@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
+													@else <td style="color:red;"> DITOLAK </td>
+													@endif
+													@if($proyeks->approvalStatus === 2)
+													<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+													@else
+													<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+													@endif
+												</tr>
+											@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+						</div>
+				</div>
+		</div> --}}
+	</div>
 @endsection
 
 
@@ -248,6 +539,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js" integrity="sha256-+h0g0j7qusP72OZaLPCSZ5wjZLnoUUicoxbvrl14WxM=" crossorigin="anonymous"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	
 	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/umd/util.js"></script> -->
 
   <script>
