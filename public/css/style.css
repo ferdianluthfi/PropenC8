@@ -827,3 +827,30 @@ font-size: 14px;
 .messageType{
     cursor:pointer;
 }
+
+.nav-link {
+  color: #55a7cf;
+}
+.nav-link:before, .nav-link:after,
+.nav-link span:before,
+.nav-link:after,
+.nav-link span:before {
+  top: auto;
+  bottom: 0;
+}
+.nav-link span:before,
+.nav-link span:after {
+  -webkit-transition-delay: 0.4s;
+          transition-delay: 0.4s;
+}
+.nav-link:hover {
+  color: #cde5f1;
+}
+.nav-link:hover:before, .btn-9:hover:after,
+.nav-link:hover span:before,
+.nav-link:hover span:after {
+  height: 80px;
+}
+.nav-link:active {
+  background: #3798c6;
+}
