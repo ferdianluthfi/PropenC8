@@ -89,7 +89,6 @@
 				<!-- PraLelang -->
 				<div class="tab-pane" id="pra" style="display:none">
 					<div class="col-md-12">
-							<div class="card-table">
 								<h4 style="text-align:center;">Riwayat Proyek Pra-Lelang</h4><br>
 								<hr>
 								<div class="panel-body" style="text-align:center;">
@@ -121,14 +120,12 @@
 										</tbody>
 									</table>
 								</div>
-							</div>
 					</div>
 				</div>
 	
 				<!-- Lelang -->
 				<div class="tab-pane fade" id="lelang" style="display:none">
 					<div class="col-md-12">
-						<div class="card-table">
 							<h4 style="text-align:center;">Riwayat Proyek Lelang</h4><br>
 							<hr>
 							<div class="panel-body" style="text-align:center;">
@@ -160,14 +157,12 @@
 									</tbody>
 								</table>
 							</div>
-						</div>
 					</div>
 				</div>
 	
 				<!-- Pasca Lelang -->
 				<div class="tab-pane fade" id="pasca" style="display:none">
 						<div class="col-md-12"">
-							<div class="card-table">
 								<h4 style="text-align:center;">Riwayat Proyek Pasca Lelang</h4><br>
 								<hr>
 								<div class="panel-body" style="text-align:center;">
