@@ -34,11 +34,9 @@ class CreateUsersTable extends Migration
 
             $table->timestamps();
 
-            /**
-             * digunakan di iterasi ke dua
-             */
-            //$table->string('username');
-            //$table->binary('photo');
+
+            $table->string('username')->unique();
+            $table->binary('photo')->nullable();
         });
     }
 
