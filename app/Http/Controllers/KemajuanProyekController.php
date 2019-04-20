@@ -14,26 +14,25 @@ use Illuminate\Support\Facades\Storage;
 
 class KemajuanProyekController extends Controller
 {
-     /**
-     * method untuk melihat daftar informasi kemajuan proyek
-use App\User;
 
-
-
-class KemajuanProyekController extends Controller
-{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
+     /**
+     * method untuk melihat daftar informasi kemajuan proyek
      * method untuk melihat daftar kemajuan seluruh proyek yang sedang berjalan
      */
 
     public function viewProyek(){
-        $idPm = Assignment::select('assignments.pengguna_id')->where('proyek_id',1)->get();  
-        $listProyek = Proyek::select('proyeks.*')->whereIn('pengguna_id',$idPm)->get(); 
+        $idProyek = Assignment::select('assignments.proyek_id')->where('pengguna_id',\Auth::user()->id)->get();
+        $listProyek = Proyek::select('proyeks.*')->whereIn('id',$idProyek)->get(); 
         return view('listProyek', compact('listProyek'));
     }
 
@@ -141,6 +140,7 @@ class KemajuanProyekController extends Controller
         $tanggalInfo = $informasi->reportDate;
         $tanggal = $this->waktu($tanggalInfo);
         $foto = DB::table('listPhoto')->where('kemajuan_id',$id)->get();
+        //dd($foto);
         // $banyakFoto = DB::table('listPhoto')->where('kemajuan_id',$id)->get()->count();
         // $listFoto = array();
         // for($i=0; i<$banyakFoto; i++){
@@ -223,7 +223,7 @@ class KemajuanProyekController extends Controller
         if ($request->file != null) {
             foreach($request->file as $file) {
                 $uploadedFile = $file;
-                //dd($uploadedFile);   
+                ($uploadedFile);   
                 $path = $uploadedFile->storeAs('public/upload',$file->getClientOriginalName());
                 $publicPath = \Storage::url($path);
     
