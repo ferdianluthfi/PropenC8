@@ -24,7 +24,7 @@ class CreateProyeksTable extends Migration
             $table->bigInteger('projectValue'); //ToDo digunakan menjadi angka TERBILANG di kontrak
             $table->integer('estimatedTime');
             
-            $table->integer('approvalStatus')->default(0);
+            $table->bigInteger('approvalStatus')->unsigned();
             $table->foreign('approvalStatus')
             ->references('id')
             ->on('codes')
