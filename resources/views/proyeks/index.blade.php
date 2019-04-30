@@ -12,7 +12,8 @@
     <!-- Bootstrap CSS CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	
      <!-- Our Custom CSS -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type='text/css'>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -69,42 +70,140 @@
 		</div>
 		<br>
 		<div class="row bigCard">
-			<div class="col-md-12">
-				<h2 style="text-align:center;">Riwayat Proyek</h2><br>
-				<div class="card-table">
-					<div class="panel-body" style="text-align:center;">
-						<table id="datatable" class="table table-striped table-bordered text-center">
-							<thead>
-								<tr class="title" >
-									<th><center>Nama Proyek</th>
-									<th><center>Waktu</th>
-									<th><center>Status Proyek</th>
-									<th><center>Lihat Proyek</th>
-								</tr>
-							</thead>
-							<tbody >
-							@foreach($proyekNonPoten as $proyeks)
-								<tr style="background-color: whitesmoke;">
-									<td>{{ $proyeks->projectName }}</td>
-									<td>{{ $proyeks->created_at }}</td>
-									@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
-									@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
-									@else <td style="color:red;"> DITOLAK </td>
-									@endif
-									@if($proyeks->approvalStatus === 2)
-									<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
-									@else
-									<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
-									@endif
-								</tr>
-							@endforeach
-							</tbody>
-						</table>
+			<div class="panel-heading">
+				<ul class="nav nav-tabs" >
+					<li class="nav-item" >
+						<a class="nav-link " data-toggle="tab" onclick="showPraLelang()" href="#pra">Pra-Lelang</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " data-toggle="tab" onclick="showLelang()" href="#lelang">Lelang</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " data-toggle="tab" onclick="showPascaLelang()" href="#pasca">Pasca Lelang</a>
+					</li>
+				</ul>
+			</div>
+	
+			
+			<div id="myTabContent" class="tab-content">
+				<!-- PraLelang -->
+				<div class="tab-pane" id="pra" style="display:none">
+					<div class="col-md-12">
+								<h4 style="text-align:center;">Riwayat Proyek Pra-Lelang</h4><br>
+								<hr>
+								<div class="panel-body" style="text-align:center;">
+									<table id="datatable-1" class="table table-striped table-bordered text-center">
+										<thead>
+											<tr class="title" >
+												<th><center>Nama Proyek</th>
+												<th><center>Waktu</th>
+												<th><center>Status Proyek</th>
+												<th><center>Lihat Proyek</th>
+											</tr>
+										</thead>
+										<tbody >
+										@foreach($proyekNonPoten as $proyeks)
+											<tr style="background-color: whitesmoke;">
+												<td>{{ $proyeks->projectName }}</td>
+												<td>{{ $proyeks->created_at }}</td>
+												@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
+												@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
+												@else <td style="color:red;"> DITOLAK </td>
+												@endif
+												@if($proyeks->approvalStatus === 2)
+												<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+												@else
+												<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+												@endif
+											</tr>
+										@endforeach
+										</tbody>
+									</table>
+								</div>
 					</div>
+				</div>
+	
+				<!-- Lelang -->
+				<div class="tab-pane fade" id="lelang" style="display:none">
+					<div class="col-md-12">
+							<h4 style="text-align:center;">Riwayat Proyek Lelang</h4><br>
+							<hr>
+							<div class="panel-body" style="text-align:center;">
+								<table id="datatable-2" class="table table-striped table-bordered text-center">
+									<thead>
+										<tr class="title" >
+											<th><center>Nama Proyek</th>
+											<th><center>Waktu</th>
+											<th><center>Status Proyek</th>
+											<th><center>Lihat Proyek</th>
+										</tr>
+									</thead>
+									<tbody >
+									@foreach($proyekNonPoten as $proyeks)
+										<tr style="background-color: whitesmoke;">
+											<td>{{ $proyeks->projectName }}</td>
+											<td>{{ $proyeks->created_at }}</td>
+											@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
+											@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
+											@else <td style="color:red;"> DITOLAK </td>
+											@endif
+											@if($proyeks->approvalStatus === 2)
+											<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+											@else
+											<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+											@endif
+										</tr>
+									@endforeach
+									</tbody>
+								</table>
+							</div>
+					</div>
+				</div>
+	
+				<!-- Pasca Lelang -->
+				<div class="tab-pane fade" id="pasca" style="display:none">
+						<div class="col-md-12"">
+								<h4 style="text-align:center;">Riwayat Proyek Pasca Lelang</h4><br>
+								<hr>
+								<div class="panel-body" style="text-align:center;">
+										<table id="datatable-3" class="table table-striped table-bordered text-center">
+											<thead>
+												<tr class="title" >
+													<th><center>Nama Proyek</th>
+													<th><center>Waktu</th>
+													<th><center>Status Proyek</th>
+													<th><center>Lihat Proyek</th>
+												</tr>
+											</thead>
+											<tbody >
+											@foreach($proyekNonPoten as $proyeks)
+												<tr style="background-color: whitesmoke;">
+													<td>{{ $proyeks->projectName }}</td>
+													<td>{{ $proyeks->created_at }}</td>
+													@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
+													@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
+													@else <td style="color:red;"> DITOLAK </td>
+													@endif
+													@if($proyeks->approvalStatus === 2)
+													<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
+													@else
+													<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+													@endif
+												</tr>
+											@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+						</div>
 				</div>
 			</div>
 		</div>
- 	</div>
+	</div>
+	<!-- ini adalah Data table dari Proyek -->
+		
+
+	
 @endsection
 
 
@@ -250,6 +349,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js" integrity="sha256-+h0g0j7qusP72OZaLPCSZ5wjZLnoUUicoxbvrl14WxM=" crossorigin="anonymous"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	
 	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/umd/util.js"></script> -->
 
   <script>
@@ -261,9 +361,29 @@
 			slidesToScroll: 3,
 			dots: true
 		});
-		$('#datatable').DataTable();
 		$('.alert').alert();
 	});
+	</script>
+
+	<script>
+        function showPraLelang(){
+			$('#datatable-1').DataTable();
+			document.getElementById("pra").style.display = "block";
+			document.getElementById("lelang").style.display = "none";
+			document.getElementById("pasca").style.display = "none";
+		}
+		function showLelang(){
+			$('#datatable-2').DataTable();
+			document.getElementById("pra").style.display = "none";
+			document.getElementById("lelang").style.display = "block";
+			document.getElementById("pasca").style.display = "none";
+		}
+		function showPascaLelang(){
+			$('#datatable-3').DataTable();
+			document.getElementById("pra").style.display = "none";
+			document.getElementById("lelang").style.display = "none";
+			document.getElementById("pasca").style.display = "block";
+		}
 	</script>
 @endsection
 </html>

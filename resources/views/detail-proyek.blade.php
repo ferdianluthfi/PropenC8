@@ -21,12 +21,23 @@
     @elseif($statusHuruf == 'DITOLAK') <p class="col-sm-5 font-status-approval" style="text-align:center; font-size:11px; font-weight:bolder; color:red;">{{$statusHuruf}}</p>
     @endif
     <hr>
+    <div> 
+        <div class="row">
+            <div class="col-sm-10"> 
+                <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}}</p>
+            </div>
+        </div>
+        <br>
+    </div>
     <div class="row ketengahin">
         <div class="col-sm-7">
         <div class="card card-info">
                 <div class="row judul">
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
-                    
+                    @if($statusHuruf == 'DISETUJUI') <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:blue;">{{$statusHuruf}}</div>
+                    @elseif($statusHuruf == "SEDANG BERJALAN") <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:limegreen;">{{$statusHuruf}}</div>
+                    @elseif($statusHuruf == 'DITOLAK') <div class="col-sm-5 font-status-approval" style="margin-left:15px;color:red;">{{$statusHuruf}}</div>
+                    @endif
                 </div>
                 <hr style="background-color:black;"/>
                 <div class="row">

@@ -23,13 +23,14 @@ class CreateProyeksTable extends Migration
             $table->text('description');
             $table->bigInteger('projectValue'); //ToDo digunakan menjadi angka TERBILANG di kontrak
             $table->integer('estimatedTime');
-            /**
-             * 0 = Belum di approve
-             * 1 = Diterima direksi
-             * 2 = Menang lelang
-             * 3 = Tolak direksi atau kalah lelang
-             */
-            $table->integer('approvalStatus')->default(0);
+            
+            $table->bigInteger('approvalStatus')->unsigned();
+            $table->foreign('approvalStatus')
+            ->references('id')
+            ->on('codes')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
             $table->string('projectAddress');
             $table->boolean('isLPJExist')->default(false);
             
