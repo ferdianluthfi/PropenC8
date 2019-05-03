@@ -75,6 +75,11 @@ body{
   margin-left: 30px;
 }
 
+.card-tombol {
+    width: 380px;
+    min-height: 250px;
+}
+
 .card-kontrak {
     width:780px;
     min-height:220px;
@@ -370,7 +375,7 @@ cursor: pointer;
 
 iframe {
 border: none !important;
-} */
+} 
 
 /*---------------------------------------------*/
 .container {

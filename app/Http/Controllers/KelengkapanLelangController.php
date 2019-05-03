@@ -35,7 +35,7 @@ class KelengkapanLelangController extends Controller
         if($statusNum == 1){
             $status = "DISETUJUI";
         }elseif($statusNum == 2){
-            $status = "SEDANG BERJALAN";
+            $status = "MENUNGGU LELANG";
         }else{
             $status = "DITOLAK";
         }

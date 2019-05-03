@@ -78,6 +78,10 @@ Route::get('/info/edit/{id}', 'KemajuanProyekController@editInformasi');
 Route::post('/info/update/{id}', 'KemajuanProyekController@updateInformasi');
 Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
 
+/**
+ * routing untuk PM2an
+ */
+Route::get('/pm/kelola', 'PenggunaController@getAvailablePm');
 
 
 /**
@@ -86,4 +90,3 @@ Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
 Route::any('{catchall}', function() {
     return view('error-message');
   })->where('catchall', '.*');
-  

@@ -70,23 +70,48 @@
             </div>
         </div>
     </div>
+<!--    INI BAGIAN TOMBOL2 SI KELOLA LELANG-->
     <div>
         <br>
         <br>
-        <div class="row" style="margin-left: 40px">
-            <div class="col-xs-4 card-button" style="margin: 10px; height: 60px; ">
-                <span> Surat Penawaran Rekanan </span>
-                <a href="/generate-pdf/{{ $proyek->id }}" class="btn btn-primary">Buat Surat</a>
+        <div  class="row ketengahin" style="margin-right: 58px; margin-bottom: 30px">
+            <div class="col-sm-5">
+                <div class="card card-tombol" style="margin-right: 40px">
+                    <div class="row judul">
+                        <div class="font-subtitle-4">Buat Surat Otomatis</div>
+                    </div>
+                    <div style="margin: 30px; height: 60px; position: center">
+                        <span>
+                            <p style="text-align: justify; text-justify: inter-word">Klik tombol untuk membuat secara otomatis berkas berikut. Berkas akan langsung ditambahkan ke Daftar Berkas Lelang.</p>
+                        </span>
+                        <br>
+                        <a href="/generate-pdf/{{ $proyek->id }}" class="btn btn-primary" style="margin-bottom: 10px; margin-left: 10px; position:center; width: 300px">Surat Penawaran Rekanan</a>
+                        <br>
+                        <a href="/generate-pdf2/{{ $proyek->id }}" class="btn btn-primary" style="margin-left: 10px; position:center; width: 300px">Surat Pengajuan Jaminan Bank</a>
+                    </div>
+                </div>
             </div>
-            <div class="col-xs-4 card-button" style="margin: 10px;  height: 60px; ">
-                <span> Surat Permohonan Jaminan Bank </span>
-                <a href="/generate-pdf2/{{ $proyek->id }}" class="btn btn-primary center" style="position:center;">Buat Surat</a>
-            </div>
-            <div class="col-xs-4 card-button" style="margin: 10px; height: 60px; ">
-                <span> Upload Surat ke Sistem </span>
-                <a href="/file/upload/{{ $proyek->id }}" class="btn btn-primary">Upload File</a>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-5" style="margin-left: 20px">
+                <div class="card card-tombol">
+                    <div class="row judul">
+                        <div class="font-subtitle-4">Upload Surat</div>
+                    </div>
+                    <div style="margin: 30px; height: 60px; position: center">
+                        <span>
+                            <p style="text-align: justify; text-justify: inter-word">Jika berkas tidak ada pada pilihan Buat Berkas Otomatis, unggah berkas Anda dengan klik tombol berikut.</p>
+                        </span>
+                        <br>
+                        <br>
+                        <a href="/file/upload/{{ $proyek->id }}" class="btn btn-primary" style="margin-left: 10px; position:center; width: 300px">Upload File</a>
+                    </div>
+                </div>
             </div>
         </div>
+<!--        <div class="row" style="margin-left: 40px">-->
+
+
+<!--        </div>-->
     </div>
 </div>
 <div class="container-fluid card card-detail-proyek" style="padding-top: 20px">

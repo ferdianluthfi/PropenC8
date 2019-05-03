@@ -58,8 +58,8 @@ class ProyekController extends Controller
         
             return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
         }
-        elseif(\Auth::user()->role == 5){
-            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->get();
+        elseif(\Auth::user()->role == 5 || 6){ //buat manager pelaksana jg isini (?)
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
             return view('proyeks.index',compact('proyekPoten'));
         }
         
