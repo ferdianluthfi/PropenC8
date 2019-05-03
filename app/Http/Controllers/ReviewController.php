@@ -8,4 +8,6 @@ use App\Review;
 class ReviewController extends Controller
 {
     //
+    public function addReview
+
 }

@@ -80,6 +80,9 @@ Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
 
 
 
+Route::get('/proyek/{id}/lapjusik/{idLapjusik}', 'PelaksanaanController@viewLapjusik')->name('detail-lapjusik');
+Route::get('/proyek/{id}/lapjusik/{idLapjusik}/addReview', 'ReviewController@addReview');
+
 /**
  * Errors
  */
