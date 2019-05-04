@@ -236,8 +236,7 @@
 					<div class="col-md-12">
 							<div class="your-class">
 								@foreach($proyekPoten as $proyeks)
-									<div class="col-m
-									d-6 project">
+									<div class="col-md-6 project">
 											<center class="turncate" style="font-size:14pt; font-weight:bolder;">{{ $proyeks->projectName }}<center>
 											<center class="turncate" style="font-size:12pt;">{{ $proyeks->companyName }}<center>
 											<center><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a><center>
