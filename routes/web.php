@@ -64,7 +64,7 @@ Route::post('/proyek/store', 'ProyekController@store');
 Route::post('/proyek/update', 'ProyekController@update');
 Route::get('/proyek/ubah/{id}', 'ProyekController@edit');
 Route::get('/proyek/hapus/{id}', 'ProyekController@destroy');
-Route::get('/proyek/lihat/{id}', 'ProyekController@show'); //Fungsi ini adalah untuk lihat detail proyek potensial(belum ikut lelang)
+Route::get('/proyek/lgitihat/{id}', 'ProyekController@show'); //Fungsi ini adalah untuk lihat detail proyek potensial(belum ikut lelang)
 Route::get('/proyek/{id}', 'ProyekController@viewDetailProyek')->name('detail-proyek'); //Fungsi ini untuk lihat proyek yang sudah diapprove oleh direksi(tappi kontrak kerja belum tentnu dikasih liat)
 Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');
 Route::post('proyek/{id}/kontrak/approve', 'KontrakController@approveKontrak')->name('approve-kontrak');

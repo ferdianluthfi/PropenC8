@@ -18,7 +18,7 @@ class CreateKemajuanProyeksTable extends Migration
          */
         Schema::create('kemajuan_proyeks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->date('reportDate');
 
             /**
@@ -30,6 +30,13 @@ class CreateKemajuanProyeksTable extends Migration
 
 
             $table->bigInteger('value');
+
+            $table->bigInteger('pekerjaan_id')->unsigned();
+            $table->foreign('pekerjaan_id')
+            ->references('id')
+            ->on('jenis_pekerjaan')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
 
             $table->bigInteger('pelaksanaan_id')->unsigned();
             $table->foreign('pelaksanaan_id')

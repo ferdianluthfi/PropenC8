@@ -41,11 +41,20 @@
                     {{ csrf_field() }}
 
                     <div class="content bg1">
-                        <span class="labels">Deskripsi</span>
+                        <span class="labels">Uraian Pekerjaan</span>
+                        <select name="tipepekerjaan" class="content bg1">
+                            @foreach($pekerjaan as $tipe)
+                                <option value="{{$tipe->id}}" >{{$tipe->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="content bg1">
+                        <span class="labels">Deskripsi Tambahan</span>
                         <input type="text" name="description" class="inputs" placeholder="Masukkan Deskripsi Kemajuan" data-error=".errorDescription">
                         <div class="errorMessage errorDescription"></div>
                     </div>
-
+    
                     <div class="content bg1">
                         <span class="labels">Tanggal Informasi</span>
                         <input type="date" name="reportdate" class="inputs" data-error=".errorDate">
@@ -203,9 +212,6 @@
 
             $("#addForm").validate({
                 rules:{
-                    description:{
-                        required: true,
-                    },
                     reportdate:{
                         required: true,
                     },

@@ -8,6 +8,7 @@ use App\Proyek;
 use App\Pelaksanaan;
 use App\Assignment;
 use App\ListPhoto;
+use App\TipePekerjaan;
 use DB;
 use Validator;
 use Illuminate\Support\Facades\Storage;
@@ -116,6 +117,16 @@ class KemajuanProyekController extends Controller
         $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->where('proyek_id',$id)->get();
         $listInformasi = KemajuanProyek::select('kemajuan_proyeks.*')->whereIn('pelaksanaan_id',$idPelaksanaan)->get();
         $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$id],['approvalStatus','=',0]])->first();
+        $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.name')->where('proyek_id',$id)->get();
+        $lizWork=array($listPekerjaan->count());
+        //dd($listPekerjaan->count());
+        $counter = 0;
+        foreach($listPekerjaan as $pekerjaan) {
+            $lizWork[$counter] = $pekerjaan->name;
+            $counter++;
+            //dd($counter);
+        }
+        //dd($lizWork);
 
         if($pelaksanaan == null) {
             DB::table('pelaksanaans')->insert([
@@ -127,7 +138,7 @@ class KemajuanProyekController extends Controller
             ]);
             $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$id],['approvalStatus','=',0]])->first();         
         }
-            return view('listInformasi', compact('listInformasi','pelaksanaan'));
+            return view('listInformasi', compact('listInformasi','pelaksanaan','lizWork'));
     }
 
     public function detailInfo($id) {
@@ -140,21 +151,26 @@ class KemajuanProyekController extends Controller
         $tanggalInfo = $informasi->reportDate;
         $tanggal = $this->waktu($tanggalInfo);
         $foto = DB::table('listPhoto')->where('kemajuan_id',$id)->get();
-        //dd($foto);
-        // $banyakFoto = DB::table('listPhoto')->where('kemajuan_id',$id)->get()->count();
-        // $listFoto = array();
-        // for($i=0; i<$banyakFoto; i++){
-        //     $listFoto[$i] = $foto[$i]
-        // }
-        // $daftarFoto = ListPhoto::select('listphoto.*')->where('kemajuan_id',$id);
-        //dd($foto);
 
-        return view('detailInformasi', compact('informasi','proyek','tanggal','foto'));
+        $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.name')->where('proyek_id',$idProyek[0]->proyek_id)->get();
+        $lizWork=array($listPekerjaan->count());
+        //dd($listPekerjaan->count());
+        $counter = 0;
+        foreach($listPekerjaan as $pekerjaan) {
+            $lizWork[$counter] = $pekerjaan->name;
+            $counter++;
+        }
+
+        return view('detailInformasi', compact('informasi','proyek','tanggal','foto','lizWork'));
     }
 
     public function tambahInformasi($id){
         $pelaksanaan = Pelaksanaan::find($id);
-        return view('tambahInformasi',compact('pelaksanaan'));
+        $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$pelaksanaan)->get();
+        //dd($idProyek);
+        $pekerjaan = DB::table('jenis_pekerjaan')->whereIn('proyek_id',$idProyek)->get();
+        //dd($pekerjaan);
+        return view('tambahInformasi',compact('pelaksanaan','pekerjaan'));
     }
 
     public function tambahFoto($id){
@@ -199,22 +215,34 @@ class KemajuanProyekController extends Controller
         $data = json_decode($idProyek);
 
         $validator = Validator::make($request->all(),[
-            'description' => 'required',
+            'tipepekerjaan' => 'required',
             'reportDate' => 'required',
             'tipeKemajuan' => 'required',
             'value' => 'required',
             'pelaksanaan_id' => 'required',
             'file' => 'required|image'
         ]);
- 
+
         DB::table('kemajuan_proyeks')->insert([
     		'description' => $request->description,
             'reportDate' => $request->reportdate,
             'tipeKemajuan' => $request->tipekemajuan,
             'value' => $request->nilai,
+            'pekerjaan_id' => $request->tipepekerjaan,
             'pelaksanaan_id' => $id,
             'created_at' => now('GMT+7'),
             'updated_at' => now('GMT+7')
+        ]);
+
+        $realValue = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.value')->where('pekerjaan_id',$request->tipepekerjaan)->get();
+        //dd(json_decode($realValue));
+        $combinedValue = 0;
+        foreach($realValue as $value) {
+            $combinedValue += $value->value;
+        }
+
+        DB::table('jenis_pekerjaan')->where('id',$request->tipepekerjaan)->update([
+            'workCurrentValue' => $combinedValue
         ]);
 
         $kemajuans = KemajuanProyek::select('kemajuan_proyeks.*')->where('pelaksanaan_id', $id)->get()->last();
@@ -291,7 +319,20 @@ class KemajuanProyekController extends Controller
         $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$idPelaksanaan)->get();
         $data = json_decode($idProyek);
         $kemajuans = KemajuanProyek::find($id);
+        dd($kemajuans);
         $kemajuans->delete();
+
+        $realValue = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.value')->where('pekerjaan_id',$request->tipepekerjaan)->get();
+        //dd(json_decode($realValue));
+        $combinedValue = 0;
+        foreach($realValue as $value) {
+            $combinedValue += $value->value;
+        }
+
+        DB::table('jenis_pekerjaan')->where('id',$request->tipepekerjaan)->update([
+            'workCurrentValue' => $combinedValue
+        ]);
+
         return redirect()->action('KemajuanProyekController@viewInfo',['id'=>$data[0]->proyek_id]);
     }
 

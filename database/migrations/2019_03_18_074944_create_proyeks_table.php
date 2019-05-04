@@ -18,8 +18,6 @@ class CreateProyeksTable extends Migration
             $table->string('name');
             $table->string('projectName');
             $table->string('companyName');
-            $table->date('startDate');
-            $table->date('endDate');
             $table->text('description');
             $table->bigInteger('projectValue'); //ToDo digunakan menjadi angka TERBILANG di kontrak
             $table->integer('estimatedTime');
