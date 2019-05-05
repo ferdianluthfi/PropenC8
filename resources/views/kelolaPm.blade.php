@@ -12,9 +12,14 @@
 <body>
 
 
-<div class="container-fluid card card-detail-proyek form-group {{ !$errors->has('selected') ?: 'has-error' }}" style="padding-top: 20px; padding-bottom: 20px; min-height: auto">
-    <span class="help-block text-danger">{{ $errors->first('selected') }}</span>
+<div class="container-fluid card card-detail-proyek errorMessage error" style="padding-top: 20px; padding-bottom: 20px; min-height: auto">
     <p class="font-subtitle-1">Ubah PM</p>
+    @if(session('error'))
+    <div class="alert alert-warning alert-dismissible" style="margin: 15px;" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong> {{ session('error') }} </strong>
+    </div>
+    @endif
     <form action="/pm/update" method="post">
         <input type="hidden" name="proyek_id" value="{{ $proyek_id }}">
         {{ csrf_field() }}
@@ -33,11 +38,12 @@
                 <td>{{ $pm->username }}</td>
                 <td>{{ $count }}</td>
                 <td style="vertical-align: center">
-                @if($pm->id == $choosenPmId)
-                <input type="radio" name="selected" value="{{$pm->id}}" checked>
-                @else
-                <input type="radio" name="selected" value="{{$pm->id}}">
-                @endif
+                    @if($pm->id == $choosenPmId)
+                    <input type="radio" name="selected" value="{{$pm->id}}" checked>
+                    @else
+                    <input type="radio" name="selected" value="{{$pm->id}}">
+                    @endif
+                </td>
             </tr>
             @endforeach
             </tbody>
@@ -53,7 +59,7 @@
     </form>
 </div>
 
-<div class="modal fade" id="myModd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="myModd" tabindex="-1" role="dialog" id="simpan" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <!-- Modal content-->
         <div class="modal-content">
@@ -70,7 +76,21 @@
                 <a href="/pm/kelola/" class="btn btn-primary">Tidak</a>
             </div>
         </div>
-
+    </div>
+</div>
+<div class="modal fade" id="myMod" tabindex="-1" role="dialog" id="simpan" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align:center;">Sukses!</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p class="text-center">PM berhasil diubah</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/pm/kelola/" class="btn btn-success">OK</a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -87,14 +107,22 @@
 <script>
     $(document).ready( function () {
         $('#datatable').DataTable();
+        $("#editForm").validate({
+            rules: {
+                selected: {
+                    required: true,
+                }
+            },
+            messages:{
+                selected:{
+                    required: "PM harus diisi",
+                },
         $("#simpan").click(function(e){
+            e.preventDefault();
             //checks if it's valid
             //horray it's valid
             $("#myMod").modal("show");
 
-        });
-        $("#OK").click(function(e){
-            $('#save').submit();
         });
 
         $("#tolak").click(function(e){
