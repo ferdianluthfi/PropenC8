@@ -21,7 +21,14 @@
                                 <input type="hidden" name="proyekId" value="{{ $proyek->id }}">
                                 <div class="form-group {{ !$errors->has('title') ?: 'has-error' }}">
                                     <label>Title</label>
-                                    <input type="text" name="title" class="form-control">
+<!--                                    <input type="text" name="title" class="form-control">-->
+                                    <select name="title">
+                                        <option value="Surat A">Surat A</option>
+                                        <option value="Surat B">Surat B</option>
+                                        <option value="Surat C">Surat C</option>
+                                        <option value="Surat D">Surat D</option>
+                                        <option value="Surat E">Surat E</option>
+                                    </select>
                                     <span class="help-block text-danger">{{ $errors->first('title') }}</span>
                                 </div>
                                 <div class="form-group {{ !$errors->has('file') ?: 'has-error' }}">

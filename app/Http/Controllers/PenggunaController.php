@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Users;
 use App\Assignment;
+use Carbon\Carbon;
+
 
 class PenggunaController extends Controller
 {
@@ -29,13 +31,21 @@ class PenggunaController extends Controller
      * 2. get all assignment
      * 3. udh atur2 di frontend aja wkwk
      */
-    public function getAvailablePm()
+    public function getAvailablePm()//masukin id proyek lewat sini, $proyek_id dr page yg si detail proyek
     {
+        $proyek_id = 1; // integrasi id proyek
         $assign = DB::table('assignments')->get();
         $pmgrs = DB::table('users')->where('role', 7)->get();
-
+        $choosenPmId = 0;
+        if //kalo ada assignment
+        (Assignment::where('proyek_id', '=', $proyek_id)->exists()) {
+            $choosenPmFromAssignment = DB::table('assignments')->where('proyek_id', $proyek_id)->first();//not the best way to get pm id
+            $choosenPmId = $choosenPmFromAssignment->pengguna_id;
+        }
+        $count = 0;
         foreach ($pmgrs as $pm){
-            $count = 0;
+            //jadi ceritanya dia mesti cek antara assignment sama anu sama anu
+            $count = Assignment::where('pengguna_id', '=', '$pm->id')->count();
 //            $results = Assignment::select('category', DB::raw('count(*) as total'))
 //            ->groupBy('category')
 //            ->get();
@@ -61,7 +71,7 @@ class PenggunaController extends Controller
 //                }
 //            }
         }
-        return view('kelolaPm',compact('assign', 'pmgrs', 'count' ));
+        return view('kelolaPm',compact('assign', 'pmgrs', 'count', 'choosenPmId', 'proyek_id' ));
 
     }
 
@@ -70,24 +80,38 @@ class PenggunaController extends Controller
      */
     public function managePm(Request $request)
     {
-        $proyek_id = 1;
-//        $proyek_id = $request->proyek_id;
+//        $proyek_id = 1;
+
+        $proyek_id = $request->proyek_id;
         $validator = Validator::make($request->all(), [
             'selected' => 'required',
             ]);
 
         if($validator->fails()) {
-            session()->flash('error', 'Ada kesalahan input');
-            return redirect('/proyek/ubah/$request->id')
+            session()->flash('error', 'PM harus diisi');
+            return redirect('/pm/kelola') //GANTI REDIRECT KE HALAMAN DETAIL PROYEK
                 ->withErrors($validator)
                 ->withInput();
             //    return $request->all();
         } else {
-            DB::table('assignments')->where('proyek_id',$proyek_id)->update([
-                'pengguna_id' => $request->selected
-            ]);
-            session()->flash('flash_message', 'PM telah diubah.');
-            return redirect('/pm/kelola');
+            //edit PM
+            if (Assignment::where('proyek_id', '=', $proyek_id)->exists()) {
+                DB::table('assignments')->where('proyek_id', $proyek_id)->update([
+                    'pengguna_id' => $request->selected
+                ]);
+            }
+            //add PM baru
+            else {
+                DB::table('assignments')->where('proyek_id', $proyek_id)->insert([
+                    'pengguna_id' => $request->selected,
+                    'proyek_id' => $proyek_id,
+                    'assignmentDate' => Carbon::now()->timestamp
+                ]);
+            }
+
+
+            session()->flash('flash_message', 'PM telah ditambahkan.');
+            return redirect('/pm/kelola'); //GANTI REDIRECT KE HALAMAN DETAIL PROYEK
         }
     }
 }
