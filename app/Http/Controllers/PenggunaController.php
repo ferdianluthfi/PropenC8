@@ -33,7 +33,7 @@ class PenggunaController extends Controller
      */
     public function getAvailablePm()//masukin id proyek lewat sini, $proyek_id dr page yg si detail proyek
     {
-        $proyek_id = 2; // nanti integrasi id proyek
+        $proyek_id = 1; // nanti integrasi id proyek
         $assign = DB::table('assignments')->get();
         $pmgrs = DB::table('users')->where('role', 7)->get();
         $choosenPmId = 0;
