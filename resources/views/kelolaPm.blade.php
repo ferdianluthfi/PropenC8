@@ -12,7 +12,8 @@
 <body>
 
 
-<div class="container-fluid card card-detail-proyek" style="padding-top: 20px; padding-bottom: 20px; min-height: auto">
+<div class="container-fluid card card-detail-proyek form-group {{ !$errors->has('selected') ?: 'has-error' }}" style="padding-top: 20px; padding-bottom: 20px; min-height: auto">
+    <span class="help-block text-danger">{{ $errors->first('selected') }}</span>
     <p class="font-subtitle-1">Ubah PM</p>
     <form action="/pm/update" method="post">
         {{ csrf_field() }}
