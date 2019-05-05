@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Validator;
+use Illuminate\Validation\Rule;
+
 
 class HomeController extends Controller
 {
@@ -26,7 +28,8 @@ class HomeController extends Controller
     public function index()
     {
         if(\Auth::user()->role == 1){
-            return view('homeAccountManager');
+            $users = User::select('users.*')->get();
+            return view('users.homeAccountManager', compact('users'));
         }
         return view('home');
     }
@@ -50,15 +53,14 @@ class HomeController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'username' => 'required|max:20|unique:users',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'max:20', Rule::unique('users')->ignore($request->id)],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($request->id)],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-        dd($validator);
         if($validator->fails()) {
             session()->flash('error', 'Ada kesalahan input');
-            return redirect('/user/lihat/{{$request->id}}')
+            return redirect("'/user/lihat/' $request->id")
                 ->withErrors($validator)
                 ->withInput();
         
@@ -70,7 +72,7 @@ class HomeController extends Controller
                 'password' => $request->password,
                 'updated_at' => now('GMT+7'),
             ]); 
-            return redirect('/proyek');
+            return redirect('/homeAccountManager');
         }
     }
 }
