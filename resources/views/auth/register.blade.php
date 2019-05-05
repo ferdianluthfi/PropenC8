@@ -1,15 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.layout')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+@include('layouts.nav')
+<nav aria-label="breadcrumb">
+		<ol class="breadcrumb" style="margin-left:150px;">
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('homeAccountManager') }}">Beranda</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="#">Tambah User</a></li>
+		</ol>
+	</nav>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+<div class="container" nonvalidate="nonvalidate" id="jqueryvalidation">
+        
+        @if(session('error'))
+			<div class="alert alert-warning alert-dismissible" style="margin: 15px;" role="alert">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<strong> {{ session('error') }} </strong>
+			</div>
+		@endif
+
+                    <form method="POST" action="{{ route('register') }}" id="addForm">
+                        <h1 style="text-align:center;">Tambah Akun</h1><br>
+			            {{ csrf_field() }}
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
@@ -96,4 +107,93 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+	<script>
+	$( document ).ready(function() {
+		$("#addForm").validate({
+			rules:{
+				name:{
+					required: true,
+					minlength: 2,
+				},
+				projectName:{
+					required: true,
+				},
+				companyName:{
+					required: true,
+				},
+				description:{
+					required: true,
+				},
+				projectValue:{
+					required: true,
+					digits: true,
+					min: 1,
+				},
+				estimatedTime:{
+					required: true,
+					digits: true,
+					min: 1, //ceklg
+				},
+				projectAddress:{
+					required: true,
+				}
+			},
+			//For custom messages
+			messages:{
+				name:{
+					required: "Nama staf marketing harus diisi",
+				},
+				projectName:{
+					required: "Nama proyek harus diisi",
+				},
+				companyName:{
+					required: "Nama perusahaan harus diisi",
+				},
+				description:{
+					required: "Deskripsi proyek harus diisi",
+				},
+				projectValue:{
+					required: "Nilai proyek harus diisi",
+					min: "Nilai proyek proyek minimal 1 rupiah",
+					digits: "Nilai proyek harus berupa angka dan minimal 1 rupiah",
+				},
+				estimatedTime:{
+					required: "Waktu pengerjaan proyek harus diisi",
+					digits: "Waktu pengerjaan proyek harus berupa angka",
+					min: "Waktu pengerjaan proyek minimal 1 hari",  //ceklg
+				},
+				projectAddress:{
+					required: "Alamat proyek harus diisi",
+				}
+			}, 
+			errorElement:'div',
+			errorPlacement:function(error,element){
+				var placement = $(element).data('error');
+				if(placement){
+					$(placement).append(error)
+				} else {
+					error.insertAfter(element);
+				}
+			}
+		})
+		$("#simpan").click(function(e){
+			e.preventDefault();
+			if($('#addForm').valid()){ //checks if it's valid
+		//horray it's valid
+			$("#myMod").modal("show");
+			};
+		});
+		$("#OK").click(function(e){
+		   $('#addForm').submit();
+		});
+  	});
+	</script>
 @endsection

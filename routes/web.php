@@ -79,6 +79,12 @@ Route::post('/info/update/{id}', 'KemajuanProyekController@updateInformasi');
 Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
 
 
+/**
+ * Users
+ */
+Route::get('/homeAccountManager', 'HomeController@home')->name('homeAccountManager');
+Route::get('/user/lihat/{id}', 'HomeController@edit');
+Route::post('/user/update', 'HomeController@update');
 
 /**
  * Errors
