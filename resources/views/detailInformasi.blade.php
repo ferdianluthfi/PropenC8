@@ -102,7 +102,13 @@
 
                                 <li><p>{{ $tanggal }}<p></li>
                                 <li><p>Rp {{ $informasi->value}}<p></li>
-                                <li><p class="deskripsi" style="margin-bottom:10px;" >{{ $informasi->description }}<p></li> <br>
+
+                                @if( $informasi->description == NULL)
+                                    <li><p class="deskripsi" style="margin-bottom:10px;" >{{ $lizWork[$informasi->pekerjaan_id - 1] }}<p></li> <br>
+                                @else
+                                    <li><p class="deskripsi" style="margin-bottom:10px;" >{{ $lizWork[$informasi->pekerjaan_id - 1] }} ({{ $informasi->description }})<p></li> <br>
+                                @endif
+
                         </ul>
                     </div> <br>
                     @if ($foto != null)
@@ -123,35 +129,7 @@
     </div><br><br>
         
         <a class="btn btn-primary" href="tambah/{{$informasi->id}}" style="font-size:12pt; font-weight:bolder;">Tambah Foto</a>
-        <center><a class="btn btn-primary" href="/info/edit/{{$informasi->id}}" style="font-size:12pt; font-weight:bolder;">Ubah</a>  
-        
-        <a class="btn btn-danger" data-toggle="modal" data-target="#myModal" style="font-size:12pt; font-weight:bolder;">
-            <span>
-                Hapus
-                <i aria-hidden="true"></i>
-            </span>
-		</a>
-
     </div>
-
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		    <div class="modal-dialog modal-dialog-centered" role="document">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" style="text-align:center;">Hapus Informasi?</h4>
-                </div>
-                <div class="modal-body" style="text-align:center;">
-                    <p>Informasi mengenai kemajuan proyek akan dihapus.</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="/info/delete/{{$informasi->id}}" class="btn btn-default" style="color:red;">Hapus</a>
-                    <a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary ">Kembali</a>
-                </div>
-            </div>
-            </div>
-	    </div>
 </div>
 </body>
 @endsection

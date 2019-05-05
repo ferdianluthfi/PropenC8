@@ -15,11 +15,11 @@ class CreateKontraksTable extends Migration
     {
         Schema::create('kontraks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('contractDate');
             $table->integer('approvalStatus'); //ToDo bikin kode buat approval status mau apa
-            $table->string('namaPelaksana')->default('PT. NKD');
-            $table->string('alamatKlien');
-            
+            $table->string('title', 100);
+            $table->string('filename', 100);
+            $table->string('path', 100);
+            $table->string('ext', 100);
 
             $table->bigInteger('proyek_id')->unsigned();
             $table->foreign('proyek_id')
