@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Proyek;
 use App\Pelaksanaan;
 use App\KemajuanProyek;
+use App\Assignment;
 use DB;
 
 class PelaksanaanController extends Controller
@@ -27,6 +29,7 @@ class PelaksanaanController extends Controller
 
     public function viewPelaksanaan($id){
         $idProyek = $id;
+        $namaProyek = Proyek::select('proyeks.projectName')->where('id',$idProyek)->first()->projectName; 
         $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->where('proyek_id',$id)->get();
         $listPelaksanaan = Pelaksanaan::select('pelaksanaans.*')->where('proyek_id',$id)->get();
         $listInformasi = KemajuanProyek::select('kemajuan_proyeks.*')->whereIn('pelaksanaan_id',$idPelaksanaan)->get();
@@ -37,45 +40,64 @@ class PelaksanaanController extends Controller
             $lizWork[$counter] = $pekerjaan->name;
             $counter++;
         }
-        return view('listPelaksanaan', compact('listPelaksanaan','listInformasi','lizWork','idProyek'));
+        return view('listPelaksanaan', compact('listPelaksanaan','listInformasi','lizWork','idProyek','namaProyek'));
     }
 
     public function detailPelaksanaan($id) {
-        $buatPertama = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->min('reportDate');
-        $bulanPertama = date('m', strtotime($buatPertama));
-        $tahunPertama = date('Y', strtotime($buatPertama));
-        //dd($tahunPertama);
-        $requestedMonth = DB::table('pelaksanaans')->select('pelaksanaans.bulan')->where('id',$id)->first();
-        //dd(json_decode($requestedMonth)[0]->bulan);
-        //dd($requestedMonth->bulan);
-        $requestedDate = DB::table('pelaksanaans')->select('pelaksanaans.createdDate')->where('id',$id)->get();
-        $requestedYear = date('Y', strtotime($requestedDate));
+        $pelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.*')->where('id',$id)->first();
+        $idProyek = $pelaksanaan->proyek_id;
+        $valueProyek = DB::table('proyeks')->select('proyeks.projectValue')->where('id',$idProyek)->first()->projectValue;
 
-        $targetBulan = $bulanPertama + ($requestedMonth->bulan) - 1 % 12;
-        dd($targetBulan);
-        for($x = $bulanPertama; $x <= $bulanPertama; $x++) {
-            //if ($x-)
-            $targetBulan++;
+        $sameIdPelaksanaan = Pelaksanaan::where([['proyek_id','=',$idProyek]])->get();
+        //dd($sameIdPelaksanaan);
+        $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.*')->where('proyek_id',$idProyek)->get();
+        $biayaKeluar = DB::table('kemajuan_proyeks')->where('pelaksanaan_id',$id)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get(); 
+        //dd($biayaKeluar);
+
+        $fotoByIdKemajuan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.id')->where('pelaksanaan_id',$id)->get();
+        dd(json_decode($fotoByIdKemajuan)[0]);
+
+        //Realisasi Bulan dari tombol Lihat
+        $realisasiLalu = 0;
+        if($pelaksanaan->bulan == 1) {
+            $realisasiLebih=null;
+            return view('detailPelaksanaanAwal', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLalu'));
         }
+        else {
+            $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
+            $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
+            $beforeDate = "$requestedYear-$requestedMonth-01";
+            //dd($beforeDate);
 
-        //$listBulan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->where(date('m', strtotime('reportDate')),);
-        //dd($requestedMonth);
-        //dd($bulanPertama);
-        /*$tgl = '2016-11-01 15:04:19';
-        $tgll = date('m', strtotime($tgl));
-        //dd($tgll);
-        $hasil = $tgll - $bulanPertama;
-        dd($hasil);*/
-
-        $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$idPelaksanaan)->get();
-        $proyek = Proyek::find($idProyek[0]->proyek_id);
-        $informasi = KemajuanProyek::find($id);
-        $temp = number_format($informasi->value, 2, ',','.');
-        $informasi->value = $temp;
-        $tanggalInfo = $informasi->reportDate;
-        $tanggal = $this->waktu($tanggalInfo);
-        $foto = DB::table('listPhoto')->where('kemajuan_id',$id)->get();
-
-        return view('detailInformasi', compact('informasi','proyek','tanggal','foto','lizWork'));
+            //Sebelum Requested Date
+            $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
+            //dd($realisasiLebih);
+            return view('detailPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLebih'));
+        }
     }
 }
+
+
+//dd($sameIdPelaksanaan);
+            /*$firstDate = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->min('reportDate');
+            $firstMonth =date('m', strtotime($firstDate)); 
+            $firstYear = date('Y', strtotime($firstDate));
+
+            $yearGap = $requestedYear - $firstYear;
+            if ($yearGap == 0) {
+                $selisihMonth = $requestedMonth - $firstMonth;
+                dd($selisihMonth);    
+
+                
+            }
+            else if ($yearGap > 0) {
+                if ($requestedMonth == $firstMonth) {
+                    $adjustedMonth = ($yearGap * 12) + 1;
+                }
+                else if ($requestedMonth > $firstMonth) {
+                    $adjustedMonth = ($yearGap * 12) + ($requestedMonth-$firstMonth) + 1;
+                }
+                else if ($requestedMonth < $firstMonth) {
+                    $adjustedMonth = ($yearGap * 12) - ($firstMonth-$requestedMonth) + 1;
+                }
+            }*/

@@ -202,16 +202,42 @@ class KemajuanProyekController extends Controller
         $proyekId = $idProyek[0]->proyek_id;
 
         //Bulan awal
-        $firstDate = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->min('reportDate');
-        $firstMonth = date('m', strtotime($firstDate));
-        $firstYear = date('Y', strtotime($firstDate));
+        $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->first();
+        //dd($pelaksanaan);
+        if ($pelaksanaan == null) {
+            $firstDate = $request->reportdate;
+            //dd($firstDate);
+            $firstMonth = date('m', strtotime($firstDate));
+            $firstYear = date('Y', strtotime($firstDate));
+        }
+        else {
+            $sameIdPelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->get();
+            $firstDate = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->min('reportDate');
+            //dd($firstDate);
+            $firstMonth = date('m', strtotime($firstDate));
+            $firstYear = date('Y', strtotime($firstDate));
+        }
         
         //Bulan dari Form
         $inputMonth = date('m', strtotime($request->reportdate));
         $inputYear = date('Y', strtotime($request->reportdate));
 
-        //Belum ada LAPJUSIK (Ubah -> Adjusted)
-        $adjustedMonth = $inputMonth - ($firstMonth-1);
+        //Konversi Bulan
+        $yearGap = $inputYear - $firstYear;
+        if ($yearGap == 0) {
+            $adjustedMonth = ($inputMonth - $firstMonth) + 1;    
+        }
+        else if ($yearGap > 0) {
+            if ($inputMonth == $firstMonth) {
+                $adjustedMonth = ($yearGap * 12) + 1;
+            }
+            else if ($inputMonth > $firstMonth) {
+                $adjustedMonth = ($yearGap * 12) + ($inputMonth-$firstMonth) + 1;
+            }
+            else if ($inputMonth < $firstMonth) {
+                $adjustedMonth = ($yearGap * 12) - ($firstMonth-$inputMonth) + 1;
+            }
+        }
         //dd($adjustedMonth);
 
         $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId],['approvalStatus','=',0],['bulan','=',$adjustedMonth]])->first();
@@ -219,16 +245,15 @@ class KemajuanProyekController extends Controller
 
         //Bikin LAPJUSIK baru
         if($pelaksanaan == null) {
-
             DB::table('pelaksanaans')->insert([
                 'approvalStatus' => 0,
                 'createdDate' => now('GMT+7'),
-                'bulan'=> $bulanNow,
+                'bulan'=> $adjustedMonth,
                 'proyek_id' => $proyekId,
                 'created_at' => now('GMT+7'),
                 'updated_at' => now('GMT+7')
             ]);
-            $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId],['approvalStatus','=',0]])->first();         
+            $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId],['approvalStatus','=',0],['bulan','=',$adjustedMonth]])->first();
         }
 
         $validator = Validator::make($request->all(),[

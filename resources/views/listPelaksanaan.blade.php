@@ -27,7 +27,8 @@
     @include('layouts.nav')
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Daftar Proyek</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" >LAPJUSIK Proyek {{$namaProyek}}</a></li>
             </ol>
         </nav>
 
@@ -37,7 +38,7 @@
                     <h2 style="text-align:center;">Daftar LAPJUSIK</h2><br>
                     <div class="card-table">
                         <div class="panel-body">
-                            <a href="/pelaksanaan/tambah/{{$idProyek}}" class="btn btn-primary">Buat LAPJUSIK</a>+y7+97+97+++
+                            <a href="/pelaksanaan/tambah/{{$idProyek}}" class="btn btn-primary">Buat LAPJUSIK</a>
                             <table id="datatable" class="table table-striped table-bordered text-center">
                                 <thead>
                                     <tr class="title">
@@ -58,7 +59,7 @@
                                             @endif
                                             <td>{{ date('F d' , strtotime($pelaksanaan->createdDate)) }}</td>
                                             <td><a href="/pelaksanaan/detail/{{$pelaksanaan->id}}" class="btn btn-primary">Lihat</a></td>
-                                            <td><a class="btn btn-warning" href="">Undah</a></td>
+                                            <td><a class="btn btn-warning" href="">Unduh</a></td>
                                             <td>
                                             <a class="btn btn-danger" data-toggle="modal" data-target="#myModal-<?php echo $pelaksanaan->id ?>">
                                                 <span>
