@@ -28,7 +28,7 @@ class PelaksanaanController extends Controller
     }
 
     public function viewPelaksanaan($id){
-        $idProyek = $id;
+        $idProyek = $id;    
         $namaProyek = Proyek::select('proyeks.projectName')->where('id',$idProyek)->first()->projectName; 
         $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->where('proyek_id',$id)->get();
         $listPelaksanaan = Pelaksanaan::select('pelaksanaans.*')->where('proyek_id',$id)->get();
@@ -55,13 +55,27 @@ class PelaksanaanController extends Controller
         //dd($biayaKeluar);
 
         $fotoByIdKemajuan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.id')->where('pelaksanaan_id',$id)->get();
-        dd(json_decode($fotoByIdKemajuan)[0]);
+        //dd(json_decode($fotoByIdKemajuan));
+
+        $arrayidKemajuan = array($fotoByIdKemajuan->count());
+        $counter=0;
+        //dd($arrayidKemajuan);
+
+        foreach($fotoByIdKemajuan as $idKemajuan) {
+            $arrayidKemajuan[$counter] = $idKemajuan->id;
+            $counter++;
+        }
+        //dd($arrayidKemajuan);
+        
+        $listIdPekerjaan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.pekerjaan_id')->groupBy('kemajuan_proyeks.pekerjaan_id')->where('pelaksanaan_id',$id)->get();
+        $listFoto = DB::table('listPhoto')->select('listPhoto.*')->whereIn('kemajuan_id',$arrayidKemajuan)->get();
+        //dd($listIdPekerjaan);
 
         //Realisasi Bulan dari tombol Lihat
         $realisasiLalu = 0;
         if($pelaksanaan->bulan == 1) {
             $realisasiLebih=null;
-            return view('detailPelaksanaanAwal', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLalu'));
+            return view('detailPelaksanaanAwal', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLalu','listFoto','listIdPekerjaan'));
         }
         else {
             $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
@@ -72,7 +86,7 @@ class PelaksanaanController extends Controller
             //Sebelum Requested Date
             $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
             //dd($realisasiLebih);
-            return view('detailPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLebih'));
+            return view('detailPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLebih','listFoto','arrayidKemajuan'));
         }
     }
 }
