@@ -12,10 +12,15 @@
 <body>
 
 
-<div class="container-fluid card card-detail-proyek form-group {{ !$errors->has('selected') ?: 'has-error' }}" style="padding-top: 20px; padding-bottom: 20px; min-height: auto">
-    <span class="help-block text-danger">{{ $errors->first('selected') }}</span>
+<div class="container-fluid card card-detail-proyek form-group" style="padding-top: 20px; padding-bottom: 20px; min-height: auto">
+    @if(session('error'))
+    <div class="alert alert-warning alert-dismissible" style="margin: 15px;" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong> {{ session('error') }} </strong>
+    </div>
+    @endif
     <p class="font-subtitle-1">Ubah PM</p>
-    <form action="/pm/update" method="post">
+    <form action="/pm/update" method="post" id="editPM">
         <input type="hidden" name="proyek_id" value="{{ $proyek_id }}">
         {{ csrf_field() }}
         {{ method_field('post') }}
@@ -42,15 +47,16 @@
             @endforeach
             </tbody>
         </table>
-        <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-6" style="vertical-align: center">
-                <button id="tolak" class="button-disapprove" data-toggle="modal" data-target="#myModd">BATAL</button>
-                <button class="button-approve" id="simpan" aria-hidden="true">SIMPAN</button>
-            </div>
-            <div class="col-sm-2"></div>
-        </div>
-    </form>
+
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-6" style="vertical-align: center">
+        <button id="tolak" class="button-disapprove" data-toggle="modal" data-target="#myModd">BATAL</button>
+        <button class="button-approve" id="simpan" aria-hidden="true">SIMPAN</button>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+</form>
 </div>
 
 <div class="modal fade" id="myModd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -107,7 +113,7 @@
             $("#myMod").modal("show");
         });
         $("#OK").click(function(e){
-            $('#save').submit();
+            $('#editPM').submit();
         });
         $("#tolak").click(function(e){
             e.preventDefault();

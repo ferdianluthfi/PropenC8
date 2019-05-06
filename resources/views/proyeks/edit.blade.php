@@ -106,23 +106,22 @@
 	
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" style="text-align:center;">Batalkan Proses?</h4>
-			</div>
-			<div class="modal-body" style="text-align:center;">
-				<p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
-			</div>
-			<div class="modal-footer">
-					<a href="/proyek/" class="btn btn-default" style="color:red;">Iya</a>
-				@foreach($proyeks as $proyek)
-					<a href="/proyek/ubah/{{ $proyek->id }}" class="btn btn-primary">Tidak</a>
-				@endforeach
-			</div>
-		</div>
-		
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="text-align:center;">Batalkan Proses?</h4>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+                    <p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
+                </div>
+                <div class="modal-footer">
+                        <a href="/proyek/" class="btn btn-default" style="color:red;">Iya</a>
+                    @foreach($proyeks as $proyek)
+                        <a href="/proyek/ubah/{{ $proyek->id }}" class="btn btn-primary">Tidak</a>
+                    @endforeach
+                </div>
+            </div>
 		</div>
 	</div>
 
