@@ -67,7 +67,7 @@ class PelaksanaanController extends Controller
         }
         //dd($arrayidKemajuan);
         
-        $listIdPekerjaan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.pekerjaan_id')->groupBy('kemajuan_proyeks.pekerjaan_id')->where('pelaksanaan_id',$id)->get();
+        $listIdPekerjaan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.pekerjaan_id', 'kemajuan_proyeks.id')->where('pelaksanaan_id',$id)->get(); 
         $listFoto = DB::table('listPhoto')->select('listPhoto.*')->whereIn('kemajuan_id',$arrayidKemajuan)->get();
         //dd($listIdPekerjaan);
 
