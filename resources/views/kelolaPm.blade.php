@@ -36,7 +36,13 @@
             <tr>
                 <td>{{ $pm->id }}</td>
                 <td>{{ $pm->username }}</td>
-                <td>{{ $count }}</td>
+                @foreach ($pm_proyek as $pp)
+                @if($pm->id == $pp->pengguna_id)
+                <td>{{ $pp->total }}</td>
+                @else
+                <td>0</td>
+                @endif
+                @endforeach
                 <td style="vertical-align: center">
                     @if($pm->id == $choosenPmId)
                     <input type="radio" name="selected" value="{{$pm->id}}" checked>

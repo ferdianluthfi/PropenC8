@@ -33,7 +33,7 @@ class PenggunaController extends Controller
      */
     public function getAvailablePm()//masukin id proyek lewat sini, $proyek_id dr page yg si detail proyek
     {
-        $proyek_id = 2; // nanti integrasi id proyek
+        $proyek_id = 1; // nanti integrasi id proyek
         $assign = DB::table('assignments')->get();
         $pmgrs = DB::table('users')->where('role', 7)->get();
         $choosenPmId = 0;
@@ -43,9 +43,18 @@ class PenggunaController extends Controller
             $choosenPmId = $choosenPmFromAssignment->pengguna_id;
         }
         $count = 0;
-        foreach ($pmgrs as $pm){
+        /*$pm_proyek = DB::table('assignments')
+            ->select('proyek_id', DB::raw('count(*) as total'))
+            ->groupBy('pengguna_id')
+            ->pluck('total','pengguna_id')->all();
+        */
+        $pm_proyek = DB::table('assignments')
+            ->groupBy('pengguna_id')
+            ->selectRaw('count(proyek_id) as total, pengguna_id')->get();
+//        dd($pm_proyek);
+//        foreach ($pmgrs as $pm){
             //jadi ceritanya dia mesti cek antara assignment sama anu sama anu
-            $count = Assignment::where('pengguna_id', '=', '$pm->id')->count();
+//            $count = Assignment::where('pengguna_id', '=', '$pm->id')->count();
 //            $results = Assignment::select('category', DB::raw('count(*) as total'))
 //            ->groupBy('category')
 //            ->get();
@@ -69,8 +78,8 @@ class PenggunaController extends Controller
 //                    $count += 1;
 //                }
 //            }
-        }
-        return view('kelolaPm',compact('assign', 'pmgrs', 'count', 'choosenPmId', 'proyek_id' ));
+
+        return view('kelolaPm',compact('assign', 'pmgrs', 'count', 'choosenPmId', 'proyek_id', 'pm_proyek' ));
 
     }
 
