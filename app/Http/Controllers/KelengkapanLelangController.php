@@ -48,7 +48,7 @@ class KelengkapanLelangController extends Controller
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
 		return view('file.form', compact('proyek'));
 	}
-    public function uploadKelengkapanLelang(Request $request): RedirectResponse {
+    public function uploadKelengkapanLelang(Request $request){
         $this->validate($request, [
             'title' => 'required|max:100',
             'file' => 'required|file|max:2000'
@@ -65,9 +65,8 @@ class KelengkapanLelangController extends Controller
             'path' => $path,
             'proyek_id' => $request->proyekId
         ]);
-        return redirect()
-            ->back()
-            ->withSuccess(sprintf('File %s has been uploaded.', $file->title));     
+        session()->flash('flash_message', 'File %s has been uploaded., $file->title');
+        return $this->kelolaBerkas($proyek->id);
     }
     
     public function responseKelengkapanLelang(KelengkapanLelang $file)

@@ -15,7 +15,7 @@
                                     {{ session('success') }}
                                 </div>
                             @endif
-                            <form action="{{ route('file.upload') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('file.upload') }}" method="post" id="uploadBerkas" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 {{ method_field('post') }}
                                 <input type="hidden" name="proyekId" value="{{ $proyek->id }}">
@@ -77,6 +77,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="modal fade" id="myMod" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" style="text-align:center;">Sukses!</h4>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <p class="text-center">Berkas berhasil diunggah</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="/kelolaLelang/{{ $proyek->id }}" class="btn btn-success">OK</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -98,7 +113,8 @@
                 $("#myMod").modal("show");
             });
             $("#OK").click(function(e){
-                $('#editPM').submit();
+                $('#uploadBerkas').submit();
+
             });
             $("#tolak").click(function(e){
                 e.preventDefault();
