@@ -41,9 +41,11 @@
                             <table id="datatable" class="table table-striped table-bordered text-center">
                                 <thead>
                                     <tr class="title">
-                                    <th> Uraian Pekerjaan</th>
-                                    <th> Tanggal Pekerjaan</th>
-                                    <th> Detail</th>
+                                    <th><center> Uraian Pekerjaan</th>
+                                    <th><center> Tanggal Pekerjaan</th>
+                                    <th><center> Lihat</th>
+                                    <th><center> Ubah</th>
+                                    <th><center> Hapus</th>
                                     </tr>
                                 </thead>
                                 <tbody >

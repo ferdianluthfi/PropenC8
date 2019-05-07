@@ -62,84 +62,80 @@
 
 <div class="container-fluid card card-detail-proyek">
     <br>
-    <p class="font-subtitle-1">Detail Kemajuan</p>
+    <p class="font-subtitle-1">Detail Informasi</p>
     <hr>
 
     <div class="container-fluid card card-kontrak">
         <div class="row judul">
-                    <div class="col-sm-3 font-subtitle-4">Informasi Umum</div>
+            <div class="col-sm-3 font-subtitle-4">Informasi Umum</div>
         </div>
         <hr>
         <div class="row" style="margin-left: -30px;">
             <div class="col-sm-12">
-                    <div class="col-sm-3 font-desc-bold">
-                        <ul>
-                            <li><p>Tipe Kemajuan</p></li>
-                            <li><p>Tanggal Kemajuan</p></li>
-                            <li><p>Nilai Kemajuan</p></li>
-                            <li><p>Uraian Pekerjaan</p></li>
-                            <li><p> Daftar Foto </p></li>
-                            <!--@if ($foto==[])
-                                <li><p> Tidak Ada </p></li>
-                            @endif-->
-                        </ul>
-                    </div>
-                    <div class="col-sm-1">
-                        <li><p>:</p></li>
-                        <li><p>:</p></li>
-                        <li><p>:</p></li>
-                        <li><p>:</p></li>
-                    </div>
-                    <div class="col-sm-8 font-desc">
-                        <ul>
-                                @if ($informasi->tipeKemajuan ==1)
-                                    <li><p>Gaji<p></li> 
-                                @elseif ($informasi->tipeKemajuan ==2)
-                                    <li><p>Belanja<p></li> 
-                                @elseif ($informasi->tipeKemajuan ==3)
-                                    <li><p>Administrasi<p></li>  
-                                @endif 
+                <div class="col-sm-3 font-desc-bold">
+                    <ul>
+                        <li><p>Tipe Kemajuan</p></li>
+                        <li><p>Tanggal Kemajuan</p></li>
+                        <li><p>Nilai Kemajuan</p></li>
+                        <li><p>Uraian Pekerjaan</p></li>
+                    </ul>
+                </div>
+                <div class="col-sm-1">
+                    <li><p>:</p></li>
+                    <li><p>:</p></li>
+                    <li><p>:</p></li>
+                    <li><p>:</p></li>
+                </div>
+                <div class="col-sm-8 font-desc">
+                    <ul>
+                        @if ($informasi->tipeKemajuan ==1)
+                            <li><p>Gaji<p></li> 
+                        @elseif ($informasi->tipeKemajuan ==2)
+                            <li><p>Belanja<p></li> 
+                        @elseif ($informasi->tipeKemajuan ==3)
+                            <li><p>Administrasi<p></li>  
+                        @endif 
 
-                                <li><p>{{ $tanggal }}<p></li>
-                                <li><p>Rp {{ $informasi->value}}<p></li>
+                        <li><p>{{ $tanggal }}<p></li>
+                        <li><p>Rp {{ $informasi->value}}<p></li>
 
-                                @if( $informasi->description == NULL)
-                                    <li><p class="deskripsi" style="margin-bottom:10px;" >{{ $lizWork[$informasi->pekerjaan_id - 1] }}<p></li> <br>
-                                @else
-                                    <li><p class="deskripsi" style="margin-bottom:10px;" >{{ $lizWork[$informasi->pekerjaan_id - 1] }} ({{ $informasi->description }})<p></li> <br>
-                                @endif
-
-                        </ul>
-                    </div> <br>
-                    
-                    @if ($listFoto != null)
-                            @if($listIdPekerjaan!=null)
-                                @foreach ($listIdPekerjaan as $idKemajuan)
-                                    @if($pekerjaan->id == $idKemajuan->pekerjaan_id)
-                                        @foreach($listFoto as $foto)
-                                            @if($foto->kemajuan_id == $idKemajuan->id)
-                                            <br>
-                                            <div class="responsive">
-                                                <div class="gallery">
-                                                    <a target="_blank">
-                                                        {{$foto->id}} {{$idKemajuan->id}}
-                                                        <img src="{{asset($foto->path)}}" width="300" height="300">
-                                                    </a>
-                                                </div>
-                                            </div> 
-                                            @endif
-                                        @endforeach
-                                    @endif
-                                @endforeach
-                            @endif
-                            <div class="clearfix"></div>
+                        @if( $informasi->description == NULL)
+                            <li><p class="deskripsi" style="margin-bottom:10px;" >{{ $lizWork[$informasi->pekerjaan_id - 1] }}<p></li> <br>
+                        @else
+                            <li><p class="deskripsi" style="margin-bottom:10px;" >{{ $lizWork[$informasi->pekerjaan_id - 1] }} ({{ $informasi->description }})<p></li> <br>
                         @endif
+                    </ul>
+                </div>
             </div>
         </div>
-    </div><br><br>
-        
-        <a class="btn btn-primary" href="tambah/{{$informasi->id}}" style="font-size:12pt; font-weight:bolder;">Tambah Foto</a>
-    </div>
+    </div><br>
+
+        <div class="container-fluid card card-kontrak">
+            <div class="row judul">
+                <div class="col-sm-3 font-subtitle-4">Daftar Foto</div>
+             </div>
+        <hr>
+            <div class="row" style="margin-left: -30px;">
+                <div class="col-sm-12">
+                    @if ($foto != null)
+                        @foreach ($foto as $fot)
+                        <div class="responsive">
+                            <div class="gallery">
+                                <a target="_blank">
+                                    <img src="{{asset($fot->path)}}" width="300" height="300">
+                                </a>
+                            </div>
+                        </div>
+                        @endforeach
+                        <div class="clearfix"></div>
+                    @endif
+                <br>
+                </div>
+            </div>
+        </div> <br>
+        @if(Auth::user()->role==7)
+        <center> <a class="btn btn-primary" href="tambah/{{$informasi->id}}" style="font-size:12pt; font-weight:bolder;">Tambah Foto</a><br><br>
+        @endif
 </div>
 </body>
 @endsection

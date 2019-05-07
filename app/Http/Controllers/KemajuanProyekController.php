@@ -140,6 +140,11 @@ class KemajuanProyekController extends Controller
         $tanggal = $this->waktu($tanggalInfo);
         $foto = DB::table('listPhoto')->where('kemajuan_id',$id)->get();
 
+        if($foto!=null) {
+            $statusFoto = true;
+        }
+        //dd($statusFoto);
+
         $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.name')->where('proyek_id',$idProyek[0]->proyek_id)->get();
         $lizWork=array($listPekerjaan->count());
         //dd($listPekerjaan->count());
@@ -149,7 +154,7 @@ class KemajuanProyekController extends Controller
             $counter++;
         }
 
-        return view('detailInformasi', compact('informasi','proyek','tanggal','foto','lizWork'));
+        return view('detailInformasi', compact('informasi','proyek','tanggal','foto','lizWork','statusFoto'));
     }
 
     public function tambahInformasi(){
@@ -178,8 +183,10 @@ class KemajuanProyekController extends Controller
             foreach($request->file as $file) {
                 $uploadedFile = $file;
                 //dd($uploadedFile);   
-                $path = $uploadedFile->storeAs('public/upload',$file->getClientOriginalName());
+                $path = $uploadedFile->storeAs('upload',$file->getClientOriginalName());
+                //dd($path);
                 $publicPath = \Storage::url($path);
+                //dd($publicPath);
     
                 DB::table('listphoto')->insert([
                     'ext' => $uploadedFile->getClientOriginalExtension(),
@@ -294,7 +301,7 @@ class KemajuanProyekController extends Controller
             foreach($request->file as $file) {
                 $uploadedFile = $file;
                 ($uploadedFile);   
-                $path = $uploadedFile->storeAs('public/upload',$file->getClientOriginalName());
+                $path = $uploadedFile->storeAs('upload',$file->getClientOriginalName());
                 $publicPath = \Storage::url($path);
     
                 DB::table('listphoto')->insert([

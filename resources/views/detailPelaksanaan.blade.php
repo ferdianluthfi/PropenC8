@@ -72,6 +72,29 @@
                                 @endif
                             @endif
                         @endforeach
+
+                        @if ($listFoto != null)
+                            @if($listIdPekerjaan!=null)
+                                @foreach ($listIdPekerjaan as $idKemajuan)
+                                    @if($pekerjaan->id == $idKemajuan->pekerjaan_id)
+                                        @foreach($listFoto as $foto)
+                                            @if($foto->kemajuan_id == $idKemajuan->id)
+                                            <br>
+                                            <div class="responsive">
+                                                <div class="gallery">
+                                                    <a target="_blank">
+                                                        {{$foto->id}} {{$idKemajuan->id}}
+                                                        <img src="{{asset($foto->path)}}" width="300" height="300">
+                                                    </a>
+                                                </div>
+                                            </div> 
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            @endif
+                            <div class="clearfix"></div>
+                        @endif
                     </ul>
                 </div>
             </div>

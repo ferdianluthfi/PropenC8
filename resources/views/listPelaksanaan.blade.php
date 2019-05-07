@@ -45,7 +45,9 @@
                                     <th><center> Nama LAPJUSIK</th>
                                     <th><center> Status LAPJUSIK</th>
                                     <th><center> Tanggal Dibuat</th>
-                                    <th><center> Detail </th>
+                                    <th><center> Lihat </th>
+                                    <th><center> Unduh </th>
+                                    <th><center> Hapus </th>
                                     </tr>
                                 </thead>
                                 <tbody >
