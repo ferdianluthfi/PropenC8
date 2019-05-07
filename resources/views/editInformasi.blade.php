@@ -1,4 +1,4 @@
-    @extends('layouts.layout')
+@extends('layouts.layout')
 
 <!DOCTYPE html>
 <html>
@@ -47,7 +47,16 @@
                 {{ method_field('POST') }}
 
                 <div class="content bg1">
-                    <span class="labels">Deskripsi</span>
+                    <span class="labels">Uraian Pekerjaan</span>
+                    <select name="tipepekerjaan" class="content bg1">
+                        @foreach($pekerjaan as $tipe)
+                            <option value="{{$tipe->id}}" >{{$tipe->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="content bg1">
+                    <span class="labels">Deskripsi Tambahan</span>
                     <textarea class="inputs" type="text" name="description" style="height:150px" data-error=".errorDescription"> {{ $kemajuans->description }} </textarea>
                     <div class="errorMessage errorDescription"></div>
                 </div>
@@ -104,17 +113,6 @@
                 </div>
                 @endforeach 
                 
-                <!--<div class="form-group {{ !$errors->has('file') ?: 'has-error' }}">
-                    <label>Tambah Foto</label>
-
-                    <table class="table table-bordered" id="dynamic_field">  
-                        <tr>  
-                            <td><input type="file" name="file[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>  
-                            <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></td>  
-                        </tr>  
-                    </table>  
-
-                </div>-->
 
                 <div class="container1-btn">
                     <a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
@@ -178,30 +176,23 @@
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
 	<script>
-
         $( document ).ready(function() {
             var postURL = "<?php echo url('addmore'); ?>";
             console.log(postURL);
             var i=1;  
-
             $('#add').click(function(){  
                 i++;  
                 $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" name="file[]" class="help-block text-danger"/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
             });  
-
             $(document).on('click', '.btn_remove', function(){  
                 var button_id = $(this).attr("id");   
                 $('#row'+button_id+'').remove();  
             });  
-
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             }); 
-
-
             function printErrorMsg (msg) {
                 $(".print-error-msg").find("ul").html('');
                 $(".print-error-msg").css('display','block');
@@ -210,10 +201,7 @@
                     $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
                 });
             }
-
-
             var bufferDelete=[];
-
             $('.foto').on('click',function(event){
                 event.preventDefault();
                 var imgName = $(this).attr("id");
@@ -221,12 +209,8 @@
                 $(this).parent().detach();
                 console.log(bufferDelete);
             })
-
             $("#editForm").validate({
                 rules:{
-                    description:{
-                        required: true,
-                    },
                     reportdate:{
                         required: true,
                     },

@@ -62,7 +62,7 @@ Route::post('/proyek/setujuiProyek/tolak/{id}', 'ProyekController@rejectProject'
 Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutApprove');
 Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@viewKontrakz')->name('view-kontrak');
 
-/**
+/**-
  * routing untuk kemajuan proyek
  */
 Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
@@ -78,7 +78,15 @@ Route::get('/info/edit/{id}', 'KemajuanProyekController@editInformasi');
 Route::post('/info/update/{id}', 'KemajuanProyekController@updateInformasi');
 Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
 
-
+/**-
+ * routing untuk lapjusik
+ */
+Route::get('/pelaksanaan/{id}', 'PelaksanaanController@viewPelaksanaan');
+Route::get('/pelaksanaan/detail/{id}', 'PelaksanaanController@detailPelaksanaan');
+Route::get('/pelaksanaan/tambah/{id}', 'PelaksanaanController@tambahPelaksanaan');
+Route::get('/lapjusik/setujuiLapjusik/{id}', 'PelaksanaanController@approveLapjusikDetail');
+Route::post('/lapjusik/setujuiLapjusik/setuju/{id}', 'PelaksanaanController@approveLAPJUSIK');
+Route::post('/lapjusik/setujuiLapjusik/tolak/{id}', 'PelaksanaanController@rejectLAPJUSIK');
 
 /**
  * Errors

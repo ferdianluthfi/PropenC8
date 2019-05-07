@@ -1,9 +1,7 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
 class CreatePelaksanaansTable extends Migration
 {
     /**
@@ -17,8 +15,7 @@ class CreatePelaksanaansTable extends Migration
             $table->bigIncrements('id');
             $table->integer('approvalStatus');
             $table->date('createdDate');
-            
-
+            $table->integer('bulan');
             $table->bigInteger('proyek_id')->unsigned();
             $table->foreign('proyek_id')
             ->references('id')
@@ -27,11 +24,9 @@ class CreatePelaksanaansTable extends Migration
             ->onDelete('cascade');
             
             //Punya pertanggung jawaban cuma kita ga implementasi
-
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
