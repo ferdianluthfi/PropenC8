@@ -23,7 +23,7 @@
     <p class="font-subtitle-1">Rincian Berkas Lelang</p>
     <hr>
     <div>
-        <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName }}</p>
+<!--        <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName }}</p>-->
         <br>
     </div>
     <div class="row ketengahin">
@@ -85,9 +85,9 @@
                             <p style="text-align: justify; text-justify: inter-word">Klik tombol untuk membuat secara otomatis berkas berikut. Berkas akan langsung ditambahkan ke Daftar Berkas Lelang.</p>
                         </span>
                         <br>
-                        <a href="/generate-pdf/{{ $proyek->id }}" class="btn btn-primary" style="margin-bottom: 10px; margin-left: 10px; position:center; width: 300px">Surat Penawaran Rekanan</a>
+                        <a href="/generate-pdf/{{ $proyek->id }}" class="btn btn-primary" id="simpan" style="margin-bottom: 10px; margin-left: 10px; position:center; width: 300px">Surat Penawaran Rekanan</a>
                         <br>
-                        <a href="/generate-pdf2/{{ $proyek->id }}" class="btn btn-primary" style="margin-left: 10px; position:center; width: 300px">Surat Pengajuan Jaminan Bank</a>
+                        <a href="/generate-pdf2/{{ $proyek->id }}" class="btn btn-primary" id="simpan2" style="margin-left: 10px; position:center; width: 300px">Surat Pengajuan Jaminan Bank</a>
                     </div>
                 </div>
             </div>
@@ -159,6 +159,36 @@
         @endforeach
         </tbody>
     </table>
+</div>
+<div class="modal fade" id="myMod" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align:center;">Sukses!</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p class="text-center">Berkas berhasil diunggah</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/kelolaLelang/{{ $proyek->id }}" class="btn btn-success">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myMod2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align:center;">Sukses!</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p class="text-center">Berkas berhasil diunggah</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/kelolaLelang/{{ $proyek->id }}" class="btn btn-success">OK</a>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 @endsection
@@ -280,6 +310,16 @@
 <script>
     $(document).ready( function () {
         $('#datatable').DataTable();
+        $("#simpan").click(function(e){
+            //checks if it's valid
+            //horray it's valid
+            $("#myMod").modal("show");
+        });
+        $("#simpan2").click(function(e){
+            //checks if it's valid
+            //horray it's valid
+            $("#myMod2").modal("show");
+        });
     });
 </script>
 @endsection

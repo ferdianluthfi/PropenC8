@@ -71,7 +71,7 @@ class KelengkapanLelangController extends Controller
     
     public function responseKelengkapanLelang(KelengkapanLelang $file)
     {
-        return Storage::response($file->path);
+        return Storage::response($file->path, $file->filename . '.' . $file->ext);
     }
     /**
      * Download file directly.

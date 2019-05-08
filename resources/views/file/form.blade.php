@@ -112,7 +112,6 @@
             });
             $("#OK").click(function(e){
                 $('#uploadBerkas').submit();
-
             });
             $("#tolak").click(function(e){
                 e.preventDefault();
