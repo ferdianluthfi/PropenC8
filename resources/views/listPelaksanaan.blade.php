@@ -23,43 +23,48 @@
     </head>
 
     <body>
+    
     @section ('content')
     @include('layouts.nav')
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('assignedproyek') }}">Daftar Proyek</a></li>
-                <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active">Daftar Kemajuan Proyek</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
             </ol>
         </nav>
 
         <div class="container">
             <div class="row bigCard">
                 <div class="col-md-12">
-                    <h2 style="text-align:center;">Daftar Kemajuan Proyek</h2><br>
-                    <div class="card-table">
+                    <h2 style="text-align:center;">Daftar LAPJUSIK</h2><br>
+                    {{-- <div class="card-table"> --}}
                         <div class="panel-body">
                             <table id="datatable" class="table table-striped table-bordered text-center">
                                 <thead>
                                     <tr class="title">
-                                    <th> Uraian Pekerjaan</th>
-                                    <th> Tanggal Pekerjaan</th>
-                                    <th> Detail</th>
+                                    <th><center> Nama LAPJUSIK</th>
+                                    <th><center> Status LAPJUSIK</th>
+                                    <th><center> Tanggal Dibuat</th>
+                                    <th><center> Lihat </th>
+                                    <th><center> Unduh </th>
+                                    <th><center> Hapus </th>
                                     </tr>
                                 </thead>
                                 <tbody >
-                                @foreach($listInformasi as $informasi)
+                                @foreach($listPelaksanaan as $pelaksanaan)
                                         <tr style="background-color: whitesmoke;">
-
-                                            @if( $informasi->description == NULL)
-                                                <th>{{ $lizWork[$informasi->pekerjaan_id - 1] }}</th>
-                                            @else
-                                                <th>{{ $lizWork[$informasi->pekerjaan_id - 1] }} ({{ $informasi->description }})</th>
+                                            <td>LAPJUSIK Bulan {{$pelaksanaan->bulan}}</td>
+                                            @if( $pelaksanaan->approvalStatus == 0)
+                                                <td style="color:blue">MENUNGGU PERSETUJUAN</td>
+                                            @elseif( $pelaksanaan->approvalStatus == 1)
+                                                <td style="color:#00C48C">DISETUJUI</td>
+                                            @elseif( $pelaksanaan->approvalStatus == 2)
+                                                <td style="color:#FF647C">DITOLAK</td>
                                             @endif
-                                            <td> {{ date('F d' , strtotime($informasi->reportDate)) }}</td>
-                                            <td><a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary">Lihat</a></td>
-                                            <td><a class="btn btn-warning" href="/info/edit/{{$informasi->id}}">Ubah</a></td>
+                                            <td>{{ date('F d' , strtotime($pelaksanaan->createdDate)) }}</td>
+                                            <td><a href="/pelaksanaan/detail/{{$pelaksanaan->id}}" class="btn btn-primary">Lihat</a></td>
+                                            <td><a class="btn btn-warning" href="">Unduh</a></td>
                                             <td>
-                                            <a class="btn btn-danger" data-toggle="modal" data-target="#myModal-<?php echo $informasi->id ?>">
+                                            <a class="btn btn-danger" data-toggle="modal" data-target="#myModal-<?php echo $pelaksanaan->id ?>">
                                                 <span>
                                                     Hapus
                                                 </span>
@@ -67,19 +72,19 @@
                                             </td>
                                         </tr>
                                         
-                                        <div class="modal fade" id="myModal-<?php echo $informasi->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal fade" id="myModal-<?php echo $pelaksanaan->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        <h4 class="modal-title" style="text-align:center;">Hapus Informasi?</h4>
+                                                        <h4 class="modal-title" style="text-align:center;">Hapus LAPJUSIK?</h4>
                                                     </div>
                                                     <div class="modal-body" style="text-align:center;">
-                                                        <p>Informasi mengenai kemajuan proyek akan dihapus.</p>
+                                                        <p>Informasi mengenai kemajuan pelaksanaan akan dihapus.</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <a href="/info/delete/{{$informasi->id}}" class="btn btn-default" style="color:red;">Hapus</a>
-                                                        <a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary ">Kembali</a>
+                                                        <a href="" class="btn btn-default" style="color:red;">Hapus</a>
+                                                        <a href="" class="btn btn-primary ">Kembali</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -88,11 +93,12 @@
 
                                 </tbody>
                             </table>
-                        </div>
-                        <a href="/info/tambah" class="btn btn-primary">Tambah Informasi</a>
+                        {{-- </div> --}}
+                        <a href="/pelaksanaan/tambah/{{$idProyek}}" class="btn btn-default" style="float:right; margin:5px; border: 2px solid #008CBA;">Buat LAPJUSIK</a>
+                        <a href="/info/tambah" class="btn btn-default" style="float:right; margin:5px; border: 2px solid #008CBA;">Tambah Informasi</a>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     @endsection
 

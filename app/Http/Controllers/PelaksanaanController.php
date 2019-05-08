@@ -58,53 +58,6 @@ class PelaksanaanController extends Controller
         }
         //dd($arrayidKemajuan);
 
-        $status;
-        $lapjusikPoten = DB::table('pelaksanaans')->orderBy('created_at','desc')->where('approvalStatus',0)->where('pengguna_id', \Auth::user()->id)->get();
-        $lapjusikNonPoten = DB::table('pelaksanaans')->orderBy('created_at','desc')->where('approvalStatus', 1)->orWhere('approvalStatus',2)->get();
-        
-        foreach($lapjusikPoten as $proyeg){
-            $statusNum = $proyeg-> approvalStatus;
-
-            if($statusNum == 0){
-                $status = "MENUNGGU PERSETUJUAN";
-            }
-        }
-        foreach($lapjusikNonPoten as $proyeg){
-
-            $statusNum = $proyeg-> approvalStatus;
-            $temp = explode(" ",$proyeg->created_at)[0];
-            $date = $this->waktu($temp);
-            $proyeg->created_at = $date;
-
-            if($statusNum == 1){
-                $status = "DISETUJUI";
-            }elseif($statusNum == 2){
-                $status = "DITOLAK";
-            }
-        }
-        
-        $listIdPekerjaan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.pekerjaan_id')->groupBy('kemajuan_proyeks.pekerjaan_id')->where('pelaksanaan_id',$id)->get();
-        $listFoto = DB::table('listPhoto')->select('listPhoto.*')->whereIn('kemajuan_id',$arrayidKemajuan)->get();
-        //dd($listIdPekerjaan);
-        //Realisasi Bulan dari tombol Lihat
-        $realisasiLalu = 0;
-        if($pelaksanaan->bulan == 1) {
-            $realisasiLebih=null;
-            return view('detailPelaksanaanAwal', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLalu','listFoto','listIdPekerjaan', 'lapjusikPoten', 'lapjusikNonPoten', 'status'));
-        }
-        else {
-            $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
-            $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
-            $beforeDate = "$requestedYear-$requestedMonth-01";
-            //dd($beforeDate);
-            //Sebelum Requested Date
-            $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
-            //dd($realisasiLebih);
-            return view('detailPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLebih','listFoto','arrayidKemajuan', 'lapjusikPoten', 'lapjusikNonPoten', 'status'));
-        }
-    }
-
-    public function approveLapjusikDetail($id){
         $pelaksanaan = DB::table('pelaksanaans')->select('*')->where('id',$id)->get()->first();
 
         $status;
@@ -119,20 +72,61 @@ class PelaksanaanController extends Controller
         elseif($statusNum == 2){
             $status = "DITOLAK";
         }
-        return view('approveLapjusik', compact('pelaksanaan', 'status')); 
+        // dd($statusNum);
+        
+        $listIdPekerjaan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.pekerjaan_id')->groupBy('kemajuan_proyeks.pekerjaan_id')->where('pelaksanaan_id',$id)->get();
+        $listFoto = DB::table('listPhoto')->select('listPhoto.*')->whereIn('kemajuan_id',$arrayidKemajuan)->get();
+        //dd($listIdPekerjaan);
+        //Realisasi Bulan dari tombol Lihat
+        $realisasiLalu = 0;
+        if($pelaksanaan->bulan == 1) {
+            $realisasiLebih=null;
+            return view('detailPelaksanaanAwal', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLalu','listFoto','listIdPekerjaan', 'status'));
+        }
+        else {
+            $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
+            $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
+            $beforeDate = "$requestedYear-$requestedMonth-01";
+            //dd($beforeDate);
+            //Sebelum Requested Date
+            $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
+            //dd($realisasiLebih);
+            return view('detailPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLebih','listFoto','arrayidKemajuan', 'status'));
+        }
     }
+
+    // public function approveLapjusikDetail($id){
+    //     $pelaksanaan = DB::table('pelaksanaans')->select('*')->where('id',$id)->get()->first();
+
+    //     $status;
+    //     $statusNum = $pelaksanaan-> approvalStatus;
+        
+    //     if($statusNum == 0){
+    //         $status = "SEDANG BERJALAN";
+    //     }
+    //     elseif($statusNum == 1){
+    //         $status = "DISETUJUI";
+    //     }
+    //     elseif($statusNum == 2){
+    //         $status = "DITOLAK";
+    //     }
+    //     return view('approveLapjusik', compact('pelaksanaan', 'status')); 
+    // }
 
   
     public function approveLAPJUSIK($id){
+        $pelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.proyek_id')->where('id',$id)->first();
+        // dd($pelaksanaan);
         $proyekz = DB::table('pelaksanaans')
             ->where('id', $id)
             ->update(['approvalStatus' => 1]);
-        return redirect('/lapjusik');
+        return redirect()->action('PelaksanaanController@viewPelaksanaan', ['id' => $pelaksanaan->proyek_id]);
     }
     public function rejectLAPJUSIK($id){
+        $pelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.proyek_id')->where('id',$id)->first();
         $proyekw = DB::table('pelaksanaans')
             ->where('id', $id)
             ->update(['approvalStatus' => 2]);
-        return redirect('/lapjusik');
+        return redirect()->action('PelaksanaanController@viewPelaksanaan', ['id' => $pelaksanaan->proyek_id]);
     }
 }

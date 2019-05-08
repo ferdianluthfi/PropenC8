@@ -166,6 +166,10 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+<<<<<<< HEAD
+=======
+
+>>>>>>> cc4d7cb4c6c6f8cb4773e0636a15d4e51c1fc9c6
             function printErrorMsg (msg) {
                 $(".print-error-msg").find("ul").html('');
                 $(".print-error-msg").css('display','block');

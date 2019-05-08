@@ -1,129 +1,345 @@
 @extends('layouts.layout')
 
-<head>
-    <style>
-    div.gallery {
-    border: 1px solid #ccc;
-    }
-    div.gallery:hover {
-    border: 1px solid #777;
-    }
-    div.gallery img {
-    width: 100%;
-    height: auto;
-    }
-    * {
-    box-sizing: border-box;
-    }
-    .responsive {
-    padding: 0 6px;
-    float: left;
-    width: 24.99999%;
-    }
-    @media only screen and (max-width: 700px) {
-    .responsive {
-        width: 49.99999%;
-        margin: 6px 0;
-    }
-    }
-    @media only screen and (max-width: 500px) {
-    .responsive {
-        width: 100%;
-    }
-    }
-    .clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-    </style>
-</head>
-
-<body>
-
+@if(Auth::user()->role == 6)
 @section ('content')
 @include('layouts.nav')
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="">Daftar Proyek</a></li>  
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="">Detail LAPJUSIK</a></li>
+    </ol>
+    </nav>
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('assignedproyek') }}">Proyek</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/proyek/detail/{{$proyek->id}}'>Detail Proyek</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/informasi/{{$proyek->id}}'>Informasi Kemajuan</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href='/informasi/detail/{{$informasi->id}}'>Detail Kemajuan</a></li>
-  </ol>
-</nav>
-
-<div class="container-fluid card card-detail-proyek">
-    <br>
-    <p class="font-subtitle-1">Detail Kemajuan</p>
-    <hr>
-
-    <div class="container-fluid card card-kontrak">
-        <div class="row judul">
-                    <div class="col-sm-3 font-subtitle-4">Informasi Umum</div>
-        </div>
+    <div class="container-fluid card card-detail-proyek">
+        <br>
+        <p class="font-subtitle-1">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
+        @if($status == 'DISETUJUI') <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:blue;">{{$status}}</div>
+            @elseif($status == "SEDANG BERJALAN") <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:green;">{{$status}}</div>
+            @elseif($status == 'DITOLAK') <div class="col-sm-5 font-status-approval" style="margin-left:15px;color:red;">{{$status}}</div>
+        @endif
         <hr>
-        <div class="row" style="margin-left: -30px;">
-            <div class="col-sm-12">
-                    <div class="col-sm-3 font-desc-bold">
+
+        @foreach($listPekerjaan as $pekerjaan)
+        <div class="container-fluid card card-kontrak"><br>
+            <div class="row" style="margin-left: -30px;">
+                <div class="col-sm-12">
+                    <div class="col-sm-4 font-desc-bold">
                         <ul>
-                            <li><p>Tipe Kemajuan</p></li>
-                            <li><p>Tanggal Kemajuan</p></li>
-                            <li><p>Nilai Kemajuan</p></li>
                             <li><p>Uraian Pekerjaan</p></li>
-                            <li><p> Daftar Foto </p></li>
-                            <!--@if ($foto==[])
-                                <li><p> Tidak Ada </p></li>
-                            @endif-->
+                            <li><p>Alokasi Biaya</p></li>
+                            <li><p>Bobot</p></li>
+                            <li><p>Pengeluaran Bulan Ini</p></li>
+                            <li><p>Realisasi Bulan Lalu</p></li>
+                            <li><p>Realisasi Bulan Ini</p></li>
+                            <li><p>Realisasi Sampai Bulan Ini</p></li>             
                         </ul>
                     </div>
-                    <div class="col-sm-1">
-                        <li><p>:</p></li>
-                        <li><p>:</p></li>
-                        <li><p>:</p></li>
-                        <li><p>:</p></li>
-                    </div>
+
                     <div class="col-sm-8 font-desc">
                         <ul>
-                                @if ($informasi->tipeKemajuan ==1)
-                                    <li><p>Gaji<p></li> 
-                                @elseif ($informasi->tipeKemajuan ==2)
-                                    <li><p>Belanja<p></li> 
-                                @elseif ($informasi->tipeKemajuan ==3)
-                                    <li><p>Administrasi<p></li>  
-                                @endif 
+                            <li><p>{{ $pekerjaan->name }}</li> 
+                            <li><p style="color:#00C48C">Rp {{ number_format($pekerjaan->workTotalValue, 2) }}<p></li>
+                            <li><p>{{$pekerjaan->workTotalValue / $valueProyek * 100 }}%<p></li>
 
-                                <li><p>{{ $tanggal }}<p></li>
-                                <li><p>Rp {{ $informasi->value}}<p></li>
-
-                                @if( $informasi->description == NULL)
-                                    <li><p class="deskripsi" style="margin-bottom:10px;" >{{ $lizWork[$informasi->pekerjaan_id - 1] }}<p></li> <br>
+                            @foreach($biayaKeluar as $biaya)
+                                @if($pekerjaan->id == $biaya->pekerjaan_id)
+                                    @if($biaya->sum == 0)
+                                    @else
+                                        @if($realisasiLebih == null)
+                                            <li><p style="color:#FF647C">Rp {{number_format($biaya->sum, 2)}}<p></li>
+                                            <li><p> 0 % <p></li>
+                                            <li><p style="color:#00C48C"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                            <li><p style="color:#3378D3"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                        @else
+                                            @foreach($realisasiLebih as $realisasi)
+                                                @if($realisasi->pekerjaan_id == $pekerjaan->id)
+                                                    <li><p style="color:#FF647C">Rp {{number_format($biaya->sum, 2)}}<p></li>
+                                                    <li><p> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                                    <li><p style="color:#00C48C"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} %<p></li>
+                                                    <li><p style="color:#3378D3"> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100) + (($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} %<p></li>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endif
                                 @else
-                                    <li><p class="deskripsi" style="margin-bottom:10px;" >{{ $lizWork[$informasi->pekerjaan_id - 1] }} ({{ $informasi->description }})<p></li> <br>
+                                    @if($realisasiLebih == null)
+                                    @else
+                                        @foreach($realisasiLebih as $realisasi)
+                                            @if($realisasi->pekerjaan_id == $pekerjaan->id)
+                                                <li><p style="color:#FF647C">Rp {{number_format(0, 2)}}<p></li>
+                                                <li><p> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                                <li><p style="color:#00C48C"> 0 %<p></li>
+                                                <li><p style="color:#3378D3"> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100) + 0 }} %<p></li>
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 @endif
-
+                            @endforeach
                         </ul>
-                    </div> <br>
-                    @if ($foto != null)
-                        @foreach ($foto as $fot)
-                        <br>
-                        <div class="responsive">
-                            <div class="gallery">
-                                <a target="_blank">
-                                    <img src="{{asset($fot->path)}}" width="600" height="400">
-                                </a>
+                    </div>
+                </div>
+            </div>
+        </div><br>
+        @endforeach
+    </div>
+@endsection
+
+@elseif(Auth::user()->role == 4)
+@section ('content')
+@include('layouts.nav')
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="">Daftar Proyek</a></li>  
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="">Detail LAPJUSIK</a></li>
+    </ol>
+    </nav>
+
+    @if( $pelaksanaan->approvalStatus == 0)
+    <div class="row">
+        <div class="container-fluid card col-md-6" style="width:829px; height:600px;margin:0 50px;">
+                <div class="row">
+                    <br>
+                    <div class="col-sm-10"> 
+                            <p class="font-subtitle-2" style="text-align: center">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
+                    </div>
+                    <div class="col-sm-2">
+                        @if($status == 'DISETUJUI') <div class="font-status-approval" style="margin:10px; color:blue;">{{$status}}</div>
+                        @elseif($status == "SEDANG BERJALAN") <div class="font-status-approval" style="margin:5px; color:green;">{{$status}}</div>
+                        @elseif($status == 'DITOLAK') <div class="font-status-approval" style="margin:10px;color:red;">{{$status}}</div>
+                        @endif
+                    </div>
+                </div>
+                <hr>
+            
+                @foreach($listPekerjaan as $pekerjaan)
+                <div class="container-fluid card card-kontrak"><br>
+                    <div class="row" style="margin-left: -30px;">
+                        <div class="col-sm-12">
+                            <div class="col-sm-4 font-desc-bold">
+                                <ul>
+                                    <li><p>Uraian Pekerjaan</p></li>
+                                    <li><p>Alokasi Biaya</p></li>
+                                    <li><p>Bobot</p></li>
+                                    <li><p>Pengeluaran Bulan Ini</p></li>
+                                    <li><p>Realisasi Bulan Lalu</p></li>
+                                    <li><p>Realisasi Bulan Ini</p></li>
+                                    <li><p>Realisasi Sampai Bulan Ini</p></li>             
+                                </ul>
                             </div>
+            
+                            <div class="col-sm-8 font-desc">
+                                <ul>
+                                    <li><p>{{ $pekerjaan->name }}</li> 
+                                    <li><p style="color:#00C48C">Rp {{ number_format($pekerjaan->workTotalValue, 2) }}<p></li>
+                                    <li><p>{{$pekerjaan->workTotalValue / $valueProyek * 100 }}%<p></li>
+            
+                                    @foreach($biayaKeluar as $biaya)
+                                        @if($pekerjaan->id == $biaya->pekerjaan_id)
+                                            @if($biaya->sum == 0)
+                                            @else
+                                                @if($realisasiLebih == null)
+                                                    <li><p style="color:#FF647C">Rp {{number_format($biaya->sum, 2)}}<p></li>
+                                                    <li><p> 0 % <p></li>
+                                                    <li><p style="color:#00C48C"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                                    <li><p style="color:#3378D3"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                                @else
+                                                    @foreach($realisasiLebih as $realisasi)
+                                                        @if($realisasi->pekerjaan_id == $pekerjaan->id)
+                                                            <li><p style="color:#FF647C">Rp {{number_format($biaya->sum, 2)}}<p></li>
+                                                            <li><p> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                                            <li><p style="color:#00C48C"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} %<p></li>
+                                                            <li><p style="color:#3378D3"> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100) + (($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} %<p></li>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            @endif
+                                        @else
+                                            @if($realisasiLebih == null)
+                                            @else
+                                                @foreach($realisasiLebih as $realisasi)
+                                                    @if($realisasi->pekerjaan_id == $pekerjaan->id)
+                                                        <li><p style="color:#FF647C">Rp {{number_format(0, 2)}}<p></li>
+                                                        <li><p> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                                        <li><p style="color:#00C48C"> 0 %<p></li>
+                                                        <li><p style="color:#3378D3"> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100) + 0 }} %<p></li>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+            
                         </div>
-                        @endforeach
-                        <div class="clearfix"></div>
-                    @endif
+                    </div>
+                </div><br>
+                @endforeach
+        </div>
+        <div class="container-fluid col-md-6" style="width:354px; height:316px;">   
+            <div  class="row card card-tombol">
+                <div class="row judul">
+                    <div class="font-subtitle-4" style="text-align: center">Ubah Status LAPJUSIK</div>
+                </div>
+                <hr>
+                <div class="col-sm-5"  style="margin: 10px;"> 
+                    <form action="/lapjusik/setujuiLapjusik/tolak/{{ $pelaksanaan->id }}" method="POST" id="reject">
+                        @csrf
+                        <button id="tolak" class="button-disapprove font-approval" style="padding: 8px 8px;">TOLAK</button>
+                    </form> 
+                </div>
+                <div class="col-sm-5"  style="margin: 10px;"> 
+                        <form action="/lapjusik/setujuiLapjusik/setuju/{{ $pelaksanaan->id }}" method="POST" id="save">
+                            @csrf
+                            <button id="simpan" class="button-approve font-approval" style="padding: 8px 8px;">SETUJUI</button>
+                        </form> 
+                </div>
             </div>
         </div>
-    </div><br><br>
-        
-        <a class="btn btn-primary" href="tambah/{{$informasi->id}}" style="font-size:12pt; font-weight:bolder;">Tambah Foto</a>
     </div>
-</div>
-</body>
+    @else
+    <div class="container-fluid card" style="width:829px; height:600px;">
+            <div class="row">
+                <br>
+                <div class="col-sm-10"> 
+                        <p class="font-subtitle-2" style="text-align: center">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
+                </div>
+                <div class="col-sm-2">
+                    @if($status == 'DISETUJUI') <div class="font-status-approval" style="margin:10px; color:blue;">{{$status}}</div>
+                    @elseif($status == "SEDANG BERJALAN") <div class="font-status-approval" style="margin:5px; color:green;">{{$status}}</div>
+                    @elseif($status == 'DITOLAK') <div class="font-status-approval" style="margin:10px;color:red;">{{$status}}</div>
+                    @endif
+                </div>
+            </div>
+            <hr>
+        
+            @foreach($listPekerjaan as $pekerjaan)
+            <div class="container-fluid card card-kontrak"><br>
+                <div class="row" style="margin-left: -30px;">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4 font-desc-bold">
+                            <ul>
+                                <li><p>Uraian Pekerjaan</p></li>
+                                <li><p>Alokasi Biaya</p></li>
+                                <li><p>Bobot</p></li>
+                                <li><p>Pengeluaran Bulan Ini</p></li>
+                                <li><p>Realisasi Bulan Lalu</p></li>
+                                <li><p>Realisasi Bulan Ini</p></li>
+                                <li><p>Realisasi Sampai Bulan Ini</p></li>             
+                            </ul>
+                        </div>
+        
+                        <div class="col-sm-8 font-desc">
+                            <ul>
+                                <li><p>{{ $pekerjaan->name }}</li> 
+                                <li><p style="color:#00C48C">Rp {{ number_format($pekerjaan->workTotalValue, 2) }}<p></li>
+                                <li><p>{{$pekerjaan->workTotalValue / $valueProyek * 100 }}%<p></li>
+        
+                                @foreach($biayaKeluar as $biaya)
+                                    @if($pekerjaan->id == $biaya->pekerjaan_id)
+                                        @if($biaya->sum == 0)
+                                        @else
+                                            @if($realisasiLebih == null)
+                                                <li><p style="color:#FF647C">Rp {{number_format($biaya->sum, 2)}}<p></li>
+                                                <li><p> 0 % <p></li>
+                                                <li><p style="color:#00C48C"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                                <li><p style="color:#3378D3"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                            @else
+                                                @foreach($realisasiLebih as $realisasi)
+                                                    @if($realisasi->pekerjaan_id == $pekerjaan->id)
+                                                        <li><p style="color:#FF647C">Rp {{number_format($biaya->sum, 2)}}<p></li>
+                                                        <li><p> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                                        <li><p style="color:#00C48C"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} %<p></li>
+                                                        <li><p style="color:#3378D3"> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100) + (($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} %<p></li>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        @endif
+                                    @else
+                                        @if($realisasiLebih == null)
+                                        @else
+                                            @foreach($realisasiLebih as $realisasi)
+                                                @if($realisasi->pekerjaan_id == $pekerjaan->id)
+                                                    <li><p style="color:#FF647C">Rp {{number_format(0, 2)}}<p></li>
+                                                    <li><p> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                                    <li><p style="color:#00C48C"> 0 %<p></li>
+                                                    <li><p style="color:#3378D3"> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100) + 0 }} %<p></li>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </div>
+        
+                    </div>
+                </div>
+            </div><br>
+            @endforeach
+    </div>
+    @endif
+
+    <div id="mod" class="modal fade">
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content">
+                    <div class="modal-header">				
+                        <h4 class="modal-title" style="text-align:center;">Tolak!</h4>	
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">Proyek berhasil ditolak</p>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
+                    </div>
+                </div>
+            </div>
+    </div>  
+
+    <div id="myMod" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">				
+                    <h4 class="modal-title" style="text-align:center;">Setuju!</h4>	
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">Proyek berhasil disetujui</p>
+                </div>
+                <div class="modal-footer text-center">
+                    <button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
+                </div>
+            </div>
+        </div>
+    </div> 
 @endsection
+
+@endif
+
+@section('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+	<script>
+	$( document ).ready(function() {
+		$("#simpan").click(function(e){
+			e.preventDefault();
+			//checks if it's valid
+		//horray it's valid
+			$("#myMod").modal("show");
+			
+		});
+		$("#OK").click(function(e){
+		   $('#save').submit();
+		});
+
+        $("#tolak").click(function(e){
+			e.preventDefault();
+			//checks if it's valid
+		//horray it's valid
+			$("#mod").modal("show");
+			
+		});
+		$("#NO").click(function(e){
+		   $('#reject').submit();
+		});
+  	});
+	</script>
+@endsection 
