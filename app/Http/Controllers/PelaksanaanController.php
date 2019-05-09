@@ -42,6 +42,8 @@ class PelaksanaanController extends Controller
         $pelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.*')->where('id',$id)->first();
         $idProyek = $pelaksanaan->proyek_id;
         $valueProyek = DB::table('proyeks')->select('proyeks.projectValue')->where('id',$idProyek)->first()->projectValue;
+        $namaProyek = Proyek::select('proyeks.projectName')->where('id',$idProyek)->first()->projectName;
+
         $sameIdPelaksanaan = Pelaksanaan::where([['proyek_id','=',$idProyek]])->get();
         //dd($sameIdPelaksanaan);
         $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.*')->where('proyek_id',$idProyek)->get();
@@ -81,7 +83,7 @@ class PelaksanaanController extends Controller
         $realisasiLalu = 0;
         if($pelaksanaan->bulan == 1) {
             $realisasiLebih=null;
-            return view('detailPelaksanaanAwal', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLalu','listFoto','listIdPekerjaan', 'status'));
+            return view('detailPelaksanaanAwal', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLalu','listFoto','listIdPekerjaan', 'status', 'namaProyek'));
         }
         else {
             $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
@@ -91,7 +93,7 @@ class PelaksanaanController extends Controller
             //Sebelum Requested Date
             $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
             //dd($realisasiLebih);
-            return view('detailPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLebih','listFoto','listIdPekerjaan','arrayidKemajuan', 'status'));
+            return view('detailPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLebih','listFoto','listIdPekerjaan','arrayidKemajuan', 'status', 'namaProyek'));
         }
     }
 
