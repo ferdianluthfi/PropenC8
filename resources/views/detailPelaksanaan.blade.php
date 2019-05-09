@@ -1,5 +1,41 @@
 @extends('layouts.layout')
 
+<link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css') }}"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+<style>
+div.gallery {
+border: 1px solid #ccc;
+}
+div.gallery:hover {
+border: 1px solid #777;
+}
+div.gallery img {
+width: 100%;
+height: auto;
+}
+* {
+box-sizing: border-box;
+}
+.responsive {
+    height: auto;
+    width: 24.99999%;
+}
+
+
+@media only screen and (max-width: 700px) {
+.responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+}
+}
+@media only screen and (max-width: 500px) {
+.responsive {
+    width: 100%;
+}
+}
+</style>
+
 @if(Auth::user()->role == 6)
 @section ('content')
 @include('layouts.nav')
@@ -78,6 +114,28 @@
                         </ul>
                     </div>
                 </div>
+
+                <div class="col-sm-12">
+                    <div class="your-class" style ="margin:25px;">
+                        @if ($listFoto != null)
+                            @foreach ($listFoto as $foto)
+                                @if($listIdPekerjaan!=null)
+                                    @foreach($listIdPekerjaan as $idKemajuan)
+                                        @if($pekerjaan->id == $idKemajuan->pekerjaan_id)
+                                        <div class="responsive" style = "margin-right: 10px;">
+                                            <div class="gallery">
+                                                <a target="_blank">
+                                                    <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
             </div>
         </div><br>
         @endforeach
@@ -96,7 +154,7 @@
 
     @if( $pelaksanaan->approvalStatus == 0)
     <div class="row">
-        <div class="container-fluid card col-md-6" style="width:829px; height:600px;margin:0 50px;">
+        <div class="container-fluid card col-md-6" style="width:829px;margin:0 50px;">
                 <div class="row">
                     <br>
                     <div class="col-sm-10"> 
@@ -112,7 +170,7 @@
                 <hr>
             
                 @foreach($listPekerjaan as $pekerjaan)
-                <div class="container-fluid card card-kontrak"><br>
+                <div class="container-fluid card card-kontrak" style="margin: 10px"><br>
                     <div class="row" style="margin-left: -30px;">
                         <div class="col-sm-12">
                             <div class="col-sm-4 font-desc-bold">
@@ -173,24 +231,26 @@
                         <div class="col-sm-12">
                             <div class="your-class" style ="margin:25px;">
                                 @if ($listFoto != null)
-                                    @foreach ($listFoto as $foto)
-                                        @if($listIdPekerjaan!=null)
-                                            @foreach($listIdPekerjaan as $idKemajuan)
-                                                @if($pekerjaan->id == $idKemajuan->pekerjaan_id)
-                                                <div class="responsive" style = "margin-right: 10px;">
-                                                    <div class="gallery">
-                                                        <a target="_blank">
-                                                            <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
-                                                        </a>
+                                    @if($listIdPekerjaan!=null)
+                                        @foreach($listIdPekerjaan as $idKemajuan)
+                                             @if($pekerjaan->id == $idKemajuan->pekerjaan_id) 
+                                                @foreach ($listFoto as $foto)
+                                                    @if($foto->kemajuan_id == $idKemajuan->id and $foto->kemajuan_id == $idKemajuan->id)
+                                                    <div class="responsive" style = "margin-right: 10px;">
+                                                        <div class="gallery">
+                                                            <a target="_blank">
+                                                                <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    @endforeach
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                         @endforeach
+                                    @endif
                                 @endif
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 </div><br>
                 @endforeach
@@ -216,7 +276,7 @@
         </div>
     </div>
     @else
-    <div class="container-fluid card" style="width:829px; height:600px;">
+    <div class="container-fluid card" style="width:829px;margin:0px 250px;">
             <div class="row">
                 <br>
                 <div class="col-sm-10"> 
@@ -293,24 +353,26 @@
                     <div class="col-sm-12">
                         <div class="your-class" style ="margin:25px;">
                             @if ($listFoto != null)
-                                @foreach ($listFoto as $foto)
-                                    @if($listIdPekerjaan!=null)
-                                        @foreach($listIdPekerjaan as $idKemajuan)
-                                            @if($pekerjaan->id == $idKemajuan->pekerjaan_id)
-                                            <div class="responsive" style = "margin-right: 10px;">
-                                                <div class="gallery">
-                                                    <a target="_blank">
-                                                        <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
-                                                    </a>
+                                @if($listIdPekerjaan!=null)
+                                    @foreach($listIdPekerjaan as $idKemajuan)
+                                         @if($pekerjaan->id == $idKemajuan->pekerjaan_id) 
+                                            @foreach ($listFoto as $foto)
+                                                @if($foto->kemajuan_id == $idKemajuan->id and $foto->kemajuan_id == $idKemajuan->id)
+                                                <div class="responsive" style = "margin-right: 10px;">
+                                                    <div class="gallery">
+                                                        <a target="_blank">
+                                                            <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            @endif
-                                        @endforeach
-                                    @endif
-                                @endforeach
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                     @endforeach
+                                @endif
                             @endif
                         </div>
-                    </div>
+                    </div> 
                 </div>
             </div><br>
             @endforeach
@@ -353,11 +415,19 @@
 @endif
 
 @section('scripts')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
-	<script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    
+    <script>
 	$( document ).ready(function() {
+        $('.your-class').slick({
+            infinite: true,				
+            lazyLoad: 'ondemand',
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            dots: true
+        });
+        $('.alert').alert();
+ 
 		$("#simpan").click(function(e){
 			e.preventDefault();
 			//checks if it's valid
@@ -378,7 +448,7 @@
 		});
 		$("#NO").click(function(e){
 		   $('#reject').submit();
-		});
+        });
   	});
 	</script>
-@endsection 
+@endsection

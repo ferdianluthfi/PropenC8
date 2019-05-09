@@ -65,7 +65,7 @@ box-sizing: border-box;
                 </div>
                 <hr>
                 @foreach($listPekerjaan as $pekerjaan)
-                <div class="container-fluid card card-kontrak"><br>
+                <div class="container-fluid card card-kontrak" style="margin: 10px"><br>
                     <div class="row" style="margin-left: -30px;">
                         <div class="col-sm-12" style="margin-bottom:45px;">
                             <div class="col-sm-4 font-desc-bold">
@@ -105,25 +105,28 @@ box-sizing: border-box;
                         <div class="col-sm-12">
                             <div class="your-class" style ="margin:25px;">
                                 @if ($listFoto != null)
-                                    @foreach ($listFoto as $foto)
-                                        @if($listIdPekerjaan!=null)
-                                            @foreach($listIdPekerjaan as $idKemajuan)
-                                                @if($pekerjaan->id == $idKemajuan->pekerjaan_id)
-                                                <div class="responsive" style = "margin-right: 10px;">
-                                                    <div class="gallery">
-                                                        <a target="_blank">
-                                                            <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
-                                                        </a>
+                                    @if($listIdPekerjaan!=null)
+                                        @foreach($listIdPekerjaan as $idKemajuan)
+                                             @if($pekerjaan->id == $idKemajuan->pekerjaan_id) 
+                                                @foreach ($listFoto as $foto)
+                                                    @if($foto->kemajuan_id == $idKemajuan->id and $foto->kemajuan_id == $idKemajuan->id)
+                                                    <div class="responsive" style = "margin-right: 10px;">
+                                                        <div class="gallery">
+                                                            <a target="_blank">
+                                                                <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    @endforeach
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                         @endforeach
+                                    @endif
                                 @endif
                             </div>
-                        </div>
+                        </div> 
                     </div>
+                    
                 </div>
                 @endforeach
             </div>
@@ -148,7 +151,7 @@ box-sizing: border-box;
             </div>
     </div>
     @else
-    <div class="container-fluid card col-md-6" style="width:829px;margin:0 50px;">
+    <div class="container-fluid card" style="width:829px;margin:0 250px;">
         <div class="row">
             <br>
             <div class="col-sm-10"> 
@@ -200,27 +203,30 @@ box-sizing: border-box;
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-12" >
+                <div class="col-sm-12">
                     <div class="your-class" style ="margin:25px;">
                         @if ($listFoto != null)
-                            @foreach ($listFoto as $foto)
-                                @if($listIdPekerjaan!=null)
-                                    @foreach($listIdPekerjaan as $idKemajuan)
-                                        @if($pekerjaan->id == $idKemajuan->pekerjaan_id)
-                                        <div class="responsive" style = "margin-right: 10px;">
-                                            <div class="gallery">
-                                                <a target="_blank">
-                                                    <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
-                                                </a>
+                            @if($listIdPekerjaan!=null)
+                                @foreach($listIdPekerjaan as $idKemajuan)
+                                     @if($pekerjaan->id == $idKemajuan->pekerjaan_id) 
+                                        @foreach ($listFoto as $foto)
+                                            @if($foto->kemajuan_id == $idKemajuan->id and $foto->kemajuan_id == $idKemajuan->id)
+                                            <div class="responsive" style = "margin-right: 10px;">
+                                                <div class="gallery">
+                                                    <a target="_blank">
+                                                        <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
+                                                        
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        @endif
-                                    @endforeach
-                                @endif
-                            @endforeach
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                 @endforeach
+                            @endif
                         @endif
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
         @endforeach

@@ -74,9 +74,9 @@ class PelaksanaanController extends Controller
         }
         // dd($statusNum);
         
-        $listIdPekerjaan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.pekerjaan_id')->groupBy('kemajuan_proyeks.pekerjaan_id')->where('pelaksanaan_id',$id)->get();
+        $listIdPekerjaan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.pekerjaan_id', 'kemajuan_proyeks.id')->where('pelaksanaan_id',$id)->get();
         $listFoto = DB::table('listPhoto')->select('listPhoto.*')->whereIn('kemajuan_id',$arrayidKemajuan)->get();
-        //dd($listIdPekerjaan);
+       
         //Realisasi Bulan dari tombol Lihat
         $realisasiLalu = 0;
         if($pelaksanaan->bulan == 1) {
@@ -91,7 +91,7 @@ class PelaksanaanController extends Controller
             //Sebelum Requested Date
             $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
             //dd($realisasiLebih);
-            return view('detailPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLebih','listFoto','arrayidKemajuan', 'status'));
+            return view('detailPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLebih','listFoto','listIdPekerjaan','arrayidKemajuan', 'status'));
         }
     }
 
