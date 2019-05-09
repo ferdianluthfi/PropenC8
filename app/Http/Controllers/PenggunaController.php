@@ -44,6 +44,8 @@ class PenggunaController extends Controller
         $pm_proyek = DB::table('assignments')
             ->groupBy('pengguna_id')
             ->selectRaw('count(proyek_id) as total, pengguna_id')->get();
+        
+
         return view('kelolaPm',compact('assign', 'pmgrs', 'choosenPmId', 'proyek_id', 'pm_proyek' ));
 
     }

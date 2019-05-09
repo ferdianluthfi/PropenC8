@@ -36,33 +36,37 @@
             <tr>
                 <td>{{ $pm->id }}</td>
                 <td>{{ $pm->username }}</td>
-                @foreach ($pm_proyek as $pp)
-                @if($pm->id == $pp->pengguna_id)
+                @php
+                $pp = $pm_proyek->where('pengguna_id', $pm->id)->first;
+                @endphp
+
+                @if($pm->id === $pp->pengguna_id)
                 <td>{{ $pp->total }}</td>
                 @else
                 <td>0</td>
                 @endif
-                @endforeach
+
                 <td style="vertical-align: center">
                     @if($pm->id == $choosenPmId)
                     <input type="radio" name="selected" value="{{$pm->id}}" checked>
                     @else
                     <input type="radio" name="selected" value="{{$pm->id}}">
                     @endif
+                </td>
             </tr>
             @endforeach
             </tbody>
         </table>
 
-<div class="row">
-    <div class="col-sm-4"></div>
-    <div class="col-sm-6" style="vertical-align: center">
-        <button id="tolak" class="button-disapprove" data-toggle="modal" data-target="#myModd">BATAL</button>
-        <button class="button-approve" id="simpan" aria-hidden="true">SIMPAN</button>
-    </div>
-    <div class="col-sm-2"></div>
-</div>
-</form>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-6" style="vertical-align: center">
+                <button id="tolak" class="button-disapprove" data-toggle="modal" data-target="#myModd">BATAL</button>
+                <button class="button-approve" id="simpan" aria-hidden="true">SIMPAN</button>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+    </form>
 </div>
 
 <div class="modal fade" id="myModd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

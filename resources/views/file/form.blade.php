@@ -6,8 +6,9 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="card card-detail-proyek" style="min-height: 250px">
+                <div class="card card-detail-proyek" style="min-height: 200px; width: 500px">
                     <div class="font-title" style="text-align: center">Upload New File for Proyek {{ $proyek->projectName }}</div>
+                    <hr>
                     <div class="panel-body">
                         @if(session('success'))
                             <div class="alert alert-success">
@@ -18,23 +19,25 @@
                             {{ csrf_field() }}
                             {{ method_field('post') }}
                             <input type="hidden" name="proyekId" value="{{ $proyek->id }}">
-                            <div class="form-group {{ !$errors->has('title') ?: 'has-error' }}">
-                                <label>Title</label>
-<!--                                    <input type="text" name="title" class="form-control">-->
-                                <select name="title">
-                                    <option disabled selected value> -- select an option -- </option>
-                                    <option value="Surat A">Surat A</option>
-                                    <option value="Surat B">Surat B</option>
-                                    <option value="Surat C">Surat C</option>
-                                    <option value="Surat D">Surat D</option>
-                                    <option value="Surat E">Surat E</option>
-                                </select>
-                                <span class="help-block text-danger">{{ $errors->first('title') }}</span>
-                            </div>
-                            <div class="form-group {{ !$errors->has('file') ?: 'has-error' }}">
-                                <label>File</label>
-                                <input type="file" name="file">
-                                <span class="help-block text-danger">{{ $errors->first('file') }}</span>
+                            <div class="row">
+                                <div class="col-sm-6 form-group {{ !$errors->has('title') ?: 'has-error' }}">
+                                    <label>Title</label><br>
+                                    <!--                                    <input type="text" name="title" class="form-control">-->
+                                    <select name="title">
+                                        <option disabled selected value> -- select an option -- </option>
+                                        <option value="Surat A">Surat A</option>
+                                        <option value="Surat B">Surat B</option>
+                                        <option value="Surat C">Surat C</option>
+                                        <option value="Surat D">Surat D</option>
+                                        <option value="Surat E">Surat E</option>
+                                    </select>
+                                    <span class="help-block text-danger">{{ $errors->first('title') }}</span>
+                                </div>
+                                <div class="col-sm-6 form-group {{ !$errors->has('file') ?: 'has-error' }}">
+                                    <label>File</label>
+                                    <input type="file" name="file">
+                                    <span class="help-block text-danger">{{ $errors->first('file') }}</span>
+                                </div>
                             </div>
 
 <!--                                <div class="container-btn">-->
@@ -42,13 +45,14 @@
 <!--                                        <span>Upload</span>-->
 <!--                                    </button>-->
 <!--                                </div>-->
+                            <br>
                             <div class="row">
-                                <div class="col-sm-4"></div>
-                                <div class="col-sm-6" style="vertical-align: center">
-                                    <button id="tolak" class="button-disapprove" data-toggle="modal" data-target="#myModd">BATAL</button>
-                                    <button class="button-approve" id="simpan" aria-hidden="true">SIMPAN</button>
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-8" style="margin-left: 10px">
+                                    <button id="tolak" class="button-disapprove" data-toggle="modal" data-target="#myModd" style="width: 100px; height: 30px; border-radius: 5px">BATAL</button>
+                                    <button class="button-approve" id="simpan" aria-hidden="true" style="width: 100px; height: 30px; border-radius: 5px; margin-left: 10px">SIMPAN</button>
                                 </div>
-                                <div class="col-sm-2"></div>
+                                <div class="col"></div>
                             </div>
                         </form>
 <!--                            <div  class="container-btn">-->
