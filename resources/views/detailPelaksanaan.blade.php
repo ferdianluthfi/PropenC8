@@ -6,8 +6,9 @@
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="">Daftar Proyek</a></li>  
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="">Detail LAPJUSIK</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="">Daftar Proyek</a></li>  
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="">Daftar LAPJUSIK</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="">Detail LAPJUSIK</a></li>
   </ol>
 </nav>
 
@@ -83,7 +84,7 @@
                                             <div class="responsive">
                                                 <div class="gallery">
                                                     <a target="_blank">
-                                                        {{$foto->id}} {{$idKemajuan->id}}
+                                                        <!--{{$foto->id}} {{$idKemajuan->id}}-->
                                                         <img src="{{asset($foto->path)}}" width="300" height="300">
                                                     </a>
                                                 </div>
@@ -93,6 +94,7 @@
                                     @endif
                                 @endforeach
                             @endif
+                            <br>    
                             <div class="clearfix"></div>
                         @endif
                     </ul>
