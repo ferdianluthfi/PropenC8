@@ -115,19 +115,17 @@ class KemajuanProyekController extends Controller
     public function viewInfo($id){
         $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->where('proyek_id',$id)->get();
         $listInformasi = KemajuanProyek::select('kemajuan_proyeks.*')->whereIn('pelaksanaan_id',$idPelaksanaan)->get();
-        $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$id],['approvalStatus','=',0]])->first();
-
-        if($pelaksanaan == null) {
-            DB::table('pelaksanaans')->insert([
-                'approvalStatus' => 0,
-                'createdDate' => now('GMT+7'),
-                'proyek_id' => $id,
-                'created_at' => now('GMT+7'),
-                'updated_at' => now('GMT+7')
-            ]);
-            $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$id],['approvalStatus','=',0]])->first();         
+        $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.name')->where('proyek_id',$id)->get();
+        $lizWork=array($listPekerjaan->count());
+        //dd($listPekerjaan->count());
+        $counter = 0;
+        foreach($listPekerjaan as $pekerjaan) {
+            $lizWork[$counter] = $pekerjaan->name;
+            $counter++;
+            //dd($counter);
         }
-            return view('listInformasi', compact('listInformasi','pelaksanaan'));
+        //dd($lizWork);
+            return view('listInformasi', compact('listInformasi','lizWork'));
     }
 
     public function detailInfo($id) {
@@ -140,16 +138,19 @@ class KemajuanProyekController extends Controller
         $tanggalInfo = $informasi->reportDate;
         $tanggal = $this->waktu($tanggalInfo);
         $foto = DB::table('listPhoto')->where('kemajuan_id',$id)->get();
-        //dd($foto);
-        // $banyakFoto = DB::table('listPhoto')->where('kemajuan_id',$id)->get()->count();
-        // $listFoto = array();
-        // for($i=0; i<$banyakFoto; i++){
-        //     $listFoto[$i] = $foto[$i]
-        // }
-        // $daftarFoto = ListPhoto::select('listphoto.*')->where('kemajuan_id',$id);
-        //dd($foto);
-
-        return view('detailInformasi', compact('informasi','proyek','tanggal','foto'));
+        if($foto!=null) {
+            $statusFoto = true;
+        }
+        //dd($statusFoto);
+        $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.name')->where('proyek_id',$idProyek[0]->proyek_id)->get();
+        $lizWork=array($listPekerjaan->count());
+        //dd($listPekerjaan->count());
+        $counter = 0;
+        foreach($listPekerjaan as $pekerjaan) {
+            $lizWork[$counter] = $pekerjaan->name;
+            $counter++;
+        }
+        return view('detailInformasi', compact('informasi','proyek','tanggal','foto','lizWork','statusFoto'));
     }
 
     public function tambahInformasi($id){
@@ -174,7 +175,7 @@ class KemajuanProyekController extends Controller
             foreach($request->file as $file) {
                 $uploadedFile = $file;
                 //dd($uploadedFile);   
-                $path = $uploadedFile->storeAs('public/upload',$file->getClientOriginalName());
+                $path = $uploadedFile->storeAs('upload',$file->getClientOriginalName());
                 $publicPath = \Storage::url($path);
     
                 DB::table('listphoto')->insert([
@@ -224,7 +225,7 @@ class KemajuanProyekController extends Controller
             foreach($request->file as $file) {
                 $uploadedFile = $file;
                 ($uploadedFile);   
-                $path = $uploadedFile->storeAs('public/upload',$file->getClientOriginalName());
+                $path = $uploadedFile->storeAs('upload',$file->getClientOriginalName());
                 $publicPath = \Storage::url($path);
     
                 DB::table('listphoto')->insert([

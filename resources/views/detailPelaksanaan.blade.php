@@ -169,7 +169,27 @@
                                     @endforeach
                                 </ul>
                             </div>
-            
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="your-class" style ="margin:25px;">
+                                @if ($listFoto != null)
+                                    @foreach ($listFoto as $foto)
+                                        @if($listIdPekerjaan!=null)
+                                            @foreach($listIdPekerjaan as $idKemajuan)
+                                                @if($pekerjaan->id == $idKemajuan->pekerjaan_id)
+                                                <div class="responsive" style = "margin-right: 10px;">
+                                                    <div class="gallery">
+                                                        <a target="_blank">
+                                                            <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div><br>
@@ -179,8 +199,7 @@
             <div  class="row card card-tombol">
                 <div class="row judul">
                     <div class="font-subtitle-4" style="text-align: center">Ubah Status LAPJUSIK</div>
-                </div>
-                <hr>
+                </div> <hr> <hr>
                 <div class="col-sm-5"  style="margin: 10px;"> 
                     <form action="/lapjusik/setujuiLapjusik/tolak/{{ $pelaksanaan->id }}" method="POST" id="reject">
                         @csrf
@@ -270,7 +289,27 @@
                                 @endforeach
                             </ul>
                         </div>
-        
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="your-class" style ="margin:25px;">
+                            @if ($listFoto != null)
+                                @foreach ($listFoto as $foto)
+                                    @if($listIdPekerjaan!=null)
+                                        @foreach($listIdPekerjaan as $idKemajuan)
+                                            @if($pekerjaan->id == $idKemajuan->pekerjaan_id)
+                                            <div class="responsive" style = "margin-right: 10px;">
+                                                <div class="gallery">
+                                                    <a target="_blank">
+                                                        <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div><br>
