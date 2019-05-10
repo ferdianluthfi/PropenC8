@@ -28,14 +28,13 @@
     </div>
     <div class="row ketengahin">
         <div class="col-sm-7">
-            <div class="card card-info">
+            <div class="card card-info" style="width: 800px">
                 <div class="row judul">
-                    <div class="col-sm-9 font-subtitle-4">Informasi Umum</div>
-                    <div class="col-sm-1 font-status-approval">{{ $status }}</div>
+                    <div class="font-subtitle-4" style="text-align: center">Informasi Umum</div>
                 </div>
-                <hr style="background-color:black;"/>
+                <hr>
                 <div class="row">
-                    <div class="col-sm-5 font-desc-bold" style="margin-left: 30px;">
+                    <div class="col-sm-4 font-desc-bold" style="margin-left: 100px;">
                         <ul>
                             <li><p>Nama Staf Marketing</p></li>
                             <li><p>Nama Proyek</p></li>
@@ -46,7 +45,7 @@
                             <li><p>Nilai Proyek</p></li>
                         </ul>
                     </div>
-                    <div class="col-sm-6 font-desc">
+                    <div class="col-sm-5 font-desc">
                         <ul>
                             <li><p>:   {{ $proyek->name}}<p></li>
                             <li><p>:   {{ $proyek->projectName}}<p></li>
@@ -58,15 +57,6 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="card card-pm">
-                <br>
-                <p class="font-subtitle-5">Project Manager</p>
-                <hr style="background-color:black;"/>
-                <br> <br> <br>
-                <p class="font-status-approval" style="text-align: center;">Belum Tersedia.</p>
             </div>
         </div>
     </div>

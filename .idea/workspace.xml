@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="858886b3-e0b5-4b18-856c-f372040d947c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/resources/views/proyeks/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/proyeks/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/kelolaLelang.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/kelolaLelang.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,8 +30,13 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/resources/views/kelolaLelang.blade.php">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="425">
-                    <caret line="105" column="51" lean-forward="true" selection-start-line="105" selection-start-column="51" selection-end-line="105" selection-end-column="51" />
+                  <state relative-caret-position="272">
+                    <caret line="36" column="40" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
+                    <folding>
+                      <element signature="n#style#0;n#div#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                      <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                      <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                    </folding>
                   </state>
                 </provider>
               </entry>
@@ -94,7 +99,7 @@
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/public/css/style.css">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="173">
+                  <state relative-caret-position="3077">
                     <caret line="231" column="23" lean-forward="true" selection-start-line="231" selection-start-column="23" selection-end-line="231" selection-end-column="23" />
                   </state>
                 </provider>
@@ -135,7 +140,7 @@
         <entry file="file://$PROJECT_DIR$/resources/views/proyeks/show.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="188">
-              <caret line="182" column="120" selection-start-line="182" selection-start-column="120" selection-end-line="182" selection-end-column="120" />
+              <caret line="172" column="16" lean-forward="true" selection-start-line="172" selection-start-column="16" selection-end-line="172" selection-end-column="16" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
@@ -154,6 +159,7 @@
                 <element signature="e#6694#6725#0#HTML" expanded="true" />
                 <element signature="e#6819#6845#0#HTML" expanded="true" />
                 <element signature="e#7939#7966#0#HTML" expanded="true" />
+                <element signature="e#8548#8613#0#HTML" expanded="true" />
                 <element signature="e#9021#9064#0#HTML" expanded="true" />
                 <element signature="e#9153#9216#0#HTML" expanded="true" />
                 <element signature="e#9461#9486#0#HTML" expanded="true" />
@@ -236,7 +242,6 @@
         <option value="$PROJECT_DIR$/resources/views/template-surat/myPDF-2.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/proyeks/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/KelengkapanLelangController.php" />
-        <option value="$PROJECT_DIR$/resources/views/kelolaLelang.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/file/form.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/proyeks/index.blade.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
@@ -245,6 +250,7 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/PenggunaController.php" />
         <option value="$PROJECT_DIR$/public/css/style.css" />
         <option value="$PROJECT_DIR$/resources/views/proyeks/show.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/kelolaLelang.blade.php" />
       </list>
     </option>
   </component>
@@ -433,7 +439,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557491203566" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557491587747" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -479,7 +485,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="195482000" />
+    <option name="totallyTimeSpent" value="195861000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="456" y="0" width="830" height="688" extended-state="0" />
@@ -865,24 +871,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="231" column="23" lean-forward="true" selection-start-line="231" selection-start-column="23" selection-end-line="231" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/kelolaLelang.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="105" column="51" lean-forward="true" selection-start-line="105" selection-start-column="51" selection-end-line="105" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/proyeks/show.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
-          <caret line="182" column="120" selection-start-line="182" selection-start-column="120" selection-end-line="182" selection-end-column="120" />
+          <caret line="172" column="16" lean-forward="true" selection-start-line="172" selection-start-column="16" selection-end-line="172" selection-end-column="16" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
@@ -901,6 +893,7 @@
             <element signature="e#6694#6725#0#HTML" expanded="true" />
             <element signature="e#6819#6845#0#HTML" expanded="true" />
             <element signature="e#7939#7966#0#HTML" expanded="true" />
+            <element signature="e#8548#8613#0#HTML" expanded="true" />
             <element signature="e#9021#9064#0#HTML" expanded="true" />
             <element signature="e#9153#9216#0#HTML" expanded="true" />
             <element signature="e#9461#9486#0#HTML" expanded="true" />
@@ -912,6 +905,25 @@
             <element signature="e#11242#11305#0#HTML" expanded="true" />
             <element signature="e#11356#11402#0#HTML" expanded="true" />
             <element signature="e#11471#11517#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3077">
+          <caret line="231" column="23" lean-forward="true" selection-start-line="231" selection-start-column="23" selection-end-line="231" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/kelolaLelang.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="36" column="40" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
