@@ -7,7 +7,8 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Pengguna;
-
+use App\Assignment;
+use App\Pelaksanaan;
 
 class ProyekController extends Controller
 {
@@ -61,6 +62,12 @@ class ProyekController extends Controller
         elseif(\Auth::user()->role == 5){
             $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->get();
             return view('proyeks.index',compact('proyekPoten'));
+        }
+
+        elseif(\Auth::user()->role == 8){
+            $idProyegs = Assignment::select('assignments.proyek_id')->where('klien_id', \Auth::user()->id)->get();
+            $proyekPoten = Proyek::whereIn('id', $idProyegs)->get();
+            return view('proyeks.index', compact('proyekPoten'));
         }
         
         elseif(\Auth::user()->role == 2){
@@ -233,7 +240,9 @@ class ProyekController extends Controller
     public function viewDetailProyek($id){
         $proyek = Proyek::where('id', $id)->first();
         $statusHuruf;
-        $status = $proyek->approvalStatus; // ini kontrak belum tentu adakan. kalo dia gapunya nanti returnnya null
+        $status = $proyek->approvalStatus; 
+        $pelaksanaan = Pelaksanaan::where('proyek_id', $id)->get();
+        
         if($status == 0){
             $statusHuruf = "MENUNGGU PERSETUJUAN";
         } elseif($status == 1){
@@ -243,7 +252,7 @@ class ProyekController extends Controller
         }elseif($status == 3){
             $statusHuruf = "DITOLAK";
         }
-        return view('detail-proyek', ["id" => $id, "proyek" => $proyek, "statusHuruf" => $statusHuruf]);
+        return view('detail-proyek', ["id" => $id, "proyek" => $proyek, "statusHuruf" => $statusHuruf, 'pelaksanaan' => $pelaksanaan]);
     }
     /**
      * Remove the specified resource from storage.

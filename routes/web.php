@@ -72,17 +72,24 @@ Route::get('/informasi/{id}', 'KemajuanProyekController@viewInfo');
 Route::get('/informasi/detail/{id}', 'KemajuanProyekController@detailInfo');
 Route::get('/informasi/detail/tambah/{id}', 'KemajuanProyekController@tambahFoto');
 Route::post('/foto/submit/{id}', 'KemajuanProyekController@simpanFoto');
-Route::get('/info/tambah/{idpelaksanaan}', 'KemajuanProyekController@tambahInformasi');
-Route::post('/info/submit/{idPelaksanaan}', 'KemajuanProyekController@simpanInformasi');
+Route::get('/info/tambah', 'KemajuanProyekController@tambahInformasi');
+Route::post('/info/submit', 'KemajuanProyekController@simpanInformasi');
 Route::get('/info/edit/{id}', 'KemajuanProyekController@editInformasi');
 Route::post('/info/update/{id}', 'KemajuanProyekController@updateInformasi');
 Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
 
+/**
+ * routing untuk LAPJUSIK
+ */
+Route::get('/pelaksanaan/{id}', 'PelaksanaanController@viewPelaksanaan');
+Route::get('/pelaksanaan/detail/{id}', 'PelaksanaanController@detailPelaksanaan');
+Route::get('/pelaksanaan/tambah/{id}', 'PelaksanaanController@tambahPelaksanaan');
 
-
-Route::get('/proyek/{id}/lapjusik/{idLapjusik}', 'PelaksanaanController@viewLapjusik')->name('detail-lapjusik');
-Route::get('/proyek/{id}/lapjusik/{idLapjusik}/addReview', 'ReviewController@addReview');
-
+/**
+ * routing untuk REVIEW
+ */
+Route::post('/pelaksanaan/detail/{id}/review/add', 'ReviewController@add')->name("add-review");
+Route::post('/pelaksanaan/detail/{id}/review/edit', 'ReviewController@edit')->name("edit-review");
 /**
  * Errors
  */

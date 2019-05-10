@@ -127,7 +127,6 @@
             </div>
         </div>
     </div><br><br>
-        
         <a class="btn btn-primary" href="tambah/{{$informasi->id}}" style="font-size:12pt; font-weight:bolder;">Tambah Foto</a>
     </div>
 </div>

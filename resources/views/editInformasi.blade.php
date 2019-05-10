@@ -47,7 +47,16 @@
                 {{ method_field('POST') }}
 
                 <div class="content bg1">
-                    <span class="labels">Deskripsi</span>
+                    <span class="labels">Uraian Pekerjaan</span>
+                    <select name="tipepekerjaan" class="content bg1">
+                        @foreach($pekerjaan as $tipe)
+                            <option value="{{$tipe->id}}" >{{$tipe->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="content bg1">
+                    <span class="labels">Deskripsi Tambahan</span>
                     <textarea class="inputs" type="text" name="description" style="height:150px" data-error=".errorDescription"> {{ $kemajuans->description }} </textarea>
                     <div class="errorMessage errorDescription"></div>
                 </div>
@@ -104,17 +113,6 @@
                 </div>
                 @endforeach 
                 
-                <!--<div class="form-group {{ !$errors->has('file') ?: 'has-error' }}">
-                    <label>Tambah Foto</label>
-
-                    <table class="table table-bordered" id="dynamic_field">  
-                        <tr>  
-                            <td><input type="file" name="file[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>  
-                            <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></td>  
-                        </tr>  
-                    </table>  
-
-                </div>-->
 
                 <div class="container1-btn">
                     <a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
@@ -224,9 +222,6 @@
 
             $("#editForm").validate({
                 rules:{
-                    description:{
-                        required: true,
-                    },
                     reportdate:{
                         required: true,
                     },

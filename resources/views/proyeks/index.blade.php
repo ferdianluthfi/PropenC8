@@ -339,6 +339,75 @@
  	</div>
 @endsection
 
+<!-- INI PUNYA KLIEN -->
+@elseif(Auth::user()->role == 8)
+@section ('content')
+@include('layouts.nav')
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek') }}">Proyek</a></li>
+		</ol>
+	</nav>
+
+	<div class="container">
+		<div class="row bigCard">
+			<div class="col-md-12">
+				@if(session('flash_message'))
+					<div class="alert alert-success alert-dismissible" style="margin: 15px;" role="alert">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							<strong> {{ session('flash_message') }} </strong>
+					</div>
+				@endif
+				<h2 style="text-align:center;">Daftar Proyek Potensial</h2><br>
+				<div class="row">
+					@if(count($proyekPoten) > 0)
+					<div class="col-md-12">
+					<div class="panel-body" style="text-align:center;">
+									<table id="datatable-1" class="table table-striped table-bordered text-center">
+										<thead>
+											<tr class="title" >
+												<th><center>Nama Proyek</th>
+												<th><center>Waktu</th>
+												<th><center>Status Proyek</th>
+												<th><center>Lihat Proyek</th>
+											</tr>
+										</thead>
+										<tbody >
+										@foreach($proyekPoten as $proyeks)
+											<tr style="background-color: whitesmoke;">
+												<td>{{ $proyeks->projectName }}</td>
+												<td>{{ $proyeks->created_at }}</td>
+												@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
+												@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
+												@else <td style="color:red;"> DITOLAK </td>
+												@endif
+												@if($proyeks->approvalStatus === 2)
+												<td><a class="btn btn-primary" href="{{ route('detail-proyek', $proyeks->id) }}">Lihat</a>
+												@else
+												<td><a class="btn btn-primary" href="{{ route('detail-proyek', $proyeks->id) }}">Lihat</a>
+												@endif
+											</tr>
+										@endforeach
+										</tbody>
+									</table>
+								</div>
+					</div>
+					
+					@else
+						<p class="font-subtitle-2" style="text-align:center;padding-left: 0px;">
+							Belum terdapat proyek.
+						</p>
+					@endif
+				</div>
+			</div>
+		</div>
+		<br>
+ 	</div>
+@endsection
+
+
+
 
 @endif
 

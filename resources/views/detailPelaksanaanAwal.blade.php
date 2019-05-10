@@ -1,0 +1,386 @@
+@extends('layouts.layout')
+<body>
+
+@section ('content')
+@include('layouts.nav')
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="">Daftar Proyek</a></li>  
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="">Detail LAPJUSIK</a></li>
+  </ol>
+</nav>
+
+<div class="container-fluid card card-detail-proyek">
+    <br>
+    <p class="font-subtitle-5">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
+    <hr>
+    <div class="card card-review">
+    <br>
+    <p class="font-subtitle-5">Review Klien</p>
+    <hr>
+    <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;">
+    <div class="starrr col-sm-3" id="bintang">
+    <p class="font-desc" data-rating="{{ $review->rating }}">{{$review->rating}}</p>
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+    <p class="font-desc text-right"style="margin-left:20px;">{{ $review->updated_at }}</p>
+    </div>
+    </div>
+    <div class="container-fluid" style="padding-left:10px; padding-top:5px; padding-right:10px; padding-bottom:5px; border-radius:3px; border:0.5px solid #ECE9F1; width:320px; min-height:200px;">
+    <p class="font-desc">
+    {{ $displayText }} 
+   </p>
+   </div>
+    </div>
+   @if(Auth::user()->role == 8)  
+        @if($review == null)
+    <div class="text-center">
+        <a class="btn btn-default btn-rounded" data-toggle="modal" data-target="#add-review">TAMBAH REVIEW</a>
+    </div>
+    <div class="modal fade" id="add-review" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog" style="height:800px;" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="text-align:center;" id="add-review">Buat Review</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <form action="/pelaksanaan/detail/{{ $pelaksanaan->id }}/review/add" method="post">
+      <input type="hidden" name="idPelaksanaan" value="{{ $pelaksanaan->id }}">
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="rating" style="font-subtitle-2" class="form-control-label">Rating</label>
+            <div id="stars" class="starrr"></div>
+            <input type="hidden" name="rating-star" id="rating-star">
+          </div>
+          <div class="form-group">
+            <label for="komentar" style="font-subtitle-2" class="form-control-label">Komentar</label>
+            <textarea class="form-control" name="komentar" id="komentar" placeholder="Masukkan komentar"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-3">
+        <button type="button" class="modal-button-disapprove font-approval" style="margin-right:-25px;" data-dismiss="modal">KEMBALI</button>
+        </div>
+        <div class="col-sm-3">
+            @csrf
+            <button id="simpan" class="modal-button-approve font-approval">SIMPAN</button>
+        </form>   
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+        @else
+        @if($interval)
+    <div class="text-center">
+        <input type="hidden" name="id" value="{{ $review->id }}"> <br/>
+        <a class="btn btn-default btn-rounded" data-toggle="modal" data-target="#edit-review">EDIT REVIEW</a>
+    </div>
+    <div class="modal fade" id="edit-review" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog" style="height:800px;" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="text-align:center;" id="edit-review">Ubah Review</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <form action="/pelaksanaan/detail/{{ $pelaksanaan->id }}/review/edit" method="get">
+      <input type="hidden" name="idReview" value="{{ $review->id }}">
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="rating" style="font-subtitle-2" class="form-control-label">Rating</label>
+            <div id="stars" class="starrr"></div>
+            <!-- ini inputnya gmn coba  -->
+            <input type="hidden" name="rating-star" id="rating-star">
+          </div>
+          <div class="form-group">
+            <label for="komentar" style="font-subtitle-2" class="form-control-label">Komentar</label>
+            <textarea class="form-control" name="komentar" id="komentar"> {{ $displayText }}</textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-3">
+        <button type="button" class="modal-button-disapprove font-approval" style="margin-right:-25px;" data-dismiss="modal">KEMBALI</button>
+        </div>
+        <div class="col-sm-3">
+            @csrf
+            <button id="simpan2" class="modal-button-approve font-approval">SIMPAN</button>
+        </form>   
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+        @endif
+        @endif
+
+</div>
+
+    @endif
+
+    @foreach($listPekerjaan as $pekerjaan)
+    <div class="container-fluid card card-kontrak"><br>
+        <div class="row" style="margin-left: -30px;">
+            <div class="col-sm-12">
+                <div class="col-sm-4 font-desc-bold">
+                    <ul>
+                        <li><p>Uraian Pekerjaan</p></li>
+                        <li><p>Alokasi Biaya</p></li>
+                        <li><p>Bobot</p></li>
+                        <li><p>Pengeluaran Bulan Ini</p></li>
+                        <li><p>Realisasi Bulan Lalu</p></li>
+                        <li><p>Realisasi Bulan Ini</p></li>
+                        <li><p>Realisasi Sampai Bulan Ini</p></li>             
+                    </ul>
+                </div>
+
+                <div class="col-sm-8 font-desc">
+                    <ul>
+                        <li><p>{{ $pekerjaan->name }}</li> 
+                        <li><p style="color:#00C48C">Rp {{ number_format($pekerjaan->workTotalValue, 2) }}<p></li>
+                        <li><p>{{$pekerjaan->workTotalValue / $valueProyek * 100 }}%<p></li>
+
+                        @foreach($biayaKeluar as $biaya)
+                            @if($pekerjaan->id == $biaya->pekerjaan_id)
+                                @if($biaya->sum == 0)
+                                @else
+                                    @if($realisasiLalu == 0)
+                                        <li><p style="color:#FF647C">Rp {{number_format($biaya->sum, 2)}}<p></li>
+                                        <li><p> 0 % <p></li>
+                                        <li><p style="color:#00C48C"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                        <li><p style="color:#3378D3"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                    @endif
+                                @endif
+                            @endif
+                        @endforeach
+
+                        @if ($listFoto != null)
+                            @if($listIdPekerjaan!=null)
+                                @foreach ($listIdPekerjaan as $idKemajuan)
+                                    @if($pekerjaan->id == $idKemajuan->pekerjaan_id)
+                                        @foreach($listFoto as $foto)
+                                            @if($foto->kemajuan_id == $idKemajuan->id)
+                                            <br>
+                                            <div class="responsive">
+                                                <div class="gallery">
+                                                    <a target="_blank">
+                                                        {{$foto->id}} {{$idKemajuan->id}}
+                                                        <img src="{{asset($foto->path)}}" width="300" height="300">
+                                                    </a>
+                                                </div>
+                                            </div> 
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            @endif
+                            <div class="clearfix"></div>
+                        @endif
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    @endforeach
+</div>
+</body>
+@endsection
+
+@section('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+	<script>
+    var __slice = [].slice;
+
+(function($, window) {
+  var Starrr;
+
+  Starrr = (function() {
+    Starrr.prototype.defaults = {
+      rating: void 0,
+      numStars: 5,
+      change: function(e, value) {}
+    };
+
+    function Starrr($el, options) {
+      var i, _, _ref,
+        _this = this;
+
+      this.options = $.extend({}, this.defaults, options);
+      this.$el = $el;
+      _ref = this.defaults;
+      for (i in _ref) {
+        _ = _ref[i];
+        if (this.$el.data(i) != null) {
+          this.options[i] = this.$el.data(i);
+        }
+      }
+      this.createStars();
+      this.syncRating();
+      this.$el.on('mouseover.starrr', 'span', function(e) {
+        return _this.syncRating(_this.$el.find('span').index(e.currentTarget) + 1);
+      });
+      this.$el.on('mouseout.starrr', function() {
+        return _this.syncRating();
+      });
+      this.$el.on('click.starrr', 'span', function(e) {
+        return _this.setRating(_this.$el.find('span').index(e.currentTarget) + 1);
+      });
+      this.$el.on('starrr:change', this.options.change);
+    }
+
+    Starrr.prototype.createStars = function() {
+      var _i, _ref, _results;
+
+      _results = [];
+      for (_i = 1, _ref = this.options.numStars; 1 <= _ref ? _i <= _ref : _i >= _ref; 1 <= _ref ? _i++ : _i--) {
+        _results.push(this.$el.append("<span class='glyphicon .glyphicon-star-empty'></span>"));
+      }
+      return _results;
+    };
+
+    Starrr.prototype.setRating = function(rating) {
+      if (this.options.rating === rating) {
+        rating = void 0;
+      }
+      this.options.rating = rating;
+      this.syncRating();
+      return this.$el.trigger('starrr:change', rating);
+    };
+
+    Starrr.prototype.syncRating = function(rating) {
+      var i, _i, _j, _ref;
+
+      rating || (rating = this.options.rating);
+      if (rating) {
+        for (i = _i = 0, _ref = rating - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+          this.$el.find('span').eq(i).removeClass('glyphicon-star-empty').addClass('glyphicon-star');
+        }
+      }
+      if (rating && rating < 5) {
+        for (i = _j = rating; rating <= 4 ? _j <= 4 : _j >= 4; i = rating <= 4 ? ++_j : --_j) {
+          this.$el.find('span').eq(i).removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+        }
+      }
+      if (!rating) {
+        return this.$el.find('span').removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+      }
+    };
+
+    return Starrr;
+
+  })();
+  return $.fn.extend({
+    starrr: function() {
+      var args, option;
+
+      option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+      return this.each(function() {
+        var data;
+
+        data = $(this).data('star-rating');
+        if (!data) {
+          $(this).data('star-rating', (data = new Starrr($(this), option)));
+        }
+        if (typeof option === 'string') {
+          return data[option].apply(data, args);
+        }
+      });
+    }
+  });
+})(window.jQuery, window);
+
+$(function() {
+  return $(".starrr").starrr();
+});
+
+	$( document ).ready(function() {
+        $('#stars').on('starrr:change', function(e, value){
+            $('#rating-star').val(value);
+        });
+        
+        $('#stars-existing').on('starrr:change', function(e, value){
+            $('#count-existing').html(value);
+        });
+
+        $("#add-review").click(function(e){
+
+        });
+
+    @if($review==null)    
+		$("#simpan").click(function(e){
+			e.preventDefault();
+            var data = {
+                'rating_star': $('#rating-star').val(),
+                'komentar': $('#komentar').val(),
+                'pelaksanaan_id': parseInt('{{$pelaksanaan->id}}'),
+                '_token': "{{ csrf_token() }}"
+            }
+
+			$.ajax({
+                url:'/pelaksanaan/detail/{{ $pelaksanaan->id }}/review/add',
+                method: "POST",
+                data: data,
+                success: function(result){
+                    location.href = '/pelaksanaan/detail/{{ $pelaksanaan->id }}';
+                },
+                error: function(error){
+                    console.log(error);
+                }
+                })
+			
+		});
+    @else
+    $("#simpan2").click(function(e){
+			e.preventDefault();
+            var data = {
+                'rating_star': $('#rating-star').val(),
+                'komentar': $('#komentar').val(),
+                'idReview': parseInt('{{$review->id}}'),
+                '_token': "{{ csrf_token() }}"
+            }
+
+			$.ajax({
+                url:'/pelaksanaan/detail/{{ $pelaksanaan->id }}/review/edit',
+                method: "POST",
+                data: data,
+                success: function(result){
+                    location.href = '/pelaksanaan/detail/{{ $pelaksanaan->id }}';
+                },
+                error: function(error){
+                    console.log(error);
+                }
+                })
+			
+		});
+    $('#bintang').starrr({rating: parseInt('{{ $review->rating }}'), readOnly:true });
+
+    @endif
+		$("#OK").click(function(e){
+		   $('#save').submit();
+		});
+
+        $("#tolak").click(function(e){
+			e.preventDefault();
+			//checks if it's valid
+		//horray it's valid
+			$("#mod").modal("show");
+			
+		});
+		$("#NO").click(function(e){
+		   $('#reject').submit();
+		});
+  	});
+	</script>
+@endsection 

@@ -81,15 +81,24 @@
             @if($proyek->approvalStatus == 2)
             <a href="{{ route('detail-kontrak', $proyek->id) }}"><div class="col-sm-3 card card-button">
                  <p class="font-button-berkas">Berkas Kontrak<p>
-                 </div></a>
+                 </div>
+                 </a>
             @else
             <a href="#"><div class="col-sm-3 card card-button">
                 <p class="font-button-berkas-inactive">Berkas Kontrak<p>
             </div></a>
             @endif
+            @if(!$pelaksanaan->isEmpty())
+            <a href="/pelaksanaan/{{$proyek->id}}"><div class="col-sm-3 card card-button">
+                 <p class="font-button-berkas">LAPJUSIK<p>
+                 </div>
+            </a>
+            @else
             <a href="#"><div class="col-sm-3 card card-button">
-                <p class="font-button-berkas-inactive">LAPJUSIK<p>
-                </div></a>
+                 <p class="font-button-berkas-inactive">LAPJUSIK<p>
+                 </div>
+            </a>
+            @endif
             <a href="#">
                 <div class="col-sm-3 card card-button">
                 <p class="font-button-berkas-inactive">LPJ<p>

@@ -17,7 +17,8 @@ class CreatePelaksanaansTable extends Migration
             $table->bigIncrements('id');
             $table->integer('approvalStatus');
             $table->date('createdDate');
-            
+            $table->integer('bulan');
+
 
             $table->bigInteger('proyek_id')->unsigned();
             $table->foreign('proyek_id')
