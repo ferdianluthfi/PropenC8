@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -21,14 +22,14 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    //use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/homeAccountManager';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -37,7 +38,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
     /**
@@ -62,14 +63,36 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function register(Request $data)
     {
-        return User::create([
+
+        $validator = Validator::make($data->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'max:20', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        if($validator->fails()){
+            session()->flash('error', 'Ada kesalahan input');
+            return Redirect::to('/register')
+                ->withErrors($validator)
+                ->withInput();
+        
+        }
+        User::insert([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => bcrypt($data['password']),
             'role' => $data['role'],
             'username' => $data['username'],
+            'status' => 0,
         ]);
+
+        return redirect('/');
+    }
+
+    public function showRegistrationForm(){
+        return view('auth.register');
     }
 }

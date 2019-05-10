@@ -1,10 +1,13 @@
 @extends('layouts.layout')
 
+
+
+@if(Auth::user()->role == 1)
 @section('content')
 @include('layouts.nav')
 <nav aria-label="breadcrumb">
 		<ol class="breadcrumb" style="margin-left:150px;">
-			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('homeAccountManager') }}">Beranda</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="#">Tambah User</a></li>
 		</ol>
 	</nav>
@@ -18,8 +21,9 @@
 			</div>
 		@endif
 
-                    <form method="POST" action="{{ route('register') }}" id="addForm">
+                    <form method="POST" action="{{ route('register') }}" id="addForm" style="background:white;padding-top: 8px;">
                         <h1 style="text-align:center;">Tambah Akun</h1><br>
+						<hr>
 			            {{ csrf_field() }}
 
                         <div class="form-group row">
@@ -88,26 +92,115 @@
 
                         <div class="form-group row">
                             <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
-
                             <div class="col-md-6">
-                                <input id="role" type="number" class="form-control" name="role" required>
+								<select name="role" class="content bg1">
+                           			<option value="1" >Akun Manajer</option>
+                            		<option value="2" >Direksi</option>
+                            		<option value="3" >Staf Marketing</option>
+									<option value="4" >Manajer Marketing</option>
+									<option value="5" >Program Manajer</option>
+									<option value="6" >Manajer Pelaksana</option>
+									<option value="7" >PM</option>
+									<option value="8" >Klien</option>
+                        		</select>
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
+
+						<div class="container1-btn" style="place-content: flex-end;float: right;">
+								<a class="button-disapprove font-approval" data-toggle="modal" data-target="#myModal" style="padding:10px;">
+									<span>
+										Batal
+										<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+									</span>
+								</a>
+								<button class="button-approve font-approval" id="simpan" style="margin-left:5px;">
+										<span>
+											Simpan Data
+											<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+										</span>
+								</button>
+						</div>
+						
+
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title" style="text-align:center;">Batalkan Proses?</h4>
+			</div>
+			<div class="modal-body" style="text-align:center;">
+				<p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
+			</div>
+			<div class="modal-footer">
+					<a href="/" class="btn btn-default" style="color:red;">Iya</a>
+				
+					<a data-dismiss="modal" class="btn btn-primary">Tidak</a> 
+			
+			</div>
+		</div>
+		
+		</div>
+</div>
+
+<div id="myMod" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">				
+				<h4 class="modal-title" style="text-align:center;">Sukses!</h4>	
+			</div>
+			<div class="modal-body text-center">
+				<p class="text-center">Data Akun berhasil ditambah</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
+@include('layouts.footer')
 @endsection
+
+@else
+@section ('content')
+@include('layouts.nav')
+
+<!-- Breadcrumbs (ini buat navigation yaa) -->
+<nav aria-label="breadcrumb ">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active font-breadcrumb-active" aria-current="page"><a href="{{ url('home') }}">Beranda</a></li>
+  </ol>
+</nav>
+
+<!-- isinya -->
+<div class="container-fluid card card-main">
+    <br>
+    <div class="text-center font-title">
+        Oops!
+    </div>
+    <br>
+    <div class="no-access-image">
+        <img src="{{ asset('img/no-access.svg')}}">
+    </div>
+    <br>
+    <br>
+    <div class="text-center font-subtitle-4">
+        <p class="text-center font-subtitle-4">Anda tidak memiliki akses untuk halaman ini.</p>
+        <p class="text-center font-subtitle-4">Kembali ke <a href="{{ url('home') }}">Beranda</a> </p>
+    </div>
+</div>
+
+@include('layouts.footer')
+@endsection
+@endif
 
 @section('scripts')
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -123,55 +216,29 @@
 					required: true,
 					minlength: 2,
 				},
-				projectName:{
+				username:{
 					required: true,
 				},
-				companyName:{
+				email:{
 					required: true,
 				},
-				description:{
-					required: true,
-				},
-				projectValue:{
-					required: true,
-					digits: true,
-					min: 1,
-				},
-				estimatedTime:{
-					required: true,
-					digits: true,
-					min: 1, //ceklg
-				},
-				projectAddress:{
+				password:{
 					required: true,
 				}
 			},
 			//For custom messages
 			messages:{
 				name:{
-					required: "Nama staf marketing harus diisi",
+					required: "Nama  harus diisi",
 				},
-				projectName:{
-					required: "Nama proyek harus diisi",
+				username:{
+					required: "Username harus diisi",
 				},
-				companyName:{
-					required: "Nama perusahaan harus diisi",
+				email:{
+					required: "Email harus diisi",
 				},
-				description:{
-					required: "Deskripsi proyek harus diisi",
-				},
-				projectValue:{
-					required: "Nilai proyek harus diisi",
-					min: "Nilai proyek proyek minimal 1 rupiah",
-					digits: "Nilai proyek harus berupa angka dan minimal 1 rupiah",
-				},
-				estimatedTime:{
-					required: "Waktu pengerjaan proyek harus diisi",
-					digits: "Waktu pengerjaan proyek harus berupa angka",
-					min: "Waktu pengerjaan proyek minimal 1 hari",  //ceklg
-				},
-				projectAddress:{
-					required: "Alamat proyek harus diisi",
+				password:{
+					required: "Password harus diisi",
 				}
 			}, 
 			errorElement:'div',
@@ -184,16 +251,9 @@
 				}
 			}
 		})
-		$("#simpan").click(function(e){
-			e.preventDefault();
-			if($('#addForm').valid()){ //checks if it's valid
-		//horray it's valid
-			$("#myMod").modal("show");
-			};
-		});
-		$("#OK").click(function(e){
-		   $('#addForm').submit();
-		});
+		
+		
   	});
 	</script>
+	
 @endsection

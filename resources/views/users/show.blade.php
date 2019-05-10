@@ -33,7 +33,7 @@
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href= "/user/ubah/{{ $user->id }}">Detail User {{ $user->name }}</a></li>
 		</ol>
 		</nav>
-		<form action="/user/update" method="post" id="editForm" style="background:white">
+		<form action="/user/update" method="post" id="editForm" style="background:white;padding-top: 8px;">
 			
             <h1 style="text-align:center;">Detail Akun</h1>
             <hr>
@@ -106,28 +106,193 @@
 
                 <div class="form-group row">
                     <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
-
                     <div class="col-md-6">
-                        <input value="{{ $user->role }}" id="role" type="number" class="form-control" name="role" required>
-                    </div>
+					@switch($user->role)
+					@case(1)
+						<select name="role" class="content bg1">
+							<option value="1" >Akun Manajer</option>
+							<option value="2" >Direksi</option>
+							<option value="3" >Staf Marketing</option>
+							<option value="4" >Manajer Marketing</option>
+							<option value="5" >Program Manajer</option>
+							<option value="6" >Manajer Pelaksana</option>
+							<option value="7" >PM</option>
+							<option value="8" >Klien</option>
+						</select>
+						@break
+					@case(2)
+						<select name="role" class="content bg1">
+							<option value="2" >Direksi</option>
+							<option value="1" >Akun Manajer</option>
+							<option value="3" >Staf Marketing</option>
+							<option value="4" >Manajer Marketing</option>
+							<option value="5" >Program Manajer</option>
+							<option value="6" >Manajer Pelaksana</option>
+							<option value="7" >PM</option>
+							<option value="8" >Klien</option>
+						</select>
+						@break
+					@case(3)
+						<select name="role" class="content bg1">
+							<option value="3" >Staf Marketing</option>
+							<option value="2" >Direksi</option>
+							<option value="1" >Akun Manajer</option>
+							<option value="3" >Staf Marketing</option>
+							<option value="4" >Manajer Marketing</option>
+							<option value="5" >Program Manajer</option>
+							<option value="6" >Manajer Pelaksana</option>
+							<option value="7" >PM</option>
+							<option value="8" >Klien</option>
+						</select>
+						@break
+					@case(4)
+						<select name="role" class="content bg1">
+							<option value="4" >Manajer Marketing</option>
+							<option value="3" >Staf Marketing</option>
+							<option value="2" >Direksi</option>
+							<option value="1" >Akun Manajer</option>
+							<option value="3" >Staf Marketing</option>
+							<option value="5" >Program Manajer</option>
+							<option value="6" >Manajer Pelaksana</option>
+							<option value="7" >PM</option>
+							<option value="8" >Klien</option>
+						</select>
+						@break
+					@case(5)
+						<select name="role" class="content bg1">
+							<option value="5" >Program Manajer</option>
+							<option value="4" >Manajer Marketing</option>
+							<option value="3" >Staf Marketing</option>
+							<option value="2" >Direksi</option>
+							<option value="1" >Akun Manajer</option>
+							<option value="3" >Staf Marketing</option>
+							<option value="6" >Manajer Pelaksana</option>
+							<option value="7" >PM</option>
+							<option value="8" >Klien</option>
+						</select>
+						@break
+					@case(6)
+						<select name="role" class="content bg1">
+							<option value="6" >Manajer Pelaksana</option>
+							<option value="5" >Program Manajer</option>
+							<option value="4" >Manajer Marketing</option>
+							<option value="3" >Staf Marketing</option>
+							<option value="2" >Direksi</option>
+							<option value="1" >Akun Manajer</option>
+							<option value="3" >Staf Marketing</option>
+							<option value="7" >PM</option>
+							<option value="8" >Klien</option>
+						</select>
+						@break
+					@case(7)
+						<select name="role" class="content bg1">
+							<option value="7" >PM</option>
+							<option value="6" >Manajer Pelaksana</option>
+							<option value="5" >Program Manajer</option>
+							<option value="4" >Manajer Marketing</option>
+							<option value="3" >Staf Marketing</option>
+							<option value="2" >Direksi</option>
+							<option value="1" >Akun Manajer</option>
+							<option value="3" >Staf Marketing</option>
+							<option value="8" >Klien</option>
+						</select>
+						@break
+					@case(8)
+						<select name="role" class="content bg1">
+							<option value="8" >Klien</option>
+							<option value="7" >PM</option>
+							<option value="6" >Manajer Pelaksana</option>
+							<option value="5" >Program Manajer</option>
+							<option value="4" >Manajer Marketing</option>
+							<option value="3" >Staf Marketing</option>
+							<option value="2" >Direksi</option>
+							<option value="1" >Akun Manajer</option>
+							<option value="3" >Staf Marketing</option>
+						</select>
+						@break
+					@endswitch
+					<div>
+						@if($user->status == 0)
+						<a class="button-disapprove font-approval" data-toggle="modal" data-target="#myDeleteModal" style="padding:10px;color:red;border:1.5px solid red;">
+							<span>
+								Hapus
+							</span>
+						</a>
+						@else
+						<a class="button-disapprove font-approval" data-toggle="modal" data-target="#myUpdateModal" style="padding:10px;">
+							<span>
+								Aktifkan
+							</span>
+						</a>
+						@endif
+					</div>
+					</div>
+					
+
                 </div>
 
 				
-			<div class="container-btn">
-					<button class="container-form-btn" id="simpan">
+				<div class="container1-btn" style="place-content: flex-end;float: right;">
+						<a class="button-disapprove font-approval" data-toggle="modal" data-target="#myModal" style="padding:10px;">
 							<span>
-								Simpan Data
-								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+								Batal
 							</span>
-					</button>
-			</div>
+						</a>
+						<button class="button-approve font-approval" id="simpan" style="margin-left:5px;">
+								<span>
+									Simpan
+								</span>
+						</button>
+				</div>
 		</form>
 		@endforeach
 	</div>
 	
+
+	<div class="modal fade" id="myDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title" style="text-align:center;">Hapus Akun?</h4>
+			</div>
+			<div class="modal-body" style="text-align:center;">
+				<p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
+			</div>
+			<div class="modal-footer">
+					<a href="/user/delete/<?php echo $user->id ?>" class="btn btn-default" style="color:red;">Iya</a>
+				
+					<a data-dismiss="modal" class="btn btn-primary">Tidak</a> 
+			
+			</div>
+		</div>
+		
+		</div>
+</div>
+
+<div class="modal fade" id="myUpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title" style="text-align:center;">Aktifkan Akun?</h4>
+			</div>
+			<div class="modal-body" style="text-align:center;">
+				<p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
+			</div>
+			<div class="modal-footer">
+					<a href="/user/unlock/<?php echo $user->id ?>" class="btn btn-default" style="color:red;">Iya</a>
+				
+					<a data-dismiss="modal" class="btn btn-primary">Tidak</a> 
+			
+			</div>
+		</div>
+		
+		</div>
+</div>
+
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
-		<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -137,31 +302,31 @@
 				<p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
 			</div>
 			<div class="modal-footer">
-					<a href="/homeAccountManager/" class="btn btn-default" style="color:red;">Iya</a>
-				@foreach($users as $user)
-					<a href="/user/lihat/{{ $user->id }}" class="btn btn-primary">Tidak</a>
-				@endforeach
+					<a href="/" class="btn btn-default" style="color:red;">Iya</a>
+				
+					<a data-dismiss="modal" class="btn btn-primary">Tidak</a> 
+			
 			</div>
 		</div>
 		
 		</div>
-	</div>
+</div>
 
-	<div class="modal fade" id="myMod" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">				
-					<h4 class="modal-title" style="text-align:center;">Sukses!</h4>	
-				</div>
-				<div class="modal-body text-center">
-					<p class="text-center">Data proyek berhasil diubah</p>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
-				</div>
+<div id="myMod" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">				
+				<h4 class="modal-title" style="text-align:center;">Sukses!</h4>	
+			</div>
+			<div class="modal-body text-center">
+				<p class="text-center">Data Akun berhasil ditambah</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
 			</div>
 		</div>
-	</div>  
+	</div>
+</div>
 @endsection
 
 @section('scripts')
@@ -192,55 +357,29 @@
 					required: true,
                     minlength: 2,
 				},
-				projectName:{
+				username:{
 					required: true,
 				},
-				companyName:{
+				email:{
 					required: true,
 				},
-				description:{
-					required: true,
-				},
-				projectValue:{
-					required: true,
-					digits: true,
-					min: 1,
-				},
-				estimatedTime:{
-					required: true,
-					digits: true,
-					min: 1, //ceklg
-				},
-				projectAddress:{
+				password:{
 					required: true,
 				}
 			},
 			//For custom messages
 			messages:{
 				name:{
-					required: "Nama staf marketing harus diisi",
+					required: "Nama harus diisi",
 				},
-				projectName:{
-					required: "Nama proyek harus diisi",
+				username:{
+					required: "Username harus diisi",
 				},
-				companyName:{
-					required: "Nama perusahaan harus diisi",
+				email:{
+					required: "Email harus diisi",
 				},
-				description:{
-					required: "Deskripsi proyek harus diisi",
-				},
-				projectValue:{
-					required: "Nilai proyek harus diisi",
-					digits: "Nilai proyek harus berupa angka",
-					min: "Nilai proyek proyek minimal 1 rupiah",
-				},
-				estimatedTime:{
-					required: "Waktu pengerjaan proyek harus diisi",
-					digits: "Waktu pengerjaan proyek harus berupa angka",
-					min: "Waktu pengerjaan proyek minimal 1 hari",  //ceklg
-				},
-				projectAddress:{
-					required: "Alamat proyek harus diisi",
+				password:{
+					required: "Password harus diisi",
 				}
 			}, 
 			errorElement:'div',

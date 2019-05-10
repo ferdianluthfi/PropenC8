@@ -30,7 +30,7 @@
 				<!-- PraLelang -->
 				<div class="tab-pane" id="pra" style="display:block">
 					<div class="col-md-12">
-								<h4 style="text-align:center;">Daftar Akun</h4><br>
+								<h2 style="text-align:center;">Daftar Akun</h2><br>
 								<hr>
 								<div class="panel-body" style="text-align:center;">
 									<table id="datatable-1" class="table table-striped table-bordered text-center">
@@ -38,6 +38,7 @@
 											<tr class="title" >
 												<th><center>Nama Proyek</th>
 												<th><center>Role</th>
+												<th><center>Status</th>
 												<th><center>Lihat</th>
 											</tr>
 										</thead>
@@ -73,6 +74,16 @@
 														@break
 													@endswitch
 												</td>	
+												<td>
+												@switch($user->status)
+													@case(0)
+														Aktif
+														@break
+													@case(1)
+														Tidak Aktif
+														@break
+													@endswitch
+												</td>
 												<td><center><a class="btn btn-primary" href="/user/lihat/{{ $user->id }}">Lihat</a>
 											</tr>
 										@endforeach
@@ -84,6 +95,7 @@
 			</div>
 		</div>
 </div>
+@include('layouts.footer')
 @endsection
 
 @section('scripts')
