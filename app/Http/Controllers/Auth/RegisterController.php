@@ -75,7 +75,7 @@ class RegisterController extends Controller
 
         if($validator->fails()){
             session()->flash('error', 'Ada kesalahan input');
-            return Redirect::to('/register')
+            return redirect('/register')
                 ->withErrors($validator)
                 ->withInput();
         
