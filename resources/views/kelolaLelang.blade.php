@@ -276,7 +276,6 @@
     $(document).ready( function () {
         $('#datatable').DataTable();
         $(".simpan").click(function(e){
-            e.preventDefault()
             //checks if it's valid
             //horray it's valid
             $("#myMod").modal("show");

@@ -88,8 +88,10 @@ class KelengkapanLelangController extends Controller
         $berkas = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('id', $file->id)->first();
         $proyek = Proyek::select('proyeks.*')->where('id', $file->proyek_id)->first();
         KelengkapanLelang::where('id', $file->id)->update(['flag_active' => 0]);
-        session()->flash('flash_message', 'File %s has been uploaded., $file->title');
-        return redirect()->back()->with('flash_message', 'Berkas telah dihapus.');
+//        return redirect()->back()->with('flash_message', 'Berkas telah dihapus.');
+        return redirect()
+            ->back()
+            ->withSuccess(sprintf('File %s has been deleted.', $file->filename));
     }
     public function generatePDF($proyek_id)
     {
