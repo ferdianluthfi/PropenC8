@@ -15,8 +15,8 @@
   </ol>
 </nav>
 <!-- isinya -->
-<div class="container-fluid card card-detail-proyek" style="min-height: 450px">
-    <div class="row">
+<div class="row">
+    <div class="container-fluid card card-detail-proyek" style="min-height: 450px">
         <div class="col-sm-10"> 
                 <p class="font-title" style="text-align: center">Detail Proyek {{ $proyek->projectName}}</p>
         </div>

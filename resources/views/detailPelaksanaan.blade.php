@@ -154,7 +154,7 @@ box-sizing: border-box;
     </nav>
 
     @if( $pelaksanaan->approvalStatus == 0)
-    <div class="row">
+    <div class="row" style="margin-left: 350px;">
         <div class="container-fluid card col-md-6" style="width:829px;margin:0 50px;">
                 <div class="row">
                     <br>

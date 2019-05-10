@@ -50,7 +50,7 @@ box-sizing: border-box;
 
     
     @if( $pelaksanaan->approvalStatus == 0)
-    <div class="row">
+    <div class="row" style="margin-left: 350px;">
             <div class="container-fluid card col-md-6" style="width:829px;margin:0 50px;">
                 <div class="row">
                     <br>
@@ -68,7 +68,7 @@ box-sizing: border-box;
                 @foreach($listPekerjaan as $pekerjaan)
                 <div class="container-fluid card card-kontrak" style="margin: 10px"><br>
                     <div class="row" style="margin-left: -30px;">
-                        <div class="col-sm-12" style="margin-bottom:45px;">
+                        <div class="col-sm-12">
                             <div class="col-sm-4 font-desc-bold">
                                 <ul>
                                     <li><p>Uraian Pekerjaan</p></li>
@@ -132,7 +132,7 @@ box-sizing: border-box;
                 @endforeach
             </div>
             <div class="container-fluid col-md-6" style="width:354px; height:316px;">   
-                <div  class="row card card-tombol">
+                 <div  class="row card card-tombol">
                     <div class="row judul">
                         <div class="font-subtitle-4" style="text-align: center">Ubah Status LAPJUSIK</div>
                     </div> <hr><hr>
@@ -153,7 +153,7 @@ box-sizing: border-box;
     </div>
     @else
     <div class="container-fluid card" style="width:829px;margin:0 250px;">
-        <div class="row">
+        <div class="row>
             <br>
             <div class="col-sm-10"> 
                     <p class="font-subtitle-2" style="text-align: center">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
