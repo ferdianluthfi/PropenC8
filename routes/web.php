@@ -81,7 +81,7 @@ Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
 /**
  * routing untuk PM2an
  */
-Route::get('/pm/kelola', 'PenggunaController@getAvailablePm');//masuk ke page edit pm
+Route::get('/pm/kelola/{proyek_id}', 'PenggunaController@getAvailablePm');//masuk ke page edit pm
 Route::post('/pm/update', 'PenggunaController@managePm');//update pm
 
 

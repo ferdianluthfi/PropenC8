@@ -17,10 +17,10 @@ class PenggunaController extends Controller
      *
      * @return void
      */
-//    public function __construct()
-//    {
-//        $this->middleware('auth');
-//    }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /*
      * ini buat get all pm available, halaman kelola pm
@@ -30,9 +30,9 @@ class PenggunaController extends Controller
      * 2. get all assignment
      * 3. udh atur2 di frontend aja wkwk
      */
-    public function getAvailablePm()//masukin id proyek lewat sini, $proyek_id dr page yg si detail proyek
+    public function getAvailablePm($proyek_id)//masukin id proyek lewat sini, $proyek_id dr page yg si detail proyek
     {
-        $proyek_id = 2; // nanti integrasi id proyek
+//        $proyek_id = 2; // nanti integrasi id proyek
         $assign = DB::table('assignments')->get();
         $pmgrs = DB::table('users')->where('role', 7)->get();
         $choosenPmId = 0;
@@ -83,6 +83,10 @@ class PenggunaController extends Controller
                     'proyek_id' => $proyek_id,
                     'assignmentDate' => DB::raw('now()')
                 ]);
+                DB::table('proyeks')->where('id',$proyek_id)->update([
+                    'approvalStatus' => 7,
+                ]);
+
             }
 
             session()->flash('flash_message', 'PM telah ditambahkan.');

@@ -339,7 +339,54 @@
  	</div>
 @endsection
 
+<!--INI PUNYA SI MGR PELAKSANA-->
+@elseif(Auth::user()->role == 6)
+@section ('content')
+@include('layouts.nav')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek') }}">Proyek</a></li>
+    </ol>
+</nav>
 
+<div class="container">
+    <div class="row bigCard">
+        <div class="col-md-12">
+            @if(session()->has('flash_message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong><i class="material-icons">&#xE876;</i>Berhasil!</strong> {{session('flash_message')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
+            <h2 style="text-align:center;">Daftar Proyek Berjalan</h2><br>
+
+            <div class="row">
+                @if(count($proyekPoten) > 0)
+                <div class="col-md-12">
+                    <div class="your-class">
+                        @foreach($proyekPoten as $proyeks)
+                        <div class="col-md-6 project">
+                            <center class="turncate" style="font-size:14pt; font-weight:bolder;">{{ $proyeks->projectName }}<center>
+                                    <center class="turncate" style="font-size:12pt;">{{ $proyeks->companyName }}<center>
+                                            <center><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a><center>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @else
+                <p class="font-subtitle-2" style="text-align:center;padding-left: 0px;">
+                    Belum terdapat proyek.
+                </p>
+                @endif
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+@endsection
 @endif
 
 @section('scripts')

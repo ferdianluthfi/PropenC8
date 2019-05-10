@@ -58,8 +58,13 @@ class ProyekController extends Controller
         
             return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
         }
-        elseif(\Auth::user()->role == 5 || 6){ //buat manager pelaksana jg isini (?)
+        elseif(\Auth::user()->role == 5){
             $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
+            return view('proyeks.index',compact('proyekPoten'));
+        }
+
+        elseif(\Auth::user()->role == 6){ //buat manager pelaksana jg isini (?)
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 6)->orWhere('approvalStatus', 7)->get();
             return view('proyeks.index',compact('proyekPoten'));
         }
         
@@ -166,6 +171,12 @@ class ProyekController extends Controller
             }
             elseif($statusNum == 3){
                 $status = "DITOLAK";
+            }
+            elseif($statusNum == 6){
+                $status = "MENUNGGU PENUGASAN PM";
+            }
+            elseif($statusNum == 7){
+                $status = "SEDANG BERJALAN";
             }
         }        
         return view('proyeks/show',compact('id', 'proyeks', 'status'));
