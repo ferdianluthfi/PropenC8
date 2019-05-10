@@ -16,26 +16,24 @@
 </nav>
 <!-- isinya -->
 <div class="container-fluid card card-detail-proyek">
-    <br>
-    <p class="font-subtitle-1">Detail Proyek</p>
+    <div class="row">
+        <div class="col-sm-6">
+            <p class="font-title" style="margin-top: 20px; margin-left: 20px">Detail Proyek {{ $proyek->projectName}}</p>
+        </div>
+        <div class="col-sm-6">
+            @if($status == 'DISETUJUI') <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:blue;">{{$status}}</p>
+            @elseif($status == "SEDANG BERJALAN") <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:green;">{{$status}}</div>
+            @elseif($status == 'DITOLAK') <p style="text-align: right; margin-right: 20px; margin-top: 30px;color:red;">{{$status}}</div>
+            @endif
+        </div>
+    </div>
     <hr>
     <div>
-        @if($proyek->approvalStatus === 0)
         <div class="row">
             <div class="col-sm-10">
-                <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}}</p>
-            </div>
-            <div class="col-sm-2">
-                <button type="button" class="btn btn-primary"  onclick="window.location.href='/proyek/ubah/{{ $proyek->id }}'">Ubah</button>
+                <p class="font-subtitle-2"></p>
             </div>
         </div>
-        @else
-        <div class="row">
-            <div class="col-sm-10">
-                <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}}</p>
-            </div>
-        </div>
-        @endif
         <br>
     </div>
     <div class="row ketengahin">
@@ -43,12 +41,13 @@
             <div class="card card-info">
                 <div class="row judul">
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
-                    @if($status == 'DISETUJUI') <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:blue;">{{$status}}</div>
-                    @elseif($status == "SEDANG BERJALAN") <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:green;">{{$status}}</div>
-                    @elseif($status == 'DITOLAK') <div class="col-sm-5 font-status-approval" style="margin-left:15px;color:red;">{{$status}}</div>
-                    @else <div class="col-sm-5 font-status-approval" style="margin-left:15px;color:orange;">{{$status}}</div>
-                    @endif
-
+                    <div class="col-sm-5 font-status-approval" style="margin-left:30px;">
+                        @if ($proyek->approvalStatus == 7)
+                        <a>PM : {{$pmName}}</a>
+                        @elseif ($proyek->approvalStatus == 6)
+                        <a href="/pm/kelola/{{$proyek->id}}">Belum ada PM</a>
+                        @endif
+                    </div>
                 </div>
                 <hr style="background-color:black;"/>
                 <div class="row">
@@ -77,23 +76,75 @@
                 </div>
             </div>
         </div>
+        @if ($proyek->approvalStatus === 3)
         <div class="col-sm-2">
             <div class="card card-pm">
                 <br>
+                <p class="font-subtitle-5">Ubah Status Lelang</p>
+                <hr/>
+                <form action="/proyek/kalah/<?php echo $proyek->id ?>" method="GET" id="reject">
+                    @csrf
+                    <button id="tolak" class="button-disapprove font-approval" style="margin-left: 70px; margin-bottom: 10px; margin-top: 5px">KALAH</button>
+                </form>
+                <form action="/proyek/menang/<?php echo $proyek->id ?>" method="GET" id="save">
+                    @csrf
+                    <button id="simpan" class="button-approve font-approval"  style="margin-left: 70px; margin-bottom: 10px">MENANG</button>
+                </form>
+            </div>
+        </div>
+        @elseif ($proyek->approvalStatus === 2)
+        <div class="col-sm-2">
+            <div class="card card-pm" style="margin-left: 90px">
+                <br>
+                <p class="font-subtitle-5">Kelola Lelang</p>
+                <hr/>
+                <br>
+                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-disapprove" style="margin-left: 35px; margin-top: 35px; padding-top: 10px">Kelola Lelang</a>
+                <br>
+            </div>
+        </div>
+        @elseif ($proyek->approvalStatus === 4 || $proyek->approvalStatus === 5 || $proyek->approvalStatus === 6 || $proyek->approvalStatus === 7 || $proyek->approvalStatus === 8)
+        <div class="col-sm-2">
+            <div class="card card-pm" style="margin-left: 90px">
+                <br>
                 <p class="font-subtitle-5">Project Manager</p>
-                <hr style="background-color:black;"/>
-                <br> <br> <br>
-                <p class="font-status-approval" style="text-align: center;">Belum Tersedia.</p>
+                <hr/>
+                <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
+                <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
+                <button class="button-disapprove" style="margin-left: 35px">LPJ</button>
+            </div>
+        </div>
+        @endif
+    </div>
+    <div id="mod" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="text-align:center;">Tolak!</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">Proyek berhasil ditolak</p>
+                </div>
+                <div class="modal-footer text-center">
+                    <button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
+                </div>
             </div>
         </div>
     </div>
-    <div>
-        <div class="row ketengahin">
-            @if($proyek->approvalStatus === 1)
-            <a href=" /kelolaLelang/{{ $proyek->id }}"><div class="col-sm-12 card card-button-1">
-                    <p class="font-button-berkas">Kelola Lelang<p>
-                </div></a>
-            @endif
+
+    <div id="myMod" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="text-align:center;">Setuju!</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">Proyek berhasil disetujui</p>
+                </div>
+                <div class="modal-footer text-center">
+                    <button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

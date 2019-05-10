@@ -98,10 +98,6 @@
                 </div>
             </div>
         </div>
-<!--        <div class="row" style="margin-left: 40px">-->
-
-
-<!--        </div>-->
     </div>
 </div>
 <div class="container-fluid card card-detail-proyek" style="padding-top: 20px">
@@ -177,22 +173,27 @@
 <!-- isinya -->
 <div class="container-fluid card card-detail-proyek">
     <br>
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+    <br>
     <p class="font-subtitle-1">Rincian Berkas Lelang</p>
     <hr>
     <div>
-        <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName }}</p>
+        <!--        <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName }}</p>-->
         <br>
     </div>
     <div class="row ketengahin">
         <div class="col-sm-7">
-            <div class="card card-info">
+            <div class="card card-info" style="width: 800px">
                 <div class="row judul">
-                    <div class="col-sm-9 font-subtitle-4">Informasi Umum</div>
-                    <div class="col-sm-1 font-status-approval">{{ $status }}</div>
+                    <div class="font-subtitle-4" style="text-align: center">Informasi Umum</div>
                 </div>
-                <hr style="background-color:black;"/>
+                <hr>
                 <div class="row">
-                    <div class="col-sm-5 font-desc-bold" style="margin-left: 30px;">
+                    <div class="col-sm-4 font-desc-bold" style="margin-left: 100px;">
                         <ul>
                             <li><p>Nama Staf Marketing</p></li>
                             <li><p>Nama Proyek</p></li>
@@ -203,7 +204,7 @@
                             <li><p>Nilai Proyek</p></li>
                         </ul>
                     </div>
-                    <div class="col-sm-6 font-desc">
+                    <div class="col-sm-5 font-desc">
                         <ul>
                             <li><p>:   {{ $proyek->name}}<p></li>
                             <li><p>:   {{ $proyek->projectName}}<p></li>
@@ -215,15 +216,6 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="card card-pm">
-                <br>
-                <p class="font-subtitle-5">Project Manager</p>
-                <hr style="background-color:black;"/>
-                <br> <br> <br>
-                <p class="font-status-approval" style="text-align: center;">Belum Tersedia.</p>
             </div>
         </div>
     </div>
@@ -259,9 +251,6 @@
             <a href="{{ Storage::url($object->path) }}" title="View file {{ $object->title }}">
                 <span class="glyphicon glyphicon-eye-open"></span>
             </a>
-            <!--                    <a href="{{ route('file.response', $object->id) }}" title="Show or download file {{ $object->title }}">-->
-            <!--                        <span class="glyphicon glyphicon-save"></span>-->
-            <!--                    </a>-->
             <a href="{{ route('file.download', $object->id) }}" title="Download file {{ $object->title }}">
                 <i class="glyphicon glyphicon-download"></i>
             </a>

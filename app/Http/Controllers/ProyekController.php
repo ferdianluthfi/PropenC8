@@ -1,11 +1,14 @@
 <?php
 namespace App\Http\Controllers;
+
 // use DB;
 use App\Proyek;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Pengguna;
+
+
 class ProyekController extends Controller
 {
     /**
@@ -27,20 +30,25 @@ class ProyekController extends Controller
         if(\Auth::user()->role == 3){
             // $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
             $status;
-            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->where('pengguna_id', \Auth::user()->id)->get();
-            $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->orWhere('approvalStatus',2)->orWhere('approvalStatus',3)->get();
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',1)->where('pengguna_id', \Auth::user()->id)->get();
+            $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
+            $proyekLelang = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 3)->get();
+            $proyekPasca = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus',5) ->orWhere('approvalStatus',6) ->orWhere('approvalStatus',7) ->orWhere('approvalStatus',8) ->orWhere('approvalStatus',9)->get();
 
             foreach($proyekPoten as $proyeg){
                 $statusNum = $proyeg-> approvalStatus;
+
                 if($statusNum == 0){
                     $status = "MENUNGGU PERSETUJUAN";
                 }
             }
             foreach($proyekNonPoten as $proyeg){
+
                 $statusNum = $proyeg-> approvalStatus;
                 $temp = explode(" ",$proyeg->created_at)[0];
                 $date = $this->waktu($temp);
                 $proyeg->created_at = $date;
+
                 if($statusNum == 1){
                     $status = "DISETUJUI";
                 }elseif($statusNum == 2){
@@ -50,12 +58,13 @@ class ProyekController extends Controller
                 }
             }
 
-            return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
+            return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'proyekLelang', 'proyekPasca', 'status'));
         }
         elseif(\Auth::user()->role == 5){
             $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
             return view('proyeks.index',compact('proyekPoten'));
         }
+
         elseif(\Auth::user()->role == 6){ //buat manager pelaksana jg isini (?)
             $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 6)->orWhere('approvalStatus', 7)->get();
             return view('proyeks.index',compact('proyekPoten'));
@@ -152,28 +161,23 @@ class ProyekController extends Controller
             $statusNum = $proyeg-> approvalStatus;
             $temp = number_format($proyeg->projectValue, 2, ',','.');
             $proyeg->projectValue = $temp;
-            if($statusNum == 0){
+            if($statusNum == 1 || $statusNum == 5){
                 $status = "MENUNGGU PERSETUJUAN";
             }
-            elseif($statusNum == 1){
+            elseif($statusNum == 2 || $statusNum == 3 || $statusNum == 4 || $statusNum == 6
+                || $statusNum == 7 || $statusNum == 8){
                 $status = "DISETUJUI";
+                if($statusNum == 7){
+                    $choosenPmFromAssignment = DB::table('assignments')->where('proyek_id', $proyeg->id)->first();
+                    $choosenPmId = $choosenPmFromAssignment->pengguna_id;
+                    $pm = DB::table('users')->where('id', $choosenPmId)->first();
+                    $pmName = $pm->name;
+                }
             }
-            elseif($statusNum == 2){
-                $status = "SEDANG BERJALAN";
-            }
-            elseif($statusNum == 3){
+            elseif($statusNum == 9){
                 $status = "DITOLAK";
             }
-            elseif($statusNum == 6){
-                $status = "MENUNGGU PENUGASAN PM";
-            }
-            elseif($statusNum == 7){
-                $status = "SEDANG BERJALAN";
-                $choosenPmFromAssignment = DB::table('assignments')->where('proyek_id', $proyeg->id)->first();
-                $choosenPmId = $choosenPmFromAssignment->pengguna_id;
-                $pm = DB::table('users')->where('id', $choosenPmId)->first();
-                $pmName = $pm->name;
-            }
+
         }
         return view('proyeks/show',compact('id', 'proyeks', 'status', 'pmName'));
     }
