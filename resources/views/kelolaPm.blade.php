@@ -72,9 +72,8 @@
                 <p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
             </div>
             <div class="modal-footer">
-                <!--                GANTI JADI BALIK KE DETAIL PROYEK-->
-                <a href="/pm/kelola" class="btn btn-default" style="color:red;">Iya</a>
-                <a href="/pm/kelola/" class="btn btn-primary">Tidak</a>
+                <a href="/proyek/lihat/{{$proyek_id}}" class="btn btn-default" style="color:red;">Iya</a>
+                <a href="/pm/kelola/{{$proyek_id}}" class="btn btn-primary">Tidak</a>
             </div>
         </div>
     </div>
@@ -89,7 +88,7 @@
                 <p class="text-center">PM berhasil diubah</p>
             </div>
             <div class="modal-footer">
-                <a href="/pm/kelola/" class="btn btn-success">OK</a>
+                <a href="/proyek/lihat/{{$proyek_id}}" class="btn btn-success">OK</a>
             </div>
         </div>
     </div>
@@ -109,6 +108,7 @@
     $(document).ready( function () {
         $('#datatable').DataTable();
         $("#simpan").click(function(e){
+            e.preventDefault();
             //checks if it's valid
             //horray it's valid
             $("#myMod").modal("show");
