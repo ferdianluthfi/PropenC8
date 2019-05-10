@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="858886b3-e0b5-4b18-856c-f372040d947c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProyekController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProyekController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/kelolaLelang.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/kelolaLelang.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/proyeks/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/proyeks/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/proyeks/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/proyeks/show.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -165,8 +161,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/proyeks/show.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="23" column="40" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
+            <state relative-caret-position="159">
+              <caret line="327" column="49" selection-start-line="327" selection-start-column="49" selection-end-line="327" selection-end-column="49" />
               <folding>
                 <element signature="e#914#940#0#HTML" expanded="true" />
                 <element signature="e#1066#1142#0#HTML" expanded="true" />
@@ -176,6 +172,7 @@
                 <element signature="e#2338#2369#0#HTML" expanded="true" />
                 <element signature="e#2463#2489#0#HTML" expanded="true" />
                 <element signature="e#3583#3610#0#HTML" expanded="true" />
+                <element signature="e#3876#3901#0#HTML" expanded="true" />
                 <element signature="e#4187#4250#0#HTML" expanded="true" />
                 <element signature="e#4490#4536#0#HTML" expanded="true" />
                 <element signature="e#4765#4790#0#HTML" expanded="true" />
@@ -236,6 +233,7 @@
       <find>font</find>
       <find>viewde</find>
       <find>&lt;</find>
+      <find>project ma</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -457,7 +455,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557504065982" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557504356044" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -503,7 +501,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="200958000" />
+    <option name="totallyTimeSpent" value="201249000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="456" y="0" width="830" height="688" extended-state="0" />
@@ -941,8 +939,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/proyeks/show.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="23" column="40" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
+        <state relative-caret-position="159">
+          <caret line="327" column="49" selection-start-line="327" selection-start-column="49" selection-end-line="327" selection-end-column="49" />
           <folding>
             <element signature="e#914#940#0#HTML" expanded="true" />
             <element signature="e#1066#1142#0#HTML" expanded="true" />
@@ -952,6 +950,7 @@
             <element signature="e#2338#2369#0#HTML" expanded="true" />
             <element signature="e#2463#2489#0#HTML" expanded="true" />
             <element signature="e#3583#3610#0#HTML" expanded="true" />
+            <element signature="e#3876#3901#0#HTML" expanded="true" />
             <element signature="e#4187#4250#0#HTML" expanded="true" />
             <element signature="e#4490#4536#0#HTML" expanded="true" />
             <element signature="e#4765#4790#0#HTML" expanded="true" />

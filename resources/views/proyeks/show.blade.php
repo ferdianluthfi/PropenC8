@@ -78,17 +78,17 @@
         </div>
         @if ($proyek->approvalStatus === 3)
         <div class="col-sm-2">
-            <div class="card card-pm">
+            <div class="card card-pm" style="margin-left: 90px">
                 <br>
                 <p class="font-subtitle-5">Ubah Status Lelang</p>
                 <hr/>
                 <form action="/proyek/kalah/<?php echo $proyek->id ?>" method="GET" id="reject">
                     @csrf
-                    <button id="tolak" class="button-disapprove font-approval" style="margin-left: 70px; margin-bottom: 10px; margin-top: 5px">KALAH</button>
+                    <button id="tolak" class="button-disapprove font-approval" style="margin-left: 35px; margin-bottom: 10px; margin-top: 35px">KALAH</button>
                 </form>
                 <form action="/proyek/menang/<?php echo $proyek->id ?>" method="GET" id="save">
                     @csrf
-                    <button id="simpan" class="button-approve font-approval"  style="margin-left: 70px; margin-bottom: 10px">MENANG</button>
+                    <button id="simpan" class="button-approve font-approval"  style="margin-left: 35px; margin-bottom: 10px">MENANG</button>
                 </form>
             </div>
         </div>
@@ -107,7 +107,7 @@
         <div class="col-sm-2">
             <div class="card card-pm" style="margin-left: 90px">
                 <br>
-                <p class="font-subtitle-5">Project Manager</p>
+                <p class="font-subtitle-5">Berkas</p>
                 <hr/>
                 <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
                 <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
@@ -228,7 +228,7 @@
         <div class="col-sm-2">
             <div class="card card-pm">
                 <br>
-                <p class="font-subtitle-5">Project Manager</p>
+                <p class="font-subtitle-5">Berkas</p>
                 <hr/>
 <!--                <button href="/kelolaLelang/{{ $proyek->id }}" class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>-->
                 <a href="/kelolaLelang/{{ $proyek->id }}" class="button-disapprove" style="margin-left: 35px; margin-top: 60px; padding-top: 10px">LAPJUSIK</a>
@@ -325,7 +325,7 @@
         <div class="col-sm-2">
             <div class="card card-pm">
                 <br>
-                <p class="font-subtitle-5">Project Manager</p>
+                <p class="font-subtitle-5">Berkas</p>
                 <hr/>
                 <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
                 <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
