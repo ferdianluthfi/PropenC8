@@ -72,18 +72,33 @@ class ProyekController extends Controller
 
         elseif(\Auth::user()->role == 2){
             $proyekPoten = DB::table('proyeks')->select('projectName', 'companyName', 'id')
-                ->where('approvalStatus',0)->get();
+                ->where('approvalStatus',1)->get();
 
-            $proyekNonPoten = DB::table('proyeks')->select('projectName', 'companyName', 'id', 'created_at',
-                'approvalStatus')
-                ->where('approvalStatus', 1)->orWhere('approvalStatus',2)->orWhere('approvalStatus',3)->get();
+            $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
+            $proyekLelang = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 3)->get();
+            $proyekPasca = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus',5) ->orWhere('approvalStatus',6) ->orWhere('approvalStatus',7) ->orWhere('approvalStatus',8) ->orWhere('approvalStatus',9)->get();
 
-            foreach($proyekNonPoten as $proyekNonP){
-                $temp = explode(" ",$proyekNonP->created_at)[0];
+//            foreach($proyekPoten as $proyeg){
+//                $statusNum = $proyeg-> approvalStatus;
+//                if($statusNum == 1){
+//                    $status = "MENUNGGU PERSETUJUAN";
+//                }
+//            }
+            foreach($proyekNonPoten as $proyeg){
+                $statusNum = $proyeg-> approvalStatus;
+                $temp = explode(" ",$proyeg->created_at)[0];
                 $date = $this->waktu($temp);
-                $proyekNonP->created_at = $date;
+                $proyeg->created_at = $date;
+                if($statusNum == 1){
+                    $status = "DISETUJUI";
+                }elseif($statusNum == 2){
+                    $status = "SEDANG BERJALAN";
+                }else{
+                    $status = "DITOLAK";
+                }
             }
-            return view('proyeks.index', compact('proyekPoten','proyekNonPoten'));
+
+            return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'proyekLelang', 'proyekPasca', 'status'));
         }
         else{
             return view('no-access');
@@ -360,16 +375,16 @@ class ProyekController extends Controller
         $proyek->projectValue = $formatValue;
         $status;
         $statusNum = $proyek-> approvalStatus;
-        if($statusNum == 0){
+        if($statusNum == 1){
             $status = "MENUNGGU PERSETUJUAN";
         }
-        elseif($statusNum == 1){
+        elseif($statusNum == 2){
             $status = "DISETUJUI DIREKSI";
         }
-        elseif($statusNum == 2){
+        elseif($statusNum == 3){
             $status = "SEDANG BERJALAN";
         }
-        elseif($statusNum == 3){
+        elseif($statusNum == 9){
             $status = "DITOLAK";
         }
         $kontrak = DB::table('kontraks')->select('id')->where('proyek_id', $id)->first();
