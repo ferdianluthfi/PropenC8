@@ -162,7 +162,7 @@
         <entry file="file://$PROJECT_DIR$/resources/views/proyeks/show.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="159">
-              <caret line="327" column="49" selection-start-line="327" selection-start-column="49" selection-end-line="327" selection-end-column="49" />
+              <caret line="233" column="160" selection-start-line="233" selection-start-column="160" selection-end-line="233" selection-end-column="160" />
               <folding>
                 <element signature="e#914#940#0#HTML" expanded="true" />
                 <element signature="e#1066#1142#0#HTML" expanded="true" />
@@ -234,6 +234,7 @@
       <find>viewde</find>
       <find>&lt;</find>
       <find>project ma</find>
+      <find>lapjusik</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -455,7 +456,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557504356044" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557506155080" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -501,7 +502,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="201249000" />
+    <option name="totallyTimeSpent" value="202551000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="456" y="0" width="830" height="688" extended-state="0" />
@@ -940,7 +941,7 @@
     <entry file="file://$PROJECT_DIR$/resources/views/proyeks/show.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
-          <caret line="327" column="49" selection-start-line="327" selection-start-column="49" selection-end-line="327" selection-end-column="49" />
+          <caret line="233" column="160" selection-start-line="233" selection-start-column="160" selection-end-line="233" selection-end-column="160" />
           <folding>
             <element signature="e#914#940#0#HTML" expanded="true" />
             <element signature="e#1066#1142#0#HTML" expanded="true" />
