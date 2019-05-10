@@ -90,7 +90,7 @@ class PenggunaController extends Controller
             }
 
             session()->flash('flash_message', 'PM telah ditambahkan.');
-            return redirect('/pm/kelola'); //GANTI REDIRECT KE HALAMAN DETAIL PROYEK
+            return redirect('/pm/kelola/$proyek_id'); //GANTI REDIRECT KE HALAMAN DETAIL PROYEK
         }
     }
 }
