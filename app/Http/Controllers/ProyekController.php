@@ -30,9 +30,11 @@ class ProyekController extends Controller
         if(\Auth::user()->role == 3){
             // $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
             $status;
-            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->where('pengguna_id', \Auth::user()->id)->get();
-            $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->orWhere('approvalStatus',2)->orWhere('approvalStatus',3)->get();
-            
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',1)->where('pengguna_id', \Auth::user()->id)->get();
+            $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
+            $proyekLelang = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 3)->get();
+            $proyekPasca = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus',5) ->orWhere('approvalStatus',6) ->orWhere('approvalStatus',7) ->orWhere('approvalStatus',8) ->orWhere('approvalStatus',9)->get();
+           
             foreach($proyekPoten as $proyeg){
                 $statusNum = $proyeg-> approvalStatus;
 
@@ -56,7 +58,7 @@ class ProyekController extends Controller
                 }
             }
         
-            return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
+            return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'proyekLelang', 'proyekPasca', 'status'));
         }
         elseif(\Auth::user()->role == 5){
             $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->get();
@@ -153,16 +155,15 @@ class ProyekController extends Controller
             $statusNum = $proyeg-> approvalStatus;
             $temp = number_format($proyeg->projectValue, 2, ',','.');
             $proyeg->projectValue = $temp;
-            if($statusNum == 0){
+            if($statusNum == 1 || $statusNum == 5){
                 $status = "MENUNGGU PERSETUJUAN";
             }
-            elseif($statusNum == 1){
+            elseif($statusNum == 2 || $statusNum == 3 || $statusNum == 4 || $statusNum == 6
+            || $statusNum == 7 || $statusNum == 8){
                 $status = "DISETUJUI";
             }
-            elseif($statusNum == 2){
-                $status = "SEDANG BERJALAN";
-            }
-            elseif($statusNum == 3){
+            
+            elseif($statusNum == 9){
                 $status = "DITOLAK";
             }
         }        
@@ -383,6 +384,17 @@ class ProyekController extends Controller
             ->update(['approvalStatus' => 3]);
         return redirect('/proyek');
     }
-    
+    public function menang($id){
+        DB::table('proyeks')->where('id',$id)->update([
+            'approvalStatus' => 4,
+        ]);
+        return redirect('/proyek/lihat/'. $id);
+    }
+    public function kalah($id){
+        DB::table('proyeks')->where('id',$id)->update([
+            'approvalStatus' => 9,
+        ]);
+        return redirect('/proyek/lihat/'. $id);
+    }
     
 }
