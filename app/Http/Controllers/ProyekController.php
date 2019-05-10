@@ -155,6 +155,7 @@ class ProyekController extends Controller
     {
         $proyeks = DB::table('proyeks') -> where('id', $id) -> get();
         $status;
+        $pmName;
         
         foreach($proyeks as $proyeg){
             $statusNum = $proyeg-> approvalStatus;
@@ -174,12 +175,18 @@ class ProyekController extends Controller
             }
             elseif($statusNum == 6){
                 $status = "MENUNGGU PENUGASAN PM";
+
             }
             elseif($statusNum == 7){
                 $status = "SEDANG BERJALAN";
+                $choosenPmFromAssignment = DB::table('assignments')->where('proyek_id', $proyeg->id)->first();
+                $choosenPmId = $choosenPmFromAssignment->pengguna_id;
+                $pm = DB::table('users')->where('id', $choosenPmId)->first();
+                $pmName = $pm->name;
+
             }
         }        
-        return view('proyeks/show',compact('id', 'proyeks', 'status'));
+        return view('proyeks/show',compact('id', 'proyeks', 'status', 'pmName'));
     }
     /**
      * Show the form for editing the specified resource.
