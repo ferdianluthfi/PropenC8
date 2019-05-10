@@ -5,7 +5,7 @@
 @section ('content')
 @include('layouts.nav')
 
-<!-- Breadcrumbs (ini buat navigation yaa) -->
+<!-- Breadcrumbs (ini buat navigation yaa)-->
 @foreach($proyeks as $proyek)
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -96,7 +96,7 @@
         <div class="col-sm-2">
             <div class="card card-pm" style="margin-left: 90px">
                 <br>
-                <p class="font-subtitle-5">Kelola Lelang</p>
+                <p class="font-subtitle-5">Berkas</p>
                 <hr/>
                 <br>
                 <a href="/kelolaLelang/{{ $proyek->id }}" class="button-disapprove" style="margin-left: 35px; margin-top: 35px; padding-top: 10px">Kelola Lelang</a>
