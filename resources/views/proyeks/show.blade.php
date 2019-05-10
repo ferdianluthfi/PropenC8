@@ -269,7 +269,7 @@
             <p class="font-title" style="margin-top: 20px; margin-left: 20px">Detail Proyek {{ $proyek->projectName}}</p>
         </div>
         <div class="col-sm-6">
-            <p style="text-align: right; margin-right: 20px; margin-top: 30px">{{ $status }}</p>
+            <p style="text-align: right; margin-right: 20px; margin-top: 30px; color: blue">{{ $status }}</p>
         </div>
     </div>
     <hr>

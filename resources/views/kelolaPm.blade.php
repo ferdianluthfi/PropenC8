@@ -38,10 +38,14 @@
                 <td>{{ $pm->name }}</td>
                 <td>{{ $pm->total }}</td>
                 <td style="vertical-align: center">
-                    @if($pm->id == $choosenPmId)
-                    <input type="radio" name="selected" value="{{$pm->id}}" checked>
+                    @if ($pm->total<3)
+                        @if($pm->id == $choosenPmId)
+                        <input type="radio" name="selected" value="{{$pm->id}}" checked>
+                        @else
+                        <input type="radio" name="selected" value="{{$pm->id}}">
+                        @endif
                     @else
-                    <input type="radio" name="selected" value="{{$pm->id}}">
+                    <p style="color: red">Tidak bisa menambahkan proyek</p>
                     @endif
                 </td>
             </tr>
