@@ -7,6 +7,7 @@
         <div class="container">
             <div class="row">
                 <div class="card card-detail-proyek" style="min-height: 200px; width: 500px">
+                    <br>
                     <div class="font-title" style="text-align: center">Upload New File for Proyek {{ $proyek->projectName }}</div>
                     <hr>
                     <div class="panel-body">

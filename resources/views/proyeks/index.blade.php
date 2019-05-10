@@ -354,7 +354,7 @@
                                 <td>{{ $proyeks->projectName }}</td>
                                 <td>{{ $proyeks->created_at }}</td>
                                 <td style="color:limegreen;"> Menunggu kelengkapan lelang </td>
-                                <td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+                                <td><a class="btn btn-primary" href="/proyek/setujuiProyek/{{ $proyeks->id }}"">Lihat</a></td>
                             </tr>
                             @endforeach
                             </tbody>

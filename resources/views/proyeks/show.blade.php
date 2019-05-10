@@ -99,7 +99,7 @@
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
                 <br>
-                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-disapprove" style="margin-left: 35px; margin-top: 35px; padding-top: 10px">Kelola Lelang</a>
+                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-disapprove" style="margin-left: 35px; margin-top: 35px; padding-top: 10px">Lelang</a>
                 <br>
             </div>
         </div>
@@ -231,7 +231,7 @@
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
 <!--                <button href="/kelolaLelang/{{ $proyek->id }}" class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>-->
-                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-disapprove" style="margin-left: 35px; margin-top: 60px; padding-top: 10px">Berkas Lelang</a>
+                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-disapprove" style="margin-left: 35px; margin-top: 60px; padding-top: 10px">Lelang</a>
 <!--                <button class="button-disapprove" style="margin-left: 35px">LPJ</button>-->
             </div>
         </div>

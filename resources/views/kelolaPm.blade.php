@@ -77,8 +77,8 @@
             </div>
             <div class="modal-footer">
                 <!--                GANTI JADI BALIK KE DETAIL PROYEK-->
-                <a href="/pm/kelola" class="btn btn-default" style="color:red;">Iya</a>
-                <a href="/pm/kelola/" class="btn btn-primary">Tidak</a>
+                <a href="/proyek/lihat/{{ $proyek_id }}" class="btn btn-default" style="color:red;">Iya</a>
+                <a href="/pm/kelola/{{ $proyek_id }}" class="btn btn-primary">Tidak</a>
             </div>
         </div>
     </div>
