@@ -24,6 +24,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
+
 <!-- INI PUNYA STAFF MARKETING -->
 @if(Auth::user()->role == 3)
 @section ('content')
@@ -102,20 +103,21 @@
 											</tr>
 										</thead>
 										<tbody >
+										
 										@foreach($proyekNonPoten as $proyeks)
+										@if($proyeks->approvalStatus == 1 || $proyeks->approvalStatus == 2)
 											<tr style="background-color: whitesmoke;">
 												<td>{{ $proyeks->projectName }}</td>
 												<td>{{ $proyeks->created_at }}</td>
-												@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
-												@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
-												@else <td style="color:red;"> DITOLAK </td>
+												@if($proyeks->approvalStatus === 1) <td style="color:blue; "> Menunggu persetujuan direksi</td>
+												@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> Menunggu kelengkapan lelang </td>
 												@endif
-												@if($proyeks->approvalStatus === 2)
-												<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
-												@else
+												<!-- sedang berjalan -->
+												
 												<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
-												@endif
+												
 											</tr>
+										@endif
 										@endforeach
 										</tbody>
 									</table>
@@ -140,19 +142,19 @@
 									</thead>
 									<tbody >
 									@foreach($proyekNonPoten as $proyeks)
+									@if($proyeks->approvalStatus == 3)
 										<tr style="background-color: whitesmoke;">
 											<td>{{ $proyeks->projectName }}</td>
 											<td>{{ $proyeks->created_at }}</td>
-											@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
-											@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
-											@else <td style="color:red;"> DITOLAK </td>
-											@endif
+											<td style="color:limegreen;"> Menunggu hasil lelang </td>
+											
 											@if($proyeks->approvalStatus === 2)
 											<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
 											@else
 											<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
 											@endif
 										</tr>
+									@endif
 									@endforeach
 									</tbody>
 								</table>
@@ -177,19 +179,25 @@
 											</thead>
 											<tbody >
 											@foreach($proyekNonPoten as $proyeks)
+											@if($proyeks->approvalStatus == 4 || $proyeks->approvalStatus == 5 || $proyeks->approvalStatus == 6 ||$proyeks->approvalStatus == 7
+											 || $proyeks->approvalStatus == 8)
 												<tr style="background-color: whitesmoke;">
 													<td>{{ $proyeks->projectName }}</td>
 													<td>{{ $proyeks->created_at }}</td>
-													@if($proyeks->approvalStatus === 1) <td style="color:blue; "> DISETUJUI</td>
-													@elseif($proyeks->approvalStatus === 2) <td style="color:limegreen;"> SEDANG BERJALAN </td>
-													@else <td style="color:red;"> DITOLAK </td>
+													@if($proyeks->approvalStatus === 4) <td style="color:blue; ">Menunggu kontrak kerja</td>
+													@elseif($proyeks->approvalStatus === 5) <td style="color:limegreen;">Menunggu persetujuan kontrak kerja</td>
+													@elseif($proyeks->approvalStatus === 6) <td style="color:limegreen;">Menunggu penugasan PM</td>
+													@elseif($proyeks->approvalStatus === 7) <td style="color:limegreen;">Sedang dikerjakan</td>
+													@elseif($proyeks->approvalStatus === 8) <td style="color:limegreen;">Proyek selesai</td>
+													<!-- @else <td style="color:red;"> DITOLAK </td> -->
 													@endif
-													@if($proyeks->approvalStatus === 2)
+													@if($proyeks->approvalStatus === 4)
 													<td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
 													@else
 													<td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
 													@endif
 												</tr>
+											@endif
 											@endforeach
 											</tbody>
 										</table>

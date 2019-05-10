@@ -20,7 +20,7 @@
     <p class="font-subtitle-1">Detail Proyek</p>
     <hr>
     <div>
-        @if($proyek->approvalStatus === 0)
+        @if($proyek->approvalStatus === 1)
             <div class="row">
                 <div class="col-sm-10"> 
                     <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}}</p>
@@ -90,7 +90,7 @@
     </div>
     <div>
         <div class="row ketengahin">
-        @if($proyek->approvalStatus === 1)
+        @if($proyek->approvalStatus === 2 || $proyek->approvalStatus == 3)
             <a href=" /kelolaLelang/{{ $proyek->id }}"><div class="col-sm-12 card card-button-1">
                 <p class="font-button-berkas">Kelola Lelang<p>
             </div></a>

@@ -73,11 +73,12 @@
         <br>
         <div class="row ketengahin">
             <!-- bikin kondisi dulu -->
-            @if($statusKontrak == "false")
-            <a href="#"><div class="col-sm-3 card card-button">
-                <p class="font-button-berkas-inactive">Berkas Kontrak<p>
+            @if($proyek->approvalStatus == 4)
+            <a href="{{ route('buat-kontrak', $proyek->id) }}"><div class="col-sm-3 card card-button">
+                <p class="font-button-berkas">Berkas Kontrak<p>
             </div></a>
-            @else
+            @elseif($proyek->approvalStatus == 5 || $proyek->approvalStatus == 6 || $proyek->approvalStatus == 7 ||
+            $proyek->approvalStatus == 8)
             <a href="{{ route('view-kontrak', $proyek->id) }}"><div class="col-sm-3 card card-button">
                 <p class="font-button-berkas">Berkas Kontrak<p>
             </div></a>

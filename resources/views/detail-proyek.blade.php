@@ -2,7 +2,7 @@
 
 @section ('content')
 @include('layouts.nav')
-
+<!-- direksi -->
 <!-- Breadcrumbs (ini buat navigation yaa) -->
 
 <nav aria-label="breadcrumb">
