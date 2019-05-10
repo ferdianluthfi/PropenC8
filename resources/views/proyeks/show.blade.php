@@ -116,16 +116,13 @@
 </nav>
 <!-- isinya -->
 <div class="container-fluid card card-detail-proyek">
-    <br>
-    <p class="font-subtitle-1">Detail Proyek</p>
-    <hr>
-    <div>
-        <div class="row">
-            <div class="col-sm-10">
-                <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}}</p>
-            </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <p class="font-title" style="margin-top: 20px; margin-left: 20px">Detail Proyek {{ $proyek->projectName}}</p>
         </div>
-        <br>
+        <div class="col-sm-6">
+            <p style="text-align: right; margin-right: 20px; margin-top: 30px">{{ $status }}</p>
+        </div>
     </div>
     <div class="row ketengahin">
         <div class="col-sm-7">
@@ -197,9 +194,15 @@
     </ol>
 </nav>
 <!-- isinya -->
-<div class="container-fluid card card-detail-proyek" style="min-height: 450px">
-    <p class="font-title" style="text-align: center">Detail Proyek {{ $proyek->projectName}}</p>
-    <p style="text-align: right">{{ $status }}</p>
+<div class="container-fluid card card-detail-proyek">
+    <div class="row">
+        <div class="col-sm-6">
+            <p class="font-title" style="margin-top: 20px; margin-left: 20px">Detail Proyek {{ $proyek->projectName}}</p>
+        </div>
+        <div class="col-sm-6">
+            <p style="text-align: right; margin-right: 20px; margin-top: 30px">{{ $status }}</p>
+        </div>
+    </div>
     <hr>
     <div>
         <div class="row">
@@ -210,7 +213,7 @@
         <br>
     </div>
     <div class="row ketengahin">
-        <div class="col-sm-7">
+        <div class="col-sm-8">
             <div class="card card-info">
                 <div class="row judul">
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
@@ -255,9 +258,9 @@
                 <br>
                 <p class="font-subtitle-5">Project Manager</p>
                 <hr/>
-                <button class="button-disapprove" style="margin-left: 70px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
-                <button class="button-disapprove" style="margin-left: 70px; margin-bottom: 10px">LAPJUSIK</button>
-                <button class="button-disapprove" style="margin-left: 70px">LPJ</button>
+                <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
+                <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
+                <button class="button-disapprove" style="margin-left: 35px">LPJ</button>
             </div>
         </div>
     </div>
