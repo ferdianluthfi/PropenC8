@@ -86,7 +86,7 @@ class PelaksanaanController extends Controller
             $displayText = "Tidak dapat menambahkan review karena persetujuan tidak sesuai.";
         }
         elseif($review == null){
-            $displayText = "Belum ada review";
+            $displayText = "Belum ada review.";
         }
         else{
             $rating = $review->rating;

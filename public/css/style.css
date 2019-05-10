@@ -57,8 +57,22 @@ body{
   margin: 0 auto;
   margin-top: 20px;
   padding-bottom:20px;
-  width: 340px;
-  min-height: 280px;
+  width: 300px;
+  min-height: 80px;
+}
+
+.card-detail-lapjusik {
+  margin: 0 auto;
+  margin-top: 20px;
+  padding-bottom:20px;
+  width: 700px;
+  min-height: 500px;
+}
+
+.card-uraian-kerja {
+  width:650px;
+  min-height:220px;
+  margin: 0 auto;
 }
 
 .card-detail-proyek {
@@ -184,6 +198,18 @@ hr{
     display: inline-block;
     border:1.5px solid #63A2F6;
     color:#63A2F6;
+}
+
+.button-review{
+  background-color:#63A2F6;
+  border-radius:5px;
+  width:150px;
+  height:40px;
+  text-align:center;
+  text-decoration: none;
+  display: inline-block;
+  border:none;
+  color:#ffffff;
 }
 
 .modal-button-approve{
