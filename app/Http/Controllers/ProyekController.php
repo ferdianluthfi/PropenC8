@@ -1,14 +1,11 @@
 <?php
 namespace App\Http\Controllers;
-
 // use DB;
 use App\Proyek;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Pengguna;
-
-
 class ProyekController extends Controller
 {
     /**
@@ -32,21 +29,18 @@ class ProyekController extends Controller
             $status;
             $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',0)->where('pengguna_id', \Auth::user()->id)->get();
             $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 1)->orWhere('approvalStatus',2)->orWhere('approvalStatus',3)->get();
-            
+
             foreach($proyekPoten as $proyeg){
                 $statusNum = $proyeg-> approvalStatus;
-
                 if($statusNum == 0){
                     $status = "MENUNGGU PERSETUJUAN";
                 }
             }
             foreach($proyekNonPoten as $proyeg){
-
                 $statusNum = $proyeg-> approvalStatus;
                 $temp = explode(" ",$proyeg->created_at)[0];
                 $date = $this->waktu($temp);
                 $proyeg->created_at = $date;
-
                 if($statusNum == 1){
                     $status = "DISETUJUI";
                 }elseif($statusNum == 2){
@@ -55,27 +49,26 @@ class ProyekController extends Controller
                     $status = "DITOLAK";
                 }
             }
-        
+
             return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'status'));
         }
         elseif(\Auth::user()->role == 5){
             $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
             return view('proyeks.index',compact('proyekPoten'));
         }
-
         elseif(\Auth::user()->role == 6){ //buat manager pelaksana jg isini (?)
             $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 6)->orWhere('approvalStatus', 7)->get();
             return view('proyeks.index',compact('proyekPoten'));
         }
-        
+
         elseif(\Auth::user()->role == 2){
             $proyekPoten = DB::table('proyeks')->select('projectName', 'companyName', 'id')
-            ->where('approvalStatus',0)->get();
-        
+                ->where('approvalStatus',0)->get();
+
             $proyekNonPoten = DB::table('proyeks')->select('projectName', 'companyName', 'id', 'created_at',
-            'approvalStatus')
-            ->where('approvalStatus', 1)->orWhere('approvalStatus',2)->orWhere('approvalStatus',3)->get();
-        
+                'approvalStatus')
+                ->where('approvalStatus', 1)->orWhere('approvalStatus',2)->orWhere('approvalStatus',3)->get();
+
             foreach($proyekNonPoten as $proyekNonP){
                 $temp = explode(" ",$proyekNonP->created_at)[0];
                 $date = $this->waktu($temp);
@@ -86,10 +79,8 @@ class ProyekController extends Controller
         else{
             return view('no-access');
         }
-        
+
     }
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -109,21 +100,21 @@ class ProyekController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-		    'projectName' => 'required',
-		    'companyName' => 'required',
+            'projectName' => 'required',
+            'companyName' => 'required',
             'description' => 'required',
             'projectValue' => 'required|integer',
             'estimatedTime' => 'required|integer|min:1',
             'projectAddress' => 'required'
-        ]);   
+        ]);
         // return $request->all();
-        
+
         if($validator->fails()) {
             session()->flash('error', 'Ada kesalahan input');
             return redirect('/proyek/tambah')
                 ->withErrors($validator)
                 ->withInput();
-        //    return $request->all();
+            //    return $request->all();
         } else {
             DB::table('proyeks')->insert([
                 'name' => $request->name,
@@ -140,7 +131,7 @@ class ProyekController extends Controller
                 'pengguna_id'=> \Auth::user()->id,
                 'created_at' => now('GMT+7'),
                 'updated_at' => now('GMT+7'),
-            ]); 
+            ]);
             session()->flash('flash_message', 'Proyek telah ditambahkan.');
             return redirect('/proyek');
         }
@@ -156,7 +147,7 @@ class ProyekController extends Controller
         $proyeks = DB::table('proyeks') -> where('id', $id) -> get();
         $status;
         $pmName;
-        
+
         foreach($proyeks as $proyeg){
             $statusNum = $proyeg-> approvalStatus;
             $temp = number_format($proyeg->projectValue, 2, ',','.');
@@ -175,7 +166,6 @@ class ProyekController extends Controller
             }
             elseif($statusNum == 6){
                 $status = "MENUNGGU PENUGASAN PM";
-
             }
             elseif($statusNum == 7){
                 $status = "SEDANG BERJALAN";
@@ -183,9 +173,8 @@ class ProyekController extends Controller
                 $choosenPmId = $choosenPmFromAssignment->pengguna_id;
                 $pm = DB::table('users')->where('id', $choosenPmId)->first();
                 $pmName = $pm->name;
-
             }
-        }        
+        }
         return view('proyeks/show',compact('id', 'proyeks', 'status', 'pmName'));
     }
     /**
@@ -198,9 +187,9 @@ class ProyekController extends Controller
     {
         // mengambil data pegawai berdasarkan id yang dipilih
         $proyeks = DB::table('proyeks')->where('id',$id)->get();
-  
-	    // passing data pegawai yang didapat ke view edit.blade.php
-	    return view('proyeks/edit',["id" => $id, "proyeks" => $proyeks]);
+
+        // passing data pegawai yang didapat ke view edit.blade.php
+        return view('proyeks/edit',["id" => $id, "proyeks" => $proyeks]);
     }
     /**
      * Update the specified resource in storage.
@@ -213,21 +202,21 @@ class ProyekController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-		    'projectName' => 'required',
-		    'companyName' => 'required',
+            'projectName' => 'required',
+            'companyName' => 'required',
             'description' => 'required',
             'projectValue' => 'required|integer',
             'estimatedTime' => 'required|integer|min:1',
             'projectAddress' => 'required'
-        ]);   
+        ]);
         // return $request->all();
-        
+
         if($validator->fails()) {
             session()->flash('error', 'Ada kesalahan input');
             return redirect('/proyek/ubah/$request->id')
                 ->withErrors($validator)
                 ->withInput();
-        //    return $request->all();
+            //    return $request->all();
         } else {
             DB::table('proyeks')->where('id',$request->id)->update([
                 'name' => $request->name,
@@ -243,7 +232,7 @@ class ProyekController extends Controller
                 'isLPJExist'=>0,
                 'pengguna_id'=>\Auth::user()->id,
                 'updated_at' => now('GMT+7'),
-            ]); 
+            ]);
             session()->flash('flash_message', 'Data proyek telah diubah.');
             return redirect('/proyek');
         }
@@ -272,40 +261,40 @@ class ProyekController extends Controller
     public function destroy($id)
     {
         // menghapus data [proyek] berdasarkan id yang dipilih
-	    DB::table('proyeks')->where('id',$id)->delete();
-		
-	    // alihkan halaman ke halaman proyek
-	    return redirect()->back()->with('flash_message', 'Proyek telah dihapus.');
+        DB::table('proyeks')->where('id',$id)->delete();
+
+        // alihkan halaman ke halaman proyek
+        return redirect()->back()->with('flash_message', 'Proyek telah dihapus.');
     }
-    
+
     public function waktu($tanggal){
-        
-        
+
+
         $bulan = date("m", strtotime($tanggal));
         $tahun = date("Y", strtotime($tanggal));
         $day = substr($tanggal, 8, 9);
         $days = strval($day);
         $tahuns = strval($tahun);
-        
-        
-        
+
+
+
         $bulanTerbilang;
         if($bulan == "1"){
             $bulanTerbilang = "Januari";
         }
-        
+
         elseif($bulan == "2"){
             $bulanTerbilang = "Februari";
         }
-        
+
         elseif($bulan == "3"){
             $bulanTerbilang = "Maret";
         }
-        
+
         elseif($bulan == "4"){
             $bulanTerbilang = "April";
         }
-        
+
         elseif($bulan == "5"){
             $bulanTerbilang = "Mei";
         }
@@ -321,24 +310,22 @@ class ProyekController extends Controller
         if($bulan == "9"){
             $bulanTerbilang = "September";
         }
-        
+
         elseif($bulan == "10"){
             $bulanTerbilang = "Oktober";
         }
         elseif($bulan == "11"){
             $bulanTerbilang = "November";
         }
-        
-        elseif($bulan == "12"){ 
+
+        elseif($bulan == "12"){
             $bulanTerbilang = "Desember";
         }
-        
+
         $waktu = "$days $bulanTerbilang $tahuns";
-        return($waktu);   
-           
+        return($waktu);
+
     }
-
-
     /**
      * punya jekiiiii
      */
@@ -348,7 +335,7 @@ class ProyekController extends Controller
         $proyek->projectValue = $formatValue;
         $status;
         $statusNum = $proyek-> approvalStatus;
-        
+
         if($statusNum == 0){
             $status = "MENUNGGU PERSETUJUAN";
         }
@@ -361,7 +348,7 @@ class ProyekController extends Controller
         elseif($statusNum == 3){
             $status = "DITOLAK";
         }
-        return view('approveProyekPoten', compact('proyek', 'status')); 
+        return view('approveProyekPoten', compact('proyek', 'status'));
     }
     public function projectDetailWithoutApprove($id){
         $proyek = DB::table('proyeks') ->select('*') -> where('id', $id) -> get()->first();
@@ -389,10 +376,10 @@ class ProyekController extends Controller
         else{
             $statusKontrak = "false";
         }
-            
+
         return view('projectDetail', compact('proyek', 'status', 'statusKontrak'));
     }
-  
+
     public function approveProject($id){
         $proyekz = DB::table('proyeks')
             ->where('id', $id)
@@ -405,6 +392,6 @@ class ProyekController extends Controller
             ->update(['approvalStatus' => 3]);
         return redirect('/proyek');
     }
-    
-    
+
+
 }
