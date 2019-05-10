@@ -45,7 +45,7 @@
 							<strong> {{ session('flash_message') }} </strong>
 					</div>
 				@endif
-				<h2 style="text-align:center;">Daftar Proyek Potensial</h2><br>
+				<h2 style="text-align:center;">Daftar Proyek Potensial</h2><hr><hr>
 				<div class="row">
 					<div class="col-md-3">
 						<a href="/proyek/tambah">

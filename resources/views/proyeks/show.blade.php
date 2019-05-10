@@ -15,8 +15,8 @@
   </ol>
 </nav>
 <!-- isinya -->
-<div class="row">
-    <div class="container-fluid card card-detail-proyek" style="min-height: 450px">
+<div class="container-fluid card card-detail-proyek" style="min-height: 450px">
+    <div class="row">
         <div class="col-sm-10"> 
                 <p class="font-title" style="text-align: center">Detail Proyek {{ $proyek->projectName}}</p>
         </div>
@@ -104,6 +104,17 @@
                     <button class="button-disapprove font-approval" style="margin-left: 70px; margin-bottom: 10px">Kelola Lelang<button>
                 </a>
                 <br>
+            </div>
+        </div>
+        @elseif ($proyek->approvalStatus === 4 || $proyek->approvalStatus === 5 || $proyek->approvalStatus === 6 || $proyek->approvalStatus === 7 || $proyek->approvalStatus === 8)
+        <div class="col-sm-2">
+            <div class="card card-pm">
+                <br>
+                <p class="font-subtitle-5">Project Manager</p>
+                <hr/>
+                <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
+                <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
+                <button class="button-disapprove" style="margin-left: 35px">LPJ</button>
             </div>
         </div>
         @endif
