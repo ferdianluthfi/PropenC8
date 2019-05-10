@@ -32,20 +32,11 @@
             <th>Kelola</th>
             </thead>
             <tbody>
-            @foreach ($pmgrs as $pm)
+            @foreach ($pmlist as $pm)
             <tr>
                 <td>{{ $pm->id }}</td>
-                <td>{{ $pm->username }}</td>
-                @php
-                $pp = $pm_proyek->where('pengguna_id', $pm->id)->first;
-                @endphp
-
-                @if($pm->id === $pp->pengguna_id)
-                <td>{{ $pp->total }}</td>
-                @else
-                <td>0</td>
-                @endif
-
+                <td>{{ $pm->name }}</td>
+                <td>{{ $pm->total }}</td>
                 <td style="vertical-align: center">
                     @if($pm->id == $choosenPmId)
                     <input type="radio" name="selected" value="{{$pm->id}}" checked>

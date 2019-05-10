@@ -45,8 +45,9 @@ class PenggunaController extends Controller
             ->groupBy('pengguna_id')
             ->selectRaw('count(proyek_id) as total, pengguna_id')->get();
         
+        $pmlist = DB::select('SELECT u.id, u.name, COALESCE(count(a.proyek_id),0) as total FROM users u left join assignments a on u.id = a.pengguna_id where u.role = 7 group by u.id,u.name');
 
-        return view('kelolaPm',compact('assign', 'pmgrs', 'choosenPmId', 'proyek_id', 'pm_proyek' ));
+        return view('kelolaPm',compact('assign', 'pmgrs', 'choosenPmId', 'proyek_id', 'pm_proyek','pmlist' ));
 
     }
 
