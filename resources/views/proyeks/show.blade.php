@@ -124,12 +124,28 @@
             <p style="text-align: right; margin-right: 20px; margin-top: 30px">{{ $status }}</p>
         </div>
     </div>
+    <hr>
+    <div>
+        <div class="row">
+            <div class="col-sm-10">
+                <p class="font-subtitle-2"></p>
+            </div>
+        </div>
+        <br>
+    </div>
     <div class="row ketengahin">
-        <div class="col-sm-7">
+        <div class="col-sm-8">
             <div class="card card-info">
                 <div class="row judul">
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
-                    <div class="col-sm-5 font-status-approval" style="margin-left:15px;">{{$status}}</div>
+                    <div class="col-sm-5 font-status-approval" style="margin-left:30px;">
+                        @if ($proyek->approvalStatus == 6)
+                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right">Tambah PM</a>
+                        @elseif ($proyek->approvalStatus == 7)
+                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right">{{$pmName}}</a>
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        @endif
+                    </div>
                 </div>
                 <hr style="background-color:black;"/>
                 <div class="row">
@@ -162,20 +178,22 @@
             <div class="card card-pm">
                 <br>
                 <p class="font-subtitle-5">Project Manager</p>
-                <hr style="background-color:black;"/>
-                <br> <br> <br>
-                <p class="font-status-approval" style="text-align: center;">Belum Tersedia.</p>
+                <hr/>
+<!--                <button href="/kelolaLelang/{{ $proyek->id }}" class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>-->
+                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-disapprove" style="margin-left: 35px; margin-top: 60px; padding-top: 10px">LAPJUSIK</a>
+<!--                <button class="button-disapprove" style="margin-left: 35px">LPJ</button>-->
             </div>
         </div>
     </div>
-    <div>
-        <div class="row ketengahin">
-            <a href=" /kelolaLelang/{{ $proyek->id }}"><div class="col-sm-12 card card-button-1">
-                    <p class="font-button-berkas">Kelola Lelang<p>
-                </div></a>
-        </div>
-    </div>
 </div>
+<!--<div>-->
+<!--        <div class="row ketengahin">-->
+<!--            <a href=" /kelolaLelang/{{ $proyek->id }}"><div class="col-sm-12 card card-button-1">-->
+<!--                    <p class="font-button-berkas">Kelola Lelang<p>-->
+<!--                </div></a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 @endforeach
 @endsection
 
