@@ -26,11 +26,10 @@
                                     <!--                                    <input type="text" name="title" class="form-control">-->
                                     <select name="title">
                                         <option disabled selected value> -- select an option -- </option>
-                                        <option value="Surat A">Surat A</option>
-                                        <option value="Surat B">Surat B</option>
-                                        <option value="Surat C">Surat C</option>
-                                        <option value="Surat D">Surat D</option>
-                                        <option value="Surat E">Surat E</option>
+                                        <option value="Surat Undangan">Surat Undangan</option>
+                                        <option value="RAB">RAB</option>
+                                        <option value="Data Perusahaan Pemenang">Data Perusahaan Pemenang</option>
+                                        <option value="Berita Acara Penjelasan Pekerjaan">Berita Acara Penjelasan Pekerjaan</option>
                                     </select>
                                     <span class="help-block text-danger">{{ $errors->first('title') }}</span>
                                 </div>
