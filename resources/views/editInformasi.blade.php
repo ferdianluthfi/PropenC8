@@ -46,7 +46,8 @@
                 <div class="content bg1">
                     <span class="labels">Uraian Pekerjaan</span>
                     <select name="tipepekerjaan" class="content bg1">
-                        @foreach($pekerjaan as $tipe)
+                        <option value="{{$finalPekerjaan->id}}" >{{$finalPekerjaan->name}}</option>
+                        @foreach($bladePekerjaan as $tipe)
                             <option value="{{$tipe->id}}" >{{$tipe->name}}</option>
                         @endforeach
                     </select>
@@ -105,8 +106,6 @@
                         <img src="{{asset($fot->path)}}" width="400" height="400">
                         <input name="listId[]" style="display:none" id="input-<?php echo $fot->id?>" value=" {{$fot->id}}">
                         <a class="btn btn-danger foto" id="button-{{$fot->id}}" onclick="addDeletedPhoto({{$fot->id}})" style="font-size:12pt; font-weight:bolder; align:right;"> Hapus</a>
-                        <!--<td><input type="photo" name="photo[]" class="help-block text-danger" value="{{$fot->path}}"> {{ $errors->first('photo') }}</td>
-                        <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></td>-->
                 </div>
                 @endforeach 
                 

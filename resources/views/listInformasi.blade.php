@@ -36,7 +36,7 @@
             <div class="row bigCard">
                 <div class="col-md-12">
                     <h2 style="text-align:center;">Daftar Kemajuan Proyek</h2><br>
-                    <div class="card-table">
+                    <div class="card" style=" background-color: whitesmoke;">
                         <div class="panel-body">
                             <table id="datatable" class="table table-striped table-bordered text-center">
                                 <thead>
@@ -53,15 +53,15 @@
                                         <tr style="background-color: whitesmoke;">
 
                                             @if( $informasi->description == NULL)
-                                                <th>{{ $lizWork[$informasi->pekerjaan_id - 1] }}</th>
+                                                <td>{{ $lizWork[$informasi->pekerjaan_id - 1] }}</td>
                                             @else
-                                                <th>{{ $lizWork[$informasi->pekerjaan_id - 1] }} ({{ $informasi->description }})</th>
+                                                <td>{{ $lizWork[$informasi->pekerjaan_id - 1] }} ({{ $informasi->description }})</td>
                                             @endif
                                             <td> {{ date('F d' , strtotime($informasi->reportDate)) }}</td>
                                             <td><a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary">Lihat</a></td>
-                                            <td><a class="btn btn-warning" href="/info/edit/{{$informasi->id}}">Ubah</a></td>
+                                            <td><a class="btn" style=" background-color: whitesmoke;  color: blue; border: 2px solid" href="/info/edit/{{$informasi->id}}">Ubah</a></td>
                                             <td>
-                                            <a class="btn btn-danger" data-toggle="modal" data-target="#myModal-<?php echo $informasi->id ?>">
+                                            <a class="btn" style=" background-color: whitesmoke;  color: red; border: 2px solid" data-toggle="modal" data-target="#myModal-<?php echo $informasi->id ?>">
                                                 <span>
                                                     Hapus
                                                 </span>

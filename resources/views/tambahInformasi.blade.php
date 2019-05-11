@@ -48,13 +48,13 @@
 
                     <div class="content bg1">
                         <span class="labels">Deskripsi Tambahan</span>
-                        <input type="text" name="description" class="inputs" placeholder="Masukkan Deskripsi Kemajuan" data-error=".errorDescription">
+                        <input type="text" name="description" class="inputs" placeholder="Masukkan Deskripsi Kemajuan Tambahan" data-error=".errorDescription">
                         <div class="errorMessage errorDescription"></div>
                     </div>
     
                     <div class="content bg1">
                         <span class="labels">Tanggal Informasi</span>
-                        <input type="date" name="reportdate" class="inputs" data-error=".errorDate">
+                        <input type="date" name="reportdate" min="<?php echo $minDate ?>" class="inputs" data-error=".errorDate">
                         <div class="errorMessage errorDate"></div>
                     </div>
 
@@ -68,8 +68,8 @@
                     </div>
 
                     <div class="content bg1">
-                        <span class="labels">Nilai</span>
-                            <input type="number" name="nilai" class="inputs" placeholder="Masukkan Nilai Info" data-error=".errorVal">
+                        <span class="labels">Nilai Kemajuan</span>
+                            <input type="number" name="nilai" class="inputs" placeholder="Rp xxx.xxx.xxx" data-error=".errorVal">
                             <div class="errorMessage errorVal"></div>
                     </div>
 
@@ -198,19 +198,15 @@
                 },
                 //For custom messages
                 messages:{
-                    description:{
-                        required: "Deskripsi proyek harus diisi",
-                    },
                     reportdate:{
-                        required: "Tanggal harus diisi",
+                        required: "Tanggal kemajuan harus diisi",
                     },
                     tipekemajuan:{
                         required: "Tipe info harus diisi",
                     },
                     nilai:{
-                        required: "Value proyek harus diisi",
-                        digits: "Value harus berupa angka",
-                        min: "Value minimal 1",  //ceklg
+                        required: "Value kemajuan harus diisi",
+                        min: "Value kemajuan minimal sebesar 1",
                     },
                 }, 
                 errorElement:'div',

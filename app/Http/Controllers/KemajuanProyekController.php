@@ -140,9 +140,6 @@ class KemajuanProyekController extends Controller
         $tanggal = $this->waktu($tanggalInfo);
         $foto = DB::table('listPhoto')->where('kemajuan_id',$id)->get();
 
-        if($foto!=null) {
-            $statusFoto = true;
-        }
         //dd($statusFoto);
 
         $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.name')->where('proyek_id',$idProyek[0]->proyek_id)->get();
@@ -154,16 +151,24 @@ class KemajuanProyekController extends Controller
             $counter++;
         }
 
-        return view('detailInformasi', compact('informasi','proyek','tanggal','foto','lizWork','statusFoto'));
+        return view('detailInformasi', compact('informasi','proyek','tanggal','foto','lizWork'));
     }
 
     public function tambahInformasi(){
         $idProyek = Assignment::select('assignments.proyek_id')->where('pengguna_id',\Auth::user()->id)->get();
         $proyekId = $idProyek[0]->proyek_id;
-        //dd($proyekId);
+        $allPelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->get();
+
+        foreach($allPelaksanaan as $pelaksanaan) {
+            if ($pelaksanaan->approvalStatus == 0) {
+                $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
+                $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
+                $minDate = "$requestedYear-$requestedMonth-01";
+            }            
+        }
         $pekerjaan = DB::table('jenis_pekerjaan')->whereIn('proyek_id',$idProyek)->get();
         //dd($pekerjaan);
-        return view('tambahInformasi',compact('pekerjaan','proyekId'));
+        return view('tambahInformasi',compact('pekerjaan','proyekId','minDate'));
     }
 
     public function tambahFoto($id){
@@ -171,7 +176,9 @@ class KemajuanProyekController extends Controller
         $idPelaksanaan = $kemajuan->pelaksanaan_id;
         $pelaksanaan = Pelaksanaan::find($idPelaksanaan);
         //dd($pelaksanaan);
-        return view('tambahFoto',compact('kemajuan','pelaksanaan'));
+        $foto = DB::table('listPhoto')->where('kemajuan_id',$id)->get();
+
+        return view('tambahFoto',compact('kemajuan','pelaksanaan','foto'));
     }
 
     public function simpanFoto($id,Request $request){
@@ -254,6 +261,7 @@ class KemajuanProyekController extends Controller
         if($pelaksanaan == null) {
             DB::table('pelaksanaans')->insert([
                 'approvalStatus' => 0,
+                'statePelaksanaan' => 1,
                 'createdDate' => now('GMT+7'),
                 'bulan'=> $adjustedMonth,
                 'proyek_id' => $proyekId,
@@ -300,7 +308,6 @@ class KemajuanProyekController extends Controller
         if ($request->file != null) {
             foreach($request->file as $file) {
                 $uploadedFile = $file;
-                ($uploadedFile);   
                 $path = $uploadedFile->storeAs('upload',$file->getClientOriginalName());
                 $publicPath = \Storage::url($path);
     
@@ -325,16 +332,36 @@ class KemajuanProyekController extends Controller
         $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$idPelaksanaan)->get();
         $proyek = Proyek::find($idProyek[0]->proyek_id);
         $kemajuans = KemajuanProyek::find($id);
-        $foto = DB::table('listPhoto')->select('listPhoto.*')->where('kemajuan_id',$id)->get();
+        $editedPekerjaan = array(1);
+        $editedPekerjaan[0] = $kemajuans->pekerjaan_id;
         $pekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek[0]->proyek_id)->get();
-        return view('editInformasi', compact('kemajuans','proyek','foto','pekerjaan'));
+
+        foreach($pekerjaan as $satuanPekerjaan) {
+            if ($satuanPekerjaan->id == $editedPekerjaan[0]) {
+                $finalPekerjaan = $satuanPekerjaan;
+            }
+        }
+
+        $bladePekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek[0]->proyek_id)->whereNotIn('id',$editedPekerjaan)->get();
+        $foto = DB::table('listPhoto')->select('listPhoto.*')->where('kemajuan_id',$id)->get();
+        return view('editInformasi', compact('kemajuans','proyek','foto','finalPekerjaan','bladePekerjaan'));
     }
 
     public function updateInformasi($id, Request $request){
         //dd($request->listId);
         if ($request->listId!=null) {
+
             $allId = DB::table('listPhoto')->select('listPhoto.id')->where('kemajuan_id',$id)->whereNotIn('id',$request->listId)->get();
             //dd($allId);
+            $deletedId = json_decode($allId);
+            //dd($deletedId);
+            for($i=0;$i<sizeof($allId);$i++) {
+
+                DB::table('listPhoto')->where('id',$deletedId[$i]->id)->delete();
+            }
+        }
+        else {
+            $allId = DB::table('listPhoto')->select('listPhoto.id')->where('kemajuan_id',$id)->get();
             $deletedId = json_decode($allId);
             //dd($deletedId);
             for($i=0;$i<sizeof($allId);$i++) {
