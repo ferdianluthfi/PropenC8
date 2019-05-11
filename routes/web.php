@@ -84,6 +84,12 @@ Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
 Route::get('/pelaksanaan/{id}', 'PelaksanaanController@viewPelaksanaan');
 Route::get('/pelaksanaan/detail/{id}', 'PelaksanaanController@detailPelaksanaan');
 Route::get('/pelaksanaan/tambah/{id}', 'PelaksanaanController@tambahPelaksanaan');
+ /*
+ * routing untuk PM2an
+ */
+Route::get('/pm/kelola/{proyek_id}', 'PenggunaController@getAvailablePm');//masuk ke page edit pm
+Route::post('/pm/update', 'PenggunaController@managePm');//update pm
+
 
 /**
  * Errors
@@ -91,4 +97,3 @@ Route::get('/pelaksanaan/tambah/{id}', 'PelaksanaanController@tambahPelaksanaan'
 Route::any('{catchall}', function() {
     return view('error-message');
   })->where('catchall', '.*');
-  
