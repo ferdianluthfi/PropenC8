@@ -208,12 +208,21 @@
                                     </thead>
                                     <tbody >
                                     @foreach($listInformasi as $informasi)
-                                            <tr style="background-color: whitesmoke;">
-                                                @if( $informasi->description == NULL)
-                                                    <td>{{ $lizWork[$informasi->pekerjaan_id - 1] }}</td>
-                                                @else
-                                                    <td>{{ $lizWork[$informasi->pekerjaan_id - 1] }} ({{ $informasi->description }})</td>
+                                    <tr style="background-color: whitesmoke;">
+
+                                        @if( $informasi->description == NULL)
+                                            @foreach($listPekerjaan as $pekerjaan)
+                                                @if($pekerjaan->id == $informasi->pekerjaan_id)
+                                                    <td>{{ $pekerjaan->name }} </td>
                                                 @endif
+                                            @endforeach
+                                        @else
+                                            @foreach($listPekerjaan as $pekerjaan)
+                                                @if($pekerjaan->id == $informasi->pekerjaan_id)
+                                                    <td>{{ $pekerjaan->name }} ({{ $informasi->description }})</td>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                                 <td>{{ date('F d' , strtotime($informasi->reportDate)) }}</td>
                                                 <td><a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary">Lihat</a></td>
                                             </tr>

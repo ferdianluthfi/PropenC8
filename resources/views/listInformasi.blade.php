@@ -50,48 +50,56 @@
                                 </thead>
                                 <tbody >
                                 @foreach($listInformasi as $informasi)
-                                        <tr style="background-color: whitesmoke;">
+                                    <tr style="background-color: whitesmoke;">
 
-                                            @if( $informasi->description == NULL)
-                                                <td>{{ $lizWork[$informasi->pekerjaan_id - 1] }}</td>
-                                            @else
-                                                <td>{{ $lizWork[$informasi->pekerjaan_id - 1] }} ({{ $informasi->description }})</td>
-                                            @endif
-                                            <td> {{ date('F d' , strtotime($informasi->reportDate)) }}</td>
-                                            <td><a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary">Lihat</a></td>
-                                            <td><a class="btn" style=" background-color: whitesmoke;  color: blue; border: 2px solid" href="/info/edit/{{$informasi->id}}">Ubah</a></td>
-                                            <td>
-                                            <a class="btn" style=" background-color: whitesmoke;  color: red; border: 2px solid" data-toggle="modal" data-target="#myModal-<?php echo $informasi->id ?>">
-                                                <span>
-                                                    Hapus
-                                                </span>
-                                            </a>
-                                            </td>
-                                        </tr>
-                                        
-                                        <div class="modal fade" id="myModal-<?php echo $informasi->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        <h4 class="modal-title" style="text-align:center;">Hapus Informasi?</h4>
-                                                    </div>
-                                                    <div class="modal-body" style="text-align:center;">
-                                                        <p>Informasi mengenai kemajuan proyek akan dihapus.</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <a href="/info/delete/{{$informasi->id}}" class="btn btn-default" style="color:red;">Hapus</a>
-                                                        <a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary ">Kembali</a>
-                                                    </div>
+                                        @if( $informasi->description == NULL)
+                                            @foreach($listPekerjaan as $pekerjaan)
+                                                @if($pekerjaan->id == $informasi->pekerjaan_id)
+                                                    <td>{{ $pekerjaan->name }} </td>
+                                                @endif
+                                            @endforeach
+                                        @else
+                                            @foreach($listPekerjaan as $pekerjaan)
+                                                @if($pekerjaan->id == $informasi->pekerjaan_id)
+                                                    <td>{{ $pekerjaan->name }} ({{ $informasi->description }})</td>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                        <td> {{ date('F d' , strtotime($informasi->reportDate)) }}</td>
+                                        <td><a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary">Lihat</a></td>
+                                        <td><a class="btn" style=" background-color: whitesmoke;  color: blue; border: 2px solid" href="/info/edit/{{$informasi->id}}">Ubah</a></td>
+                                        <td>
+                                        <a class="btn" style=" background-color: whitesmoke;  color: red; border: 2px solid" data-toggle="modal" data-target="#myModal-<?php echo $informasi->id ?>">
+                                            <span>
+                                                Hapus
+                                            </span>
+                                        </a>
+                                        </td>
+                                    </tr>
+                                    
+                                    <div class="modal fade" id="myModal-<?php echo $informasi->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title" style="text-align:center;">Hapus Informasi?</h4>
+                                                </div>
+                                                <div class="modal-body" style="text-align:center;">
+                                                    <p>Informasi mengenai kemajuan proyek akan dihapus.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="/info/delete/{{$informasi->id}}" class="btn btn-default" style="color:red;">Hapus</a>
+                                                    <a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary ">Kembali</a>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                 @endforeach
 
                                 </tbody>
                             </table>
                         </div>
-                        <a href="/info/tambah" class="btn btn-primary">Tambah Informasi</a>
+                        <a href="/info/tambah/{{$id}}" class="btn btn-primary">Tambah Informasi</a>
                     </div>
                 </div>
             </div>

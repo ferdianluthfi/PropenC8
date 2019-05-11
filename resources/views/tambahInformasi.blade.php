@@ -33,7 +33,7 @@
                 @endif
 
 
-                <form method="post" action="/info/submit" id="addForm" enctype="multipart/form-data">
+                <form method="post" action="/info/submit/{{$proyekId}}" id="addForm" enctype="multipart/form-data">
                 <h2 style="text-align:center;">Tambah Informasi Proyek</h2> <br>
                     {{ csrf_field() }}
 
@@ -123,7 +123,7 @@
                 </div>
                 <div class="modal-footer">
                     <a href="/informasi/{{$proyekId}}" class="btn btn-default" style="color:red;">Iya</a>
-                    <a href="/info/tambah" class="btn btn-primary ">Tidak</a>
+                    <a href="" class="btn btn-primary ">Tidak</a>
                 </div>
             </div>
             </div>

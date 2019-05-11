@@ -61,7 +61,7 @@
 
                 <div class="content bg1">
                     <span class="labels">Tanggal Informasi</span>
-                    <input type="date" name="reportdate" class="inputs" value="{{ $kemajuans->reportDate }}" data-error=".errorDate">
+                    <input type="date" name="reportdate" min="<?php echo $minDate ?>" class="inputs" value="{{ $kemajuans->reportDate }}" data-error=".errorDate">
                     <div class="errorMessage errorDate"></div>
                 </div>
 
@@ -232,19 +232,16 @@
                 },
                 //For custom messages
                 messages:{
-                    description:{
-                        required: "Deskripsi proyek harus diisi",
-                    },
                     reportdate:{
-                        required: "Tanggal harus diisi",
+                        required: "Tanggal kemajuan harus diisi",
                     },
                     tipekemajuan:{
-                        required: "Tipe info harus diisi",
+                        required: "Tipe kemajuan harus diisi",
                     },
                     nilai:{
-                        required: "Value proyek harus diisi",
-                        digits: "Value harus berupa angka",
-                        min: "Value minimal 1",  //ceklg
+                        required: "Value kemajuan harus diisi",
+                        digits: "Value kemajuan harus berupa angka",
+                        min: "Value kemajuan minimal bernilai 1",
                     },
                 }, 
                 errorElement:'div',

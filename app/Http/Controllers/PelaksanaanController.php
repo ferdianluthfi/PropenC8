@@ -28,26 +28,21 @@ class PelaksanaanController extends Controller
         $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->where('proyek_id',$id)->get();
         $listPelaksanaan = Pelaksanaan::select('pelaksanaans.*')->where('proyek_id',$id)->get();
         $listInformasi = KemajuanProyek::select('kemajuan_proyeks.*')->whereIn('pelaksanaan_id',$idPelaksanaan)->get();
-        $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.name')->where('proyek_id',$id)->get();
-        $lizWork=array($listPekerjaan->count());
-        $counter = 0;
-        foreach($listPekerjaan as $pekerjaan) {
-            $lizWork[$counter] = $pekerjaan->name;
-            $counter++;
-        }
+        $listPekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$id)->get();
+        
         $flaggedPelaksanaan=null;
         $draftFlag = Pelaksanaan::select('pelaksanaans.*')->where('flag',0)->get();
         if($draftFlag->isempty()) {
             $draftFlag = null;
-            return view('listPelaksanaan', compact('listPelaksanaan','listInformasi','lizWork','idProyek','namaProyek','draftFlag','flaggedPelaksanaan'));
+            return view('listPelaksanaan', compact('listPelaksanaan','listInformasi','listPekerjaan','idProyek','namaProyek','draftFlag','flaggedPelaksanaan'));
         }
         if(count($draftFlag) == 1) {
             $flaggedPelaksanaan = Pelaksanaan::select('pelaksanaans.*')->where('flag',0)->first();
-            return view('listPelaksanaan', compact('listPelaksanaan','listInformasi','lizWork','idProyek','namaProyek','flaggedPelaksanaan','draftFlag'));
+            return view('listPelaksanaan', compact('listPelaksanaan','listInformasi','listPekerjaan','idProyek','namaProyek','flaggedPelaksanaan','draftFlag'));
         }
         //dd(json_decode($flaggedPelaksanaan)[0]);
 
-        return view('listPelaksanaan', compact('listPelaksanaan','listInformasi','lizWork','idProyek','namaProyek','draftFlag','flaggedPelaksanaan'));
+        return view('listPelaksanaan', compact('listPelaksanaan','listInformasi','listPekerjaan','idProyek','namaProyek','draftFlag','flaggedPelaksanaan'));
     }
 
     public function tambahPelaksanaan($id) {

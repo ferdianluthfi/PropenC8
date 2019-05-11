@@ -92,10 +92,19 @@
                         <li><p>Rp {{ $informasi->value}}<p></li>
 
                         @if( $informasi->description == NULL)
-                            <li><p class="deskripsi" style="margin-bottom:10px;" >{{ $lizWork[$informasi->pekerjaan_id - 1] }}<p></li> <br>
+                            @foreach($listPekerjaan as $pekerjaan)
+                                @if($pekerjaan->id == $informasi->pekerjaan_id)
+                                    <li><p class="deskripsi" style="margin-bottom:10px;" >{{ $pekerjaan->name }}<p></li> <br>
+                                @endif
+                            @endforeach
                         @else
-                            <li><p class="deskripsi" style="margin-bottom:10px;" >{{ $lizWork[$informasi->pekerjaan_id - 1] }} ({{ $informasi->description }})<p></li> <br>
+                            @foreach($listPekerjaan as $pekerjaan)
+                                @if($pekerjaan->id == $informasi->pekerjaan_id)
+                                    <li><p class="deskripsi" style="margin-bottom:10px;" >{{ $pekerjaan->name }} ({{ $informasi->description }})<p></li> <br>
+                                @endif
+                            @endforeach
                         @endif
+
                     </ul>
                 </div>
             </div>

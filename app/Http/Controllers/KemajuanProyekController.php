@@ -116,17 +116,9 @@ class KemajuanProyekController extends Controller
     public function viewInfo($id){
         $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->where('proyek_id',$id)->get();
         $listInformasi = KemajuanProyek::select('kemajuan_proyeks.*')->whereIn('pelaksanaan_id',$idPelaksanaan)->get();
-        $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.name')->where('proyek_id',$id)->get();
-        $lizWork=array($listPekerjaan->count());
-        //dd($listPekerjaan->count());
-        $counter = 0;
-        foreach($listPekerjaan as $pekerjaan) {
-            $lizWork[$counter] = $pekerjaan->name;
-            $counter++;
-            //dd($counter);
-        }
-        //dd($lizWork);
-            return view('listInformasi', compact('listInformasi','lizWork'));
+        $listPekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$id)->get();
+
+        return view('listInformasi', compact('listInformasi','listPekerjaan','id'));
     }
 
     public function detailInfo($id) {
@@ -140,34 +132,31 @@ class KemajuanProyekController extends Controller
         $tanggal = $this->waktu($tanggalInfo);
         $foto = DB::table('listPhoto')->where('kemajuan_id',$id)->get();
 
-        //dd($statusFoto);
+        $listPekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek[0]->proyek_id)->get();
 
-        $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.name')->where('proyek_id',$idProyek[0]->proyek_id)->get();
-        $lizWork=array($listPekerjaan->count());
-        //dd($listPekerjaan->count());
-        $counter = 0;
-        foreach($listPekerjaan as $pekerjaan) {
-            $lizWork[$counter] = $pekerjaan->name;
-            $counter++;
-        }
-
-        return view('detailInformasi', compact('informasi','proyek','tanggal','foto','lizWork'));
+        return view('detailInformasi', compact('informasi','proyek','tanggal','foto','listPekerjaan'));
     }
 
-    public function tambahInformasi(){
-        $idProyek = Assignment::select('assignments.proyek_id')->where('pengguna_id',\Auth::user()->id)->get();
-        $proyekId = $idProyek[0]->proyek_id;
+    public function tambahInformasi($id){
+        $proyekId = $id;
         $allPelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->get();
 
-        foreach($allPelaksanaan as $pelaksanaan) {
-            if ($pelaksanaan->approvalStatus == 0) {
-                $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
-                $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
-                $minDate = "$requestedYear-$requestedMonth-01";
-            }            
+        if($allPelaksanaan->isempty()) {
+            $minDate = Proyek::select('proyeks.startDate')->where('id',$proyekId)->first()->startDate;
+            $pekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$proyekId)->get();
         }
-        $pekerjaan = DB::table('jenis_pekerjaan')->whereIn('proyek_id',$idProyek)->get();
-        //dd($pekerjaan);
+
+        else {
+            foreach($allPelaksanaan as $pelaksanaan) {
+                if ($pelaksanaan->approvalStatus == 0) {
+                    $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
+                    $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
+                    $minDate = "$requestedYear-$requestedMonth-01";
+                }            
+            }
+            $pekerjaan = DB::table('jenis_pekerjaan')->whereIn('proyek_id',$proyekId)->get();
+        }
+
         return view('tambahInformasi',compact('pekerjaan','proyekId','minDate'));
     }
 
@@ -211,9 +200,8 @@ class KemajuanProyekController extends Controller
     @param \Illuminate\Http\Request
     @return \Illuminate\Http\Response
     */
-    public function simpanInformasi(Request $request){
-        $idProyek = Assignment::select('assignments.proyek_id')->where('pengguna_id',\Auth::user()->id)->get();
-        $proyekId = $idProyek[0]->proyek_id;
+    public function simpanInformasi($id, Request $request){
+        $proyekId = $id;
 
         //Bulan awal
         $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->first();
@@ -342,9 +330,18 @@ class KemajuanProyekController extends Controller
             }
         }
 
+        $allPelaksanaan = Pelaksanaan::where([['proyek_id','=',$idProyek[0]->proyek_id]])->get();
+        foreach($allPelaksanaan as $pelaksanaan) {
+            if ($pelaksanaan->approvalStatus == 0) {
+                $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
+                $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
+                $minDate = "$requestedYear-$requestedMonth-01";
+            }            
+        }
+
         $bladePekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek[0]->proyek_id)->whereNotIn('id',$editedPekerjaan)->get();
         $foto = DB::table('listPhoto')->select('listPhoto.*')->where('kemajuan_id',$id)->get();
-        return view('editInformasi', compact('kemajuans','proyek','foto','finalPekerjaan','bladePekerjaan'));
+        return view('editInformasi', compact('kemajuans','proyek','foto','finalPekerjaan','bladePekerjaan','minDate'));
     }
 
     public function updateInformasi($id, Request $request){
