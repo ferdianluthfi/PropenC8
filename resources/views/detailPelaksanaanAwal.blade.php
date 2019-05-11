@@ -83,82 +83,14 @@
     </div><br>
     @endforeach
 </div>
+
 <div class="col-sm-3"></div>
 <div class="card card-review col-sm-3" style="margin-left: 30px;">
       <br>
       <p class="font-subtitle-5">Review Klien</p>
       <hr>
-      @if($review != null)
-      <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;">
-        <div class="col-sm-6">
-          @for ($i=0; $i < $review->rating; $i++)
-            <span class="glyphicon glyphicon-star"></span>
-          @endfor
-          @for ($i=0; $i < (5 - $review->rating); $i++)
-            <span class="glyphicon glyphicon-star-empty"></span>
-          @endfor
-        </div>
-        <div class="col-sm-3"></div>
-        <div class="col-sm-3"style="margin-left:-20px;">
-          <p class="font-desc text-right">{{ $review->updated_at->format("d/m/Y") }}</p>
-        </div>
-      </div>
-      @if($interval)
-      <div class="container-fluid" style="padding-left:10px; padding-top:5px; padding-right:10px; padding-bottom:5px; border-radius:5px; border:0.5px solid #ECE9F1; width:250px; min-height:60px;">
-          <p class="font-desc">
-          {{ $displayText }} 
-          </p>
-    </div>
-    <div class="text-center">
-        <input type="hidden" name="id" value="{{ $review->id }}"> <br/>
-        <button data-toggle="modal" data-target="#edit-review" class="button-review font-approval">EDIT REVIEW</button>
-    </div>
-    <div class="modal fade" id="edit-review" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog" style="height:800px;" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" style="text-align:center;" id="edit-review">Ubah Review</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <form action="/pelaksanaan/detail/{{ $pelaksanaan->id }}/review/edit" method="get">
-      <input type="hidden" name="idReview" value="{{ $review->id }}">
-      <div class="modal-body">
-          <div class="form-group">
-            <label for="rating" style="font-subtitle-2" class="form-control-label">Rating</label>
-            <div id="stars" class="starrr"></div>
-            <input type="hidden" name="rating-star" id="rating-star">
-          </div>
-          <div class="form-group">
-            <label for="komentar" style="font-subtitle-2" class="form-control-label">Komentar</label>
-            <textarea class="form-control" name="komentar" id="komentar"> {{ $displayText }}</textarea>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <div class="row">
-        <div class="col-sm-6"></div>
-        <div class="col-sm-3">
-        <button type="button" class="modal-button-disapprove font-approval" style="margin-right:-25px;" data-dismiss="modal">KEMBALI</button>
-        </div>
-        <div class="col-sm-3">
-            @csrf
-            <button id="simpan2" class="modal-button-approve font-approval">SIMPAN</button>
-        </form>   
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-        @endif
-      @else
-      @if(Auth::user()->role == 8)
-      <div class="container-fluid" style="padding-left:75px; padding-top:25px; padding-right:50px; padding-bottom:10px; border-radius:5px; width:250px; min-height:60px;">
-          <p class="font-desc text-center">
-          {{ $displayText }} 
-          </p>
-    </div>
-    <br>
+  @if($review == null)
+  <br>
       <div class="text-center">
       <button data-toggle="modal" data-target="#add-review" class="button-review font-approval">TAMBAH REVIEW</button>
     </div>
@@ -176,11 +108,13 @@
       <div class="modal-body">
           <div class="form-group">
             <label for="rating" style="font-subtitle-2" class="form-control-label">Rating</label>
+            <div id="rating-error"></div>
             <div id="stars" class="starrr"></div>
             <input type="hidden" name="rating-star" id="rating-star">
           </div>
           <div class="form-group">
             <label for="komentar" style="font-subtitle-2" class="form-control-label">Komentar</label>
+            <div id="komentar-error"></div>
             <textarea class="form-control" name="komentar" id="komentar" placeholder="Masukkan komentar"></textarea>
           </div>
       </div>
@@ -199,6 +133,73 @@
       </div>
     </div>
   </div>
+    @else
+      <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;">
+        <div class="col-sm-6">
+          @for ($i=0; $i < $review->rating; $i++)
+            <span class="glyphicon glyphicon-star"></span>
+          @endfor
+          @for ($i=0; $i < (5 - $review->rating); $i++)
+            <span class="glyphicon glyphicon-star-empty"></span>
+          @endfor
+        </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3"style="margin-left:-20px;">
+          <p class="font-desc text-right">{{ $review->updated_at->format("d/m/Y") }}</p>
+        </div>
+      </div>
+      <div class="container-fluid" style="padding-left:10px; padding-top:5px; padding-right:10px; padding-bottom:5px; border-radius:5px; border:0.5px solid #ECE9F1; width:250px; min-height:60px;">
+          <p class="font-desc">
+          {{ $displayText }} 
+          </p>
+      </div>
+
+    @if(Auth::user()->role == 8)
+      @if($interval)
+    <div class="text-center">
+        <input type="hidden" name="id" value="{{ $review->id }}"> <br/>
+        <button data-toggle="modal" data-target="#edit-review" class="button-review font-approval">EDIT REVIEW</button>
+    </div>
+    <div class="modal fade" id="edit-review" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog" style="height:800px;" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="text-align:center;" id="edit-review">Ubah Review</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <form action="/pelaksanaan/detail/{{ $pelaksanaan->id }}/review/edit" method="get">
+      <input type="hidden" name="idReview" value="{{ $review->id }}">
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="rating" style="font-subtitle-2" class="form-control-label">Rating</label>
+            <div id="stars" class="starrr"></div>
+            <div id="rating-error"></div>
+            <input type="hidden" name="rating-star" id="rating-star">
+          </div>
+          <div class="form-group">
+            <label for="komentar" style="font-subtitle-2" class="form-control-label">Komentar</label>
+            <div id="komentar-error"></div>
+            <textarea class="form-control" name="komentar" id="komentar"> {{ $displayText }}</textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-3">
+        <button type="button" class="modal-button-disapprove font-approval" style="margin-right:-25px;" data-dismiss="modal">KEMBALI</button>
+        </div>
+        <div class="col-sm-3">
+            @csrf
+            <button id="simpan2" class="modal-button-approve font-approval">SIMPAN</button>
+        </form>   
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      @endif
       @endif
       @endif
    </div>
@@ -337,8 +338,11 @@ $(function() {
                 'pelaksanaan_id': parseInt('{{$pelaksanaan->id}}'),
                 '_token': "{{ csrf_token() }}"
             }
+            var rating_star = $("#rating-star").val()
+            var komentar = $("#komentar").val()
 
-			$.ajax({
+            if (rating_star != "" && komentar != "") {
+              $.ajax({
                 url:'/pelaksanaan/detail/{{ $pelaksanaan->id }}/review/add',
                 method: "POST",
                 data: data,
@@ -349,6 +353,12 @@ $(function() {
                     console.log(error);
                 }
                 })
+            } else {
+              $("#rating-error").append('<div><p class="font-error-modal">Rating harus diisi.</p></div>');
+              $("#komentar-error").append('<div><p class="font-error-modal">Komentar harus diisi.</p></div>');
+              // kirimpesan error
+            }
+		
 			
 		});
     @else

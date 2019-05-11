@@ -13,13 +13,6 @@
 
 <div class="container-fluid card card-detail-proyek">
     <br>
-    <p class="font-subtitle-1">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
-<p>
-    {{ $displayText }} 
-   </p>
-   <a href="#">Tambah Review</a>
-    <hr>
-
     @foreach($listPekerjaan as $pekerjaan)
     <div class="container-fluid card card-kontrak"><br>
         <div class="row" style="margin-left: -30px;">
