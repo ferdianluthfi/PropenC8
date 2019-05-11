@@ -22,9 +22,7 @@ Route::get('/error', function(){
     return view('error-message');
 });
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', function () {
-        return view('home');
-   });
+    Route::get('/', 'HomeController@index');
 });
 
 
@@ -78,6 +76,17 @@ Route::get('/info/edit/{id}', 'KemajuanProyekController@editInformasi');
 Route::post('/info/update/{id}', 'KemajuanProyekController@updateInformasi');
 Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
 
+
+/**
+ * Users
+ */
+Route::get('/homeAccountManager', 'HomeController@home')->name('homeAccountManager');
+Route::get('/user/lihat/{id}', 'HomeController@edit');
+Route::post('/user/update', 'HomeController@update');
+Route::get('/user/delete/{id}', 'HomeController@delete');
+Route::get('/user/unlock/{id}', 'HomeController@unlock');
+Route::post('/register', 'Auth\RegisterController@register')->name('register');
+
 /**
  * routing untuk LAPJUSIK
  */
@@ -97,3 +106,4 @@ Route::post('/pm/update', 'PenggunaController@managePm');//update pm
 Route::any('{catchall}', function() {
     return view('error-message');
   })->where('catchall', '.*');
+  

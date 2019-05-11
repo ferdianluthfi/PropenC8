@@ -132,7 +132,6 @@ class ProyekController extends Controller
             'projectAddress' => 'required'
         ]);
         // return $request->all();
-
         if($validator->fails()) {
             session()->flash('error', 'Ada kesalahan input');
             return redirect('/proyek/tambah')
