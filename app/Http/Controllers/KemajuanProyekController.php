@@ -261,7 +261,7 @@ class KemajuanProyekController extends Controller
         if($pelaksanaan == null) {
             DB::table('pelaksanaans')->insert([
                 'approvalStatus' => 0,
-                'statePelaksanaan' => 1,
+                'flag' => 1,
                 'createdDate' => now('GMT+7'),
                 'bulan'=> $adjustedMonth,
                 'proyek_id' => $proyekId,
