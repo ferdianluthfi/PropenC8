@@ -70,8 +70,8 @@ Route::get('/informasi/{id}', 'KemajuanProyekController@viewInfo');
 Route::get('/informasi/detail/{id}', 'KemajuanProyekController@detailInfo');
 Route::get('/informasi/detail/tambah/{id}', 'KemajuanProyekController@tambahFoto');
 Route::post('/foto/submit/{id}', 'KemajuanProyekController@simpanFoto');
-Route::get('/info/tambah/{idpelaksanaan}', 'KemajuanProyekController@tambahInformasi');
-Route::post('/info/submit/{idPelaksanaan}', 'KemajuanProyekController@simpanInformasi');
+Route::get('/info/tambah', 'KemajuanProyekController@tambahInformasi');
+Route::post('/info/submit', 'KemajuanProyekController@simpanInformasi');
 Route::get('/info/edit/{id}', 'KemajuanProyekController@editInformasi');
 Route::post('/info/update/{id}', 'KemajuanProyekController@updateInformasi');
 Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
@@ -87,6 +87,12 @@ Route::get('/user/delete/{id}', 'HomeController@delete');
 Route::get('/user/unlock/{id}', 'HomeController@unlock');
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
 
+/**
+ * routing untuk LAPJUSIK
+ */
+Route::get('/pelaksanaan/{id}', 'PelaksanaanController@viewPelaksanaan');
+Route::get('/pelaksanaan/detail/{id}', 'PelaksanaanController@detailPelaksanaan');
+Route::get('/pelaksanaan/tambah/{id}', 'PelaksanaanController@tambahPelaksanaan');
 
 /**
  * Errors

@@ -22,11 +22,8 @@
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('assignedproyek') }}">Proyek</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/proyek/detail/{{$pelaksanaan->proyek_id}}'>Detail Proyek</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/informasi/{{$pelaksanaan->proyek_id}}'>Informasi Kemajuan</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href='/info/tambah/{{$pelaksanaan->proyek_id}}'>Tambah Kemajuan</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('assignedproyek') }}">Daftar Proyek</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active">Tambah Informasi Proyek</a></li>
   </ol>
 </nav>
             <div class="container" nonvalidate="nonvalidate" id="jqueryvalidation">
@@ -36,16 +33,25 @@
                 @endif
 
 
-                <form method="post" action="/info/submit/{{$pelaksanaan->id}}" id="addForm" enctype="multipart/form-data">
+                <form method="post" action="/info/submit" id="addForm" enctype="multipart/form-data">
                 <h2 style="text-align:center;">Tambah Informasi Proyek</h2> <br>
                     {{ csrf_field() }}
 
                     <div class="content bg1">
-                        <span class="labels">Deskripsi</span>
+                        <span class="labels">Uraian Pekerjaan</span>
+                        <select name="tipepekerjaan" class="content bg1">
+                            @foreach($pekerjaan as $tipe)
+                                <option value="{{$tipe->id}}" >{{$tipe->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="content bg1">
+                        <span class="labels">Deskripsi Tambahan</span>
                         <input type="text" name="description" class="inputs" placeholder="Masukkan Deskripsi Kemajuan" data-error=".errorDescription">
                         <div class="errorMessage errorDescription"></div>
                     </div>
-
+    
                     <div class="content bg1">
                         <span class="labels">Tanggal Informasi</span>
                         <input type="date" name="reportdate" class="inputs" data-error=".errorDate">
@@ -116,8 +122,8 @@
                     <p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="/informasi/{{$pelaksanaan->proyek_id}}" class="btn btn-default" style="color:red;">Iya</a>
-                    <a href="/info/tambah/{{$pelaksanaan->id}}" class="btn btn-primary ">Tidak</a>
+                    <a href="/informasi/{{$proyekId}}" class="btn btn-default" style="color:red;">Iya</a>
+                    <a href="/info/tambah" class="btn btn-primary ">Tidak</a>
                 </div>
             </div>
             </div>
@@ -167,31 +173,6 @@
                 }
             });
 
-
-            /*$('#submit').click(function(){            
-                $.ajax({  
-                        url:postURL,  
-                        method:"POST",  
-                        data:$('#add_name').serialize(),
-                        type:'json',
-                        success:function(data)  
-                        {
-                            if(data.error){
-                                printErrorMsg(data.error);
-                            }else{
-                                i=1;
-                                $('.dynamic-added').remove();
-                                $('#add_name')[0].reset();
-                                $(".print-success-msg").find("ul").html('');
-                                $(".print-success-msg").css('display','block');
-                                $(".print-error-msg").css('display','none');
-                                $(".print-success-msg").find("ul").append('<li>Record Inserted Successfully.</li>');
-                            }
-                        }  
-                });  
-            });*/
-
-
             function printErrorMsg (msg) {
                 $(".print-error-msg").find("ul").html('');
                 $(".print-error-msg").css('display','block');
@@ -203,9 +184,6 @@
 
             $("#addForm").validate({
                 rules:{
-                    description:{
-                        required: true,
-                    },
                     reportdate:{
                         required: true,
                     },

@@ -24,6 +24,13 @@ class CreatePhotosTable extends Migration
             ->on('kemajuan_proyeks')
             ->onUpdate('cascade')
             ->onDelete('cascade');
+
+            $table->bigInteger('pekerjaan_id')->unsigned();
+            $table->foreign('pekerjaan_id')
+            ->references('id')
+            ->on('jenis_pekerjaan')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             
             $table->timestamps();
         });
