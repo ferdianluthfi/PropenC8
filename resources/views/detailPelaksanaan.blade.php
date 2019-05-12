@@ -45,13 +45,18 @@ box-sizing: border-box;
     </nav>
 
     <div class="container-fluid card card-detail-proyek">
-        <br>
-        <p class="font-subtitle-1">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
-        @if($status == 'DISETUJUI') <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:blue;">{{$status}}</div>
-            @elseif($status == "SEDANG BERJALAN") <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:green;">{{$status}}</div>
-            @elseif($status == 'DITOLAK') <div class="col-sm-5 font-status-approval" style="margin-left:15px;color:red;">{{$status}}</div>
-        @endif
-        <hr>
+        <div class="row">
+            <br>
+            <div class="col-sm-10"> 
+                    <p class="font-subtitle-2" style="text-align: center">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
+            </div>
+            <div class="col-sm-2">
+                @if($status == 'DISETUJUI') <div class="font-status-approval" style="margin:10px; color:blue;">{{$status}}</div>
+                @elseif($status == 'MENUNGGU PERSETUJUAN') <div class="font-status-approval" style="margin:5px; color:green;">{{$status}}</div>
+                @elseif($status == 'DITOLAK') <div class="font-status-approval" style="margin:10px;color:red;">{{$status}}</div>
+                @endif
+            </div>
+        </div><hr>
 
         @foreach($listPekerjaan as $pekerjaan)
         <div class="container-fluid card card-kontrak"><br>
@@ -118,21 +123,20 @@ box-sizing: border-box;
                         @if ($listFoto != null)
                             @if($listIdPekerjaan!=null)
                                 @foreach($listIdPekerjaan as $idKemajuan)
-                                     @if($pekerjaan->id == $idKemajuan->pekerjaan_id) 
+                                        @if($pekerjaan->id == $idKemajuan->pekerjaan_id) 
                                         @foreach ($listFoto as $foto)
                                             @if($foto->kemajuan_id == $idKemajuan->id and $foto->kemajuan_id == $idKemajuan->id)
                                             <div class="responsive" style = "margin-right: 10px;">
                                                 <div class="gallery">
                                                     <a target="_blank">
-                                                        <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
-                                                        
+                                                        <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">            
                                                     </a>
                                                 </div>
                                             </div>
                                             @endif
                                         @endforeach
                                     @endif
-                                 @endforeach
+                                    @endforeach
                             @endif
                         @endif
                     </div>
@@ -155,21 +159,20 @@ box-sizing: border-box;
     </nav>
 
     @if( $pelaksanaan->approvalStatus == 0)
-    <div class="row" style="margin-left: 350px;">
+    <div class="row" style="margin-left: 50px;">
         <div class="container-fluid card col-md-6" style="width:829px;margin:0 50px;">
                 <div class="row">
                     <br>
-                    <div class="col-sm-10"> 
+                    <div class="col-sm-8"> 
                             <p class="font-subtitle-2" style="text-align: center">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                         @if($status == 'DISETUJUI') <div class="font-status-approval" style="margin:10px; color:blue;">{{$status}}</div>
-                        @elseif($status == "SEDANG BERJALAN") <div class="font-status-approval" style="margin:5px; color:green;">{{$status}}</div>
+                        @elseif($status == 'MENUNGGU PERSETUJUAN') <div class="font-status-approval" style="margin:5px; color:green;">{{$status}}</div>
                         @elseif($status == 'DITOLAK') <div class="font-status-approval" style="margin:10px;color:red;">{{$status}}</div>
                         @endif
                     </div>
-                </div>
-                <hr>
+                </div><hr>
             
                 @foreach($listPekerjaan as $pekerjaan)
                 <div class="container-fluid card card-kontrak" style="margin: 10px"><br>
@@ -261,31 +264,36 @@ box-sizing: border-box;
             <div  class="row card card-tombol">
                 <div class="row judul">
                     <div class="font-subtitle-4" style="text-align: center">Ubah Status LAPJUSIK</div>
-                </div> <hr> <hr>
-                <div class="col-sm-5"  style="margin: 10px;"> 
-                    <form action="/lapjusik/setujuiLapjusik/tolak/{{ $pelaksanaan->id }}" method="POST" id="reject">
-                        @csrf
-                        <button id="tolak" class="button-disapprove font-approval" style="padding: 8px 8px;">TOLAK</button>
-                    </form> 
-                </div>
-                <div class="col-sm-5"  style="margin: 10px;"> 
+                </div> <hr><br>
+                <div class="col-sm-12"style="margin:10px;"> 
                         <form action="/lapjusik/setujuiLapjusik/setuju/{{ $pelaksanaan->id }}" method="POST" id="save">
                             @csrf
-                            <button id="simpan" class="button-approve font-approval" style="padding: 8px 8px;">SETUJUI</button>
+                            <button id="simpan" class="button-approve font-approval" style="padding: 8px 8px; margin-left: 30%;">SETUJUI</button>
                         </form> 
+                </div>
+                <div class="col-sm-12" style="margin:10px;"> 
+                    <form action="/lapjusik/setujuiLapjusik/tolak/{{ $pelaksanaan->id }}" method="POST" id="reject">
+                        @csrf
+                        <button id="tolak" class="button-disapprove font-approval" style="padding: 8px 8px; margin-left: 30%;">TOLAK</button>
+                    </form> 
                 </div>
             </div>
         </div>
     </div>
     @else
     <div class="container-fluid card card-detail-proyek">
-        <br>
-        <p class="font-subtitle-1">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
-        @if($status == 'DISETUJUI') <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:blue;">{{$status}}</div>
-            @elseif($status == "SEDANG BERJALAN") <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:green;">{{$status}}</div>
-            @elseif($status == 'DITOLAK') <div class="col-sm-5 font-status-approval" style="margin-left:15px;color:red;">{{$status}}</div>
-        @endif
-        <hr>
+        <div class="row">
+            <br>
+            <div class="col-sm-10"> 
+                    <p class="font-subtitle-2" style="text-align: center">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
+            </div>
+            <div class="col-sm-2">
+                @if($status == 'DISETUJUI') <div class="font-status-approval" style="margin:10px; color:blue;">{{$status}}</div>
+                @elseif($status == 'MENUNGGU PERSETUJUAN') <div class="font-status-approval" style="margin:5px; color:green;">{{$status}}</div>
+                @elseif($status == 'DITOLAK') <div class="font-status-approval" style="margin:10px;color:red;">{{$status}}</div>
+                @endif
+            </div>
+        </div><hr>
 
         @foreach($listPekerjaan as $pekerjaan)
         <div class="container-fluid card card-kontrak"><br>

@@ -78,7 +78,7 @@ class PelaksanaanController extends Controller
         $statusNum = $pelaksanaan-> approvalStatus;
         
         if($statusNum == 0){
-            $status = "SEDANG BERJALAN";
+            $status = "MENUNGGU PERSETUJUAN";
         }
         elseif($statusNum == 1){
             $status = "DISETUJUI";
@@ -140,7 +140,8 @@ class PelaksanaanController extends Controller
 
             //Sebelum Requested Date
             $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
-            $pdf = PDF::loadView('downloadPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','proyek','realisasiLebih','tahunPeriode','periodeMulai','periodeSelesai'));
+            $pdf = PDF::loadView('downlo
+            adPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','proyek','realisasiLebih','tahunPeriode','periodeMulai','periodeSelesai'));
             return $pdf->setPaper('a4','landscape')->stream('tesfilepelaksanaan.pdf');
         }
     }
@@ -215,10 +216,13 @@ class PelaksanaanController extends Controller
         return redirect()->action('PelaksanaanController@viewPelaksanaan', ['id' => $pelaksanaan->proyek_id]);
     }
     public function rejectLAPJUSIK($id){
+        DB::table('proyeks')->where('id',$id)->update([
+            'approvalStatus' => 7,
+        ]);
         $pelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.proyek_id')->where('id',$id)->first();
-        $proyekw = DB::table('pelaksanaans')
-            ->where('id', $id)
-            ->update(['approvalStatus' => 2]);
+        $proyekw = DB::table('pelaksanaans')->where('id', $id) ->update([
+            'approvalStatus' => 2
+        ]);
         return redirect()->action('PelaksanaanController@viewPelaksanaan', ['id' => $pelaksanaan->proyek_id]);
     }
 }

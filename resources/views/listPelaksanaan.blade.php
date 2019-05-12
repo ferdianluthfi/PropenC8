@@ -32,11 +32,13 @@
                 <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" >LAPJUSIK Proyek {{$namaProyek}}</a></li>
             </ol>
         </nav>
-
-        <div class="container">
-            <div class="row bigCard">
-                <div class="col-md-12">
-                    <h2 style="text-align:center;">Daftar LAPJUSIK</h2><br>
+    
+    @if(Auth::user()->role == 6)
+    <div class="row" style="margin-left: 200px;">
+        <div class="container-fluid card col-md-6" style="width:980px;margin:0 50px;">
+            <div class="row">
+                <div class="col-md-12"><br>
+                    <h2 style="text-align:center;">Daftar LAPJUSIK</h2><hr>
                     {{-- <div class="card-table"> --}}
                         <div class="panel-body">
                             <table id="datatable" class="table table-striped table-bordered text-center">
@@ -58,18 +60,18 @@
                                         <tr style="background-color: whitesmoke;">
                                             <td>LAPJUSIK Bulan {{$pelaksanaan->bulan}}</td>
                                             @if( $pelaksanaan->approvalStatus == 0)
-                                                <td style="color:blue">MENUNGGU PERSETUJUAN</td>
+                                                <td style="color:green">MENUNGGU PERSETUJUAN</td>
                                             @elseif( $pelaksanaan->approvalStatus == 1)
-                                                <td style="color:#00C48C">DISETUJUI</td>
+                                                <td style="color:blue">DISETUJUI</td>
                                             @elseif( $pelaksanaan->approvalStatus == 2)
-                                                <td style="color:#FF647C">DITOLAK</td>
+                                                <td style="color:red">DITOLAK</td>
                                             @endif
                                             <td>{{ date('F d' , strtotime($pelaksanaan->createdDate)) }}</td>
                                             <td><a href="/pelaksanaan/detail/{{$pelaksanaan->id}}" class="btn btn-primary">Lihat</a></td>
                                             @if(Auth::user()->role == 6)
-                                                <td><a class="btn btn-warning" href="/pelaksanaan/download/{{$pelaksanaan->id}}">Unduh</a></td>
+                                                <td><a a class="btn" style=" background-color: whitesmoke;  color: orange; border: 1px solid" href="/pelaksanaan/download/{{$pelaksanaan->id}}">Unduh</a></td>
                                                 <td>
-                                                <a class="btn btn-danger" data-toggle="modal" data-target="#myModal-<?php echo $pelaksanaan->id ?>">
+                                                <a class="btn" style=" background-color: whitesmoke;  color: red; border: 1px solid"  data-toggle="modal" data-target="#myModal-<?php echo $pelaksanaan->id ?>">
                                                     <span>
                                                         Hapus
                                                     </span>
@@ -100,147 +102,211 @@
 
                                 </tbody>
                             </table>
-                        {{-- </div> --}}
-                        <a href="/pelaksanaan/tambah/{{$idProyek}}" class="btn btn-default" style="float:right; margin:5px; border: 2px solid #008CBA;">Buat LAPJUSIK</a>
-                        <a href="/info/tambah" class="btn btn-default" style="float:right; margin:5px; border: 2px solid #008CBA;">Tambah Informasi</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <br>
+        <div class="container-fluid col-md-6" style="width:354px;" >
+            <div  class="row card card-tombol" style="height:375px; padding:10px;">
+                <div class="row judul">
+                    <div class="font-subtitle-4" style="text-align: center">Buat Ulang LAPJUSIK</div>
+                </div> <hr>
+                <div class="content bg-1">
+                    <span class="labels">Bulan Ke</span>
+                    <select name="bulanke" class="content bg-1">
+                    <br>
+                    @if($draftFlag == null)
+                        </select>
+                        <center><p>Sistem akan membuat ulang LAPJUSIK proyek yang sebelumnya telah dihapuskan oleh Manajer Pelaksana</p> <br>
+                    @else
+                        @if($flaggedPelaksanaan != null)
+                            <option value="{{$flaggedPelaksanaan->id}}" >{{$flaggedPelaksanaan->bulan}}</option>
+                            </select>
+                            <center><p>Sistem akan membuat ulang LAPJUSIK proyek yang sebelumnya telah dihapuskan oleh Manajer Pelaksana</p> <br>
+                            <br><br>
+                            <a class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                <span>
+                                    Buat Ulang LAPJUSIK
+                                </span>
+                            </a>
 
-        @if(Auth::user()->role == 6)
-    
-            <div class="container">
-                <div class="row bigCard">
-                    <div class="col-md-12">
-                        <div class="card-table">
-                        <h4 style="text-align:center;">Buat Ulang LAPJUSIK</h4><br>
-                        
-                        <div class="content bg1">
-                            <span class="labels">Bulan Ke</span>
-                            <select name="bulanke" class="content bg1">
-                            @if($draftFlag == null)
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title" style="text-align:center;">Buat Ulang LAPJUSIK?</h4>
+                                        </div>
+                                        <div class="modal-body" style="text-align:center;">
+                                            <p>Informasi kemajuan terbaru akan digabungkan.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <center><a href="" class="btn btn-default" style="color:red;">Kembali</a>
+                                            <a href="/pelaksanaan/tambah/{{$flaggedPelaksanaan->id}}" class="btn btn-primary ">Buat</a></center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        @else
+                            @foreach($draftFlag as $flagged)
+                                <option value="{{$flagged->id}}" >{{$flagged->bulan}}</option>
+                            @endforeach
                                 </select>
-                                <center><p>Sistem akan membuat ulang LAPJUSIK proyek</p>
-                                <p>yang sebelumnya telah dihapuskan oleh Manajer Pelaksana</p> <br>
-                            @else
-                                @if($flaggedPelaksanaan != null)
-                                    <option value="{{$flaggedPelaksanaan->id}}" >{{$flaggedPelaksanaan->bulan}}</option>
-                                    </select>
-                                    <center><p>Sistem akan membuat ulang LAPJUSIK proyek</p>
-                                    <p>yang sebelumnya telah dihapuskan oleh Manajer Pelaksana</p> <br>
+                                <center><p>Sistem akan membuat ulang LAPJUSIK proyek yang sebelumnya telah dihapuskan oleh Manajer Pelaksana</p> <br>
+                                <br><br>
+                                <a class="btn btn-primary" data-toggle="modal" data-target="#myModal-<?php echo $flagged->id ?>">
+                                    <span>
+                                        Buat Ulang LAPJUSIK
+                                    </span>
+                                </a>
 
-                                    <a class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                        <span>
-                                            Buat Ulang LAPJUSIK
-                                        </span>
-                                    </a>
-
-                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title" style="text-align:center;">Buat Ulang LAPJUSIK?</h4>
-                                                </div>
-                                                <div class="modal-body" style="text-align:center;">
-                                                    <p>Informasi kemajuan terbaru akan digabungkan.</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <center><a href="" class="btn btn-default" style="color:red;">Kembali</a>
-                                                    <a href="/pelaksanaan/tambah/{{$flaggedPelaksanaan->id}}" class="btn btn-primary ">Buat</a></center>
-                                                </div>
+                                <div class="modal fade" id="myModal-<?php echo $flagged->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title" style="text-align:center;">Buat Ulang LAPJUSIK?</h4>
+                                            </div>
+                                            <div class="modal-body" style="text-align:center;">
+                                                <p>Informasi kemajuan terbaru akan digabungkan.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <center><a href="" class="btn btn-default" style="color:red;">Kembali</a>
+                                                <a href="/pelaksanaan/tambah/{{$flagged->id}}" class="btn btn-primary ">Buat</a></center>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                @else
-                                    @foreach($draftFlag as $flagged)
-                                        <option value="{{$flagged->id}}" >{{$flagged->bulan}}</option>
-                                    @endforeach
-                                        </select>
-                                        <center><p>Sistem akan membuat ulang LAPJUSIK proyek</p>
-                                        <p>yang sebelumnya telah dihapuskan oleh Manajer Pelaksana</p> <br>
-
-                                        <a class="btn btn-primary" data-toggle="modal" data-target="#myModal-<?php echo $flagged->id ?>">
-                                            <span>
-                                                Buat Ulang LAPJUSIK
-                                            </span>
-                                        </a>
-
-                                        <div class="modal fade" id="myModal-<?php echo $flagged->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        @endif
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div> 
+    @else
+    <div class="row" style="margin-left: 220px;">
+        <div class="container-fluid col-md-10">
+            <div class="row bigCard">
+                <div class="col-md-12"><br>
+                    <h2 style="text-align:center;">Daftar LAPJUSIK</h2><hr>
+                    {{-- <div class="card-table"> --}}
+                        <div class="panel-body">
+                            <table id="datatable" class="table table-striped table-bordered text-center">
+                                <thead>
+                                    <tr class="title">
+                                    <th><center> Nama LAPJUSIK</th>
+                                    <th><center> Status LAPJUSIK</th>
+                                    <th><center> Tanggal Dibuat</th>
+                                    <th><center> Lihat </th>
+                                    @if(Auth::user()->role == 6)
+                                        <th><center> Unduh </th>
+                                        <th><center> Hapus </th>
+                                    @endif
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                @foreach($listPelaksanaan as $pelaksanaan)
+                                    @if($pelaksanaan->flag == 1)
+                                        <tr style="background-color: whitesmoke;">
+                                            <td>LAPJUSIK Bulan {{$pelaksanaan->bulan}}</td>
+                                            @if( $pelaksanaan->approvalStatus == 0)
+                                                <td style="color:green">MENUNGGU PERSETUJUAN</td>
+                                            @elseif( $pelaksanaan->approvalStatus == 1)
+                                                <td style="color:blue">DISETUJUI</td>
+                                            @elseif( $pelaksanaan->approvalStatus == 2)
+                                                <td style="color:red">DITOLAK</td>
+                                            @endif
+                                            <td>{{ date('F d' , strtotime($pelaksanaan->createdDate)) }}</td>
+                                            <td><a href="/pelaksanaan/detail/{{$pelaksanaan->id}}" class="btn btn-primary">Lihat</a></td>
+                                            @if(Auth::user()->role == 6)
+                                                <td><a a class="btn" style=" background-color: whitesmoke;  color: orange; border: 1px solid" href="/pelaksanaan/download/{{$pelaksanaan->id}}">Unduh</a></td>
+                                                <td>
+                                                <a class="btn" style=" background-color: whitesmoke;  color: red; border: 1px solid"  data-toggle="modal" data-target="#myModal-<?php echo $pelaksanaan->id ?>">
+                                                    <span>
+                                                        Hapus
+                                                    </span>
+                                                </a>
+                                                </td>
+                                            @endif
+                                        </tr>
+                                        
+                                        <div class="modal fade" id="myModal-<?php echo $pelaksanaan->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        <h4 class="modal-title" style="text-align:center;">Buat Ulang LAPJUSIK?</h4>
+                                                        <h4 class="modal-title" style="text-align:center;">Hapus LAPJUSIK?</h4>
                                                     </div>
                                                     <div class="modal-body" style="text-align:center;">
-                                                        <p>Informasi kemajuan terbaru akan digabungkan.</p>
+                                                        <p>Pelaksanaan yang sudah terbuat sebelumnya akan dihapus.</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                    <center><a href="" class="btn btn-default" style="color:red;">Kembali</a>
-                                                        <a href="/pelaksanaan/tambah/{{$flagged->id}}" class="btn btn-primary ">Buat</a></center>
+                                                        <center><a href="" class="btn btn-primary ">Kembali</a>
+                                                        <a href="/pelaksanaan/delete/{{$pelaksanaan->id}}" class="btn btn-default" style="color:red;">Hapus</a></center>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    @endif
+                                @endforeach
 
-                                @endif
-                            @endif
-                        </div>
+                                </tbody>
+                            </table>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    @endif
+    <br><br>
+    <div class="row" style="margin-left: 220px;">
+        <div class="container-fluid col-md-10">
+            <div class="row bigCard">
+                <div class="col-md-12"><br>
+                    <h2 style="text-align:center;">Daftar Informasi Proyek</h2><hr>
+                    <div class="card">
+                        <div class="panel-body">
+                            <table id="datatable1" class="table table-striped table-bordered text-center">
+                                <thead>
+                                    <tr class="title">
+                                    <th><center> Uraian Pekerjaan</th>
+                                    <th><center> Tanggal Kemajuan</th>
+                                    <th><center> Detail </th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                @foreach($listInformasi as $informasi)
+                                <tr style="background-color: whitesmoke;">
 
-        <br>
-
-            <div class="container">
-                <div class="row bigCard">
-                    <div class="col-md-12">
-                        <h2 style="text-align:center;">Daftar Informasi Proyek</h2><br>
-                        <div class="card-table">
-                            <div class="panel-body">
-                                <table id="datatable" class="table table-striped table-bordered text-center">
-                                    <thead>
-                                        <tr class="title">
-                                        <th><center> Uraian Pekerjaan</th>
-                                        <th><center> Tanggal Kemajuan</th>
-                                        <th><center> Detail </th>
+                                    @if( $informasi->description == NULL)
+                                        @foreach($listPekerjaan as $pekerjaan)
+                                            @if($pekerjaan->id == $informasi->pekerjaan_id)
+                                                <td>{{ $pekerjaan->name }} </td>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        @foreach($listPekerjaan as $pekerjaan)
+                                            @if($pekerjaan->id == $informasi->pekerjaan_id)
+                                                <td>{{ $pekerjaan->name }} ({{ $informasi->description }})</td>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                            <td>{{ date('F d' , strtotime($informasi->reportDate)) }}</td>
+                                            <td><a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary">Lihat</a></td>
                                         </tr>
-                                    </thead>
-                                    <tbody >
-                                    @foreach($listInformasi as $informasi)
-                                    <tr style="background-color: whitesmoke;">
+                                @endforeach
 
-                                        @if( $informasi->description == NULL)
-                                            @foreach($listPekerjaan as $pekerjaan)
-                                                @if($pekerjaan->id == $informasi->pekerjaan_id)
-                                                    <td>{{ $pekerjaan->name }} </td>
-                                                @endif
-                                            @endforeach
-                                        @else
-                                            @foreach($listPekerjaan as $pekerjaan)
-                                                @if($pekerjaan->id == $informasi->pekerjaan_id)
-                                                    <td>{{ $pekerjaan->name }} ({{ $informasi->description }})</td>
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                                <td>{{ date('F d' , strtotime($informasi->reportDate)) }}</td>
-                                                <td><a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary">Lihat</a></td>
-                                            </tr>
-                                    @endforeach
-
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        @endif
+        </div>
+    </div>
     @endsection
 
     @section("scripts")
@@ -260,6 +326,7 @@
                 dots: true
             });
             $('#datatable').DataTable();
+            $('#datatable1').DataTable();
             $('.alert').alert();
         });
         </script>
