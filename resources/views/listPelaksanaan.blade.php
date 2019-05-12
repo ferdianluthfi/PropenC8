@@ -66,16 +66,6 @@
                                             @endif
                                             <td>{{ date('F d' , strtotime($pelaksanaan->createdDate)) }}</td>
                                             <td><a href="/pelaksanaan/detail/{{$pelaksanaan->id}}" class="btn btn-primary">Lihat</a></td>
-<<<<<<< HEAD
-                                            <td><a class="btn btn-warning" href="">Unduh</a></td>
-                                            <td>
-                                            <a class="btn btn-danger" data-toggle="modal" data-target="#myModal-<?php echo $pelaksanaan->id ?>">
-                                                <span>
-                                                    Hapus
-                                                </span>
-                                            </a>
-                                            </td>
-=======
                                             @if(Auth::user()->role == 6)
                                                 <td><a class="btn btn-warning" href="/pelaksanaan/download/{{$pelaksanaan->id}}">Unduh</a></td>
                                                 <td>
@@ -86,7 +76,6 @@
                                                 </a>
                                                 </td>
                                             @endif
->>>>>>> f292f5f2050b00c740cf4b42109e9d3619a35b42
                                         </tr>
                                         
                                         <div class="modal fade" id="myModal-<?php echo $pelaksanaan->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
