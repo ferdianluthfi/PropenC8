@@ -66,11 +66,11 @@
                                             @if(Auth::user()->role == 6)
                                                 <td><a class="btn btn-warning" href="/pelaksanaan/download/{{$pelaksanaan->id}}">Unduh</a></td>
                                                 <td>
-                                                <a class="btn btn-danger" data-toggle="modal" data-target="#myModal-<?php echo $pelaksanaan->id ?>">
-                                                    <span>
-                                                        Hapus
-                                                    </span>
-                                                </a>
+                                                    <a class="btn btn-danger" data-toggle="modal" data-target="#myModal-<?php echo $pelaksanaan->id ?>">
+                                                        <span>
+                                                            Hapus
+                                                        </span>
+                                                    </a>
                                                 </td>
                                             @endif
                                         </tr>

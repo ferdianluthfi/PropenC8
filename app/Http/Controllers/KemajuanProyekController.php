@@ -143,7 +143,6 @@ class KemajuanProyekController extends Controller
 
         if($allPelaksanaan->isempty()) {
             $minDate = Proyek::select('proyeks.created_at')->where('id',$proyekId)->first()->created_at;
-            $pekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$proyekId)->get();
         }
 
         else {
@@ -154,9 +153,8 @@ class KemajuanProyekController extends Controller
                     $minDate = "$requestedYear-$requestedMonth-01";
                 }            
             }
-            $pekerjaan = DB::table('jenis_pekerjaan')->whereIn('proyek_id',$proyekId)->get();
         }
-
+        $pekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$proyekId)->get();
         return view('tambahInformasi',compact('pekerjaan','proyekId','minDate'));
     }
 
@@ -205,7 +203,6 @@ class KemajuanProyekController extends Controller
 
         //Bulan awal
         $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->first();
-        //dd($pelaksanaan);
         if ($pelaksanaan == null) {
             $firstDate = $request->reportdate;
             //dd($firstDate);
@@ -214,10 +211,23 @@ class KemajuanProyekController extends Controller
         }
         else {
             $sameIdPelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->get();
-            $firstDate = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->min('reportDate');
-            //dd($firstDate);
-            $firstMonth = date('m', strtotime($firstDate));
-            $firstYear = date('Y', strtotime($firstDate));
+            if(sizeof($sameIdPelaksanaan)==1) {
+                $firstJob = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->where('pelaksanaan_id',json_decode($sameIdPelaksanaan)[0]->id)->get();
+                if($firstJob->isempty()) {
+                    $firstMonth = date('m', strtotime($request->reportdate));
+                    $firstYear = date('Y', strtotime($request->reportdate));
+                }
+                else {
+                    $firstDate = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->min('reportDate');
+                    $firstMonth = date('m', strtotime($firstDate));
+                    $firstYear = date('Y', strtotime($firstDate));
+                }
+            }
+            else {
+                $firstDate = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->min('reportDate');
+                $firstMonth = date('m', strtotime($firstDate));
+                $firstYear = date('Y', strtotime($firstDate));
+            }
         }
         
         //Bulan dari Form
@@ -227,7 +237,7 @@ class KemajuanProyekController extends Controller
         //Konversi Bulan
         $yearGap = $inputYear - $firstYear;
         if ($yearGap == 0) {
-            $adjustedMonth = ($inputMonth - $firstMonth) + 1;    
+            $adjustedMonth = ($inputMonth - $firstMonth) + 1; 
         }
         else if ($yearGap > 0) {
             if ($inputMonth == $firstMonth) {

@@ -276,7 +276,7 @@ box-sizing: border-box;
         </ol>
     </nav>
       
-    <div class="container-fluid card" style="width:829px;margin:0 500px;">
+    <div class="container-fluid card card-detail-proyek">
         <div class="row">
             <br>
             <div class="col-sm-10"> 

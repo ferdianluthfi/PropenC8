@@ -37,20 +37,28 @@ box-sizing: border-box;
 @if(Auth::user()->role == 6)
 @section ('content')
 @include('layouts.nav')
+
     <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/proyek">Daftar Proyek</a></li>  
-        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="">Detail LAPJUSIK</a></li>
-    </ol>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/proyek">Daftar Proyek</a></li>  
+          <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/pelaksanaan/{{$pelaksanaan->proyek_id}}">LAPJUSIK Proyek {{$namaProyek}}</a></li>
+          <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="">Detail LAPJUSIK</a></li>
+        </ol>
     </nav>
 
     <div class="container-fluid card card-detail-proyek">
-        <br>
-        <p class="font-subtitle-1">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
-        @if($status == 'DISETUJUI') <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:blue;">{{$status}}</div>
-            @elseif($status == "SEDANG BERJALAN") <div class="col-sm-5 font-status-approval" style="margin-left:15px; color:green;">{{$status}}</div>
-            @elseif($status == 'DITOLAK') <div class="col-sm-5 font-status-approval" style="margin-left:15px;color:red;">{{$status}}</div>
-        @endif
+        <div class="row">
+            <br>
+            <div class="col-sm-10"> 
+                    <p class="font-subtitle-2" style="text-align: center">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
+            </div>
+            <div class="col-sm-2">
+                @if($status == 'DISETUJUI') <div class="font-status-approval" style="margin:10px; color:blue;">{{$status}}</div>
+                @elseif($status == "SEDANG BERJALAN") <div class="font-status-approval" style="margin:5px; color:green;">{{$status}}</div>
+                @elseif($status == 'DITOLAK') <div class="font-status-approval" style="margin:10px;color:red;">{{$status}}</div>
+                @endif
+            </div>
+        </div>
         <hr>
 
         @foreach($listPekerjaan as $pekerjaan)
