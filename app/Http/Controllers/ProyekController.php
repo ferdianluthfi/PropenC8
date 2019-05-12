@@ -129,13 +129,11 @@ class ProyekController extends Controller
                 'name' => $request->name,
                 'projectName' => $request->projectName,
                 'companyName' => $request->companyName,
-                'startDate' => '2019-01-01',
-                'endDate' => '2019-01-01',
                 'description' => $request->description,
                 'projectValue' => $request->projectValue,
                 'estimatedTime' => $request->estimatedTime,
                 'projectAddress' => $request->projectAddress,
-                'approvalStatus' => 0,
+                'approvalStatus' => 1,
                 'isLPJExist'=>0,
                 'pengguna_id'=> \Auth::user()->id,
                 'created_at' => now('GMT+7'),
@@ -222,8 +220,6 @@ class ProyekController extends Controller
                 'name' => $request->name,
                 'projectName' => $request->projectName,
                 'companyName' => $request->companyName,
-                'startDate' => '2019-01-01',
-                'endDate' => '2019-01-01',
                 'description' => $request->description,
                 'projectValue' => $request->projectValue,
                 'estimatedTime' => $request->estimatedTime,
@@ -374,4 +370,17 @@ class ProyekController extends Controller
             ->update(['approvalStatus' => 3]);
         return redirect('/proyek');
     }
+    public function menang($id){
+        DB::table('proyeks')->where('id',$id)->update([
+            'approvalStatus' => 4,
+        ]);
+        return redirect('/proyek/lihat/'. $id);
+    }
+    public function kalah($id){
+        DB::table('proyeks')->where('id',$id)->update([
+            'approvalStatus' => 9,
+        ]);
+        return redirect('/proyek/lihat/'. $id);
+    }
+    
 }

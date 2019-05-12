@@ -157,7 +157,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
-
 $( document ).ready(function() {
     $('.your-class').slick({
         infinite: true,				
@@ -171,24 +170,19 @@ $( document ).ready(function() {
     var postURL = "<?php echo url('addmore'); ?>";
     console.log(postURL);
     var i=1;  
-
     $('#add').click(function(){  
         i++;  
         $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" name="file[]" class="help-block text-danger"/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
     });  
-
     $(document).on('click', '.btn_remove', function(){  
         var button_id = $(this).attr("id");   
         $('#row'+button_id+'').remove();  
     });  
-
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
     function printErrorMsg (msg) {
         $(".print-error-msg").find("ul").html('');
         $(".print-error-msg").css('display','block');
@@ -197,7 +191,6 @@ $( document ).ready(function() {
             $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
         });
     }
-
     $("#simpan").click(function(e){
                 e.preventDefault();
                 if($('#addForm').valid()){ //checks if it's valid

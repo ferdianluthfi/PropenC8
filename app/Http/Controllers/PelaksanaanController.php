@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Proyek;
 use App\Pelaksanaan;
@@ -21,7 +20,11 @@ class PelaksanaanController extends Controller
     {
         $this->middleware('auth');
     }
-
+    public function viewProyek(){
+        $idProyek = Assignment::select('assignments.proyek_id')->where('pengguna_id',\Auth::user()->id)->get();
+        $listProyek = Proyek::select('proyeks.*')->whereIn('id',$idProyek)->get(); 
+        return view('listProyek', compact('listProyek'));
+    }
     public function viewPelaksanaan($id){
         $idProyek = $id;    
         $namaProyek = Proyek::select('proyeks.projectName')->where('id',$idProyek)->first()->projectName; 
@@ -50,7 +53,6 @@ class PelaksanaanController extends Controller
         $flaggedPelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.*')->where('id',$id)->update(['flag' => 1]);
         return redirect()->action('PelaksanaanController@viewPelaksanaan', ['id' => $pelaksanaan->proyek_id]);
     }
-
     public function detailPelaksanaan($id) {
         $pelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.*')->where('id',$id)->first();
         $idProyek = $pelaksanaan->proyek_id;

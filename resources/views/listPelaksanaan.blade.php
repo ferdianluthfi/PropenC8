@@ -23,11 +23,12 @@
     </head>
 
     <body>
+    
     @section ('content')
     @include('layouts.nav')
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/proyek">Daftar Proyek</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
                 <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" >LAPJUSIK Proyek {{$namaProyek}}</a></li>
             </ol>
         </nav>
@@ -36,7 +37,7 @@
             <div class="row bigCard">
                 <div class="col-md-12">
                     <h2 style="text-align:center;">Daftar LAPJUSIK</h2><br>
-                    <div class="card-table">
+                    {{-- <div class="card-table"> --}}
                         <div class="panel-body">
                             <table id="datatable" class="table table-striped table-bordered text-center">
                                 <thead>
@@ -57,9 +58,11 @@
                                         <tr style="background-color: whitesmoke;">
                                             <td>LAPJUSIK Bulan {{$pelaksanaan->bulan}}</td>
                                             @if( $pelaksanaan->approvalStatus == 0)
-                                                <td style="color:#FF647C">BELUM DISETUJUI</td>
+                                                <td style="color:blue">MENUNGGU PERSETUJUAN</td>
                                             @elseif( $pelaksanaan->approvalStatus == 1)
-                                                <td style="color:#00C48C">TELAH DISETUJUI</td>
+                                                <td style="color:#00C48C">DISETUJUI</td>
+                                            @elseif( $pelaksanaan->approvalStatus == 2)
+                                                <td style="color:#FF647C">DITOLAK</td>
                                             @endif
                                             <td>{{ date('F d' , strtotime($pelaksanaan->createdDate)) }}</td>
                                             <td><a href="/pelaksanaan/detail/{{$pelaksanaan->id}}" class="btn btn-primary">Lihat</a></td>
@@ -97,7 +100,9 @@
 
                                 </tbody>
                             </table>
-                        </div>
+                        {{-- </div> --}}
+                        <a href="/pelaksanaan/tambah/{{$idProyek}}" class="btn btn-default" style="float:right; margin:5px; border: 2px solid #008CBA;">Buat LAPJUSIK</a>
+                        <a href="/info/tambah" class="btn btn-default" style="float:right; margin:5px; border: 2px solid #008CBA;">Tambah Informasi</a>
                     </div>
                 </div>
             </div>
@@ -242,7 +247,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js" integrity="sha256-+h0g0j7qusP72OZaLPCSZ5wjZLnoUUicoxbvrl14WxM=" crossorigin="anonymous"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> 
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/umd/util.js"></script> -->
 
     <script>
         $(document).ready( function () {

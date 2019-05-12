@@ -146,7 +146,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </div>
 @endforeach
 @endsection
@@ -200,27 +199,53 @@
                 </div>
                 <hr style="background-color:black;"/>
                 <div class="row">
-                    <div class="col-sm-5 font-desc-bold" style="margin-left: 30px;">
-                        <ul>
-                            <li><p>Nama Staf Marketing</p></li>
-                            <li><p>Nama Proyek</p></li>
-                            <li><p>Nama Perusahaan</p></li>
-                            <li><p>Nilai Proyek</p></li>
-                            <li><p>Estimasi Waktu Pengerjaan</p></li>
-                            <li><p>Alamat Proyek</p></li>
-                            <li><p>Deskripsi Proyek</p></li>
-                        </ul>
+                    <div class="col-sm-10">
+                        <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}}</p>
                     </div>
-                    <div class="col-sm-6 font-desc" >
-                        <ul>
-                            <li><p>:   {{ $proyek->name}}<p></li>
-                            <li><p>:   {{ $proyek->projectName}}<p></li>
-                            <li><p>:   {{ $proyek->companyName}}<p></li>
-                            <li><p>:   Rp{{ $proyek->projectValue}}<p></li>
-                            <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
-                            <li><p>:   {{ $proyek->projectAddress}}<p></li>
-                            <li><p class="deskripsi" style="margin-bottom:10px;" >: {{ $proyek->description}}<p></li>
-                        </ul>
+                </div>
+                <br>
+            </div>
+            <div class="row ketengahin">
+                <div class="col-sm-7">
+                    <div class="card card-info">
+                        <div class="row judul">
+                            <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
+                            <div class="col-sm-5 font-status-approval" style="margin-left:15px;">{{$status}}</div>
+                        </div>
+                        <hr style="background-color:black;"/>
+                        <div class="row">
+                            <div class="col-sm-5 font-desc-bold" style="margin-left: 30px;">
+                                <ul>
+                                    <li><p>Nama Staf Marketing</p></li>
+                                    <li><p>Nama Proyek</p></li>
+                                    <li><p>Nama Perusahaan</p></li>
+                                    <li><p>Nilai Proyek</p></li>
+                                    <li><p>Estimasi Waktu Pengerjaan</p></li>
+                                    <li><p>Alamat Proyek</p></li>
+                                    <li><p>Deskripsi Proyek</p></li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6 font-desc" >
+                                <ul>
+                                    <li><p>:   {{ $proyek->name}}<p></li>
+                                    <li><p>:   {{ $proyek->projectName}}<p></li>
+                                    <li><p>:   {{ $proyek->companyName}}<p></li>
+                                    <li><p>:   Rp{{ $proyek->projectValue}}<p></li>
+                                    <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
+                                    <li><p>:   {{ $proyek->projectAddress}}<p></li>
+                                    <li><p class="deskripsi" style="margin-bottom:10px;" >: {{ $proyek->description}}<p></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="card card-pm">
+                        <br>
+                        <p class="font-subtitle-5">Project Manager</p>
+                        <hr style="background-color:black;"/>
+                        <br> <br> <br>
+                        <p class="font-status-approval" style="text-align: center;">Belum Tersedia.</p>
                     </div>
                 </div>
             </div>

@@ -8,7 +8,6 @@ use App\Proyek;
 use App\Pelaksanaan;
 use App\Assignment;
 use App\ListPhoto;
-use App\TipePekerjaan;
 use DB;
 use Validator;
 use Illuminate\Support\Facades\Storage;
@@ -180,7 +179,6 @@ class KemajuanProyekController extends Controller
                 $uploadedFile = $file;
                 //dd($uploadedFile);   
                 $path = $uploadedFile->storeAs('upload',$file->getClientOriginalName());
-                //dd($path);
                 $publicPath = \Storage::url($path);
                 //dd($publicPath);
     
@@ -260,37 +258,25 @@ class KemajuanProyekController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'tipepekerjaan' => 'required',
+            'description' => 'required',
             'reportDate' => 'required',
             'tipeKemajuan' => 'required',
             'value' => 'required',
             'pelaksanaan_id' => 'required',
             'file' => 'required|image'
         ]);
-
+ 
         DB::table('kemajuan_proyeks')->insert([
     		'description' => $request->description,
             'reportDate' => $request->reportdate,
             'tipeKemajuan' => $request->tipekemajuan,
             'value' => $request->nilai,
-            'pekerjaan_id' => $request->tipepekerjaan,
-            'pelaksanaan_id' => $pelaksanaan->id,
+            'pelaksanaan_id' => $id,
             'created_at' => now('GMT+7'),
             'updated_at' => now('GMT+7')
         ]);
 
-        $realValue = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.value')->where('pekerjaan_id',$request->tipepekerjaan)->get();
-        //dd(json_decode($realValue));
-        $combinedValue = 0;
-        foreach($realValue as $value) {
-            $combinedValue += $value->value;
-        }
-
-        DB::table('jenis_pekerjaan')->where('id',$request->tipepekerjaan)->update([
-            'workCurrentValue' => $combinedValue
-        ]);
-
-        $kemajuans = KemajuanProyek::select('kemajuan_proyeks.*')->where('pelaksanaan_id', $pelaksanaan->id)->get()->last();
+        $kemajuans = KemajuanProyek::select('kemajuan_proyeks.*')->where('pelaksanaan_id', $id)->get()->last();
         $kemajuan_id = $kemajuans->id;
 
         if ($request->file != null) {
@@ -312,7 +298,7 @@ class KemajuanProyekController extends Controller
         /*if($request->file!= null) {
             $path = $uploadedFile->store('/files');
         }*/
-        return redirect()->action('KemajuanProyekController@viewInfo',['id'=>$proyekId]);
+        return redirect()->action('KemajuanProyekController@viewInfo',['id'=>$data[0]->proyek_id]);
     }
 
     public function editInformasi($id){
@@ -371,6 +357,7 @@ class KemajuanProyekController extends Controller
         $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$idPelaksanaan)->get();
         $data = json_decode($idProyek);
         $validator = Validator::make($request->all(),[
+            'description' => 'required',
             'reportDate' => 'required',
             'tipeKemajuan' => 'required',
             'value' => 'required',
@@ -379,25 +366,11 @@ class KemajuanProyekController extends Controller
     	]);
 
         $kemajuans = KemajuanProyek::find($id);
-        //dd($kemajuans);
-        $kemajuans->pekerjaan_id = $request->tipepekerjaan;
         $kemajuans->description = $request->description;
         $kemajuans->reportDate = $request->reportdate;
         $kemajuans->value = $request->nilai;
         $kemajuans->tipeKemajuan = $request->tipekemajuan;
         $kemajuans->save();
-        //dd($kemajuans->pekerjaan_id);
-
-        $realValue = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.value')->where('pekerjaan_id',$kemajuans->pekerjaan_id)->get();
-        //dd(json_decode($realValue));
-        $combinedValue = 0;
-        foreach($realValue as $value) {
-            $combinedValue += $value->value;
-        }
-
-        DB::table('jenis_pekerjaan')->where('id',$kemajuans->pekerjaan_id)->update([
-            'workCurrentValue' => $combinedValue
-        ]);
 
         return redirect()->action('KemajuanProyekController@viewInfo',['id'=>$data[0]->proyek_id]);
     }
@@ -407,21 +380,7 @@ class KemajuanProyekController extends Controller
         $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$idPelaksanaan)->get();
         $data = json_decode($idProyek);
         $kemajuans = KemajuanProyek::find($id);
-        //dd($kemajuans->pekerjaan_id);
         $kemajuans->delete();
-
-        $realValue = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.value')->where('pekerjaan_id',$kemajuans->pekerjaan_id)->get();
-        //dd(json_decode($realValue));
-        $combinedValue = 0;
-        foreach($realValue as $value) {
-            //dd($value->value);
-            $combinedValue += $value->value;
-        }
-        //dd($combinedValue);
-        DB::table('jenis_pekerjaan')->where('id',$kemajuans->pekerjaan_id)->update([
-            'workCurrentValue' => $combinedValue
-        ]);
-
         return redirect()->action('KemajuanProyekController@viewInfo',['id'=>$data[0]->proyek_id]);
     }
 
