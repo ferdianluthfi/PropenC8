@@ -17,7 +17,6 @@ class CreatePelaksanaansTable extends Migration
             $table->integer('flag');
             $table->integer('bulan');
             $table->date('createdDate');
-            $table->integer('bulan');
             $table->bigInteger('proyek_id')->unsigned();
             $table->foreign('proyek_id')
             ->references('id')
