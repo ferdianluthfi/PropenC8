@@ -30,6 +30,7 @@ class PelaksanaanController extends Controller
 
     public function viewPelaksanaan($id){
         $idProyek = $id;
+        $namaProyek = Proyek::select('proyeks.projectName')->where('id',$idProyek)->first()->projectName; 
         $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->where('proyek_id',$id)->get();
         $listPelaksanaan = Pelaksanaan::select('pelaksanaans.*')->where('proyek_id',$id)->get();
         $listInformasi = KemajuanProyek::select('kemajuan_proyeks.*')->whereIn('pelaksanaan_id',$idPelaksanaan)->get();
@@ -42,7 +43,7 @@ class PelaksanaanController extends Controller
             $lizWork[$counter] = $pekerjaan->name;
             $counter++;
         }
-        return view('listPelaksanaan', compact('listPelaksanaan','listInformasi','lizWork','idProyek'));
+        return view('listPelaksanaan', compact('listPelaksanaan','listInformasi','lizWork','idProyek','namaProyek'));
     }
 
 
@@ -52,6 +53,7 @@ class PelaksanaanController extends Controller
         $pelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.*')->where('id',$id)->first();
         $idProyek = $pelaksanaan->proyek_id;
         $valueProyek = DB::table('proyeks')->select('proyeks.projectValue')->where('id',$idProyek)->first()->projectValue;
+        $namaProyek = Proyek::select('proyeks.projectName')->where('id',$idProyek)->first()->projectName;		
         $sameIdPelaksanaan = Pelaksanaan::where([['proyek_id','=',$idProyek]])->get();
         //dd($sameIdPelaksanaan);
         $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.*')->where('proyek_id',$idProyek)->get();
@@ -67,6 +69,21 @@ class PelaksanaanController extends Controller
             $counter++;
         }
         //dd($arrayidKemajuan);
+        
+        $pelaksanaan = DB::table('pelaksanaans')->select('*')->where('id',$id)->get()->first();		
+        $status;		
+        $statusNum = $pelaksanaan-> approvalStatus;
+
+        if($statusNum == 0){		        
+            $status = "SEDANG BERJALAN";		
+        }		
+        elseif($statusNum == 1){		
+            $status = "DISETUJUI";		
+        }		
+        elseif($statusNum == 2){		
+            $status = "DITOLAK";		
+        }		
+        // dd($statusNum);		
         
         $listIdPekerjaan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.pekerjaan_id', 'kemajuan_proyeks.id')->where('pelaksanaan_id',$id)->get(); 
         $listFoto = DB::table('listPhoto')->select('listPhoto.*')->whereIn('kemajuan_id',$arrayidKemajuan)->get();
@@ -100,7 +117,7 @@ class PelaksanaanController extends Controller
 
         if($pelaksanaan->bulan == 1) {
             $realisasiLebih=null;
-            return view('detailPelaksanaanAwal', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLalu','listFoto','listIdPekerjaan','displayText', 'lapjusikStatus', 'review', 'createdDate', 'rating', 'interval'));
+            return view('detailPelaksanaanAwal', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLalu','listFoto','listIdPekerjaan','displayText', 'lapjusikStatus', 'review', 'createdDate', 'rating', 'interval', 'status', 'namaProyek'));
         }
         else {
             $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
@@ -110,8 +127,40 @@ class PelaksanaanController extends Controller
             //Sebelum Requested Date
             $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
             //dd($realisasiLebih);
-            return view('detailPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLebih','listFoto','arrayidKemajuan','displayText', 'lapjusikStatus', 'review', 'createdDate', 'updatedDate', 'rating','interval'));
+            return view('detailPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLebih','listFoto','arrayidKemajuan','listIdPekerjaan', 'displayText', 'lapjusikStatus', 'review', 'createdDate', 'updatedDate', 'rating','interval', 'status', 'namaProyek'));
         }
-
     }
+    // public function approveLapjusikDetail($id){
+    //     $pelaksanaan = DB::table('pelaksanaans')->select('*')->where('id',$id)->get()->first();
+    //     $status;
+    //     $statusNum = $pelaksanaan-> approvalStatus;
+        
+    //     if($statusNum == 0){
+    //         $status = "SEDANG BERJALAN";
+    //     }
+    //     elseif($statusNum == 1){
+    //         $status = "DISETUJUI";
+    //     }
+    //     elseif($statusNum == 2){
+    //         $status = "DITOLAK";
+    //     }
+    //     return view('approveLapjusik', compact('pelaksanaan', 'status')); 
+    // }
+  
+    public function approveLAPJUSIK($id){
+        $pelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.proyek_id')->where('id',$id)->first();
+        // dd($pelaksanaan);
+        $proyekz = DB::table('pelaksanaans')
+            ->where('id', $id)
+            ->update(['approvalStatus' => 1]);
+        return redirect()->action('PelaksanaanController@viewPelaksanaan', ['id' => $pelaksanaan->proyek_id]);
+    }
+    public function rejectLAPJUSIK($id){
+        $pelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.proyek_id')->where('id',$id)->first();
+        $proyekw = DB::table('pelaksanaans')
+            ->where('id', $id)
+            ->update(['approvalStatus' => 2]);
+        return redirect()->action('PelaksanaanController@viewPelaksanaan', ['id' => $pelaksanaan->proyek_id]);
+    }
+
 }

@@ -1,5 +1,37 @@
 @extends('layouts.layout')
 <body>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css') }}"/>		
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>		
+<style>		
+div.gallery {		
+border: 1px solid #ccc;		
+}		
+div.gallery:hover {		
+border: 1px solid #777;		
+}		
+div.gallery img {		
+width: 100%;		
+height: auto;		
+}		
+* {		
+box-sizing: border-box;		
+}		
+.responsive {		
+    height: auto;		
+    width: 24.99999%;		
+}		
+@media only screen and (max-width: 700px) {		
+.responsive {		
+    width: 49.99999%;		
+    margin: 6px 0;		
+}		
+}		
+@media only screen and (max-width: 500px) {		
+.responsive {		
+    width: 100%;		
+}		
+}		
+</style>
 
 @section ('content')
 @include('layouts.nav')
@@ -7,16 +39,29 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb"style="margin-left:120px;">
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="">Daftar Proyek</a></li>  
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="">Detail LAPJUSIK</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/pelaksanaan/{{$pelaksanaan->proyek_id}}">LAPJUSIK Proyek {{$namaProyek}}</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="">Detail LAPJUSIK</a></li>
   </ol>
 </nav>
 
 <div class="container-fluid row" style="margin-left:100px;">
+
 <div class="container-fluid card card-detail-lapjusik col-sm-6">
+  <div class="row">
     <br>
-    <p class="font-subtitle-5">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
+    <div class="col-sm-10"> 
+      <p class="font-subtitle-5" style="text-align: center">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
+    </div>
+    <div class="col-sm-2">
+        @if($status == 'DISETUJUI') <div class="font-status-approval" style="margin:10px; color:#3378D3;">{{$status}}</div>
+        @elseif($status == "SEDANG BERJALAN") <div class="font-status-approval" style="margin:5px; color:#00C48C;">{{$status}}</div>
+        @elseif($status == 'DITOLAK') <div class="font-status-approval" style="margin:10px; color:#FF647C;">{{$status}}</div>
+        @endif
+    </div>
+  </div>
     <hr>
     <br>
+
     @foreach($listPekerjaan as $pekerjaan)
     <div class="container-fluid card card-uraian-kerja"><br>
         <div class="row" style="margin-left: -30px;">
@@ -52,19 +97,22 @@
                                 @endif
                             @endif
                         @endforeach
-
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="your-class" style="margin:25px;">
                         @if ($listFoto != null)
                             @if($listIdPekerjaan!=null)
                                 @foreach ($listIdPekerjaan as $idKemajuan)
                                     @if($pekerjaan->id == $idKemajuan->pekerjaan_id)
                                         @foreach($listFoto as $foto)
                                             @if($foto->kemajuan_id == $idKemajuan->id)
-                                            <br>
-                                            <div class="responsive">
+                                            <div class="responsive" style="margin-right:10px;">
                                                 <div class="gallery">
                                                     <a target="_blank">
                                                         {{$foto->id}} {{$idKemajuan->id}}
-                                                        <img src="{{asset($foto->path)}}" width="300" height="300">
+                                                        <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
                                                     </a>
                                                 </div>
                                             </div> 
@@ -73,18 +121,71 @@
                                     @endif
                                 @endforeach
                             @endif
-                            <div class="clearfix"></div>
                         @endif
-
-                    </ul>
                 </div>
             </div>
         </div>
-    </div><br>
+    </div>
     @endforeach
 </div>
 
 <div class="col-sm-3"></div>
+<!-- approval -->
+@if(Auth::user()->role == 4)
+<div class="card card-review col-sm-3" style="margin-left: 30px;">
+      <br>
+      <p class="font-subtitle-5">Ubah Status LAPJUSIK</p>
+      <hr>
+      <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;">
+        <div class="col-sm-5" style="margin:10px;">
+          <form action="/lapjusik/setujuiLapjusik/tolak/{{ $pelaksanaan->id }}" method="POST" id="reject">
+            @csrf
+            <button id="tolak" class="button-disapprove font-approval" style="padding: 8px 8px;">TOLAK</button>
+          </form> 
+        </div>
+        <div class="col-sm-5"  style="margin: 10px;"> 
+          <form action="/lapjusik/setujuiLapjusik/setuju/{{ $pelaksanaan->id }}" method="POST" id="save">
+            @csrf
+            <button id="simpan3" class="button-approve font-approval" style="padding: 8px 8px;">SETUJUI</button>
+          </form> 
+        </div>
+      </div>
+</div>
+
+<div id="mod" class="modal fade">
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content">
+                    <div class="modal-header">				
+                        <h4 class="modal-title" style="text-align:center;">Tolak LAPJUSIK</h4>	
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">LAPJUSIK berhasil ditolak</p>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
+                    </div>
+                </div>
+            </div>
+    </div>  
+    
+    <div id="myMod" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">				
+                    <h4 class="modal-title" style="text-align:center;">Setujui LAPJUSIK</h4>	
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">LAPJUSIK berhasil disetujui</p>
+                </div>
+                <div class="modal-footer text-center">
+                    <button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@else
+<!-- Review -->
 <div class="card card-review col-sm-3" style="margin-left: 30px;">
       <br>
       <p class="font-subtitle-5">Review Klien</p>
@@ -203,14 +304,16 @@
       @endif
       @endif
    </div>
+@endif
 </div>
 </body>
 @endsection
 
 @section('scripts')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 	<script>
     var __slice = [].slice;
 
@@ -327,6 +430,20 @@ $(function() {
 
         $("#add-review").click(function(e){
 
+        });
+        $('.your-class').slick({
+            infinite: true,				
+            lazyLoad: 'ondemand',
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            dots: true
+        });
+        $("#simpan3").click(function(e){
+          e.preventDefault();
+          //checks if it's valid
+        //horray it's valid
+          $("#myMod").modal("show");
+          
         });
 
     @if($review==null)    
