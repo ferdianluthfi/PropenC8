@@ -402,7 +402,7 @@
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
                     <div class="col-sm-5 font-status-approval" style="margin-left:30px;">
                         @if ($proyek->approvalStatus == 6)
-                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right">Tambah PM</a>
+                        <a style="text-align: right">Belum ada PM</a>
                         @elseif ($proyek->approvalStatus == 7)
                         <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right">{{$pmName}}</a>
                         <span class="glyphicon glyphicon-pencil"></span>
