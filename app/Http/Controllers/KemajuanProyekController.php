@@ -142,7 +142,7 @@ class KemajuanProyekController extends Controller
         $allPelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->get();
 
         if($allPelaksanaan->isempty()) {
-            $minDate = Proyek::select('proyeks.startDate')->where('id',$proyekId)->first()->startDate;
+            $minDate = Proyek::select('proyeks.created_at')->where('id',$proyekId)->first()->created_at;
             $pekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$proyekId)->get();
         }
 

@@ -113,12 +113,13 @@ class PelaksanaanController extends Controller
 
     public function downloadPelaksanaan($id){
         $pelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.*')->where('id',$id)->first();
+        $kemajuanPertama = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->where('pelaksanaan_id',$id)->first();
         $tahunPeriode = date('Y', strtotime($pelaksanaan->createdDate));
 
         $idProyek = $pelaksanaan->proyek_id;
         $proyek = DB::table('proyeks')->select('proyeks.*')->where('id',$idProyek)->first();
-        $periodeMulai = $this->waktu($proyek->startDate);
-        $periodeSelesai = $this->waktu($proyek->endDate);
+        $periodeMulai = $this->waktu(date('Y-m-1', strtotime($kemajuanPertama->reportDate)));
+        $periodeSelesai = $this->waktu(date('Y-m-t', strtotime($kemajuanPertama->reportDate)));
 
         $sameIdPelaksanaan = Pelaksanaan::where([['proyek_id','=',$idProyek]])->get();
         $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.*')->where('proyek_id',$idProyek)->get();
