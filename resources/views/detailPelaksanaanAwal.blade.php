@@ -521,6 +521,6 @@ $(function() {
 		$("#NO").click(function(e){
 		   $('#reject').submit();
 		});
-  	});
+  });
 	</script>
 @endsection 

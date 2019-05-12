@@ -35,7 +35,7 @@ class KelengkapanLelangController extends Controller
         if($statusNum == 1){
             $status = "DISETUJUI";
         }elseif($statusNum == 2){
-            $status = "SEDANG BERJALAN";
+            $status = "MENUNGGU LELANG";
         }else{
             $status = "DITOLAK";
         }
@@ -48,7 +48,7 @@ class KelengkapanLelangController extends Controller
         $proyek = Proyek::select('proyeks.*')->where('id', $proyek_id)->first();
 		return view('file.form', compact('proyek'));
 	}
-    public function uploadKelengkapanLelang(Request $request): RedirectResponse {
+    public function uploadKelengkapanLelang(Request $request){
         $this->validate($request, [
             'title' => 'required|max:100',
             'file' => 'required|file|max:2000'
@@ -65,14 +65,13 @@ class KelengkapanLelangController extends Controller
             'path' => $path,
             'proyek_id' => $request->proyekId
         ]);
-        return redirect()
-            ->back()
-            ->withSuccess(sprintf('File %s has been uploaded.', $file->title));     
+        session()->flash('flash_message', 'File %s has been uploaded., $file->title');
+        return $this->kelolaBerkas($proyek->id);
     }
     
     public function responseKelengkapanLelang(KelengkapanLelang $file)
     {
-        return Storage::response($file->path);
+        return Storage::response($file->path, $file->filename . '.' . $file->ext);
     }
     /**
      * Download file directly.
@@ -89,7 +88,10 @@ class KelengkapanLelangController extends Controller
         $berkas = KelengkapanLelang::select('kelengkapan_lelangs.*')->where('id', $file->id)->first();
         $proyek = Proyek::select('proyeks.*')->where('id', $file->proyek_id)->first();
         KelengkapanLelang::where('id', $file->id)->update(['flag_active' => 0]);
-        return $this->kelolaBerkas($proyek->id);
+//        return redirect()->back()->with('flash_message', 'Berkas telah dihapus.');
+        return redirect()
+            ->back()
+            ->withSuccess(sprintf('File %s has been deleted.', $file->filename));
     }
     public function generatePDF($proyek_id)
     {
