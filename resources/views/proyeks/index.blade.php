@@ -651,7 +651,7 @@
 							<strong> {{ session('flash_message') }} </strong>
 					</div>
 				@endif
-				<h2 style="text-align:center;">Daftar Proyek</h2><br>
+				<h2 style="text-align:center;">Daftar Proyek Potensial</h2><br>
 				<div class="row">
 					@if(count($proyekPoten) > 0)
 					<div class="col-md-12">
@@ -666,7 +666,7 @@
 											</tr>
 										</thead>
 										<tbody >
-										@foreach($proyekPoten as $proyeks)
+										@foreach($proyekPasca as $proyeks)
                                             @if($proyeks->approvalStatus == 4 || $proyeks->approvalStatus == 5 || $proyeks->approvalStatus == 6 ||$proyeks->approvalStatus == 7
                                             || $proyeks->approvalStatus == 8)
                                             <tr style="background-color: whitesmoke;">
