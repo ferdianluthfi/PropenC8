@@ -70,8 +70,8 @@ Route::get('/informasi/{id}', 'KemajuanProyekController@viewInfo');
 Route::get('/informasi/detail/{id}', 'KemajuanProyekController@detailInfo');
 Route::get('/informasi/detail/tambah/{id}', 'KemajuanProyekController@tambahFoto');
 Route::post('/foto/submit/{id}', 'KemajuanProyekController@simpanFoto');
-Route::get('/info/tambah', 'KemajuanProyekController@tambahInformasi');
-Route::post('/info/submit', 'KemajuanProyekController@simpanInformasi');
+Route::get('/info/tambah/{id}', 'KemajuanProyekController@tambahInformasi');
+Route::post('/info/submit/{id}', 'KemajuanProyekController@simpanInformasi');
 Route::get('/info/edit/{id}', 'KemajuanProyekController@editInformasi');
 Route::post('/info/update/{id}', 'KemajuanProyekController@updateInformasi');
 Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
@@ -93,11 +93,14 @@ Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::get('/pelaksanaan/{id}', 'PelaksanaanController@viewPelaksanaan');
 Route::get('/pelaksanaan/detail/{id}', 'PelaksanaanController@detailPelaksanaan');
 Route::get('/pelaksanaan/tambah/{id}', 'PelaksanaanController@tambahPelaksanaan');
+Route::get('/pelaksanaan/delete/{id}', 'PelaksanaanController@deletePelaksanaan');
+Route::get('/pelaksanaan/download/{id}', 'PelaksanaanController@downloadPelaksanaan');
  /*
  * routing untuk PM2an
  */
 Route::get('/pm/kelola/{proyek_id}', 'PenggunaController@getAvailablePm');//masuk ke page edit pm
 Route::post('/pm/update', 'PenggunaController@managePm');//update pm
+
 
 
 /**

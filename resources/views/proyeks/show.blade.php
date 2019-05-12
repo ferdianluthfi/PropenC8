@@ -249,7 +249,7 @@
 @endsection
 
 <!--INI PUNYA MGR PELAKSANA, dan if else yang udah lengkap kelola lelangnya soon-->
-@elseif(Auth::user()->role == 6)
+@elseif(Auth::user()->role == 6 or Auth::user()->role == 4)
 @section ('content')
 @include('layouts.nav')
 
@@ -323,13 +323,13 @@
             </div>
         </div>
         <div class="col-sm-2">
-            <div class="card card-pm">
+            <div class="card card-pm" style="margin-left:-30px">
                 <br>
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
-                <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
-                <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
-                <button class="button-disapprove" style="margin-left: 35px">LPJ</button>
+                <button class="button-disapprove" style="margin-left: 65px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
+                <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-disapprove" style="margin-left: 65px; margin-bottom: 10px">LAPJUSIK</button></a>
+                <button class="button-disapprove" style="margin-left: 65px">LPJ</button>
             </div>
         </div>
     </div>

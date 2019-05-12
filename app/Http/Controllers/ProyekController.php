@@ -1,14 +1,11 @@
 <?php
 namespace App\Http\Controllers;
-
 // use DB;
 use App\Proyek;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Pengguna;
-
-
 class ProyekController extends Controller
 {
     /**
@@ -34,21 +31,21 @@ class ProyekController extends Controller
             $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
             $proyekLelang = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 3)->get();
             $proyekPasca = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus',5) ->orWhere('approvalStatus',6) ->orWhere('approvalStatus',7) ->orWhere('approvalStatus',8) ->orWhere('approvalStatus',9)->get();
+<<<<<<< HEAD
 
+=======
+>>>>>>> reza
             foreach($proyekPoten as $proyeg){
                 $statusNum = $proyeg-> approvalStatus;
-
                 if($statusNum == 0){
                     $status = "MENUNGGU PERSETUJUAN";
                 }
             }
             foreach($proyekNonPoten as $proyeg){
-
                 $statusNum = $proyeg-> approvalStatus;
                 $temp = explode(" ",$proyeg->created_at)[0];
                 $date = $this->waktu($temp);
                 $proyeg->created_at = $date;
-
                 if($statusNum == 1){
                     $status = "DISETUJUI";
                 }elseif($statusNum == 2){
@@ -57,13 +54,17 @@ class ProyekController extends Controller
                     $status = "DITOLAK";
                 }
             }
+<<<<<<< HEAD
 
+=======
+>>>>>>> reza
             return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'proyekLelang', 'proyekPasca', 'status'));
         }
         elseif(\Auth::user()->role == 5){
             $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
             return view('proyeks.index',compact('proyekPoten'));
         }
+<<<<<<< HEAD
 
         elseif(\Auth::user()->role == 6){ //buat manager pelaksana jg isini (?)
             $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 6)->orWhere('approvalStatus', 7)->get();
@@ -78,6 +79,18 @@ class ProyekController extends Controller
             $proyekLelang = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 3)->get();
             $proyekPasca = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus',5) ->orWhere('approvalStatus',6) ->orWhere('approvalStatus',7) ->orWhere('approvalStatus',8) ->orWhere('approvalStatus',9)->get();
 
+=======
+        elseif(\Auth::user()->role == 6 or \Auth::user()->role == 4){
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 6)->orWhere('approvalStatus', 7)->get();
+            return view('proyeks.index',compact('proyekPoten'));
+        }
+        elseif(\Auth::user()->role == 2){
+            $proyekPoten = DB::table('proyeks')->select('projectName', 'companyName', 'id')
+                ->where('approvalStatus',1)->get();
+            $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
+            $proyekLelang = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 3)->get();
+            $proyekPasca = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus',5) ->orWhere('approvalStatus',6) ->orWhere('approvalStatus',7) ->orWhere('approvalStatus',8) ->orWhere('approvalStatus',9)->get();
+>>>>>>> reza
 //            foreach($proyekPoten as $proyeg){
 //                $statusNum = $proyeg-> approvalStatus;
 //                if($statusNum == 1){
@@ -97,13 +110,19 @@ class ProyekController extends Controller
                     $status = "DITOLAK";
                 }
             }
+<<<<<<< HEAD
 
+=======
+>>>>>>> reza
             return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'proyekLelang', 'proyekPasca', 'status'));
         }
         else{
             return view('no-access');
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> reza
     }
     /**
      * Show the form for creating a new resource.
@@ -170,7 +189,10 @@ class ProyekController extends Controller
         $proyeks = DB::table('proyeks') -> where('id', $id) -> get();
         $status;
         $pmName;
+<<<<<<< HEAD
 
+=======
+>>>>>>> reza
         foreach($proyeks as $proyeg){
             $statusNum = $proyeg-> approvalStatus;
             $temp = number_format($proyeg->projectValue, 2, ',','.');
@@ -191,7 +213,10 @@ class ProyekController extends Controller
             elseif($statusNum == 9){
                 $status = "DITOLAK";
             }
+<<<<<<< HEAD
 
+=======
+>>>>>>> reza
         }
         return view('proyeks/show',compact('id', 'proyeks', 'status', 'pmName'));
     }
@@ -205,7 +230,10 @@ class ProyekController extends Controller
     {
         // mengambil data pegawai berdasarkan id yang dipilih
         $proyeks = DB::table('proyeks')->where('id',$id)->get();
+<<<<<<< HEAD
 
+=======
+>>>>>>> reza
         // passing data pegawai yang didapat ke view edit.blade.php
         return view('proyeks/edit',["id" => $id, "proyeks" => $proyeks]);
     }
@@ -228,7 +256,10 @@ class ProyekController extends Controller
             'projectAddress' => 'required'
         ]);
         // return $request->all();
+<<<<<<< HEAD
 
+=======
+>>>>>>> reza
         if($validator->fails()) {
             session()->flash('error', 'Ada kesalahan input');
             return redirect('/proyek/ubah/$request->id')
@@ -280,6 +311,7 @@ class ProyekController extends Controller
     {
         // menghapus data [proyek] berdasarkan id yang dipilih
         DB::table('proyeks')->where('id',$id)->delete();
+<<<<<<< HEAD
 
         // alihkan halaman ke halaman proyek
         return redirect()->back()->with('flash_message', 'Proyek telah dihapus.');
@@ -288,18 +320,28 @@ class ProyekController extends Controller
     public function waktu($tanggal){
 
 
+=======
+        // alihkan halaman ke halaman proyek
+        return redirect()->back()->with('flash_message', 'Proyek telah dihapus.');
+    }
+    public function waktu($tanggal){
+>>>>>>> reza
         $bulan = date("m", strtotime($tanggal));
         $tahun = date("Y", strtotime($tanggal));
         $day = substr($tanggal, 8, 9);
         $days = strval($day);
         $tahuns = strval($tahun);
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> reza
         $bulanTerbilang;
         if($bulan == "1"){
             $bulanTerbilang = "Januari";
         }
+<<<<<<< HEAD
 
         elseif($bulan == "2"){
             $bulanTerbilang = "Februari";
@@ -313,6 +355,17 @@ class ProyekController extends Controller
             $bulanTerbilang = "April";
         }
 
+=======
+        elseif($bulan == "2"){
+            $bulanTerbilang = "Februari";
+        }
+        elseif($bulan == "3"){
+            $bulanTerbilang = "Maret";
+        }
+        elseif($bulan == "4"){
+            $bulanTerbilang = "April";
+        }
+>>>>>>> reza
         elseif($bulan == "5"){
             $bulanTerbilang = "Mei";
         }
@@ -328,13 +381,17 @@ class ProyekController extends Controller
         if($bulan == "9"){
             $bulanTerbilang = "September";
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> reza
         elseif($bulan == "10"){
             $bulanTerbilang = "Oktober";
         }
         elseif($bulan == "11"){
             $bulanTerbilang = "November";
         }
+<<<<<<< HEAD
 
         elseif($bulan == "12"){
             $bulanTerbilang = "Desember";
@@ -343,6 +400,13 @@ class ProyekController extends Controller
         $waktu = "$days $bulanTerbilang $tahuns";
         return($waktu);
 
+=======
+        elseif($bulan == "12"){
+            $bulanTerbilang = "Desember";
+        }
+        $waktu = "$days $bulanTerbilang $tahuns";
+        return($waktu);
+>>>>>>> reza
     }
     /**
      * punya jekiiiii
@@ -353,7 +417,10 @@ class ProyekController extends Controller
         $proyek->projectValue = $formatValue;
         $status;
         $statusNum = $proyek-> approvalStatus;
+<<<<<<< HEAD
 
+=======
+>>>>>>> reza
         if($statusNum == 0){
             $status = "MENUNGGU PERSETUJUAN";
         }
@@ -394,10 +461,15 @@ class ProyekController extends Controller
         else{
             $statusKontrak = "false";
         }
+<<<<<<< HEAD
 
         return view('projectDetail', compact('proyek', 'status', 'statusKontrak'));
     }
 
+=======
+        return view('projectDetail', compact('proyek', 'status', 'statusKontrak'));
+    }
+>>>>>>> reza
     public function approveProject($id){
         $proyekz = DB::table('proyeks')
             ->where('id', $id)
@@ -410,6 +482,10 @@ class ProyekController extends Controller
             ->update(['approvalStatus' => 3]);
         return redirect('/proyek');
     }
+<<<<<<< HEAD
 
 
 }
+=======
+}
+>>>>>>> reza

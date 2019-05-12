@@ -16,6 +16,8 @@ class CreatePelaksanaansTable extends Migration
         Schema::create('pelaksanaans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('approvalStatus');
+            $table->integer('flag');
+            $table->integer('bulan');
             $table->date('createdDate');
             
 

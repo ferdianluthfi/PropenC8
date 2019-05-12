@@ -32,12 +32,9 @@
 
             <nav aria-label="breadcrumb" style="margin-left:10px;">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('assignedproyek') }}">Proyek</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/proyek/detail/{{$proyek->id}}'>Detail Proyek</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/informasi/{{$proyek->id}}'>Informasi Kemajuan</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/informasi/detail/{{$kemajuans->id}}'>Detail Kemajuan</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href='/info/edit/{{$kemajuans->id}}'>Ubah Kemajuan</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('assignedproyek') }}">Daftar Proyek</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/informasi/{{$proyek->id}}'>Daftar Kemajuan Proyek</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active">Ubah Informasi</a></li>
                 </ol>
             </nav>
 
@@ -49,7 +46,8 @@
                 <div class="content bg1">
                     <span class="labels">Uraian Pekerjaan</span>
                     <select name="tipepekerjaan" class="content bg1">
-                        @foreach($pekerjaan as $tipe)
+                        <option value="{{$finalPekerjaan->id}}" >{{$finalPekerjaan->name}}</option>
+                        @foreach($bladePekerjaan as $tipe)
                             <option value="{{$tipe->id}}" >{{$tipe->name}}</option>
                         @endforeach
                     </select>
@@ -63,7 +61,7 @@
 
                 <div class="content bg1">
                     <span class="labels">Tanggal Informasi</span>
-                    <input type="date" name="reportdate" class="inputs" value="{{ $kemajuans->reportDate }}" data-error=".errorDate">
+                    <input type="date" name="reportdate" min="<?php echo $minDate ?>" class="inputs" value="{{ $kemajuans->reportDate }}" data-error=".errorDate">
                     <div class="errorMessage errorDate"></div>
                 </div>
 
@@ -108,8 +106,6 @@
                         <img src="{{asset($fot->path)}}" width="400" height="400">
                         <input name="listId[]" style="display:none" id="input-<?php echo $fot->id?>" value=" {{$fot->id}}">
                         <a class="btn btn-danger foto" id="button-{{$fot->id}}" onclick="addDeletedPhoto({{$fot->id}})" style="font-size:12pt; font-weight:bolder; align:right;"> Hapus</a>
-                        <!--<td><input type="photo" name="photo[]" class="help-block text-danger" value="{{$fot->path}}"> {{ $errors->first('photo') }}</td>
-                        <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></td>-->
                 </div>
                 @endforeach 
                 
@@ -236,19 +232,16 @@
                 },
                 //For custom messages
                 messages:{
-                    description:{
-                        required: "Deskripsi proyek harus diisi",
-                    },
                     reportdate:{
-                        required: "Tanggal harus diisi",
+                        required: "Tanggal kemajuan harus diisi",
                     },
                     tipekemajuan:{
-                        required: "Tipe info harus diisi",
+                        required: "Tipe kemajuan harus diisi",
                     },
                     nilai:{
-                        required: "Value proyek harus diisi",
-                        digits: "Value harus berupa angka",
-                        min: "Value minimal 1",  //ceklg
+                        required: "Value kemajuan harus diisi",
+                        digits: "Value kemajuan harus berupa angka",
+                        min: "Value kemajuan minimal bernilai 1",
                     },
                 }, 
                 errorElement:'div',
