@@ -46,13 +46,10 @@ class KemajuanProyekController extends Controller
 
     public function viewKemajuan(){
         if(\Auth::user()->role == 2){
-            $idProyeks = Proyek::select('proyeks.id')->where('isLPJExist', 0)->where('approvalStatus',2)->get(); //harus diperbarui sesuai dengan pendifinisian baru
+            $idProyeks = Proyek::select('proyeks.id')->where('isLPJExist', 0)->where('approvalStatus',7)->get(); //harus diperbarui sesuai dengan pendifinisian baru
             if($idProyeks->isEmpty() == false){
-                $proyeks = Proyek::select('proyeks.*')->where('isLPJExist', 0)->where('approvalStatus',2)->get();
-                //dd($proyeks);
+                $proyeks = Proyek::select('proyeks.*')->where('isLPJExist', 0)->where('approvalStatus',7)->get();
                 $proyekPrint = [];
-                
-
                 $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->whereIn('proyek_id',$idProyeks)->get();
                 if($idPelaksanaan->isEmpty()){
                     return view('viewAll-EmptyKemajuan', compact('proyeks'));
