@@ -8,6 +8,9 @@ Use App\Proyek;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Validator;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use PDF;
 
 class KontrakController extends Controller
 {
@@ -20,18 +23,178 @@ class KontrakController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function infoUmumTambahInfo($id){
+        $proyek = DB::table('proyeks')->select('*')->where('id', $id)->first(); 
+        
+        return view('kontraks.tambah-kontrak', compact('proyek'));
+    }
     
-    public function viewKontrakz($id){ #ahmad
-        $kontrak = DB::table('kontraks')->select('*')->where('proyek_id', $id)->first();
+    public function berkasSurat(request $request, $id){
+        
         $proyek = DB::table('proyeks')->select('*')->where('id', $id)->first();
+        
+        $namaP = $request->alamatKlien;
+        $kontakP =$request->contactPerson;
+
+        
+        // return  view('kontraks.daftar-surat', compact('proyek'));
+        return $this->generateSurat($id, $namaP, $kontakP);
+    }
+
+    public function generateSurat($id, $namaP, $kontakP){
+        $proyek = DB::table('proyeks')->where('id', $id)->first();
+        $tanggal = now('GMT+7');
+        $namaP = $namaP;
+        $kontakP = $kontakP;   
+        
+        $data = [
+            'tanggal' => $tanggal,
+            'namaPerusahaan' => $namaP,
+            'contactPerson' => $kontakP,
+            'projectName' => $proyek->projectName,
+
+        ];
+         
+        $pdf = PDF::loadView('template-surat/suratJualBeli', $data);
+        
+        $docName = 'Surat Kontrak Jual Beli';
+
+        $tes = Storage::put($docName, $pdf->output());
+        
+
+        $ext = 'pdf';
+        $file = DB::table('kontraks')->insert([
+            'approvalStatus' => 0,
+            'title' =>  $docName,
+            'filename' => $proyek->projectName,
+            'path' => $docName,
+            'ext' => 'pdf',
+            'proyek_id' => $id,
+            'pengguna_id' => $proyek->pengguna_id,
+            'created_at' => now('GMT+7'),
+            'updated_at' => now('GMT+7')
+        ]);
+        
+        
+        return  view('kontraks.daftar-surat', compact('proyek'));
+    }
+
+    public function createKontrak(request $request, $id){
+        $proyek = DB::table('proyeks')->where('id',$id)->first();
+        $arrSurat = $request->surat;
+
+        $key = array_keys($request->surat);
+        
+        if ($request->surat != null) {
+            for($i = 0 ; $i < sizeOf($arrSurat); $i++) { 
+                try{
+                    $namaSurat;
+                    $nilai = $key[$i];
+                    switch($nilai){
+                        case 0;
+                            $namaSurat = "Surat Keputusan Otorisasi Pelaksanaan";
+                            break;
+                        case 1;
+                            $namaSurat = "Surat Perintah Pelaksanaan Program";
+                            break;
+                        case 2;
+                            $namaSurat = "Surat Perintah Panitia Pelelangan";
+                            break;
+                        case 3;
+                            $namaSurat = "Surat Undangan";
+                            break;
+                        case 4;
+                            $namaSurat = "Berita Acara Penjelasan Pekerjaan";
+                            break;
+                        case 5;
+                            $namaSurat = "Daftar Hadir Panitia dan Peserta Lelang";
+                            break;
+                        case 6;
+                            $namaSurat = "Daftar Permintaan Barang";
+                            break;
+                        case 7;
+                            $namaSurat = "Daftar Harga Perkiraan Sendiri";
+                            break;
+                        case 8;
+                            $namaSurat = "Berita Acara Pembukaan Dokumen Penawaran";
+                            break;
+                        case 9;
+                            $namaSurat = "Surat Penawaran Rekanan";
+                            break;
+                        case 10;
+                            $namaSurat = "Surat Jaminan Penawaran";
+                            break;
+                        case 11;
+                            $namaSurat = "Data Perusahaan Pemenang";
+                            break;
+                        case 12;
+                            $namaSurat = "Berita Acara Negosiasi";
+                            break;
+                        case 13;
+                            $namaSurat = "Surat Keputusan Pelulusan Pemenang";
+                            break;
+                        case 14;
+                            $namaSurat = "Surat Perintah Kerja";
+                            break;
+                        case 15;
+                            $namaSurat = "Surat Jaminan Bank";
+                            break;
+                        
+                    }    
+                    $uploadedFile = $arrSurat[$nilai];
+                    $path = $uploadedFile->storeAs('upload',$uploadedFile->getClientOriginalName());
+                    $publicPath = Storage::url($path);
+                    // dd($publicPath);
+                    
+                    $filename = $proyek->projectName . ' - '. $namaSurat;
+                    
+                    
+                    \DB::table('kontraks')->insert([
+                        'approvalStatus' => 0,
+                        'title' =>  $namaSurat ?? $uploadedFile->getClientOriginalName(),
+                        'filename' => $filename,
+                        'path' => $publicPath,
+                        'ext' => $uploadedFile->getClientOriginalExtension(),
+                        'proyek_id' => $id,
+                        'pengguna_id' => $proyek->pengguna_id,
+                        'created_at' => now('GMT+7'),
+                        'updated_at' => now('GMT+7')
+                    ]);
+                    DB::table('proyeks')->where('id', $id)->update(['approvalStatus' => 5]);
+
+                }
+                catch(\Exception $e){
+                    continue;
+                }
+            }
+        }
+
+        // return $this->viewKontrakz($id);
+        return redirect()->route('view-kontrak', ['id' => $id]);    
+    }
+
+    public function overviewKontrak($id){ #ahmad
+        
+        $listKontrak = DB::table('kontraks')->select('*')->where('proyek_id', $id)->where('flag_active', '1')->get();
+        $kontrakPasti = DB::table('kontraks')->select('*')->where('proyek_id', $id)->where('flag_active', '1')->first();
+    
+        $proyek = DB::table('proyeks')->select('*')->where('id', $id)->first();
+        // dd($proyek);
         $formatValue = number_format($proyek->projectValue, 2, ',','.');
         $proyek->projectValue = $formatValue;
-        
-        $tanggalKontrak = $kontrak->contractDate; 
-        
-        $status = $kontrak->approvalStatus; // ini kontrak belum tentu adakan. kalo dia gapunya nanti returnnya null
-        if($status == 0){
+        foreach($listKontrak as $kontrak){
+            $tanggal = $kontrak->created_at;
+            $tgl = $this->waktu($tanggal);
+            $kontrak->created_at = $tgl;
+            
+        }
+
+        $tanggalKontrak = $kontrakPasti->created_at; 
         $tanggals = $this->waktu($tanggalKontrak);
+
+        $status = $kontrakPasti->approvalStatus; // ini kontrak belum tentu adakan. kalo dia gapunya nanti returnnya null
+        if($status == 0){
             $statusHuruf = "MENUNGGU PERSETUJUAN";
         } 
         elseif($status == 1){
@@ -40,50 +203,34 @@ class KontrakController extends Controller
         elseif($status == 2){
             $statusHuruf = "DITOLAK";
         }
-        return view('viewKontrak', compact('kontrak', 'proyek', 'tanggals', 'statusHuruf'));
-    }
-        
-
-    public function infoUmumTambahInfo($id){
-        $proyek = DB::table('proyeks')->select('*')->where('id', $id)->first();
-        $formatValue = number_format($proyek->projectValue, 2, ',','.');
-        $proyek->projectValue = $formatValue;
-
-       
-        
-        return view('kontraks.tambah-kontrak', compact('proyek'));
-    }
+        return view('viewKontrak', compact('proyek', 'tanggals', 'statusHuruf', 'listKontrak'));
     
-    public function berkasSurat(request $request, $id){
         
-        $proyek = DB::table('proyeks')->select('*')->where('id', $id)->first();
-        $namaP = $request->alamatKlien;
-        $kontakP =$request->contactPerson;
-    
-        return  view('kontraks.daftar-surat', compact('proyek'));
     }
 
-    public function createKontrak(request $request, $id){
-        // dd($request->surat);
-        if ($request->file != null) {
-            foreach($request->file as $file) {
-                $uploadedFile = $file;
-                $path = $uploadedFile->storeAs('public/upload',$file->getClientOriginalName());
-                $publicPath = \Storage::url($path);
-                $filename = $proyek->projectName . ' - ' . $request->title;
+    public function downloadSuratKontrak($idKontrak){
+        $kontrak = DB::table('kontraks')->where('id', $idKontrak)->first();
+        // dd(asset("/storage/upload/CV_Muhammad Imam Santosa.pdf"));
+        // dd($kontrak->path);  
+        // return Storage::download($kontrak->path, $kontrak->filename . '.' . $kontrak->ext);
+        // return Storage::download("/storage/upload/CV_Muhammad Imam Santosa.pdf");
+    }   
     
-                DB::table('kontrak')->insert([
-                    'approvalStatus' => 0,
-                    'title' => $request->title ?? $uploadedFile->getClientOriginalName(),
-                    'filename' => $filename,
-                    'path' => $publicPath,
-                    'ext' => $uploadedFile->getClientOriginalExtension(),
-                    'proyek_id' => $id,
-                    'created_at' => now('GMT+7'),
-                    'updated_at' => now('GMT+7')
-                ]);
-            }
+    public function deleteSuratKontrak($idKontrak){
+        $surat = DB::table('kontraks')->where('id', $idKontrak)->first();
+        $proyek = DB::table('proyeks')->where('id', $surat->proyek_id)->first();
+        Kontrak::where('id', $idKontrak)->update(['flag_active' => 0]);
+        $cekStatus = DB::table('kontraks')->where('proyek_id', $proyek->id)->where('flag_active', 1)->first();
+        // dd($cekStatus);
+        if($cekStatus !=null){
+            return $this->overviewKontrak($proyek->id);
         }
+        else{
+            DB::table('proyeks')->where('id', $proyek->id)->update(['approvalStatus' => 4]);
+            return redirect()->route('detailProyek', ['id' => $proyek->id]);
+
+        }
+        
     }
     
     public function viewKontrak($id){ #kirana
@@ -122,13 +269,12 @@ class KontrakController extends Controller
     
     public function waktu($tanggal){
         
-        
         $bulan = date("m", strtotime($tanggal));
         $tahun = date("Y", strtotime($tanggal));
-        $day = substr($tanggal, 8, 9);
+        $day = date("d", strtotime($tanggal));
         $dayz = strval($day);
         $tahunz = strval($tahun);
-     
+        
         
         
         $bulanTerbilang;
@@ -181,7 +327,7 @@ class KontrakController extends Controller
         }
         
         $waktu = "$dayz $bulanTerbilang $tahunz";
-        return($waktou);   
+        return($waktu);   
            
     }
 

@@ -62,6 +62,7 @@
     <br>
     <form action="/proyek/{{$proyek->id}}/kontrak/buatSurat/" method="POST" id="save">
             @csrf
+
     <div class="container-fluid card card-kontrak">
         <div class="row judul">
             <div class="col-sm-9 font-subtitle-4">Informasi Tambahan</div>
@@ -69,46 +70,37 @@
         <hr>
         
         <div id="variabel">
-            <div class="col-sm-6 font-desc-bold">
+            <div class="col-sm-5 font-desc-bold" style="margin-left:10px;">
                     <ul>
                         <li><p>Alamat Perusahaan</p></li>
+                        <br>
                         <li><p>Contact Person</p></li>
                     </ul>
-                    <div style="border:solid 0.2px" >
-						<input class="inputs" type="text" name="alamatKlien" placeholder="Masukkan Alamat Perusahaan" data-error=".alamatKlien">
-			        </div>
-                    <br>
-                    <div style="border:solid 0.2px;">
-                        <input class="inputs" type="text" name="contactPerson" placeholder="Masukkan Contact Person Klien" data-error=".contactPerson">
+            </div>
+            <div class="col-sm-6 font-desc">
+                    <div style="border: 0.5px solid #e6e6e6; border-radius: 8px;" >
+                        <input class="inputs font-desc" type="text" name="alamatKlien" placeholder="Masukkan Alamat Perusahaan" data-error=".alamatKlien">
                     </div>
-                    
+                    <br>
+                    <div style="border: 0.5px solid #e6e6e6; border-radius:8px;">
+                        <input class="inputs font-desc" type="text" name="contactPerson" placeholder="Masukkan Contact Person Klien" data-error=".contactPerson">
+                    </div>
             </div>
         </div>
-
-        <!-- <div class="form-group {{ !$errors->has('file') ?: 'has-error' }}">
-            <label>Foto</label>
-
-            <table class="table table-bordered" id="dynamic_field">  
-                <tr>  
-                    <td><input type="file" name="file[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>  
-                    <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></td>  
-                </tr>  
-            </table>  
-        </div> -->
         <br>
         <br>
     
     </div>
     <div class="row" style="margin-top: 20px; ">
-    <div class="col-sm-2"> 
+    <div class="col-sm-3"> </div>
+    <div class="col-sm-3"> 
         
             <button id="simpan" class="button-approve font-approval">Lanjut</button>
            
     </div>
     </form> 
-
-    <div class="col-sm-4"> </div>
-    <div class="container1-btn">
+    
+    <div class="col-sm-3 container1-btn">
         <div>
         <a class="button-disapprove font-approval" data-toggle="modal" data-target="#myModal" style="padding:10px;">
           Kembali

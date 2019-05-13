@@ -176,7 +176,7 @@ class ProyekController extends Controller
             if($statusNum == 0){
                 $status = "MENUNGGU PERSETUJUAN";
             }
-            elseif($statusNum == 1){
+            elseif($statusNum == 5){
                 $status = "DISETUJUI";
             }
             elseif($statusNum == 2){

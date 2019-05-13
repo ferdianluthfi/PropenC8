@@ -1,6 +1,5 @@
 @extends('layouts.layout')
 
-<html>
 <head>
 <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,9 +41,9 @@
     <hr>
     
     <br>
-    <form action ="/proyek/{{$proyek->id}}/kontrak/createKontrak" method ="post" id="save">
+    <form action ="/proyek/{{$proyek->id}}/kontrak/createKontrak" method ="post" id="save" enctype="multipart/form-data">
         @csrf
-    <table id="datatable" class="table table-striped table-bordered" >
+    <table id="datatable" data-page-length='25' class="table table-striped table-bordered" >
         <thead>
         <tr style="text-align: center">
             <th>Nomor</th>
@@ -63,7 +62,7 @@
             <td>Surat Keputusan Otorisasi Pelaksanaan</td>
             <td><input type="file" name="surat[]"></td>
         </tr>
-        <tr>
+        <tr> 
             <td>3</td>
             <td>Surat Perintah Pelaksanaan Program</td>
             <td><input type="file" name="surat[]" class="help-block text-danger"></td>

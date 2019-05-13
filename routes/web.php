@@ -69,7 +69,7 @@ Route::get('/proyek/{id}', 'ProyekController@viewDetailProyek')->name('detail-pr
 Route::get('/proyek/setujuiProyek/{id}', 'ProyekController@approveProjectDetail');
 Route::post('/proyek/setujuiProyek/setuju/{id}', 'ProyekController@approveProject');
 Route::post('/proyek/setujuiProyek/tolak/{id}', 'ProyekController@rejectProject');
-Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutApprove'); //ini punya gua
+Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutApprove')->name('detailProyek'); //ini punya gua
 
 
 
@@ -79,11 +79,12 @@ Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutAp
 Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');
 Route::post('proyek/{id}/kontrak/approve', 'KontrakController@approveKontrak')->name('approve-kontrak');
 Route::post('proyek/{id}/kontrak/disapprove', 'KontrakController@disapproveKontrak')->name('disapprove-kontrak');
-Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@viewKontrakz')->name('view-kontrak');
+Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@overviewKontrak')->name('view-kontrak');
 Route::get('/proyek/{id}/kontrak/buat', 'KontrakController@infoUmumTambahInfo')->name('buat-kontrak');
 Route::post('/proyek/{id}/kontrak/buatSurat', 'KontrakController@berkasSurat');
 Route::post('/proyek/{id}/kontrak/createKontrak', 'KontrakController@createKontrak');
-
+Route::get('/kontrak/{kontrakId}/download', 'KontrakController@downloadSuratKontrak')->name('download-surat-kontrak');
+Route::get('/kontrak/{kontrakId}/delete', 'KontrakController@deleteSuratKontrak')->name('delete-surat-kontrak');
 /**
  * routing untuk kemajuan proyek
  */

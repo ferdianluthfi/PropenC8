@@ -29,6 +29,7 @@ class CreateKontraksTable extends Migration
             ->on('proyeks')
             ->onUpdate('cascade')
             ->onDelete('cascade');
+            $table->integer('flag_active')->default(1);
 
             /**
              * 
