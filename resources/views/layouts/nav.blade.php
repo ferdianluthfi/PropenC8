@@ -8,9 +8,9 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="{{ url('home') }}" class="font-nav">Beranda</a></li>
         @if(Auth::user()->role == 7)
-        <li><a href="/assignedproyek" class="font-nav">Proyek</a></li>
+        <li><a href="/assignedproyek" class="font-nav">Daftar Proyek</a></li>
         @elseif(Auth::user()->role != 1)
-        <li><a href="{{ url('proyek') }}" class="font-nav">Proyek</a></li>
+        <li><a href="{{ url('proyek') }}" class="font-nav">Daftar Proyek</a></li>
         @elseif(Auth::user()->role == 1)
         <li><a href="/register" class="font-nav">Tambah Akun</a></li>
         @endif

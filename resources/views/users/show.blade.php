@@ -28,24 +28,25 @@
 
 		@foreach($users as $user)
 		<nav aria-label="breadcrumb">
-		<ol class="breadcrumb" style="margin-left:0px;">
+		<ol class="breadcrumb" style="margin-left:100px;">
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('homeAccountManager') }}">Beranda</a></li>
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href= "/user/ubah/{{ $user->id }}">Detail User {{ $user->name }}</a></li>
 		</ol>
 		</nav>
-		<form action="/user/update" method="post" id="editForm" style="background:white;padding-top: 8px;">
+		
+		<form action="/user/update" method="post" id="editForm" style="height:500px;width:1000px;background:white;padding-top: 8px; margin:0 auto;">
 			
-            <h1 style="text-align:center;">Detail Akun</h1>
+            <h1 class="font-title" style="text-align:center;">Detail Akun</h1>
             <hr>
 			{{ csrf_field() }}
 
 			<input type="hidden" name="id" value="{{ $user->id }}"> <br/>
 		
 			<div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input value="{{ $user->name }}" id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                <input value="{{ $user->name }}" id="name" type="text" class="font-desc form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback" role="alert">
@@ -56,10 +57,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
+                            <label for="username" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Username') }}</label>
 
                             <div class="col-md-6">
-                                <input value="{{ $user->username }}" id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
+                                <input value="{{ $user->username }}" id="username" type="text" class="font-desc form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
 
                                 @if ($errors->has('username'))
                                     <span class="invalid-feedback" role="alert">
@@ -70,10 +71,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input value="{{ $user->email }}"id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                                <input value="{{ $user->email }}"id="email" type="email" class="font-desc form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
@@ -83,10 +84,10 @@
                             </div>
                         </div>
 			    <div class="form-group row">
-                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                    <label for="password" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Password') }}</label>
 
                     <div class="col-md-6">
-                        <input value="{{ $user->password }}" id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                        <input value="{{ $user->password }}" id="password" type="password" class="font-desc form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                         @if ($errors->has('password'))
                             <span class="invalid-feedback" role="alert">
@@ -97,7 +98,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Confirm Password') }}</label>
 
                     <div class="col-md-6">
                         <input value="{{ $user->password }}" id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
@@ -105,11 +106,11 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+                    <label for="role" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Role') }}</label>
                     <div class="col-md-6">
 					@switch($user->role)
 					@case(1)
-						<select name="role" class="content bg1">
+						<select name="role" class="content bg1 font-desc">
 							<option value="1" >Akun Manajer</option>
 							<option value="2" >Direksi</option>
 							<option value="3" >Staf Marketing</option>
@@ -215,11 +216,11 @@
 						@if($user->status == 0)
 						<a class="button-disapprove font-approval" data-toggle="modal" data-target="#myDeleteModal" style="padding:10px;color:red;border:1.5px solid red;">
 							<span>
-								Hapus
+								HAPUS
 							</span>
 						</a>
 						@else
-						<a class="button-disapprove font-approval" data-toggle="modal" data-target="#myUpdateModal" style="padding:10px;">
+						<a class="button-disapprove font-approval"" data-toggle="modal" data-target="#myUpdateModal" style="padding:10px;">
 							<span>
 								Aktifkan
 							</span>
@@ -235,12 +236,12 @@
 				<div class="container1-btn" style="place-content: flex-end;float: right;">
 						<a class="button-disapprove font-approval" data-toggle="modal" data-target="#myModal" style="padding:10px;">
 							<span>
-								Batal
+								BATAL
 							</span>
 						</a>
 						<button class="button-approve font-approval" id="simpan" style="margin-left:5px;">
 								<span>
-									Simpan
+									SIMPAN
 								</span>
 						</button>
 				</div>

@@ -29,7 +29,9 @@ class ReviewController extends Controller
             return response()->json([], 200);
         }
     }
+
     public function add(Request $request){
+
         $validator = Validator::make($request->all(), [
             'rating_star' => 'required',
 		    'komentar' => 'required'
