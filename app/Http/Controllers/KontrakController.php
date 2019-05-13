@@ -12,6 +12,13 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use PDF;
 
+use App\KelengkapanLelang;
+use App\Files;
+use App\ListTemplateSurat;
+
+use PhpParser\Node\Expr\New_;
+
+
 class KontrakController extends Controller
 {
     /**
@@ -67,7 +74,7 @@ class KontrakController extends Controller
         $file = DB::table('kontraks')->insert([
             'approvalStatus' => 0,
             'title' =>  $docName,
-            'filename' => $proyek->projectName,
+            'filename' => $proyek->projectName . ' - Surat Kontrak Jual Beli',
             'path' => $docName,
             'ext' => 'pdf',
             'proyek_id' => $id,
@@ -143,8 +150,9 @@ class KontrakController extends Controller
                         
                     }    
                     $uploadedFile = $arrSurat[$nilai];
-                    $path = $uploadedFile->storeAs('upload',$uploadedFile->getClientOriginalName());
-                    $publicPath = Storage::url($path);
+                    // dd($uploadedFile);
+                    $path = $uploadedFile->storeAs('upload', $uploadedFile->getClientOriginalName());
+                    // $publicPath = Storage::url($path);
                     // dd($publicPath);
                     
                     $filename = $proyek->projectName . ' - '. $namaSurat;
@@ -154,7 +162,7 @@ class KontrakController extends Controller
                         'approvalStatus' => 0,
                         'title' =>  $namaSurat ?? $uploadedFile->getClientOriginalName(),
                         'filename' => $filename,
-                        'path' => $publicPath,
+                        'path' => $path,
                         'ext' => $uploadedFile->getClientOriginalExtension(),
                         'proyek_id' => $id,
                         'pengguna_id' => $proyek->pengguna_id,
@@ -209,11 +217,10 @@ class KontrakController extends Controller
     }
 
     public function downloadSuratKontrak($idKontrak){
+    //    dd($idKontrak);
         $kontrak = DB::table('kontraks')->where('id', $idKontrak)->first();
-        // dd(asset("/storage/upload/CV_Muhammad Imam Santosa.pdf"));
-        // dd($kontrak->path);  
-        // return Storage::download($kontrak->path, $kontrak->filename . '.' . $kontrak->ext);
-        // return Storage::download("/storage/upload/CV_Muhammad Imam Santosa.pdf");
+        // dd($kontrak->path);
+        return Storage::download($kontrak->path, $kontrak->filename . '.' . $kontrak->ext);
     }   
     
     public function deleteSuratKontrak($idKontrak){

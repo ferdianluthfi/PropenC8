@@ -51,6 +51,7 @@
     <div class="container-fluid card card-kontrak">
         <div class="row judul">
             <div class="col-sm-9 font-subtitle-4">Informasi Umum</div>
+            <a  class="btn btn-primary" style=" float: right;" >+ Tambah Informasi</a><br><br>
         </div>
     <hr>
     <div class="row" style="margin-left: -30px;">
@@ -112,9 +113,11 @@
             @foreach($listKontrak as $kontrak)
             <tr>
                 <td>{{$kontrak->title}}</td>
+                <?php echo Storage::url($kontrak->path); ?>
                 <td style="text-align: center">{{$kontrak->created_at}}</td>
                 <td style="text-align: center">
                     <a href="{{ Storage::url($kontrak->path) }}" title="View file">
+                    
                         <span class="glyphicon glyphicon-eye-open"></span>
                     </a>
                     <a href="{{ route('download-surat-kontrak', $kontrak->id) }}" title="Download file {{$kontrak->title}}">
