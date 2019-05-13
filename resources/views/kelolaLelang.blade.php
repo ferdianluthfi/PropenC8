@@ -258,6 +258,7 @@
                 <span class="glyphicon glyphicon-eye-open"></span>
             </a>
             <a href="{{ route('file.download', $object->id) }}" title="Download file {{ $object->title }}">
+                <?php echo $object->id?>
                 <i class="glyphicon glyphicon-download"></i>
             </a>
         </td>
