@@ -152,36 +152,36 @@ box-sizing: border-box;
 </div>
 
 <div id="mod" class="modal fade">
-            <div class="modal-dialog modal-confirm">
-                <div class="modal-content">
-                    <div class="modal-header">				
-                        <h4 class="modal-title" style="text-align:center;">Tolak LAPJUSIK</h4>	
-                    </div>
-                    <div class="modal-body">
-                        <p class="text-center">LAPJUSIK berhasil ditolak</p>
-                    </div>
-                    <div class="modal-footer text-center">
-                        <button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
-                    </div>
-                </div>
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">				
+                <h4 class="modal-title" style="text-align:center;">Tolak LAPJUSIK</h4>	
             </div>
-    </div>  
-    
-    <div id="myMod" class="modal fade">
-        <div class="modal-dialog modal-confirm">
-            <div class="modal-content">
-                <div class="modal-header">				
-                    <h4 class="modal-title" style="text-align:center;">Setujui LAPJUSIK</h4>	
-                </div>
-                <div class="modal-body">
-                    <p class="text-center">LAPJUSIK berhasil disetujui</p>
-                </div>
-                <div class="modal-footer text-center">
-                    <button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
-                </div>
+            <div class="modal-body">
+                <p class="text-center">LAPJUSIK berhasil ditolak</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
             </div>
         </div>
     </div>
+</div>  
+    
+<div id="myMod" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">				
+                <h4 class="modal-title" style="text-align:center;">Setujui LAPJUSIK</h4>	
+            </div>
+            <div class="modal-body">
+                <p class="text-center">LAPJUSIK berhasil disetujui</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endif
 
