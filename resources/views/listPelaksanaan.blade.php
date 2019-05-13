@@ -101,8 +101,7 @@
                                 </tbody>
                             </table>
                         {{-- </div> --}}
-                        <a href="/pelaksanaan/tambah/{{$idProyek}}" class="btn btn-default" style="float:right; margin:5px; border: 2px solid #008CBA;">Buat LAPJUSIK</a>
-                        <a href="/info/tambah" class="btn btn-default" style="float:right; margin:5px; border: 2px solid #008CBA;">Tambah Informasi</a>
+                        
                     </div>
                 </div>
             </div>

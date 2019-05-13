@@ -318,6 +318,7 @@ box-sizing: border-box;
         </form>   
         </div>
         </div>
+        <div id="enterenter"></div>
       </div>
     </div>
   </div>
@@ -494,6 +495,7 @@ $(function() {
             } else {
               $("#rating-error").append('<div><p class="font-error-modal">Rating harus diisi.</p></div>');
               $("#komentar-error").append('<div><p class="font-error-modal">Komentar harus diisi.</p></div>');
+              $("#enterenter").append('<div><br><br></div>');
               // kirimpesan error
             }
 		
