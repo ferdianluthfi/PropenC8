@@ -77,29 +77,26 @@
 						<div class="errorMessage errorTime"></div>
 			</div>
 
-			<div class="content bg1">
-						<span class="labels">Alamat Proyek</span>
-						<textarea class="inputs" type="text" name="projectAddress" data-error=".errorProjectAdd"> {{ $proyek->projectAddress }} </textarea>
-						<div class="errorMessage errorProjectAdd"></div>
-			</div>
+			<div class="content bg1" >
+				<span class="labels">Alamat Proyek</span>
+				<textarea class="inputs" type="text" name="projectAddress" placeholder="Masukkan Alamat Proyek" data-error=".errorProjectAdd"></textarea>
+				<div class="errorMessage errorProjectAdd"></div>
+	</div>
+		<div class="container1-btn" >
+			<a class="container1-form-btn" data-toggle="modal" data-target="#myModal" style="width:150px;margin-top:0px;margin-left:300px;">
+				<span>
+					Batal
+				</span>
+			</a>
+		</div>
 
-			<div class="container1-btn">
-					<a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
-						<span>
-							Batal
-							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-						</span>
-					</a>
-			</div>
-				
-			<div class="container-btn">
-					<button class="container-form-btn" id="simpan">
-							<span>
-								Simpan Data
-								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-							</span>
-					</button>
-			</div>
+		<div class="container-btn">
+			<button class="container-form-btn" id="simpan" style="width:150px;margin-top:0px;margin-left:-400px;">
+					<span>
+						Simpan
+					</span>
+			</button>
+		</div>
 		</form>
 		@endforeach
 	</div>
