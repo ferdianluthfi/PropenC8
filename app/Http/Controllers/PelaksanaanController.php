@@ -113,8 +113,9 @@ class PelaksanaanController extends Controller
             $createdDate = $review->created_at;
             $updateDate = $review->updated_at;
             $updateDate30m = $createdDate->add(new DateInterval("PT30M"));
-            $now = now("GMT+7");
-            $interval = $now < $updateDate30m;
+            $now = now();
+            $noww=$now->add(new DateInterval("PT7H"));
+            $interval = $noww < $updateDate30m;
         }
 
         if($pelaksanaan->bulan == 1) {

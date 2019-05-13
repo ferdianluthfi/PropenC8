@@ -38,7 +38,7 @@ box-sizing: border-box;
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb"style="margin-left:120px;">
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="">Daftar Proyek</a></li>  
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="#">Daftar Proyek</a></li>  
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/pelaksanaan/{{$pelaksanaan->proyek_id}}">LAPJUSIK Proyek {{$namaProyek}}</a></li>
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="">Detail LAPJUSIK</a></li>
   </ol>
