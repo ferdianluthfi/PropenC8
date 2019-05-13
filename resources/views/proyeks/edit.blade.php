@@ -77,52 +77,48 @@
 						<div class="errorMessage errorTime"></div>
 			</div>
 
-			<div class="content bg1">
-						<span class="labels">Alamat Proyek</span>
-						<textarea class="inputs" type="text" name="projectAddress" data-error=".errorProjectAdd"> {{ $proyek->projectAddress }} </textarea>
-						<div class="errorMessage errorProjectAdd"></div>
-			</div>
+			<div class="content bg1" >
+				<span class="labels">Alamat Proyek</span>
+				<textarea class="inputs" type="text" name="projectAddress" placeholder="Masukkan Alamat Proyek" data-error=".errorProjectAdd"></textarea>
+				<div class="errorMessage errorProjectAdd"></div>
+	</div>
+		<div class="container1-btn" >
+			<a class="container1-form-btn" data-toggle="modal" data-target="#myModal" style="width:150px;margin-top:0px;margin-left:300px;">
+				<span>
+					Batal
+				</span>
+			</a>
+		</div>
 
-			<div class="container1-btn">
-					<a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
-						<span>
-							Batal
-							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-						</span>
-					</a>
-			</div>
-				
-			<div class="container-btn">
-					<button class="container-form-btn" id="simpan">
-							<span>
-								Simpan Data
-								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-							</span>
-					</button>
-			</div>
+		<div class="container-btn">
+			<button class="container-form-btn" id="simpan" style="width:150px;margin-top:0px;margin-left:-400px;">
+					<span>
+						Simpan
+					</span>
+			</button>
+		</div>
 		</form>
 		@endforeach
 	</div>
 	
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" style="text-align:center;">Batalkan Proses?</h4>
-			</div>
-			<div class="modal-body" style="text-align:center;">
-				<p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
-			</div>
-			<div class="modal-footer">
-					<a href="/proyek/" class="btn btn-default" style="color:red;">Iya</a>
-				@foreach($proyeks as $proyek)
-					<a href="/proyek/ubah/{{ $proyek->id }}" class="btn btn-primary">Tidak</a>
-				@endforeach
-			</div>
-		</div>
-		
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="text-align:center;">Batalkan Proses?</h4>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+                    <p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
+                </div>
+                <div class="modal-footer">
+                        <a href="/proyek/" class="btn btn-default" style="color:red;">Iya</a>
+                    @foreach($proyeks as $proyek)
+                        <a href="/proyek/ubah/{{ $proyek->id }}" class="btn btn-primary">Tidak</a>
+                    @endforeach
+                </div>
+            </div>
 		</div>
 	</div>
 

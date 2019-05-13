@@ -37,6 +37,7 @@
                 <div class="col-md-12">
                     <h2 style="text-align:center;">Daftar Kemajuan Proyek</h2><br>
                     <div class="card" style=" background-color: whitesmoke;">
+                            <a href="/info/tambah/{{$id}}" class="btn btn-primary" style=" float: right;" >+ Tambah Informasi</a><br><br>
                         <div class="panel-body">
                             <table id="datatable" class="table table-striped table-bordered text-center">
                                 <thead>
@@ -99,7 +100,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <a href="/info/tambah/{{$id}}" class="btn btn-primary">Tambah Informasi</a>
                     </div>
                 </div>
             </div>

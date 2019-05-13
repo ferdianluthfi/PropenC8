@@ -77,75 +77,75 @@
 </div>
 </div> <br>
 
-    <div class="container-fluid" style="width:800px; height: 300px;">  
-        <form method="post" action="/foto/submit/{{$kemajuan->id}}" id="addForm" enctype="multipart/form-data" style="background-color:white;">
-        <h2 style="text-align:center;">Tambah Foto Kemajuan</h2> <br>
-        {{ csrf_field() }}
-            <div class="form-group {{ !$errors->has('file') ?: 'has-error' }}">
-                <label>Foto</label>
+<div class="container-fluid" style="width:800px;">  
+    <form method="post" action="/foto/submit/{{$kemajuan->id}}" id="addForm" enctype="multipart/form-data" style="background-color:white;">
+    <h2 style="text-align:center;">Tambah Foto Kemajuan</h2> <hr>
+    {{ csrf_field() }}
+        <div class="form-group {{ !$errors->has('file') ?: 'has-error' }}">
+            <label>Foto</label>
 
-                <table class="table table-bordered" id="dynamic_field">  
-                    <tr>  
-                        <td><input type="file" name="file[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>  
-                        <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></td>  
-                    </tr>  
-                </table>  
-            </div>
+            <table class="table table-bordered" id="dynamic_field" style="height:30px;">  
+                <tr>  
+                    <td><input type="file" name="file[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>  
+                    <td><center><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></center></td>  
+                </tr>  
+            </table>  
+        </div><br>
 
-            <div class="container1-btn" style="width:150px; height:5px;">
-                <a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
-                    <span>
-                        Batal
-                        <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                    </span>
-                </a>
-            </div>
-
-            <div class="container-btn"style="width:150px; height:5px;">
-                <button class="container-form-btn" id="simpan">
-                        <span>
-                            Simpan
-                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                        </span>
-                </button>
-            </div>
-        </form>
-
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" style="text-align:center;">Batalkan Proses?</h4>
-                </div>
-                <div class="modal-body" style="text-align:center;">
-                    <p>Jika proses dibatalkan, foto tidak akan disimpan.</p>
-                </div>
-                <div class="modal-footer">
-                    <a href='/informasi/{{$pelaksanaan->proyek_id}}' class="btn btn-default" style="color:red;">Iya</a>
-                    <a href='{{$kemajuan->id}}' class="btn btn-primary ">Tidak</a>
-                </div>
-            </div>
-            </div>
+        <div class="container1-btn" >
+            <a class="container1-form-btn" data-toggle="modal" data-target="#myModal" style="width:150px; margin-top:-15px;margin-left:150px;">
+                <span>
+                    Batal
+                    <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                </span>
+            </a>
         </div>
 
-        <div id="myMod" class="modal fade">
-            <div class="modal-dialog modal-confirm">
-                <div class="modal-content">
-                    <div class="modal-header">				
-                        <h4 class="modal-title" style="text-align:center;">Sukses!</h4>	
-                    </div>
-                    <div class="modal-body">
-                        <p class="text-center">Proyek berhasil disimpan</p>
-                    </div>
-                    <div class="modal-footer text-center">
-                        <button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
-                    </div>
+        <div class="container-btn">
+            <button class="container-form-btn" id="simpan" style="width:150px;margin-top:-15px;margin-left:-200px;">
+                    <span>
+                        Simpan
+                        <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                    </span>
+            </button>
+        </div>
+    </form>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align:center;">Batalkan Proses?</h4>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                <p>Jika proses dibatalkan, foto tidak akan disimpan.</p>
+            </div>
+            <div class="modal-footer">
+                <a href='/informasi/{{$pelaksanaan->proyek_id}}' class="btn btn-default" style="color:red;">Iya</a>
+                <a href='{{$kemajuan->id}}' class="btn btn-primary ">Tidak</a>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div id="myMod" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">				
+                    <h4 class="modal-title" style="text-align:center;">Sukses!</h4>	
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">Foto berhasil ditambah</p>
+                </div>
+                <div class="modal-footer text-center">
+                    <button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 </div>
 </body>
@@ -157,7 +157,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
-
 $( document ).ready(function() {
     $('.your-class').slick({
         infinite: true,				
@@ -167,28 +166,22 @@ $( document ).ready(function() {
         dots: true
 	});
 	$('.alert').alert();
-
     var postURL = "<?php echo url('addmore'); ?>";
     console.log(postURL);
     var i=1;  
-
     $('#add').click(function(){  
         i++;  
-        $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" name="file[]" class="help-block text-danger"/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+        $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" name="file[]" class="help-block text-danger"/></td><td><button type="button" name="remove" id="'+i+'" class="btn" style=" background-color: whitesmoke;  color: red; border: 2px solid">X</button></td></tr>');  
     });  
-
     $(document).on('click', '.btn_remove', function(){  
         var button_id = $(this).attr("id");   
         $('#row'+button_id+'').remove();  
     });  
-
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
     function printErrorMsg (msg) {
         $(".print-error-msg").find("ul").html('');
         $(".print-error-msg").css('display','block');
@@ -197,7 +190,6 @@ $( document ).ready(function() {
             $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
         });
     }
-
     $("#simpan").click(function(e){
                 e.preventDefault();
                 if($('#addForm').valid()){ //checks if it's valid

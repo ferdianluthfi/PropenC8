@@ -114,6 +114,7 @@ class KemajuanProyekController extends Controller
     }
 
     public function viewInfo($id){
+        $ldate = date('Y-m-d');
         $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->where('proyek_id',$id)->get();
         $listInformasi = KemajuanProyek::select('kemajuan_proyeks.*')->whereIn('pelaksanaan_id',$idPelaksanaan)->get();
         $listPekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$id)->get();
@@ -140,6 +141,7 @@ class KemajuanProyekController extends Controller
     public function tambahInformasi($id){
         $proyekId = $id;
         $allPelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->get();
+        $maxDate = date('Y-m-d');
 
         if($allPelaksanaan->isempty()) {
             $minDate = Proyek::select('proyeks.created_at')->where('id',$proyekId)->first()->created_at;
@@ -154,8 +156,10 @@ class KemajuanProyekController extends Controller
                 }            
             }
         }
+        //dd($minDate);
+        //dd($maxDate);
         $pekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$proyekId)->get();
-        return view('tambahInformasi',compact('pekerjaan','proyekId','minDate'));
+        return view('tambahInformasi',compact('pekerjaan','proyekId','minDate','maxDate'));
     }
 
     public function tambahFoto($id){
