@@ -212,9 +212,7 @@
 </div>
 </div>
 </div>
-<!-- ini adalah Data table dari Proyek -->
-
-	
+<!-- ini adalah Data table dari Proyek -->	
 @endsection
 
 

@@ -65,7 +65,7 @@ class PelaksanaanController extends Controller
         $biayaKeluar = DB::table('kemajuan_proyeks')->where('pelaksanaan_id',$id)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get(); 
 
         $fotoByIdKemajuan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.id')->where('pelaksanaan_id',$id)->get();
-        
+        $interval="";
 
         $arrayidKemajuan = array($fotoByIdKemajuan->count());
         $counter=0;
