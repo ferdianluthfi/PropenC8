@@ -46,7 +46,7 @@ class KemajuanProyekController extends Controller
 
     public function viewKemajuan(){
         if(\Auth::user()->role == 2){
-            $idProyeks = Proyek::select('proyeks.id')->where('isLPJExist', 0)->where('approvalStatus',2)->get();
+            $idProyeks = Proyek::select('proyeks.id')->where('isLPJExist', 0)->where('approvalStatus',2)->get(); //harus diperbarui sesuai dengan pendifinisian baru
             if($idProyeks->isEmpty() == false){
                 $proyeks = Proyek::select('proyeks.*')->where('isLPJExist', 0)->where('approvalStatus',2)->get();
                 //dd($proyeks);
@@ -115,19 +115,9 @@ class KemajuanProyekController extends Controller
     public function viewInfo($id){
         $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->where('proyek_id',$id)->get();
         $listInformasi = KemajuanProyek::select('kemajuan_proyeks.*')->whereIn('pelaksanaan_id',$idPelaksanaan)->get();
-        $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$id],['approvalStatus','=',0]])->first();
+        $listPekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$id)->get();
 
-        if($pelaksanaan == null) {
-            DB::table('pelaksanaans')->insert([
-                'approvalStatus' => 0,
-                'createdDate' => now('GMT+7'),
-                'proyek_id' => $id,
-                'created_at' => now('GMT+7'),
-                'updated_at' => now('GMT+7')
-            ]);
-            $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$id],['approvalStatus','=',0]])->first();         
-        }
-            return view('listInformasi', compact('listInformasi','pelaksanaan'));
+        return view('listInformasi', compact('listInformasi','listPekerjaan','id'));
     }
 
     public function detailInfo($id) {
@@ -140,21 +130,33 @@ class KemajuanProyekController extends Controller
         $tanggalInfo = $informasi->reportDate;
         $tanggal = $this->waktu($tanggalInfo);
         $foto = DB::table('listPhoto')->where('kemajuan_id',$id)->get();
-        //dd($foto);
-        // $banyakFoto = DB::table('listPhoto')->where('kemajuan_id',$id)->get()->count();
-        // $listFoto = array();
-        // for($i=0; i<$banyakFoto; i++){
-        //     $listFoto[$i] = $foto[$i]
-        // }
-        // $daftarFoto = ListPhoto::select('listphoto.*')->where('kemajuan_id',$id);
-        //dd($foto);
 
-        return view('detailInformasi', compact('informasi','proyek','tanggal','foto'));
+        $listPekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek[0]->proyek_id)->get();
+
+        return view('detailInformasi', compact('informasi','proyek','tanggal','foto','listPekerjaan'));
     }
 
     public function tambahInformasi($id){
-        $pelaksanaan = Pelaksanaan::find($id);
-        return view('tambahInformasi',compact('pelaksanaan'));
+        $proyekId = $id;
+        $allPelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->get();
+
+        if($allPelaksanaan->isempty()) {
+            $minDate = Proyek::select('proyeks.created_at')->where('id',$proyekId)->first()->created_at;
+            $pekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$proyekId)->get();
+        }
+
+        else {
+            foreach($allPelaksanaan as $pelaksanaan) {
+                if ($pelaksanaan->approvalStatus == 0) {
+                    $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
+                    $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
+                    $minDate = "$requestedYear-$requestedMonth-01";
+                }            
+            }
+            $pekerjaan = DB::table('jenis_pekerjaan')->whereIn('proyek_id',$proyekId)->get();
+        }
+
+        return view('tambahInformasi',compact('pekerjaan','proyekId','minDate'));
     }
 
     public function tambahFoto($id){
@@ -162,7 +164,9 @@ class KemajuanProyekController extends Controller
         $idPelaksanaan = $kemajuan->pelaksanaan_id;
         $pelaksanaan = Pelaksanaan::find($idPelaksanaan);
         //dd($pelaksanaan);
-        return view('tambahFoto',compact('kemajuan','pelaksanaan'));
+        $foto = DB::table('listPhoto')->where('kemajuan_id',$id)->get();
+
+        return view('tambahFoto',compact('kemajuan','pelaksanaan','foto'));
     }
 
     public function simpanFoto($id,Request $request){
@@ -174,8 +178,9 @@ class KemajuanProyekController extends Controller
             foreach($request->file as $file) {
                 $uploadedFile = $file;
                 //dd($uploadedFile);   
-                $path = $uploadedFile->storeAs('public/upload',$file->getClientOriginalName());
+                $path = $uploadedFile->storeAs('upload',$file->getClientOriginalName());
                 $publicPath = \Storage::url($path);
+                //dd($publicPath);
     
                 DB::table('listphoto')->insert([
                     'ext' => $uploadedFile->getClientOriginalExtension(),
@@ -194,9 +199,63 @@ class KemajuanProyekController extends Controller
     @return \Illuminate\Http\Response
     */
     public function simpanInformasi($id, Request $request){
+        $proyekId = $id;
 
-        $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->where('id',$id)->get();
-        $data = json_decode($idProyek);
+        //Bulan awal
+        $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->first();
+        //dd($pelaksanaan);
+        if ($pelaksanaan == null) {
+            $firstDate = $request->reportdate;
+            //dd($firstDate);
+            $firstMonth = date('m', strtotime($firstDate));
+            $firstYear = date('Y', strtotime($firstDate));
+        }
+        else {
+            $sameIdPelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->get();
+            $firstDate = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->min('reportDate');
+            //dd($firstDate);
+            $firstMonth = date('m', strtotime($firstDate));
+            $firstYear = date('Y', strtotime($firstDate));
+        }
+        
+        //Bulan dari Form
+        $inputMonth = date('m', strtotime($request->reportdate));
+        $inputYear = date('Y', strtotime($request->reportdate));
+
+        //Konversi Bulan
+        $yearGap = $inputYear - $firstYear;
+        if ($yearGap == 0) {
+            $adjustedMonth = ($inputMonth - $firstMonth) + 1;    
+        }
+        else if ($yearGap > 0) {
+            if ($inputMonth == $firstMonth) {
+                $adjustedMonth = ($yearGap * 12) + 1;
+            }
+            else if ($inputMonth > $firstMonth) {
+                $adjustedMonth = ($yearGap * 12) + ($inputMonth-$firstMonth) + 1;
+            }
+            else if ($inputMonth < $firstMonth) {
+                $adjustedMonth = ($yearGap * 12) - ($firstMonth-$inputMonth) + 1;
+            }
+        }
+        //dd($adjustedMonth);
+
+        $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId],['approvalStatus','=',0],['bulan','=',$adjustedMonth]])->first();
+        //dd($pelaksanaan);
+
+        //Bikin LAPJUSIK baru
+        if($pelaksanaan == null) {
+            DB::table('pelaksanaans')->insert([
+                'approvalStatus' => 0,
+                'flag' => 1,
+                'createdDate' => now('GMT+7'),
+                'bulan'=> $adjustedMonth,
+                'proyek_id' => $proyekId,
+                'created_at' => now('GMT+7'),
+                'updated_at' => now('GMT+7')
+            ]);
+            $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId],['approvalStatus','=',0],['bulan','=',$adjustedMonth]])->first();
+        }
 
         $validator = Validator::make($request->all(),[
             'description' => 'required',
@@ -223,8 +282,7 @@ class KemajuanProyekController extends Controller
         if ($request->file != null) {
             foreach($request->file as $file) {
                 $uploadedFile = $file;
-                ($uploadedFile);   
-                $path = $uploadedFile->storeAs('public/upload',$file->getClientOriginalName());
+                $path = $uploadedFile->storeAs('upload',$file->getClientOriginalName());
                 $publicPath = \Storage::url($path);
     
                 DB::table('listphoto')->insert([
@@ -248,20 +306,51 @@ class KemajuanProyekController extends Controller
         $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$idPelaksanaan)->get();
         $proyek = Proyek::find($idProyek[0]->proyek_id);
         $kemajuans = KemajuanProyek::find($id);
+        $editedPekerjaan = array(1);
+        $editedPekerjaan[0] = $kemajuans->pekerjaan_id;
+        $pekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek[0]->proyek_id)->get();
 
+        foreach($pekerjaan as $satuanPekerjaan) {
+            if ($satuanPekerjaan->id == $editedPekerjaan[0]) {
+                $finalPekerjaan = $satuanPekerjaan;
+            }
+        }
+
+        $allPelaksanaan = Pelaksanaan::where([['proyek_id','=',$idProyek[0]->proyek_id]])->get();
+        foreach($allPelaksanaan as $pelaksanaan) {
+            if ($pelaksanaan->approvalStatus == 0) {
+                $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
+                $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
+                $minDate = "$requestedYear-$requestedMonth-01";
+            }            
+        }
+
+        $bladePekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek[0]->proyek_id)->whereNotIn('id',$editedPekerjaan)->get();
         $foto = DB::table('listPhoto')->select('listPhoto.*')->where('kemajuan_id',$id)->get();
-        //dd($foto);
-        return view('editInformasi', compact('kemajuans','proyek','foto'));
+        return view('editInformasi', compact('kemajuans','proyek','foto','finalPekerjaan','bladePekerjaan','minDate'));
     }
 
     public function updateInformasi($id, Request $request){
-        
-        
-        $allId = DB::table('listPhoto')->select('listPhoto.id')->where('kemajuan_id',$id)->whereNotIn('id',$request->listId)->get();
-        $deletedId = json_decode($allId);
-        for($i=0;$i<sizeof($allId);$i++) {
+        //dd($request->listId);
+        if ($request->listId!=null) {
 
-            DB::table('listPhoto')->where('id',$deletedId[$i]->id)->delete();
+            $allId = DB::table('listPhoto')->select('listPhoto.id')->where('kemajuan_id',$id)->whereNotIn('id',$request->listId)->get();
+            //dd($allId);
+            $deletedId = json_decode($allId);
+            //dd($deletedId);
+            for($i=0;$i<sizeof($allId);$i++) {
+
+                DB::table('listPhoto')->where('id',$deletedId[$i]->id)->delete();
+            }
+        }
+        else {
+            $allId = DB::table('listPhoto')->select('listPhoto.id')->where('kemajuan_id',$id)->get();
+            $deletedId = json_decode($allId);
+            //dd($deletedId);
+            for($i=0;$i<sizeof($allId);$i++) {
+
+                DB::table('listPhoto')->where('id',$deletedId[$i]->id)->delete();
+            }
         }
         //dd($deletedId[0]->id);
         $idPelaksanaan = KemajuanProyek::select('kemajuan_proyeks.pelaksanaan_id')->where('id',$id)->get();

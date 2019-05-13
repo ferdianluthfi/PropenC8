@@ -22,11 +22,8 @@
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('assignedproyek') }}">Proyek</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/proyek/detail/{{$pelaksanaan->proyek_id}}'>Detail Proyek</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/informasi/{{$pelaksanaan->proyek_id}}'>Informasi Kemajuan</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href='/info/tambah/{{$pelaksanaan->proyek_id}}'>Tambah Kemajuan</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('assignedproyek') }}">Daftar Proyek</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active">Tambah Informasi Proyek</a></li>
   </ol>
 </nav>
             <div class="container" nonvalidate="nonvalidate" id="jqueryvalidation">
@@ -36,19 +33,28 @@
                 @endif
 
 
-                <form method="post" action="/info/submit/{{$pelaksanaan->id}}" id="addForm" enctype="multipart/form-data">
+                <form method="post" action="/info/submit/{{$proyekId}}" id="addForm" enctype="multipart/form-data">
                 <h2 style="text-align:center;">Tambah Informasi Proyek</h2> <br>
                     {{ csrf_field() }}
 
                     <div class="content bg1">
-                        <span class="labels">Deskripsi</span>
-                        <input type="text" name="description" class="inputs" placeholder="Masukkan Deskripsi Kemajuan" data-error=".errorDescription">
-                        <div class="errorMessage errorDescription"></div>
+                        <span class="labels">Uraian Pekerjaan</span>
+                        <select name="tipepekerjaan" class="content bg1">
+                            @foreach($pekerjaan as $tipe)
+                                <option value="{{$tipe->id}}" >{{$tipe->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="content bg1">
+                        <span class="labels">Deskripsi Tambahan</span>
+                        <input type="text" name="description" class="inputs" placeholder="Masukkan Deskripsi Kemajuan Tambahan" data-error=".errorDescription">
+                        <div class="errorMessage errorDescription"></div>
+                    </div>
+    
+                    <div class="content bg1">
                         <span class="labels">Tanggal Informasi</span>
-                        <input type="date" name="reportdate" class="inputs" data-error=".errorDate">
+                        <input type="date" name="reportdate" min="<?php echo $minDate ?>" class="inputs" data-error=".errorDate">
                         <div class="errorMessage errorDate"></div>
                     </div>
 
@@ -62,8 +68,8 @@
                     </div>
 
                     <div class="content bg1">
-                        <span class="labels">Nilai</span>
-                            <input type="number" name="nilai" class="inputs" placeholder="Masukkan Nilai Info" data-error=".errorVal">
+                        <span class="labels">Nilai Kemajuan</span>
+                            <input type="number" name="nilai" class="inputs" placeholder="Rp xxx.xxx.xxx" data-error=".errorVal">
                             <div class="errorMessage errorVal"></div>
                     </div>
 
@@ -116,8 +122,8 @@
                     <p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="/informasi/{{$pelaksanaan->proyek_id}}" class="btn btn-default" style="color:red;">Iya</a>
-                    <a href="/info/tambah/{{$pelaksanaan->id}}" class="btn btn-primary ">Tidak</a>
+                    <a href="/informasi/{{$proyekId}}" class="btn btn-default" style="color:red;">Iya</a>
+                    <a href="" class="btn btn-primary ">Tidak</a>
                 </div>
             </div>
             </div>
@@ -143,55 +149,27 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
         <script>
-
         $( document ).ready(function() {
-
             var postURL = "<?php echo url('addmore'); ?>";
             console.log(postURL);
             var i=1;  
-
             $('#add').click(function(){  
                 i++;  
                 $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" name="file[]" class="help-block text-danger"/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
             });  
-
             $(document).on('click', '.btn_remove', function(){  
                 var button_id = $(this).attr("id");   
                 $('#row'+button_id+'').remove();  
             });  
-
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+<<<<<<< HEAD
+=======
 
-
-            /*$('#submit').click(function(){            
-                $.ajax({  
-                        url:postURL,  
-                        method:"POST",  
-                        data:$('#add_name').serialize(),
-                        type:'json',
-                        success:function(data)  
-                        {
-                            if(data.error){
-                                printErrorMsg(data.error);
-                            }else{
-                                i=1;
-                                $('.dynamic-added').remove();
-                                $('#add_name')[0].reset();
-                                $(".print-success-msg").find("ul").html('');
-                                $(".print-success-msg").css('display','block');
-                                $(".print-error-msg").css('display','none');
-                                $(".print-success-msg").find("ul").append('<li>Record Inserted Successfully.</li>');
-                            }
-                        }  
-                });  
-            });*/
-
-
+>>>>>>> cc4d7cb4c6c6f8cb4773e0636a15d4e51c1fc9c6
             function printErrorMsg (msg) {
                 $(".print-error-msg").find("ul").html('');
                 $(".print-error-msg").css('display','block');
@@ -200,12 +178,8 @@
                     $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
                 });
             }
-
             $("#addForm").validate({
                 rules:{
-                    description:{
-                        required: true,
-                    },
                     reportdate:{
                         required: true,
                     },
@@ -220,19 +194,15 @@
                 },
                 //For custom messages
                 messages:{
-                    description:{
-                        required: "Deskripsi proyek harus diisi",
-                    },
                     reportdate:{
-                        required: "Tanggal harus diisi",
+                        required: "Tanggal kemajuan harus diisi",
                     },
                     tipekemajuan:{
                         required: "Tipe info harus diisi",
                     },
                     nilai:{
-                        required: "Value proyek harus diisi",
-                        digits: "Value harus berupa angka",
-                        min: "Value minimal 1",  //ceklg
+                        required: "Value kemajuan harus diisi",
+                        min: "Value kemajuan minimal sebesar 1",
                     },
                 }, 
                 errorElement:'div',

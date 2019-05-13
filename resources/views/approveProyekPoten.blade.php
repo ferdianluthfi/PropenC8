@@ -33,25 +33,32 @@
 
 
 <div class="container-fluid card card-detail-proyek">
-    <br>
-    <p class="font-subtitle-1">Detail Proyek</p>
-    <hr>
-
-    <div> 
-        <div class="row">
-            <div class="col-sm-10"> 
-                <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}}</p>
-            </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <p class="font-title" style="margin-top: 20px; margin-left: 20px">Detail Proyek {{ $proyek->projectName}}</p>
         </div>
-    <br>
+        <div class="col-sm-6">
+            <p style="text-align: right; margin-right: 20px; margin-top: 30px">{{$status}}</p>
+<!--            @if($status == 'DISETUJUI') <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:blue;">{{$status}}</p>-->
+<!--            @elseif($status == "SEDANG BERJALAN") <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:green;">{{$status}}</p>-->
+<!--            @elseif($status == 'DITOLAK') <p style="text-align: right; margin-right: 20px; margin-top: 30px;color:red;">{{$status}}</p>-->
+<!--            @endif-->
+        </div>
     </div>
-
+    <hr>
+    <br>
     <div class="row ketengahin">
         <div class="col-sm-7">
             <div class="card card-info">
                 <div class="row judul">
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
-                    <div class="col-sm-5 font-status-approval" style="margin-left:15px;color:orange;">{{$status}}</div>
+                    <div class="col-sm-5 font-status-approval" style="margin-left:30px;">
+                        @if ($proyek->approvalStatus == 7)
+                        <a>PM : {{$pmName}}</a>
+                        @elseif ($proyek->approvalStatus == 6)
+                        <a href="/pm/kelola/{{$proyek->id}}">Belum ada PM</a>
+                        @endif
+                    </div>
                 </div>
                 <hr style="background-color:black;"/>
                 <div class="row">
@@ -81,30 +88,16 @@
             </div>  
         </div>
         <div class="col-sm-2">
-            <div class="card card-pm">
+            <div class="card card-pm" style="margin-left: 90px">
                 <br>
-				<p class="font-subtitle-5">Staf Marketing</p>
-				<hr style="background-color:black;"/>
-                <br> <br> <br>
-                <p class="font-status-approval" style="text-align: center;">{{ $proyek->name}}</p>
+                <p class="font-subtitle-5">Berkas</p>
+                <hr/>
+                <button class="card card-button font-button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px; width: 130px; height: 40px">Kontrak</button>
+                <button class="card card-button font-button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px; width: 130px; height: 40px">LAPJUSIK</button>
+                <button class="card card-button font-button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px; width: 130px; height: 40px">LPJ</button>
             </div>
         </div>
     </div>
-    <div>
-        <br>
-        <div class="row ketengahin">
-            <!-- bikin kondisi dulu -->
-            <a href="#"><div class="col-sm-3 card card-button">
-                <p class="font-button-berkas-inactive">Berkas Kontrak<p>
-            </div></a>
-            <a href="#"><div class="col-sm-3 card card-button">
-                <p class="font-button-berkas-inactive">LAPJUSIK<p>
-            </div></a>
-            <a href="#"><div class="col-sm-3 card card-button">
-                <p class="font-button-berkas-inactive">LPJ<p>
-            </div></a>
-        </div>
-    </div>  
 
     <div class="row" style="margin-top: 20px; ">
     <div class="col-sm-4"> </div>

@@ -1,4 +1,4 @@
-    @extends('layouts.layout')
+@extends('layouts.layout')
 
 <!DOCTYPE html>
 <html>
@@ -32,12 +32,9 @@
 
             <nav aria-label="breadcrumb" style="margin-left:10px;">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('assignedproyek') }}">Proyek</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/proyek/detail/{{$proyek->id}}'>Detail Proyek</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/informasi/{{$proyek->id}}'>Informasi Kemajuan</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/informasi/detail/{{$kemajuans->id}}'>Detail Kemajuan</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href='/info/edit/{{$kemajuans->id}}'>Ubah Kemajuan</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('assignedproyek') }}">Daftar Proyek</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href='/informasi/{{$proyek->id}}'>Daftar Kemajuan Proyek</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active">Ubah Informasi</a></li>
                 </ol>
             </nav>
 
@@ -47,14 +44,24 @@
                 {{ method_field('POST') }}
 
                 <div class="content bg1">
-                    <span class="labels">Deskripsi</span>
+                    <span class="labels">Uraian Pekerjaan</span>
+                    <select name="tipepekerjaan" class="content bg1">
+                        <option value="{{$finalPekerjaan->id}}" >{{$finalPekerjaan->name}}</option>
+                        @foreach($bladePekerjaan as $tipe)
+                            <option value="{{$tipe->id}}" >{{$tipe->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="content bg1">
+                    <span class="labels">Deskripsi Tambahan</span>
                     <textarea class="inputs" type="text" name="description" style="height:150px" data-error=".errorDescription"> {{ $kemajuans->description }} </textarea>
                     <div class="errorMessage errorDescription"></div>
                 </div>
 
                 <div class="content bg1">
                     <span class="labels">Tanggal Informasi</span>
-                    <input type="date" name="reportdate" class="inputs" value="{{ $kemajuans->reportDate }}" data-error=".errorDate">
+                    <input type="date" name="reportdate" min="<?php echo $minDate ?>" class="inputs" value="{{ $kemajuans->reportDate }}" data-error=".errorDate">
                     <div class="errorMessage errorDate"></div>
                 </div>
 
@@ -97,25 +104,11 @@
                 @foreach($foto as $fot)
                 <div class="content bg1">
                         <img src="{{asset($fot->path)}}" width="400" height="400">
-                        {{$fot->id}}
                         <input name="listId[]" style="display:none" id="input-<?php echo $fot->id?>" value=" {{$fot->id}}">
-                        <a class="btn btn-danger foto" id="button-{{$fot->id}}" onclick="addDeletedPhoto({{$fot->id}})" style="font-size:12pt; font-weight:bolder;"> Hapus</a>
-                        <!--<td><input type="photo" name="photo[]" class="help-block text-danger" value="{{$fot->path}}"> {{ $errors->first('photo') }}</td>
-                        <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></td>-->
+                        <a class="btn btn-danger foto" id="button-{{$fot->id}}" onclick="addDeletedPhoto({{$fot->id}})" style="font-size:12pt; font-weight:bolder; align:right;"> Hapus</a>
                 </div>
                 @endforeach 
                 
-                <!--<div class="form-group {{ !$errors->has('file') ?: 'has-error' }}">
-                    <label>Tambah Foto</label>
-
-                    <table class="table table-bordered" id="dynamic_field">  
-                        <tr>  
-                            <td><input type="file" name="file[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>  
-                            <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></td>  
-                        </tr>  
-                    </table>  
-
-                </div>-->
 
                 <div class="container1-btn">
                     <a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
@@ -179,30 +172,23 @@
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
 	<script>
-
         $( document ).ready(function() {
             var postURL = "<?php echo url('addmore'); ?>";
             console.log(postURL);
             var i=1;  
-
             $('#add').click(function(){  
                 i++;  
                 $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" name="file[]" class="help-block text-danger"/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
             });  
-
             $(document).on('click', '.btn_remove', function(){  
                 var button_id = $(this).attr("id");   
                 $('#row'+button_id+'').remove();  
             });  
-
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             }); 
-
-
             function printErrorMsg (msg) {
                 $(".print-error-msg").find("ul").html('');
                 $(".print-error-msg").css('display','block');
@@ -211,10 +197,7 @@
                     $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
                 });
             }
-
-
             var bufferDelete=[];
-
             $('.foto').on('click',function(event){
                 event.preventDefault();
                 var imgName = $(this).attr("id");
@@ -222,12 +205,8 @@
                 $(this).parent().detach();
                 console.log(bufferDelete);
             })
-
             $("#editForm").validate({
                 rules:{
-                    description:{
-                        required: true,
-                    },
                     reportdate:{
                         required: true,
                     },
@@ -242,19 +221,16 @@
                 },
                 //For custom messages
                 messages:{
-                    description:{
-                        required: "Deskripsi proyek harus diisi",
-                    },
                     reportdate:{
-                        required: "Tanggal harus diisi",
+                        required: "Tanggal kemajuan harus diisi",
                     },
                     tipekemajuan:{
-                        required: "Tipe info harus diisi",
+                        required: "Tipe kemajuan harus diisi",
                     },
                     nilai:{
-                        required: "Value proyek harus diisi",
-                        digits: "Value harus berupa angka",
-                        min: "Value minimal 1",  //ceklg
+                        required: "Value kemajuan harus diisi",
+                        digits: "Value kemajuan harus berupa angka",
+                        min: "Value kemajuan minimal bernilai 1",
                     },
                 }, 
                 errorElement:'div',
