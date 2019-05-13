@@ -257,10 +257,10 @@ box-sizing: border-box;
 
     @if(Auth::user()->role == 8)
       @if($interval)
-    <div class="text-center">
-        <input type="hidden" name="id" value="{{ $review->id }}"> <br/>
-        <button data-toggle="modal" data-target="#edit-review" class="button-review font-approval">EDIT REVIEW</button>
-    </div>
+      <div class="text-center">
+          <input type="hidden" name="id" value="{{ $review->id }}"> <br/>
+          <button data-toggle="modal" data-target="#edit-review" class="button-review font-approval">EDIT REVIEW</button>
+      </div>
     <div class="modal fade" id="edit-review" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" style="height:800px;" role="document">
     <div class="modal-content">
