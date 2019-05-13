@@ -34,51 +34,51 @@
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href= "/proyek/ubah/{{ $proyek->id }}">Ubah Data Proyek {{ $proyek->projectName }}</a></li>
 		</ol>
 		</nav>
-		<form action="/proyek/update" method="post" id="editForm">
+		<form action="/proyek/update" method="post" id="editForm" style="background-color:#fff">
 			
-			<h1 style="text-align:center;">Ubah Proyek Potensial</h1>
+			<p class="font-title"style="text-align:center;margin-top:-35px;">Ubah Proyek Potensial</p>
 			{{ csrf_field() }}
-
-			<input type="hidden" name="id" value="{{ $proyek->id }}"> <br/>
+			<br>
+			<input type="hidden" name="id" value="{{ $proyek->id }}">
 		
 			<div class="content bg1">
-						<span class="labels">Nama Staf Marketing</span>
+						<span class="labels font-subtitle-5">Nama Staf Marketing</span>
 						<input class="inputs" readonly="readonly" type="text" name="name" value="{{ $proyek->name }}" data-error=".errorName">
 						<div class="errorMessage errorName"></div>
 			</div>
 
 			<div class="content bg1">
-						<span class="labels">Nama Proyek</span>
+						<span class="labels font-subtitle-5">Nama Proyek</span>
 						<input class="inputs" type="text" name="projectName" value="{{ $proyek->projectName }}" data-error=".errorProjectName">
 						<div class="errorMessage errorProjectName"></div>
 			</div>
 
 			<div class="content bg1">
-						<span class="labels">Nama Perusahaan</span>
+						<span class="labels font-subtitle-5">Nama Perusahaan</span>
 						<input class="inputs" type="text" name="companyName" value="{{ $proyek->companyName }}" data-error=".errorCompanyName">
 						<div class="errorMessage errorCompanyName"></div>
 			</div>
 
 			<div class="content bg1">
-						<span class="labels">Deskripsi</span>
+						<span class="labels font-subtitle-5">Deskripsi</span>
 						<textarea class="inputs" type="text" name="description" style="height:150px" data-error=".errorDescription"> {{ $proyek->description }} </textarea>
 						<div class="errorMessage errorDescription"></div>
 			</div>
 
 			<div class="content bg1">
-						<span class="labels">Nilai Proyek</span>
+						<span class="labels font-subtitle-5">Nilai Proyek</span>
 						<input class="inputs" type="number" name="projectValue" value="{{ $proyek->projectValue }}" data-error=".errorValue">
 						<div class="errorMessage errorValue"></div>
 			</div>
 
 			<div class="content bg1">
-						<span class="labels">Estimasi Waktu Pengerjaan</span>
+						<span class="labels font-subtitle-5">Estimasi Waktu Pengerjaan</span>
 						<input class="inputs" type="number" name="estimatedTime" value="{{ $proyek->estimatedTime }}" data-error=".errorTime">
 						<div class="errorMessage errorTime"></div>
 			</div>
 
 			<div class="content bg1">
-						<span class="labels">Alamat Proyek</span>
+						<span class="labels font-subtitle-5">Alamat Proyek</span>
 						<textarea class="inputs" type="text" name="projectAddress" data-error=".errorProjectAdd"> {{ $proyek->projectAddress }} </textarea>
 						<div class="errorMessage errorProjectAdd"></div>
 			</div>
