@@ -27,7 +27,7 @@
             @endif
         </div>
     </div>
-    <hr>
+    <hr><br>
     <!-- {{-- <div>
         <div class="row">
             <div class="col-sm-10">
@@ -204,62 +204,42 @@
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
                     <div class="col-sm-5 font-status-approval" style="margin-left:30px;">
                         @if ($proyek->approvalStatus == 6)
-                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right">Tambah PM</a>
+                        <a>Belum ada PM</a>
                         @elseif ($proyek->approvalStatus == 7)
-                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right">{{$pmName}}</a>
+                        <a>PM : {{$pmName}}</a>
                         <span class="glyphicon glyphicon-pencil"></span>
                         @endif
                     </div>
                 </div>
                 <hr style="background-color:black;"/>
-                <div class="row">
-                    <div class="col-sm-10">
-                        <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}}</p>
-                    </div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-sm-10">-->
+<!--                        <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}}</p>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <br>
-            </div>
-            <div class="row ketengahin">
-                <div class="col-sm-7">
-                    <div class="card card-info">
-                        <div class="row judul">
-                            <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
-                            <div class="col-sm-5 font-status-approval" style="margin-left:15px;">{{$status}}</div>
-                        </div>
-                        <hr style="background-color:black;"/>
-                        <div class="row">
-                            <div class="col-sm-5 font-desc-bold" style="margin-left: 30px;">
-                                <ul>
-                                    <li><p>Nama Staf Marketing</p></li>
-                                    <li><p>Nama Proyek</p></li>
-                                    <li><p>Nama Perusahaan</p></li>
-                                    <li><p>Nilai Proyek</p></li>
-                                    <li><p>Estimasi Waktu Pengerjaan</p></li>
-                                    <li><p>Alamat Proyek</p></li>
-                                    <li><p>Deskripsi Proyek</p></li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6 font-desc" >
-                                <ul>
-                                    <li><p>:   {{ $proyek->name}}<p></li>
-                                    <li><p>:   {{ $proyek->projectName}}<p></li>
-                                    <li><p>:   {{ $proyek->companyName}}<p></li>
-                                    <li><p>:   Rp{{ $proyek->projectValue}}<p></li>
-                                    <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
-                                    <li><p>:   {{ $proyek->projectAddress}}<p></li>
-                                    <li><p class="deskripsi" style="margin-bottom:10px;" >: {{ $proyek->description}}<p></li>
-                                </ul>
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="col-sm-5 font-desc-bold" style="margin-left: 30px;">
+                        <ul>
+                            <li><p>Nama Staf Marketing</p></li>
+                            <li><p>Nama Proyek</p></li>
+                            <li><p>Nama Perusahaan</p></li>
+                            <li><p>Nilai Proyek</p></li>
+                            <li><p>Estimasi Waktu Pengerjaan</p></li>
+                            <li><p>Alamat Proyek</p></li>
+                            <li><p>Deskripsi Proyek</p></li>
+                        </ul>
                     </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="card card-pm">
-                        <br>
-                        <p class="font-subtitle-5">Project Manager</p>
-                        <hr style="background-color:black;"/>
-                        <br> <br> <br>
-                        <p class="font-status-approval" style="text-align: center;">Belum Tersedia.</p>
+                    <div class="col-sm-6 font-desc" >
+                        <ul>
+                            <li><p>:   {{ $proyek->name}}<p></li>
+                            <li><p>:   {{ $proyek->projectName}}<p></li>
+                            <li><p>:   {{ $proyek->companyName}}<p></li>
+                            <li><p>:   Rp{{ $proyek->projectValue}}<p></li>
+                            <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
+                            <li><p>:   {{ $proyek->projectAddress}}<p></li>
+                            <li><p class="deskripsi" style="margin-bottom:10px;" >: {{ $proyek->description}}<p></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -311,7 +291,7 @@
             <p style="text-align: right; margin-right: 20px; margin-top: 30px; color: blue">{{ $status }}</p>
         </div>
     </div>
-    <hr>
+    <hr><br>
     <div class="row ketengahin">
         <div class="col-sm-8">
             <div class="card card-info">
@@ -359,7 +339,11 @@
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
                 <a href="/kelolaLelang/{{ $proyek->id }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button></a>
+                @if ($proyek->approvalStatus == 6)
+                <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
+                @elseif ($proyek->approvalStatus == 7)
                 <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button></a>
+                @endif
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
             </div>
         </div>
