@@ -69,16 +69,16 @@
                 </tr>
                 <tr class="col-sm-3">
                     <td>Perusahaan</td>
-                    <td>:  {{ $namaPerusahaan }}</td>
+                    <td>:  {{ $companyName }}</td>
                 </tr>
                 <tr class="col-sm-3">
                     <td>Alamat</td>
-                    <td>:  Jkt</td>
+                    <td>:  {{ $alamatPerusahaan }}</td>
                 </tr>
             </table>
 
             <br>
-            <p> &nbsp;&nbsp;&nbsp;&nbsp; Yang dalam hal ini bertindak untuk dan atas nama <b>{{$namaPerusahaan}}</b>, Selanjutnya disebut Pihak Penjual atau <b>PIHAK KEDUA</b>.
+            <p> &nbsp;&nbsp;&nbsp;&nbsp; Yang dalam hal ini bertindak untuk dan atas nama <b>{{$companyName}}</b>, Selanjutnya disebut Pihak Penjual atau <b>PIHAK KEDUA</b>.
     </div>
 
     <div class="row">

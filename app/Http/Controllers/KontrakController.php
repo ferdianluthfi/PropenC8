@@ -44,27 +44,27 @@ class KontrakController extends Controller
         
         $proyek = DB::table('proyeks')->select('*')->where('id', $id)->first();
         
-        $namaP = $request->alamatKlien;
+        $alamatP = $request->alamatKlien;
         $kontakP =$request->contactPerson;
 
         
         // return  view('kontraks.daftar-surat', compact('proyek'));
-        return $this->generateSurat($id, $namaP, $kontakP);
+        return $this->generateSurat($id, $alamatP, $kontakP);
     }
 
-    public function generateSurat($id, $namaP, $kontakP){
+    public function generateSurat($id, $alamatP, $kontakP){
         $proyek = DB::table('proyeks')->where('id', $id)->first();
         $waktuNow = now('GMT+7');
         $tanggal = $this->waktu($waktuNow); 
-        $namaP = $namaP;
+        $alamatP = $alamatP;
         $kontakP = $kontakP;   
         
         $data = [
             'tanggal' => $tanggal,
-            'namaPerusahaan' => $namaP,
+            'alamatPerusahaan' => $alamatP,
             'contactPerson' => $kontakP,
             'projectName' => $proyek->projectName,
-
+            'companyName' => $proyek->companyName
         ];
          
         $pdf = PDF::loadView('template-surat/suratJualBeli', $data);
