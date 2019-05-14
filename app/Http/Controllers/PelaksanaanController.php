@@ -115,7 +115,7 @@ class PelaksanaanController extends Controller
         if($pelaksanaan->bulan == 1) {
             $realisasiLebih=null;
             $pdf = PDF::loadView('downloadPelaksanaanAwal', compact('pelaksanaan','listPekerjaan','biayaKeluar','realisasiLalu','proyek','tahunPeriode','periodeMulai','periodeSelesai'));
-            return $pdf->setPaper('a4','landscape')->stream('tesfilepelaksanaan.pdf');
+            return $pdf->setPaper('a4','landscape')->download('tesfilepelaksanaan.pdf');
         }
         else {
             $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
@@ -125,7 +125,7 @@ class PelaksanaanController extends Controller
             $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
             $pdf = PDF::loadView('downlo
             adPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','proyek','realisasiLebih','tahunPeriode','periodeMulai','periodeSelesai'));
-            return $pdf->setPaper('a4','landscape')->stream('tesfilepelaksanaan.pdf');
+            return $pdf->setPaper('a4','landscape')->download('tesfilepelaksanaan.pdf');
         }
     }
     public function waktu($tanggal){
