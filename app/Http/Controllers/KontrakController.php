@@ -54,7 +54,8 @@ class KontrakController extends Controller
 
     public function generateSurat($id, $namaP, $kontakP){
         $proyek = DB::table('proyeks')->where('id', $id)->first();
-        $tanggal = now('GMT+7');
+        $waktuNow = now('GMT+7');
+        $tanggal = $this->waktu($waktuNow); 
         $namaP = $namaP;
         $kontakP = $kontakP;   
         
@@ -94,9 +95,9 @@ class KontrakController extends Controller
     }
 
     public function createKontrak(request $request, $id){
-        $proyek = DB::table('proyeks')->where('id',$id)->first();
+        $proyek = DB::table('proyeks')->where('id', $id)->first();
         $arrSurat = $request->surat;
-
+        
         $key = array_keys($request->surat);
         
         if ($request->surat != null) {
@@ -158,9 +159,9 @@ class KontrakController extends Controller
                     $uploadedFile = $arrSurat[$nilai];
                     $path = $uploadedFile->storeAs('upload', $uploadedFile->getClientOriginalName());
                     $filename = $proyek->projectName . ' - '. $namaSurat;
-
-                    DB::table('kontraks')->updateOrInsert(
-                        ['proyek_id' => $id, 'title' => $title],
+                    
+                    $file = DB::table('kontraks')->updateOrInsert(
+                        ['proyek_id' => $id, 'title' => $namaSurat],
                         ['approvalStatus' => 0,
                         'title' =>  $namaSurat ?? $uploadedFile->getClientOriginalName(),
                         'filename' => $filename,
@@ -172,18 +173,6 @@ class KontrakController extends Controller
                         'updated_at' => now('GMT+7')
                     ]); 
                     
-                    
-                    // DB::table('kontraks')->insert([
-                    //     'approvalStatus' => 0,
-                    //     'title' =>  $namaSurat ?? $uploadedFile->getClientOriginalName(),
-                    //     'filename' => $filename,
-                    //     'path' => $path,
-                    //     'ext' => $uploadedFile->getClientOriginalExtension(),
-                    //     'proyek_id' => $id,
-                    //     'pengguna_id' => $proyek->pengguna_id,
-                    //     'created_at' => now('GMT+7'),
-                    //     'updated_at' => now('GMT+7')
-                    // ]);
                     DB::table('proyeks')->where('id', $id)->update(['approvalStatus' => 5]);
 
                 }
@@ -193,7 +182,6 @@ class KontrakController extends Controller
             }
         }
 
-        // return $this->viewKontrakz($id);
         return redirect()->route('view-kontrak', ['id' => $id]);    
     }
 

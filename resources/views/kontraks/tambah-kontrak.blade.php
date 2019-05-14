@@ -82,11 +82,9 @@
                         <input class="inputs font-desc" style="font-size:13px; margin-top:5px; margin-left:10px;" type="text" name="alamatKlien" placeholder="Masukkan Alamat Perusahaan" data-error=".alamatKlien">
                     </div>
                     <br>
-                    <select name="tipepekerjaan" class="content bg1" style="background-color:white">
-                            @foreach($klien as $tipe)
-                                <option value="{{$tipe->id}}">{{$tipe->name}}</option>
-                            @endforeach
-                    </select>
+                    <div style="border: 0.5px solid #e6e6e6; border-radius:8px; height: 25px;">
+                        <input class="inputs font-desc" style="font-size:13px; margin-top:5px; margin-left:10px;" type="text" name="contactPerson" placeholder="Masukkan Nama Klien" data-error=".contactPerson">
+                    </div>
             </div>
         </div>
         <br>

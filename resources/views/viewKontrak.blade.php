@@ -100,16 +100,16 @@
         <hr>
         <table id="datatable" data-page-length='25' class="table table-striped table-bordered" >
             <thead>
-            <tr style="text-align: center">
-                <th>Nama Surat</th>
-                <th>Tanggal Dibuat</th>
-                <th>Aksi</th>
+            <tr>
+                <th style="text-align: center">Nama Surat</th>
+                <th style="text-align: center">Tanggal Dibuat</th>
+                <th style="text-align: center">Aksi</th>
             </tr>
             </thead>
             <tbody>
             @foreach($listKontrak as $kontrak)
             <tr>
-                <td>{{$kontrak->title}}</td>
+                <td >{{$kontrak->title}}</td>
                 
                 <td style="text-align: center">{{$kontrak->created_at}}</td>
                 <td style="text-align: center">
