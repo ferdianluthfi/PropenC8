@@ -41,7 +41,7 @@
             <tbody>
             @foreach ($pmlist as $pm)
             <tr>
-                <td>{{ $pm->id }}</td>
+                <td>PM{{ $pm->id }}</td>
                 <td>{{ $pm->name }}</td>
                 <td>{{ $pm->total }}</td>
                 <td style="vertical-align: center">
