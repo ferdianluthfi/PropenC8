@@ -28,14 +28,14 @@
         </div>
     </div>
     <hr>
-    <div>
+    <!-- {{-- <div>
         <div class="row">
             <div class="col-sm-10">
                 <p class="font-subtitle-2"></p>
             </div>
         </div>
         <br>
-    </div>
+    </div> --}} -->
     <div class="row ketengahin">
         <div class="col-sm-7">
             <div class="card card-info">
@@ -92,26 +92,40 @@
                 </form>
             </div>
         </div>
-        @elseif ($proyek->approvalStatus === 2)
+        @elseif ($proyek->approvalStatus === 1 || $proyek->approvalStatus === 2)
         <div class="col-sm-2">
             <div class="card card-pm" style="margin-left: 90px">
                 <br>
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
                 <br>
-                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-disapprove" style="margin-left: 35px; margin-top: 35px; padding-top: 10px">Lelang</a>
+                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-berkas" style="margin-left: 35px; margin-top: 35px; padding-top: 10px">Lelang</a>
                 <br>
             </div>
         </div>
-        @elseif ($proyek->approvalStatus === 4 || $proyek->approvalStatus === 5 || $proyek->approvalStatus === 6 || $proyek->approvalStatus === 7 || $proyek->approvalStatus === 8)
+        @else
         <div class="col-sm-2">
             <div class="card card-pm" style="margin-left: 90px">
                 <br>
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
-                <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
-                <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
-                <button class="button-disapprove" style="margin-left: 35px">LPJ</button>
+                @if ($proyek->approvalStatus === 4 || $proyek->approvalStatus === 9 )
+                <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
+                <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
+                <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
+                @elseif( $proyek->approvalStatus === 5 || $proyek->approvalStatus === 6 )
+                <button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
+                <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
+                <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
+                @elseif( $proyek->approvalStatus === 7 )
+                <button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
+                <button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
+                <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
+                @elseif( $proyek->approvalStatus === 8 )
+                <button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
+                <button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
+                <button class="button-berkas" style="margin-left: 35px">LPJ</button>
+                @endif
             </div>
         </div>
         @endif
@@ -256,7 +270,7 @@
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
 <!--                <button href="/kelolaLelang/{{ $proyek->id }}" class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>-->
-                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-disapprove" style="margin-left: 35px; margin-top: 60px; padding-top: 10px">Lelang</a>
+                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-berkas" style="margin-left: 35px; margin-top: 60px; padding-top: 10px">Lelang</a>
 <!--                <button class="button-disapprove" style="margin-left: 35px">LPJ</button>-->
             </div>
         </div>
@@ -298,14 +312,6 @@
         </div>
     </div>
     <hr>
-    <div>
-        <div class="row">
-            <div class="col-sm-10">
-                <p class="font-subtitle-2"></p>
-            </div>
-        </div>
-        <br>
-    </div>
     <div class="row ketengahin">
         <div class="col-sm-8">
             <div class="card card-info">
@@ -348,15 +354,16 @@
             </div>
         </div>
         <div class="col-sm-2">
-            <div class="card card-pm" style="margin-left:-30px">
+            <div class="card card-pm">
                 <br>
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
-                <button class="button-disapprove" style="margin-left: 65px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
-                <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-disapprove" style="margin-left: 65px; margin-bottom: 10px">LAPJUSIK</button></a>
-                <button class="button-disapprove" style="margin-left: 65px">LPJ</button>
+                <a href="/kelolaLelang/{{ $proyek->id }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button></a>
+                <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button></a>
+                <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
             </div>
         </div>
+
     </div>
 </div>
 @endforeach

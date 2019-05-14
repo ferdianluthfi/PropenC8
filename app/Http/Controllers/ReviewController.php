@@ -1,11 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Validator;
 use Illuminate\Http\Request;
 use App\Review;
-
 class ReviewController extends Controller
 {
     public function edit($id, Request $request) {
@@ -27,7 +24,6 @@ class ReviewController extends Controller
             $review->rating = $request->rating_star;
             $review->description = $request->komentar;
             $review->updated_at = now('GMT+7');
-
             $review->save(); 
             // error_log($review);
             return response()->json([], 200);
@@ -61,9 +57,4 @@ class ReviewController extends Controller
         }
         
     }
-
-
-    
-   
-
 }

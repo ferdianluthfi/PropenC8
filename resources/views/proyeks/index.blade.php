@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <!-- INI PUNYA STAFF MARKETING -->
-<!-- INI PUNYA STAFF MARKETING -->
 @if(Auth::user()->role == 3)
 @section ('content')
 @include('layouts.nav')
@@ -84,7 +83,6 @@
                 </li>
             </ul>
         </div>
-
 
         <div id="myTabContent" class="tab-content">
             <!-- PraLelang -->
@@ -285,14 +283,6 @@
             @endif
             <h2  class="font-title" style="text-align:center;">Daftar Proyek Potensial</h2><hr>
             <div class="row">
-<!--                <div class="col-md-3">-->
-<!--                    <a href="/proyek/tambah">-->
-<!--                        <div class="add-project">-->
-<!--                            <center><img src="https://image.flaticon.com/icons/svg/660/660529.svg"   style="width:70px;height:100px;color:blue;"><center>-->
-<!--                                    <p style="font-size:14pt; font-weight:bolder; color:dodgerblue;"> Tambah Proyek </p>-->
-<!--                        </div>-->
-<!--                    </a>-->
-<!--                </div>-->
                 <div class="col-md-9">
                     <div class="your-class">
                         @foreach($proyekPoten as $proyeks)
@@ -551,7 +541,7 @@
                 </button>
             </div>
             @endif
-            <h2 style="text-align:center;">Daftar Proyek Berjalan</h2><br>
+            <h2 style="text-align:center;">Daftar Proyek Berjalan</h2><hr>
             <div class="row">
                 @if(count($proyekPoten) > 0)
                 <div class="col-md-12">

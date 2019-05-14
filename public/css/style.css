@@ -442,12 +442,6 @@ iframe {
 border: none !important;
 }
 
-/*---------------------------------------------*/
-.container {
-width: 100%;
-padding-left: 5%;
-}
-
 
 /*//////////////////////////////////////////////////////////////////
 [ Utility ]*/
@@ -455,19 +449,6 @@ padding-left: 5%;
 .bg0 {background-color: #fff;}
 .bg1 {background-color: #f7f7f7;}
 
-.bg-grey{
-width: 100%;  
-display: -webkit-box;
-display: -webkit-flex;
-display: -moz-box;
-display: -ms-flexbox;
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-align-items: center;
-padding: 15px;
-background-color:  #f4f4f4;
-}
 
 #addForm{
 box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -558,11 +539,11 @@ align-items: center;
 padding: 0 20px;
 width: 100%;
 height: 50px;
-background-color: #333333;
-border-radius: 25px;
+border:1.5px solid #63A2F6;
+border-radius: 10px;
 
 font-size: 16px;
-color: #fff;
+color:black;
 line-height: 1.2;
 
 -webkit-transition: all 0.4s;
@@ -572,7 +553,7 @@ transition: all 0.4s;
 }
 
 .container-form-btn:hover {
-background-color: #0dd460ee;
+background-color:rgb(106, 179, 243);
 }
 
 /*button batal*/
@@ -599,10 +580,10 @@ align-items: center;
 padding: 0 20px;
 width: 100%;
 height: 50px;
-background-color: #979494;
-border-radius: 25px;
+border:1.5px solid #b5b5b5;
+color:black;
 font-size: 16px;
-color: #fff;
+border-radius: 10px;
 line-height: 1.2;
 
 -webkit-transition: all 0.4s;
@@ -612,7 +593,7 @@ transition: all 0.4s;
 }
 
 .container1-form-btn:hover {
-background-color: #f3bf2eee;
+background-color: #979494;
 }
 
 .title {
@@ -796,24 +777,37 @@ margin-right: 5px;
 }
 }
 
-
-.font-button-berkas {
+.button-berkas{
+  background-color:#fff;
+  border-radius:10px;
+  width:130px;
+  height:45px;
+  text-align:center;
+  text-decoration: none;
+  display: inline-block;
+  border:none;
+  border:1.5px solid #63A2F6;
+  color:#63A2F6;
   font-family: 'Roboto';
   font-weight:500;
   font-size: 16px;
-  text-align:center;
-  margin-top: 15px;
-  color: #606060;
 }
 
-.font-button-berkas-inactive {
+.button-berkas-inactive{
+  background-color:#fff;
+  border-radius:10px;
+  width:130px;
+  height:45px;
+  text-align:center;
+  text-decoration: none;
+  display: inline-block;
+  border:1.5px solid #b5b5b5;
+  color:#b5b5b5;
   font-family: 'Roboto';
   font-weight:500;
   font-size: 16px;
-  text-align:center;
-  margin-top: 15px;
-  color: #b5b5b5;
 }
+
 
 .font-breadcrumb-inactive {
   font-family: 'Roboto';
