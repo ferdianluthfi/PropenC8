@@ -111,6 +111,11 @@ Route::post('/pm/update', 'PenggunaController@managePm');//update pm
 
 
 /**
+ * routing untuk REVIEW
+ */
+Route::post('/pelaksanaan/detail/{id}/review/add', 'ReviewController@add')->name("add-review");
+Route::post('/pelaksanaan/detail/{id}/review/edit', 'ReviewController@edit')->name("edit-review");
+/**
  * Errors
  */
 Route::any('{catchall}', function() {

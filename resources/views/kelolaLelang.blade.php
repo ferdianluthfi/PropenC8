@@ -3,13 +3,20 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="">
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 @if(Auth::user()->role == 5)
 @section ('content')
 @include('layouts.nav')
+<!-- Breadcrumbs (ini buat navigation yaa) -->
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="/proyek/detailProyek/{{ $proyek->id }}">Detail Proyek {{ $proyek->projectName }}</a></li>
+    </ol>
+</nav>
 <body>
 <!-- INI BUAT PROGRAM MANAGER -->
 <div class="container-fluid card card-detail-proyek">
@@ -161,7 +168,6 @@
         </div>
     </div>
 </div>
-
 </body>
 @endsection
 
@@ -252,6 +258,7 @@
                 <span class="glyphicon glyphicon-eye-open"></span>
             </a>
             <a href="{{ route('file.download', $object->id) }}" title="Download file {{ $object->title }}">
+                <?php echo $object->id?>
                 <i class="glyphicon glyphicon-download"></i>
             </a>
         </td>

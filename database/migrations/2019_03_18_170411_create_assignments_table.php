@@ -24,14 +24,14 @@ class CreateAssignmentsTable extends Migration
             ->onUpdate('cascade')
             ->onDelete('cascade');
 
-            $table->bigInteger('pengguna_id')->unsigned();
+            $table->bigInteger('pengguna_id')->unsigned()->nullable();
             $table->foreign('pengguna_id')
             ->references('id')
             ->on('users')
             ->onUpdate('cascade')
             ->onDelete('cascade');
 
-            $table->bigInteger('klien_id')->unsigned();
+            $table->bigInteger('klien_id')->unsigned()->nullable();
             $table->foreign('klien_id')
             ->references('id')
             ->on('users')

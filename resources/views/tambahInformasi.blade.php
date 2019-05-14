@@ -54,7 +54,7 @@
     
                     <div class="content bg1">
                         <span class="labels">Tanggal Informasi</span>
-                        <input type="date" name="reportdate" min="<?php echo $minDate ?>" class="inputs" data-error=".errorDate">
+                        <input type="date" name="reportdate" min="<?php echo $minDate ?>" max = "<?php echo $maxDate ?>" class="inputs" data-error=".errorDate">
                         <div class="errorMessage errorDate"></div>
                     </div>
 
@@ -87,7 +87,7 @@
 
                     <br>
 
-                    <div class="container1-btn">
+                    <div class="container1-btn" style="width:150px; height:5px;">
                             <a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
                                 <span>
                                     Batal
@@ -96,7 +96,7 @@
                             </a>
                     </div>
                     
-                    <div class="container-btn">
+                    <div class="container-btn" style="width:150px; height:5px;">
                             <button class="container-form-btn" id="simpan">
                                     <span>
                                         Simpan
@@ -166,10 +166,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-<<<<<<< HEAD
-=======
 
->>>>>>> cc4d7cb4c6c6f8cb4773e0636a15d4e51c1fc9c6
             function printErrorMsg (msg) {
                 $(".print-error-msg").find("ul").html('');
                 $(".print-error-msg").css('display','block');

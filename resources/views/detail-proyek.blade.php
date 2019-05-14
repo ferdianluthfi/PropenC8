@@ -14,10 +14,9 @@
 
 <!-- isinya -->
 <div class="container-fluid card card-detail-proyek">
-    <br>
     <div class="row">
         <div class="col-sm-6">
-            <p class="font-title" style="margin-top: 20px; margin-left: 20px">Detail Proyek {{ $proyek->projectName}}</p>
+            <p class="font-subtitle-1" style="margin-top: 20px; margin-left: 20px">Detail Proyek {{ $proyek->projectName}}</p>
         </div>
         <div class="col-sm-6">
             @if($statusHuruf == 'DISETUJUI') <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:blue;">{{$statusHuruf}}</p>
@@ -69,7 +68,7 @@
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
                 <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px"><a href="{{ route('detail-kontrak', $proyek->id) }}">Kontrak</a></button>
-                <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px"><a href="#">LAPJUSIK</a></button>
+                <button class="button-disapprove" style="margin-left: 35px; margin-bottom: 10px"><a href="/pelaksanaan/{{$proyek->id}}">LAPJUSIK</a></button>
                 <button class="button-disapprove" style="margin-left: 35px"><a href="#">LPJ</a></button>
             </div>
         </div>

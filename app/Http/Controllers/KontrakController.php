@@ -131,11 +131,13 @@ class KontrakController extends Controller
     }
     public function approveKontrak($id){
         $kontrak = Kontrak::where('proyek_id', $id)->first()->update(['approvalStatus' => 1]);
+        $proyek = Proyek::where('id', $id)->first()->update(['approvalStatus' => 6]);
         return redirect('/proyek');
     
     }
     public function disapproveKontrak($id){
         $kontrak = Kontrak::where('proyek_id', $id)->first()->update(['approvalStatus' => 2]);
+        $proyek = Proyek::where('id', $id)->first()->update(['approvalStatus' => 4]);
         return redirect('/proyek');
     }
         
