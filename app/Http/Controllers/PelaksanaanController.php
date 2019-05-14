@@ -87,6 +87,10 @@ class PelaksanaanController extends Controller
         $lapjusikStatus = Pelaksanaan::where('id', $id)->first()->approvalStatus;
         $proyek = Proyek::where('id', $idProyek)->first();
         $displayText;
+        $createdDate="";
+        $rating="";
+        $updateDate="";
+
 
 
         //Realisasi Bulan dari tombol Lihat
@@ -122,7 +126,7 @@ class PelaksanaanController extends Controller
             
             //Sebelum Requested Date
             $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
-            return view('detailPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLebih','listFoto','arrayidKemajuan','listIdPekerjaan', 'displayText', 'lapjusikStatus', 'review', 'createdDate', 'updatedDate', 'rating','interval', 'status', 'namaProyek'));
+            return view('detailPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLebih','listFoto','arrayidKemajuan','listIdPekerjaan', 'displayText', 'lapjusikStatus', 'review', 'createdDate', 'updateDate', 'rating','interval', 'status', 'namaProyek'));
         }
     }
     public function deletePelaksanaan($id) {
