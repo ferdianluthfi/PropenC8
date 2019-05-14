@@ -132,11 +132,12 @@ box-sizing: border-box;
 <div class="col-sm-3"></div>
 <!-- approval -->
 @if(Auth::user()->role == 4)
+@if($pelaksanaan->approvalStatus == 0)
 <div class="card card-review col-sm-3" style="margin-left: 30px;">
       <br>
       <p class="font-subtitle-5">Ubah Status LAPJUSIK</p>
       <hr>
-      <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;">
+      <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;margin-left:-40px;">
         <div class="col-sm-5" style="margin:10px;">
           <form action="/lapjusik/setujuiLapjusik/tolak/{{ $pelaksanaan->id }}" method="POST" id="reject">
             @csrf
@@ -183,15 +184,31 @@ box-sizing: border-box;
             </div>
         </div>
     </div>
-
+@else
+<div class="card card-review col-sm-3" style="margin-left: 30px;">
+      <br>
+      <p class="font-subtitle-5">Review Klien</p>
+      <hr>
+<div class="container-fluid" style="padding-left:10px; padding-top:5px; padding-right:10px; padding-bottom:5px; border-radius:5px; border:0.5px solid #ECE9F1; width:250px; min-height:60px;">
+          <p class="font-desc">
+          {{ $displayText }} 
+          </p>
+      </div>
+</div>
+@endif
 @else
 <!-- Review -->
 <div class="card card-review col-sm-3" style="margin-left: 30px;">
       <br>
       <p class="font-subtitle-5">Review Klien</p>
       <hr>
-  @if($review == null)
+  @if($review->isempty())
   <br>
+  <div class="container-fluid" style="padding-left:10px; padding-top:5px; padding-right:10px; padding-bottom:5px; border-radius:5px; border:0.5px solid #ECE9F1; width:250px; min-height:60px;">
+          <p class="font-desc">
+          {{ $displayText }} 
+          </p>
+      </div>
       <div class="text-center">
       <button data-toggle="modal" data-target="#add-review" class="button-review font-approval">TAMBAH REVIEW</button>
     </div>
