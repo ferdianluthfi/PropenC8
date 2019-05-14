@@ -35,9 +35,9 @@
         <div class="container">
             <div class="row bigCard">
                 <div class="col-md-12">
-                    <h2 style="text-align:center;">Daftar Kemajuan Proyek</h2><br>
-                    <div class="card" style=" background-color: whitesmoke;">
-                            <a href="/info/tambah/{{$id}}" class="btn btn-primary" style=" float: right;" >+ Tambah Informasi</a><br><br>
+                    <h2 style="text-align:center;" class="font-title">Daftar Kemajuan Proyek</h2><br>
+                    <div style=" background-color: white;">
+                            <a href="/info/tambah/{{$id}}" class="btn btn-primary" style=" float: right; margin-right:15px" >+ TAMBAH INFORMASI</a><br><br>
                         <div class="panel-body">
                             <table id="datatable" class="table table-striped table-bordered text-center">
                                 <thead>
@@ -67,12 +67,12 @@
                                             @endforeach
                                         @endif
                                         <td> {{ date('F d' , strtotime($informasi->reportDate)) }}</td>
-                                        <td><a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary">Lihat</a></td>
-                                        <td><a class="btn" style=" background-color: whitesmoke;  color: blue; border: 2px solid" href="/info/edit/{{$informasi->id}}">Ubah</a></td>
+                                        <td><a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary">LIHAT</a></td>
+                                        <td><a class="btn" style=" background-color: whitesmoke;  color: blue; border: 2px solid" href="/info/edit/{{$informasi->id}}">UBAH</a></td>
                                         <td>
                                         <a class="btn" style=" background-color: whitesmoke;  color: red; border: 2px solid" data-toggle="modal" data-target="#myModal-<?php echo $informasi->id ?>">
                                             <span>
-                                                Hapus
+                                                HAPUS
                                             </span>
                                         </a>
                                         </td>

@@ -28,18 +28,17 @@
     @include('layouts.nav')
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Daftar Proyek</a></li>
                 <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" >LAPJUSIK Proyek {{$namaProyek}}</a></li>
             </ol>
         </nav>
     
     @if(Auth::user()->role == 6)
     <div class="row" style="margin-left: 220px;">
-        <div class="container-fluid card col-md-6" style="width:730px;margin:0 30px;">
+        <div class="container-fluid card col-md-6" style="width:730px;min-height:295px;margin:0 30px;">
             <div class="row">
                 <div class="col-md-12"><br>
-                    <h2 style="text-align:center;">Daftar LAPJUSIK</h2><hr>
-                    {{-- <div class="card-table"> --}}
+                    <h2 class="font-title" style="text-align:center;">Daftar LAPJUSIK</h2><hr>
                         <div class="panel-body">
                             <table id="datatable" class="table table-striped table-bordered text-center">
                                 <thead>
@@ -100,7 +99,6 @@
 
                                 </tbody>
                             </table>
-                        {{-- </div> --}}
                         
                     </div>
                 </div>
@@ -108,13 +106,13 @@
         </div>
 
         <div class="container-fluid col-md-6" style="width:300px;" >
-            <div  class="row card card-tombol" style="height:280px; width:300px; padding:10px;">
+            <div  class="row card card-tombol" style="height:295px; width:300px; padding:10px;">
                 <div class="row judul">
-                    <div class="font-subtitle-4" style="text-align: center">Buat Ulang LAPJUSIK</div>
+                    <div class="font-subtitle-5" style="text-align: center;margin-left:-20px;margin-top:-10px">Buat Ulang LAPJUSIK</div>
                 </div> <hr>
                 <div>
-                    <span class="labels">Bulan Ke</span>
-                    <select id="changeButton" name="bulanke" class="content bg-1" style="height:34px;"  onchange="myFunction()">
+                    <center><span class="labels font-subtitle-5">Bulan Ke</span></center>
+                    <select id="changeButton" name="bulanke" class="content bg-1" style="height:38px;"  onchange="myFunction()">
                     @if($draftFlag == null)
                         <option value="" disabled selected>Belum ada LAPJUSIK dihapus</option>
                     </select>
@@ -291,9 +289,9 @@
     <br><br>
     <div class="row" style="margin-left: 220px;">
         <div class="container-fluid col-md-10">
-            <div class="row bigCard">
-                <div class="col-md-12"><br>
-                    <h2 style="text-align:center;">Daftar Informasi Proyek</h2><hr>
+            <div class="row bigCard" style="margin-left:14px">
+                <div class="col-md-12">
+                    <h2 class="font-title" style="text-align:center;">Daftar Informasi Proyek</h2><hr>
                     <div class="card">
                         <div class="panel-body">
                             <table id="datatable1" class="table table-striped table-bordered text-center">
