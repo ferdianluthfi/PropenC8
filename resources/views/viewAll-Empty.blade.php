@@ -13,7 +13,9 @@
 
 <div class="container-fluid card card-main">
     <div class="text-center font-title">
+      <br>
         <strong> <h3>Kemajuan Proyek</h3> </strong>
+        <br>
     </div>
     <hr>
     <br><br><br><br><br><br><br><br><br><br>
