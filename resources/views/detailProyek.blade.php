@@ -70,13 +70,13 @@
             <div class="col-sm-12">
                 <center><p class="font-title" style="margin-top: 20px; margin-left: 20px">Detail Proyek {{ $proyek->projectName}}</p></center>
             </div>
-        </div><hr><hr>
+        </div><hr>
         <div class="row ketengahin">
             <div class="col-sm-9" style="margin-left: -30px;">
                 <div class="card" >
                     <div class="row judul">
                         <div class="col-sm-12 font-subtitle-4">Informasi Umum</div>
-                    </div><hr><hr>
+                    </div><hr>
                     <div class="row">
                         <div class="col-sm-4 font-desc-bold" style="margin-left: 30px;">
                             <ul>
@@ -110,11 +110,11 @@
                 </div>
             </div>
             <div class="col-sm-2" style="margin-left: -20px;" >
-                <div class="card card-pm">
+                <div class="card card-pm" style="height:90px;">
                     <br>
-                    <p class="font-subtitle-5">Berkas</p><hr><hr>
+                    <p class="font-subtitle-5">Berkas</p><hr>
                     <br>
-                    <a href="/informasi/{{ $proyek->id }}" class="button-berkas" style="width: 150px;margin-left: 25px; margin-top: 30px; padding-top: 10px"> Informasi Kemajuan </a>
+                    <a href="/informasi/{{ $proyek->id }}" class="button-berkas" style="width: 100px; height: 77px;margin-left: 50px; margin-top: 15px; padding-top: 10px"> INFORMASI <br> KEMAJUAN </a>
                     <br>
                 </div>
             </div>
