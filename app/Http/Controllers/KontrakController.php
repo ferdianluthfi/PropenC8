@@ -33,8 +33,11 @@ class KontrakController extends Controller
 
     public function infoUmumTambahInfo($id){
         $proyek = DB::table('proyeks')->select('*')->where('id', $id)->first(); 
-        
-        return view('kontraks.tambah-kontrak', compact('proyek'));
+        $formatValue = number_format($proyek->projectValue, 2, ',','.');
+        $proyek->projectValue = $formatValue;
+
+        $klien = DB::table('users')->where('role', 8)->get();
+        return view('kontraks.tambah-kontrak', compact('proyek', 'klien'));
     }
     
     public function berkasSurat(request $request, $id){
@@ -65,23 +68,26 @@ class KontrakController extends Controller
          
         $pdf = PDF::loadView('template-surat/suratJualBeli', $data);
         
-        $docName = 'Surat Kontrak Jual Beli';
+        $title = 'Surat Kontrak Jual Beli';
+        $docName = $proyek->projectName . ' - Surat Kontrak Jual Beli';
 
         $tes = Storage::put($docName, $pdf->output());
-        
 
         $ext = 'pdf';
-        $file = DB::table('kontraks')->insert([
-            'approvalStatus' => 0,
-            'title' =>  $docName,
-            'filename' => $proyek->projectName . ' - Surat Kontrak Jual Beli',
-            'path' => $docName,
-            'ext' => 'pdf',
-            'proyek_id' => $id,
-            'pengguna_id' => $proyek->pengguna_id,
-            'created_at' => now('GMT+7'),
-            'updated_at' => now('GMT+7')
-        ]);
+
+        DB::table('kontraks')->updateOrInsert(
+        ['proyek_id' => $id, 'title' => $title],
+        ['approvalStatus' => 0,
+        'title' =>  $title,
+        'filename' => $docName,
+        'path' => $docName,
+        'ext' => 'pdf',
+        'proyek_id' => $id,
+        'pengguna_id' => $proyek->pengguna_id,
+        'created_at' => now('GMT+7'),
+        'updated_at' => now('GMT+7')
+        ]); 
+        
         
         
         return  view('kontraks.daftar-surat', compact('proyek'));
@@ -150,16 +156,12 @@ class KontrakController extends Controller
                         
                     }    
                     $uploadedFile = $arrSurat[$nilai];
-                    // dd($uploadedFile);
                     $path = $uploadedFile->storeAs('upload', $uploadedFile->getClientOriginalName());
-                    // $publicPath = Storage::url($path);
-                    // dd($publicPath);
-                    
                     $filename = $proyek->projectName . ' - '. $namaSurat;
-                    
-                    
-                    \DB::table('kontraks')->insert([
-                        'approvalStatus' => 0,
+
+                    DB::table('kontraks')->updateOrInsert(
+                        ['proyek_id' => $id, 'title' => $title],
+                        ['approvalStatus' => 0,
                         'title' =>  $namaSurat ?? $uploadedFile->getClientOriginalName(),
                         'filename' => $filename,
                         'path' => $path,
@@ -168,7 +170,20 @@ class KontrakController extends Controller
                         'pengguna_id' => $proyek->pengguna_id,
                         'created_at' => now('GMT+7'),
                         'updated_at' => now('GMT+7')
-                    ]);
+                    ]); 
+                    
+                    
+                    // DB::table('kontraks')->insert([
+                    //     'approvalStatus' => 0,
+                    //     'title' =>  $namaSurat ?? $uploadedFile->getClientOriginalName(),
+                    //     'filename' => $filename,
+                    //     'path' => $path,
+                    //     'ext' => $uploadedFile->getClientOriginalExtension(),
+                    //     'proyek_id' => $id,
+                    //     'pengguna_id' => $proyek->pengguna_id,
+                    //     'created_at' => now('GMT+7'),
+                    //     'updated_at' => now('GMT+7')
+                    // ]);
                     DB::table('proyeks')->where('id', $id)->update(['approvalStatus' => 5]);
 
                 }
@@ -188,7 +203,13 @@ class KontrakController extends Controller
         $kontrakPasti = DB::table('kontraks')->select('*')->where('proyek_id', $id)->where('flag_active', '1')->first();
     
         $proyek = DB::table('proyeks')->select('*')->where('id', $id)->first();
-        // dd($proyek);
+        
+        $varNum = ($proyek->projectValue);
+        $nilaiTerbilang = $this->valueTerbilang($varNum);
+       
+        $uang = ucwords($nilaiTerbilang);
+        $hurufNilai = $uang . ' Rupiah';
+
         $formatValue = number_format($proyek->projectValue, 2, ',','.');
         $proyek->projectValue = $formatValue;
         foreach($listKontrak as $kontrak){
@@ -197,6 +218,7 @@ class KontrakController extends Controller
             $kontrak->created_at = $tgl;
             
         }
+        
 
         $tanggalKontrak = $kontrakPasti->created_at; 
         $tanggals = $this->waktu($tanggalKontrak);
@@ -211,7 +233,7 @@ class KontrakController extends Controller
         elseif($status == 2){
             $statusHuruf = "DITOLAK";
         }
-        return view('viewKontrak', compact('proyek', 'tanggals', 'statusHuruf', 'listKontrak'));
+        return view('viewKontrak', compact('proyek', 'tanggals', 'statusHuruf', 'listKontrak', 'hurufNilai'));
     
         
     }
@@ -337,6 +359,45 @@ class KontrakController extends Controller
         return($waktu);   
            
     }
+
+   public function valueTerbilang($angka){
+       $arrAngka = array("", "satu", "dua", "tiga", "empat", "lima", "enam",
+       "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
+       $num = abs($angka);
+       $var = "";
+
+       if($num < 12){
+           $var = " ".$arrAngka[$num];
+        }
+        else if($num < 20){
+            $var = $this->valueTerbilang($num - 10). " belas";
+        } 
+        else if ($num <100) {
+            $var = $this->valueTerbilang($num/10)." puluh". $this->valueTerbilang($num % 10);
+        } 
+        else if ($num <200) {
+            $var = " seratus" . $this->valueTerbilang($num - 100);
+        } 
+        else if ($num <1000) {
+            $var = $this->valueTerbilang($num/100) . " ratus" . $this->valueTerbilang($num % 100);
+        } 
+        else if ($num <2000) {
+            $var = " seribu" . $this->valueTerbilang($num - 1000);
+        } 
+        else if ($num <1000000) {
+            $var = $this->valueTerbilang($num/1000) . " ribu" . $this->valueTerbilang($num % 1000);
+        } 
+        else if ($num <1000000000) {
+            $var = $this->valueTerbilang($num/1000000) . " juta" . $this->valueTerbilang($num % 1000000);
+        } 
+        else if ($num <1000000000000) {
+            $var = $this->valueTerbilang($num/1000000000) . " miliar" . $this->valueTerbilang(fmod($num,1000000000));
+        } 
+        else if ($num <1000000000000000) {
+            $var = $this->valueTerbilang($num/1000000000000) . " triliun" . $this->valueTerbilang(fmod($num,1000000000000));
+        }
+            return $var;
+   }
 
     
 

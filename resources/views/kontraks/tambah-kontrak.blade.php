@@ -15,7 +15,7 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Daftar Proyek</a></li>
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/proyek/detailProyek/{{$proyek->id}}">Detail Proyek {{ $proyek->projectName }}</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="#">Buat Kontrak Kerja</a></li>  
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="/proyek/{{$proyek->id}}/kontrak/buat">Buat Kontrak Kerja</a></li>  
   </ol>
 </nav>
 
@@ -32,7 +32,7 @@
             <div class="col-sm-9 font-subtitle-4">Informasi Umum</div>
         </div>
     <hr>
-    <div class="row" style="margin-left: -30px;">
+    <div class="row" style="margin-left: 0px;">
         <div class="col-sm-7">
                 <div class="col-sm-6 font-desc-bold">
                     <ul>
@@ -65,26 +65,28 @@
 
     <div class="container-fluid card card-kontrak">
         <div class="row judul">
-            <div class="col-sm-9 font-subtitle-4">Informasi Tambahan</div>
+            <div class="col-sm-9 font-subtitle-4">Buat Surat Kontrak Jual Beli</div>
         </div>
         <hr>
         
         <div id="variabel">
-            <div class="col-sm-5 font-desc-bold" style="margin-left:10px;">
+            <div class="col-sm-5 font-desc-bold" style="margin-left:15px;">
                     <ul>
                         <li><p>Alamat Perusahaan</p></li>
                         <br>
-                        <li><p>Contact Person</p></li>
+                        <li><p>Nama Klien</p></li>
                     </ul>
             </div>
             <div class="col-sm-6 font-desc">
-                    <div style="border: 0.5px solid #e6e6e6; border-radius: 8px;" >
-                        <input class="inputs font-desc" type="text" name="alamatKlien" placeholder="Masukkan Alamat Perusahaan" data-error=".alamatKlien">
+                    <div style="border: 0.5px solid #e6e6e6; border-radius: 8px; height: 25px;" >
+                        <input class="inputs font-desc" style="font-size:13px; margin-top:5px; margin-left:10px;" type="text" name="alamatKlien" placeholder="Masukkan Alamat Perusahaan" data-error=".alamatKlien">
                     </div>
                     <br>
-                    <div style="border: 0.5px solid #e6e6e6; border-radius:8px;">
-                        <input class="inputs font-desc" type="text" name="contactPerson" placeholder="Masukkan Contact Person Klien" data-error=".contactPerson">
-                    </div>
+                    <select name="tipepekerjaan" class="content bg1" style="background-color:white">
+                            @foreach($klien as $tipe)
+                                <option value="{{$tipe->id}}">{{$tipe->name}}</option>
+                            @endforeach
+                    </select>
             </div>
         </div>
         <br>
@@ -93,20 +95,21 @@
     </div>
     <div class="row" style="margin-top: 20px; ">
     <div class="col-sm-3"> </div>
+    <div class="col-sm-3 container1-btn">
+        <div style="margin-left:310px;">
+        <a class="button-disapprove font-approval"data-toggle="modal" data-target="#myModal" style="padding:10px;">
+          <button>Kembali</button>
+        </a>
+        </div>
+    </div>
     <div class="col-sm-3"> 
         
-            <button id="simpan" class="button-approve font-approval">Lanjut</button>
+            <button id="simpan" class="button-approve font-approval" style="margin-left:70px">Lanjut</button>
            
     </div>
     </form> 
     
-    <div class="col-sm-3 container1-btn">
-        <div>
-        <a class="button-disapprove font-approval" data-toggle="modal" data-target="#myModal" style="padding:10px;">
-          Kembali
-        </a>
-        </div>
-      </div>
+    
     
     <div class="col-sm-4"> </div>
     </div>
@@ -115,8 +118,8 @@
     <br>
     
     
-</div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 		<!-- Modal content-->
 		<div class="modal-content">
@@ -135,17 +138,14 @@
 		</div>
 	</div>
 
-    <div id="myMod" class="modal fade">
+    <div id="myMod" class="modal fade"> 
 		<div class="modal-dialog modal-confirm">
 			<div class="modal-content">
 				<div class="modal-header">
-                    <h4 class="modal-title"></h4>	
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h4 class="modal-title">Sukses!</h4>	
 				</div>
 				<div class="modal-body">
-					<p class="text-center">Kontrak kerja berhasil disetujui.</p>
+					<p class="text-center">Surat Kontrak Jual Beli berhasil dibuat.</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
@@ -169,6 +169,7 @@
 			</div>
 		</div>
 	</div>     
+</div>
 @endsection
 
 @section('scripts')
@@ -177,53 +178,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
 	<script>
 	$( document ).ready(function() {
-
-        // var postURL = "<?php echo url('addmore'); ?>";
-        // console.log(postURL);
-        // var i=1;  
-
-        // $('#add').click(function(){  
-        //     i++;  
-        //     $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" name="file[]" class="help-block text-danger"/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
-        // });  
-
-        // $(document).on('click', '.btn_remove', function(){  
-        //     var button_id = $(this).attr("id");   
-        //     $('#row'+button_id+'').remove();  
-        // });
-
-        // $('.addRow').on('click', function(){
-        //     addRow();
-        // });
-
-        // function addRow(){
-        //     var tr = '<tr>'+
-        //                     '<td>'+
-        //                         '<select name="namaVar[]" class="form-control">'+
-        //                             '<option value="Alamat Klien" >Alamat Klien</option>'+
-        //                             '<option value="Nomor Telepon Klien" >Nomor Telepon Klien</option>'+
-        //                             '<option value="Administrasi">Administrasi</option>'+
-        //                         '</select>'+
-        //                     '</td>'+
-        //                     '<td><input type="text" name="isiVar[]" class="form-control"></td>'+
-        //                     '<td style=text-align:center;><a href="#" class="btn btn-danger remove">X</a></td>'+
-        //                 '<tr>';
-                
-        //         $('tbody').append(tr);
-                                
-        // };
-        
-        // $('tbody').on('click', '.remove', function(){
-        //     $(this).parent().parent().remove();
-        // });
-
-
-        // $.ajaxSetup({
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         }
-        // });
-
 
         
 		$("#simpan").click(function(e){

@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
              * 8 = klien
              */
             $table->integer('role');
+            $table->integer('status');
             $table->rememberToken();
 
             $table->timestamps();
@@ -38,6 +39,14 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->binary('photo')->nullable();
         });
+        DB::table('users')->insert([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('admin123'),
+            'role' => 1,
+            'username' => 'admin',
+            'status' => 0,
+            ]);
     }
 
     /**
