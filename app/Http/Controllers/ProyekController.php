@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Pengguna;
 use App\Assignment;
 use App\Pelaksanaan;
+use App\Kontrak;
 
 class ProyekController extends Controller
 {
@@ -30,7 +31,6 @@ class ProyekController extends Controller
         if(\Auth::user()->role == 3){
             // $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
             $status = "";
-
             $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',1)->where('pengguna_id', \Auth::user()->id)->get();
             $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
             $proyekLelang = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 3)->get();
@@ -42,38 +42,10 @@ class ProyekController extends Controller
                 }
             }
             foreach($proyekNonPoten as $proyeg){
+                $statusNum = $proyeg-> approvalStatus;
                 $temp = explode(" ",$proyeg->created_at)[0];
                 $date = $this->waktu($temp);
                 $proyeg->created_at = $date;
-                $statusNum = $proyeg-> approvalStatus;
-                if($statusNum == 1){
-                    $status = "DISETUJUI";
-                }elseif($statusNum == 2){
-                    $status = "SEDANG BERJALAN";
-                }else{
-                    $status = "DITOLAK";
-                }
-            }
-
-            foreach($proyekLelang as $proyeg){
-                $temp = explode(" ",$proyeg->created_at)[0];
-                $date = $this->waktu($temp);
-                $proyeg->created_at = $date;
-                $statusNum = $proyeg-> approvalStatus;
-                if($statusNum == 1){
-                    $status = "DISETUJUI";
-                }elseif($statusNum == 2){
-                    $status = "SEDANG BERJALAN";
-                }else{
-                    $status = "DITOLAK";
-                }
-            }
-
-            foreach($proyekPasca as $proyeg){
-                $temp = explode(" ",$proyeg->created_at)[0];
-                $date = $this->waktu($temp);
-                $proyeg->created_at = $date;
-                $statusNum = $proyeg-> approvalStatus;
                 if($statusNum == 1){
                     $status = "DISETUJUI";
                 }elseif($statusNum == 2){
@@ -187,8 +159,10 @@ class ProyekController extends Controller
     public function show($id)
     {
         $proyeks = DB::table('proyeks') -> where('id', $id) -> get();
+        $kontrak = Kontrak::where('proyek_id', $id)->first();
+        $pelaksanaan = Pelaksanaan::where('proyek_id', $id)->get();
         $status;
-        $pmName="";
+        $pmName;
         foreach($proyeks as $proyeg){
             $statusNum = $proyeg-> approvalStatus;
             $temp = number_format($proyeg->projectValue, 2, ',','.');
@@ -210,7 +184,7 @@ class ProyekController extends Controller
                 $status = "DITOLAK";
             }
         }
-        return view('proyeks/show',compact('id', 'proyeks', 'status', 'pmName'));
+        return view('proyeks/show',compact('id', 'proyeks', 'status', 'pmName','kontrak','pelaksanaan'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -259,7 +233,7 @@ class ProyekController extends Controller
                 'projectValue' => $request->projectValue,
                 'estimatedTime' => $request->estimatedTime,
                 'projectAddress' => $request->projectAddress,
-                'approvalStatus' => 1,
+                'approvalStatus' => 0,
                 'isLPJExist'=>0,
                 'pengguna_id'=>\Auth::user()->id,
                 'updated_at' => now('GMT+7'),
@@ -353,16 +327,14 @@ class ProyekController extends Controller
         $proyek->projectValue = $formatValue;
         $status;
         $statusNum = $proyek-> approvalStatus;
-        if($statusNum == 0){
+        if($statusNum == 1){
             $status = "MENUNGGU PERSETUJUAN";
         }
-        elseif($statusNum == 1){
-            $status = "DISETUJUI DIREKSI";
-        }
         elseif($statusNum == 2){
-            $status = "SEDANG BERJALAN";
+            $status = "DISETUJUI";
         }
-        elseif($statusNum == 3){
+        
+        elseif($statusNum == 9){
             $status = "DITOLAK";
         }
         return view('approveProyekPoten', compact('proyek', 'status'));
@@ -398,13 +370,13 @@ class ProyekController extends Controller
     public function approveProject($id){
         $proyekz = DB::table('proyeks')
             ->where('id', $id)
-            ->update(['approvalStatus' => 1]);
+            ->update(['approvalStatus' => 2]);
         return redirect('/proyek');
     }
     public function rejectProject($id){
         $proyekw = DB::table('proyeks')
             ->where('id', $id)
-            ->update(['approvalStatus' => 3]);
+            ->update(['approvalStatus' => 9]);
         return redirect('/proyek');
     }
     public function menang($id){

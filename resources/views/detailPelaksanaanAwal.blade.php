@@ -137,13 +137,21 @@ box-sizing: border-box;
       <p class="font-subtitle-5">Ubah Status LAPJUSIK</p>
       <hr>
       <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;">
+<<<<<<< HEAD
         <div class="col-sm-5" style="margin:10px;">
+=======
+        <div class="col-sm-5" style="margin: 5px;">
+>>>>>>> d7392d2e0d707a5a983db92ee4fde1edfa528fca
           <form action="/lapjusik/setujuiLapjusik/tolak/{{ $pelaksanaan->id }}" method="POST" id="reject">
             @csrf
             <button id="tolak" class="button-disapprove font-approval" style="padding: 8px 8px;">TOLAK</button>
           </form> 
         </div>
+<<<<<<< HEAD
         <div class="col-sm-5"  style="margin: 10px;"> 
+=======
+        <div class="col-sm-5" style="margin: 5px;"> 
+>>>>>>> d7392d2e0d707a5a983db92ee4fde1edfa528fca
           <form action="/lapjusik/setujuiLapjusik/setuju/{{ $pelaksanaan->id }}" method="POST" id="save">
             @csrf
             <button id="simpan3" class="button-approve font-approval" style="padding: 8px 8px;">SETUJUI</button>

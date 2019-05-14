@@ -61,7 +61,7 @@
 
                 <div class="content bg1">
                     <span class="labels">Tanggal Informasi</span>
-                    <input type="date" name="reportdate" min="<?php echo $minDate ?>" class="inputs" value="{{ $kemajuans->reportDate }}" data-error=".errorDate">
+                    <input type="date" name="reportdate" min="<?php echo $minDate ?>" max="<?php echo $maxDate ?>" class="inputs" value="{{ $kemajuans->reportDate }}" data-error=".errorDate">
                     <div class="errorMessage errorDate"></div>
                 </div>
 
