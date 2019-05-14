@@ -463,7 +463,7 @@
 	</nav>
 
 	<div class="container">
-		<div class="row bigCard">
+		<div class="row bigCard"style="margin-left:-30px;">
 			<div class="col-md-12">
 				@if(session('flash_message'))
 					<div class="alert alert-success alert-dismissible" style="margin: 15px;" role="alert">
