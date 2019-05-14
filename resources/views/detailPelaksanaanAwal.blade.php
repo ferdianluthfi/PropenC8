@@ -100,16 +100,15 @@ box-sizing: border-box;
                     </ul>
                   </div>
                 </div>
-              
                 <div class="col-sm-12">
                   <div class="your-class" style="margin:25px;">
                         @if ($listFoto != null)
                             @if($listIdPekerjaan!=null)
-                                @foreach($listIdPekerjaan as $idKemajuan)
-                                        @if($pekerjaan->id == $idKemajuan->pekerjaan_id) 
-                                        @foreach ($listFoto as $foto)
-                                            @if($foto->kemajuan_id == $idKemajuan->id and $foto->kemajuan_id == $idKemajuan->id)
-                                            <div class="responsive" style = "margin-right: 10px;">
+                                @foreach ($listIdPekerjaan as $idKemajuan)
+                                    @if($pekerjaan->id == $idKemajuan->pekerjaan_id)
+                                        @foreach($listFoto as $foto)
+                                            @if($foto->kemajuan_id == $idKemajuan->id)
+                                            <div class="responsive" style="margin-right:10px;">
                                                 <div class="gallery">
                                                     <a target="_blank">
                                                         {{$foto->id}} {{$idKemajuan->id}}
@@ -120,79 +119,96 @@ box-sizing: border-box;
                                             @endif
                                         @endforeach
                                     @endif
-                                    @endforeach
+                                @endforeach
                             @endif
                         @endif
                 </div>
             </div>
         </div>
-    </div><br>
+    </div>
     @endforeach
 </div>
 
 <div class="col-sm-3"></div>
 <!-- approval -->
-@if(Auth::user()->role == 4 && $pelaksanaan->approvalStatus == 0)
+@if(Auth::user()->role == 4)
+@if($pelaksanaan->approvalStatus == 0)
 <div class="card card-review col-sm-3" style="margin-left: 30px;">
       <br>
       <p class="font-subtitle-5">Ubah Status LAPJUSIK</p>
       <hr>
-      <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;">
-        <div class="col-sm-5" style="margin: 5px;">
+      <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;margin-left:-40px;">
+        <div class="col-sm-5" style="margin:10px;">
           <form action="/lapjusik/setujuiLapjusik/tolak/{{ $pelaksanaan->id }}" method="POST" id="reject">
             @csrf
-            <button id="tolak" class="button-disapprove font-approval" style="padding: 8px 8px;margin:5px;margin-left:-15px;">TOLAK</button>
+            <button id="tolak" class="button-disapprove font-approval" style="padding: 8px 8px;">TOLAK</button>
           </form> 
         </div>
-        <div class="col-sm-5" style="margin: 5px;"> 
+        <div class="col-sm-5"  style="margin: 10px;"> 
           <form action="/lapjusik/setujuiLapjusik/setuju/{{ $pelaksanaan->id }}" method="POST" id="save">
             @csrf
-            <button id="simpan3" class="button-approve font-approval" style="padding: 8px 8px; margin: 5px; margin-right:15px;">SETUJUI</button>
+            <button id="simpan3" class="button-approve font-approval" style="padding: 8px 8px;">SETUJUI</button>
           </form> 
         </div>
       </div>
 </div>
 
 <div id="mod" class="modal fade">
-    <div class="modal-dialog modal-confirm">
-        <div class="modal-content">
-            <div class="modal-header">				
-                <h4 class="modal-title" style="text-align:center;">Tolak LAPJUSIK</h4>	
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content">
+                    <div class="modal-header">				
+                        <h4 class="modal-title" style="text-align:center;">Tolak LAPJUSIK</h4>	
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">LAPJUSIK berhasil ditolak</p>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <p class="text-center">LAPJUSIK berhasil ditolak</p>
-            </div>
-            <div class="modal-footer text-center">
-                <button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
-            </div>
-        </div>
-    </div>
-</div>  
+    </div>  
     
-<div id="myMod" class="modal fade">
-    <div class="modal-dialog modal-confirm">
-        <div class="modal-content">
-            <div class="modal-header">				
-                <h4 class="modal-title" style="text-align:center;">Setujui LAPJUSIK</h4>	
-            </div>
-            <div class="modal-body">
-                <p class="text-center">LAPJUSIK berhasil disetujui</p>
-            </div>
-            <div class="modal-footer text-center">
-                <button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
+    <div id="myMod" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">				
+                    <h4 class="modal-title" style="text-align:center;">Setujui LAPJUSIK</h4>	
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">LAPJUSIK berhasil disetujui</p>
+                </div>
+                <div class="modal-footer text-center">
+                    <button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
+                </div>
             </div>
         </div>
     </div>
+@else
+<div class="card card-review col-sm-3" style="margin-left: 30px;">
+      <br>
+      <p class="font-subtitle-5">Review Klien</p>
+      <hr>
+<div class="container-fluid" style="padding-left:10px; padding-top:5px; padding-right:10px; padding-bottom:5px; border-radius:5px; border:0.5px solid #ECE9F1; width:250px; min-height:60px;">
+          <p class="font-desc">
+          {{ $displayText }} 
+          </p>
+      </div>
 </div>
-
+@endif
 @else
 <!-- Review -->
 <div class="card card-review col-sm-3" style="margin-left: 30px;">
       <br>
       <p class="font-subtitle-5">Review Klien</p>
       <hr>
-  @if($review == null)
+  @if($review->isempty())
   <br>
+  <div class="container-fluid" style="padding-left:10px; padding-top:5px; padding-right:10px; padding-bottom:5px; border-radius:5px; border:0.5px solid #ECE9F1; width:250px; min-height:60px;">
+          <p class="font-desc">
+          {{ $displayText }} 
+          </p>
+      </div>
       <div class="text-center">
       <button data-toggle="modal" data-target="#add-review" class="button-review font-approval">TAMBAH REVIEW</button>
     </div>

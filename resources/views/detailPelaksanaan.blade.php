@@ -49,16 +49,18 @@ box-sizing: border-box;
 <div class="container-fluid card card-detail-lapjusik col-sm-6">
   <div class="row">
     <br>
-    <div class="col-sm-8"> 
-            <p class="font-subtitle-2" style="text-align: center">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
+    <div class="col-sm-10"> 
+            <p class="font-subtitle-5" style="text-align: center">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
     </div>
-    <div class="col-sm-4">
-        @if($status == 'DISETUJUI') <div class="font-status-approval" style="margin:10px; color:blue;">{{$status}}</div>
-        @elseif($status == 'MENUNGGU PERSETUJUAN') <div class="font-status-approval" style="margin:5px; color:green;">{{$status}}</div>
-        @elseif($status == 'DITOLAK') <div class="font-status-approval" style="margin:10px;color:red;">{{$status}}</div>
+    <div class="col-sm-2">
+        @if($status == 'DISETUJUI') <div class="font-status-approval" style="margin:10px; color:#3378D3;">{{$status}}</div>
+        @elseif($status == "SEDANG BERJALAN") <div class="font-status-approval" style="margin:5px; color:#00C48C;">{{$status}}</div>
+        @elseif($status == 'DITOLAK') <div class="font-status-approval" style="margin:10px; color:#FF647C;">{{$status}}</div>
         @endif
     </div>
-  </div><hr><br>
+  </div>
+  <hr>
+  <br>
 
     @foreach($listPekerjaan as $pekerjaan)
     <div class="container-fluid card card-uraian-kerja"><br>
@@ -151,67 +153,84 @@ box-sizing: border-box;
 
 <div class="col-sm-3"></div>
 <!-- approval -->
-@if(Auth::user()->role == 4 && $pelaksanaan->approvalStatus == 0)
+@if(Auth::user()->role == 4)
+@if($pelaksanaan->approvalStatus == 0)
 <div class="card card-review col-sm-3" style="margin-left: 30px;">
       <br>
       <p class="font-subtitle-5">Ubah Status LAPJUSIK</p>
       <hr>
-      <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;">
-        <div class="col-sm-5" >
+      <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;margin-left:-40px;">
+        <div class="col-sm-5" style="margin:10px;">
           <form action="/lapjusik/setujuiLapjusik/tolak/{{ $pelaksanaan->id }}" method="POST" id="reject">
             @csrf
-            <button id="tolak" class="button-disapprove font-approval" style="padding: 8px 8px;margin:5px;margin-left:-15px;">TOLAK</button>
+            <button id="tolak" class="button-disapprove font-approval" style="padding: 8px 8px;">TOLAK</button>
           </form> 
         </div>
-        <div class="col-sm-5" > 
+        <div class="col-sm-5"  style="margin: 10px;"> 
           <form action="/lapjusik/setujuiLapjusik/setuju/{{ $pelaksanaan->id }}" method="POST" id="save">
             @csrf
-            <button id="simpan3" class="button-approve font-approval" style="padding: 8px 8px; margin: 5px; margin-right:15px;">SETUJUI</button>
+            <button id="simpan3" class="button-approve font-approval" style="padding: 8px 8px;">SETUJUI</button>
           </form> 
         </div>
       </div>
 </div>
 
 <div id="mod" class="modal fade">
-    <div class="modal-dialog modal-confirm">
-        <div class="modal-content">
-            <div class="modal-header">				
-                <h4 class="modal-title" style="text-align:center;">Tolak LAPJUSIK</h4>	
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content">
+                    <div class="modal-header">				
+                        <h4 class="modal-title" style="text-align:center;">Tolak LAPJUSIK</h4>	
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">LAPJUSIK berhasil ditolak</p>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <p class="text-center">LAPJUSIK berhasil ditolak</p>
-            </div>
-            <div class="modal-footer text-center">
-                <button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
-            </div>
-        </div>
-    </div>
-</div>  
+    </div>  
     
-<div id="myMod" class="modal fade">
-    <div class="modal-dialog modal-confirm">
-        <div class="modal-content">
-            <div class="modal-header">				
-                <h4 class="modal-title" style="text-align:center;">Setujui LAPJUSIK</h4>	
-            </div>
-            <div class="modal-body">
-                <p class="text-center">LAPJUSIK berhasil disetujui</p>
-            </div>
-            <div class="modal-footer text-center">
-                <button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
+    <div id="myMod" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">				
+                    <h4 class="modal-title" style="text-align:center;">Setujui LAPJUSIK</h4>	
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">LAPJUSIK berhasil disetujui</p>
+                </div>
+                <div class="modal-footer text-center">
+                    <button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
+                </div>
             </div>
         </div>
     </div>
+@else
+<div class="card card-review col-sm-3" style="margin-left: 30px;">
+      <br>
+      <p class="font-subtitle-5">Review Klien</p>
+      <hr>
+<div class="container-fluid" style="padding-left:10px; padding-top:5px; padding-right:10px; padding-bottom:5px; border-radius:5px; border:0.5px solid #ECE9F1; width:250px; min-height:60px;">
+          <p class="font-desc">
+          {{ $displayText }} 
+          </p>
+      </div>
 </div>
-
+@endif
 @else
 <!-- Review -->
 <div class="card card-review col-sm-3" style="margin-left: 30px;">
       <br>
       <p class="font-subtitle-5">Review Klien</p>
       <hr>
-  @if($review == null)
+  @if($review->isempty())
   <br>
+  <div class="container-fluid" style="padding-left:10px; padding-top:5px; padding-right:10px; padding-bottom:5px; border-radius:5px; border:0.5px solid #ECE9F1; width:250px; min-height:60px;">
+          <p class="font-desc">
+          {{ $displayText }} 
+          </p>
+      </div>
       <div class="text-center">
       <button data-toggle="modal" data-target="#add-review" class="button-review font-approval">TAMBAH REVIEW</button>
     </div>
@@ -274,12 +293,13 @@ box-sizing: border-box;
           {{ $displayText }} 
           </p>
       </div>
+
     @if(Auth::user()->role == 8)
       @if($interval)
-    <div class="text-center">
-        <input type="hidden" name="id" value="{{ $review->id }}"> <br/>
-        <button data-toggle="modal" data-target="#edit-review" class="button-review font-approval">EDIT REVIEW</button>
-    </div>
+      <div class="text-center">
+          <input type="hidden" name="id" value="{{ $review->id }}"> <br/>
+          <button data-toggle="modal" data-target="#edit-review" class="button-review font-approval">EDIT REVIEW</button>
+      </div>
     <div class="modal fade" id="edit-review" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" style="height:800px;" role="document">
     <div class="modal-content">
@@ -316,7 +336,6 @@ box-sizing: border-box;
         </form>   
         </div>
         </div>
-        <div id="enterenter"></div>
       </div>
     </div>
   </div>
