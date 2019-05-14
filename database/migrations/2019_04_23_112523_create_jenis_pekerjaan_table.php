@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBerkasTable extends Migration
+class CreateJenisPekerjaanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,21 +12,21 @@ class CreateBerkasTable extends Migration
      * @return void
      */
     public function up()
-    {   /**
-         *  List of Berkas dari kontrak
-         */
-        Schema::create('listBerkas', function (Blueprint $table) {
+    {
+        Schema::create('jenis_pekerjaan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->binary('berkas');
+            $table->string('name');
+            $table->bigInteger('workTotalValue');
+            $table->bigInteger('workCurrentValue');
+            $table->integer('weightPercentage');
 
-            $table->bigInteger('kontrak_id')->unsigned();
-            $table->foreign('kontrak_id')
+            $table->bigInteger('proyek_id')->unsigned();
+            $table->foreign('proyek_id')
             ->references('id')
-            ->on('kontraks')
+            ->on('proyeks')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-
-
+            
             $table->timestamps();
         });
     }
@@ -38,6 +38,6 @@ class CreateBerkasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('listBerkas');
+        Schema::dropIfExists('jenis_pekerjaan');
     }
 }
