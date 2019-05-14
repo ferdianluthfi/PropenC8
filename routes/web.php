@@ -22,9 +22,7 @@ Route::get('/error', function(){
     return view('error-message');
 });
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', function () {
-        return view('home');
-   });
+    Route::get('/', 'HomeController@index');
 });
 
 
@@ -61,8 +59,10 @@ Route::post('/proyek/setujuiProyek/setuju/{id}', 'ProyekController@approveProjec
 Route::post('/proyek/setujuiProyek/tolak/{id}', 'ProyekController@rejectProject');
 Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutApprove');
 Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@viewKontrakz')->name('view-kontrak');
+Route::get('/proyek/kalah/{id}', 'ProyekController@kalah');
+Route::get('/proyek/menang/{id}', 'ProyekController@menang');
 
-/**
+/**-
  * routing untuk kemajuan proyek
  */
 Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
@@ -78,6 +78,17 @@ Route::get('/info/edit/{id}', 'KemajuanProyekController@editInformasi');
 Route::post('/info/update/{id}', 'KemajuanProyekController@updateInformasi');
 Route::get('/info/delete/{id}', 'KemajuanProyekController@hapusInformasi');
 
+
+/**
+ * Users
+ */
+Route::get('/homeAccountManager', 'HomeController@home')->name('homeAccountManager');
+Route::get('/user/lihat/{id}', 'HomeController@edit');
+Route::post('/user/update', 'HomeController@update');
+Route::get('/user/delete/{id}', 'HomeController@delete');
+Route::get('/user/unlock/{id}', 'HomeController@unlock');
+Route::post('/register', 'Auth\RegisterController@register')->name('register');
+
 /**
  * routing untuk LAPJUSIK
  */
@@ -86,7 +97,24 @@ Route::get('/pelaksanaan/detail/{id}', 'PelaksanaanController@detailPelaksanaan'
 Route::get('/pelaksanaan/tambah/{id}', 'PelaksanaanController@tambahPelaksanaan');
 Route::get('/pelaksanaan/delete/{id}', 'PelaksanaanController@deletePelaksanaan');
 Route::get('/pelaksanaan/download/{id}', 'PelaksanaanController@downloadPelaksanaan');
+Route::post('/lapjusik/setujuiLapjusik/setuju/{id}', 'PelaksanaanController@approveLAPJUSIK');
+Route::post('/lapjusik/setujuiLapjusik/tolak/{id}', 'PelaksanaanController@rejectLAPJUSIK');
 
+
+ /*
+ * routing untuk PM2an
+ */
+Route::get('/pm/kelola/{proyek_id}', 'PenggunaController@getAvailablePm');//masuk ke page edit pm
+Route::post('/pm/update', 'PenggunaController@managePm');//update pm
+
+
+
+
+/**
+ * routing untuk REVIEW
+ */
+Route::post('/pelaksanaan/detail/{id}/review/add', 'ReviewController@add')->name("add-review");
+Route::post('/pelaksanaan/detail/{id}/review/edit', 'ReviewController@edit')->name("edit-review");
 /**
  * Errors
  */

@@ -33,59 +33,61 @@
 					<strong> {{ session('error') }} </strong>
 			</div>
 		@endif
-		<form action="/proyek/store" method="post" id="addForm">
-			<h1 style="text-align:center;">Tambah Proyek Potensial</h1><br>
+		<form action="/proyek/store" method="post" id="addForm"style="background-color:#fff">
+			<p class="font-title" style="text-align:center;margin-top:-35px;">Tambah Proyek Potensial</p><br>
 			{{ csrf_field() }}
 		
 			<div class="content bg1">
-						<span class="labels" >Nama Staf Marketing</span>
+						<span class="labels font-subtitle-5" >Nama Staf Marketing</span>
 						<input class="inputs" readonly="readonly" type="text" name="name" placeholder="{{Auth::user()->name}}" data-error=".errorName" value="{{Auth::user()->name}}">
 						<div class="errorMessage errorName"></div>
 			</div>
 			<div class="content bg1">
-						<span class="labels">Nama Proyek</span>
+						<span class="labels font-subtitle-5">Nama Proyek</span>
 						<input class="inputs" type="text" name="projectName" placeholder="Masukkan Nama Proyek" data-error=".errorProjectName">
 						<div class="errorMessage errorProjectName"></div>
 			</div>
 			<div class="content bg1" >
-						<span class="labels">Nama Perusahaan</span>
+						<span class="labels font-subtitle-5">Nama Perusahaan</span>
 						<input class="inputs" type="text" name="companyName" placeholder="Masukkan Nama Perusahaan" data-error=".errorCompanyName">
 						<div class="errorMessage errorCompanyName"></div>
 			</div>
 			<div class="content bg1" >
-						<span class="labels">Deskripsi</span>
+						<span class="labels font-subtitle-5">Deskripsi</span>
 						<textarea class="inputs" type="text" name="description" placeholder="Penjelasan Proyek" style="height:150px" data-error=".errorDescription"></textarea>
 						<div class="errorMessage errorDescription"></div>
 			</div>
 			<div class="content bg1" >
-						<span class="labels">Nilai Proyek</span>
-						<input class="inputs" type="number" name="projectValue" placeholder="50.000.000" data-error=".errorValue">
+						<span class="labels font-subtitle-5">Nilai Proyek</span>
+						<input class="inputs" type="number" name="projectValue" placeholder="50000000" data-error=".errorValue">
 						<div class="errorMessage errorValue"></div>
 			</div>
 			<div class="content bg1" >
-						<span class="labels">Estimasi Waktu Pengerjaan</span>
+						<span class="labels font-subtitle-5">Estimasi Waktu Pengerjaan</span>
 						<input class="inputs" type="number" name="estimatedTime" placeholder="120 (Hari)" data-error=".errorTime">
 						<div class="errorMessage errorTime"></div>
 			</div>
 			<div class="content bg1" >
-						<span class="labels">Alamat Proyek</span>
+						<span class="labels font-subtitle-5">Alamat Proyek</span>
 						<textarea class="inputs" type="text" name="projectAddress" placeholder="Masukkan Alamat Proyek" data-error=".errorProjectAdd"></textarea>
 						<div class="errorMessage errorProjectAdd"></div>
 			</div>
-			<div class="container1-btn" >
-				<a class="container1-form-btn" data-toggle="modal" data-target="#myModal" style="width:150px;margin-top:0px;margin-left:300px;">
-					<span>
-						Batal
-					</span>
-				</a>
-			</div>
-	
-			<div class="container-btn">
-				<button class="container-form-btn" id="simpan" style="width:150px;margin-top:0px;margin-left:-400px;">
-						<span>
-							Simpan
-						</span>
-				</button>
+			<div class="row">
+					<div class="col-sm-8"></div>
+					<div class="col-sm-2">
+							<button class="button-disapprove font-approval" data-toggle="modal" data-target="#myModal">
+								<span>
+									BATAL
+								</span>
+							</button>
+					</div>
+					<div class="col-sm-2">
+							<button class="button-approve font-approval" id="simpan">
+									<span>
+										SIMPAN
+									</span>
+							</button>
+					</div>
 			</div>
 		</form>
 	</div>
@@ -124,6 +126,9 @@
 			</div>
 		</div>
 	</div>     
+	<br>
+	<br>
+	<br>
 @endsection
 
 @section('scripts')

@@ -28,7 +28,7 @@
     @include('layouts.nav')
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/proyek">Daftar Proyek</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
                 <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" >LAPJUSIK Proyek {{$namaProyek}}</a></li>
             </ol>
         </nav>
@@ -100,6 +100,8 @@
 
                                 </tbody>
                             </table>
+                        {{-- </div> --}}
+                        
                     </div>
                 </div>
             </div>
@@ -343,9 +345,7 @@
     <script>
         function myFunction() {
         var x = document.getElementById("changeButton").value;
-        console.log(x);
         var y = "#myModal-" + x;
-        console.log(y);
         document.getElementById("buttonUlang").setAttribute("data-target", y);
 }
     </script>

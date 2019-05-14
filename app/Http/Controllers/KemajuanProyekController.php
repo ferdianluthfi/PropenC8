@@ -144,7 +144,7 @@ class KemajuanProyekController extends Controller
         $maxDate = date('Y-m-d');
 
         if($allPelaksanaan->isempty()) {
-            $minDate = Proyek::select('proyeks.created_at')->where('id',$proyekId)->first()->created_at;
+            $minDate = Proyek::select('proyeks.created_at')->where('id',$proyekId)->first()->created_at->format('Y-m-d');
         }
 
         else {
@@ -345,17 +345,25 @@ class KemajuanProyekController extends Controller
         }
 
         $allPelaksanaan = Pelaksanaan::where([['proyek_id','=',$idProyek[0]->proyek_id]])->get();
-        foreach($allPelaksanaan as $pelaksanaan) {
-            if ($pelaksanaan->approvalStatus == 0) {
-                $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
-                $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
-                $minDate = "$requestedYear-$requestedMonth-01";
-            }            
+        $maxDate = date('Y-m-d');
+
+        if($allPelaksanaan->isempty()) {
+            $minDate = Proyek::select('proyeks.created_at')->where('id',$proyekId)->first()->created_at->format('Y-m-d');
+        }
+
+        else {
+            foreach($allPelaksanaan as $pelaksanaan) {
+                if ($pelaksanaan->approvalStatus == 0) {
+                    $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
+                    $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
+                    $minDate = "$requestedYear-$requestedMonth-01";
+                }            
+            }
         }
 
         $bladePekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek[0]->proyek_id)->whereNotIn('id',$editedPekerjaan)->get();
         $foto = DB::table('listPhoto')->select('listPhoto.*')->where('kemajuan_id',$id)->get();
-        return view('editInformasi', compact('kemajuans','proyek','foto','finalPekerjaan','bladePekerjaan','minDate'));
+        return view('editInformasi', compact('kemajuans','proyek','foto','finalPekerjaan','bladePekerjaan','minDate','maxDate'));
     }
 
     public function updateInformasi($id, Request $request){

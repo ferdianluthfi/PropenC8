@@ -149,24 +149,18 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
         <script>
-
         $( document ).ready(function() {
-
             var postURL = "<?php echo url('addmore'); ?>";
             console.log(postURL);
             var i=1;  
-
             $('#add').click(function(){  
                 i++;  
                 $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" name="file[]" class="help-block text-danger"/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
             });  
-
             $(document).on('click', '.btn_remove', function(){  
                 var button_id = $(this).attr("id");   
                 $('#row'+button_id+'').remove();  
             });  
-
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -181,7 +175,6 @@
                     $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
                 });
             }
-
             $("#addForm").validate({
                 rules:{
                     reportdate:{

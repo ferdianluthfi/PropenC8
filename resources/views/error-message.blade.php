@@ -13,8 +13,8 @@
 <!-- isinya -->
 <div class="container-fluid card card-main">
     <br>
-    <div class="text-center font-title">
-        <p>Oops!</p>
+    <div >
+        <p class="text-center font-title">Oops!</p>
     </div>
     <div class="error-404-image">
         <img src="{{ asset('img/error404.svg')}}">
