@@ -210,6 +210,8 @@ box-sizing: border-box;
           </p>
       </div>
       <br>
+
+  @if(Auth::user()->role == 8)
       <div class="text-center">
       <button data-toggle="modal" data-target="#add-review" class="button-review font-approval">TAMBAH REVIEW</button>
     </div>
@@ -252,6 +254,7 @@ box-sizing: border-box;
       </div>
     </div>
   </div>
+  @endif
     @else
       <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;">
         <div class="col-sm-6">
@@ -272,8 +275,6 @@ box-sizing: border-box;
           {{ $displayText }} 
           </p>
       </div>
-
-    @if(Auth::user()->role == 8)
       @if($interval)
       <div class="text-center">
           <input type="hidden" name="id" value="{{ $review->id }}"> <br/>
@@ -318,7 +319,6 @@ box-sizing: border-box;
       </div>
     </div>
   </div>
-      @endif
       @endif
       @endif
    </div>

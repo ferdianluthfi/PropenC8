@@ -524,8 +524,7 @@
 @section ('content')
 @include('layouts.nav')
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+    <ol class="breadcrumb" style="margin-right:450px">
         <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek') }}">Proyek</a></li>
     </ol>
 </nav>

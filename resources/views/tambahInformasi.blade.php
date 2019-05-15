@@ -33,34 +33,34 @@
                 @endif
 
 
-                <form method="post" action="/info/submit/{{$proyekId}}" id="addForm" enctype="multipart/form-data">
-                <h2 style="text-align:center;">Tambah Informasi Proyek</h2> <br>
+                <form method="post" action="/info/submit/{{$proyekId}}" id="addForm" enctype="multipart/form-data" style="background-color:#fff">
+                <p class="font-title" style="text-align:center;margin-top:-35px;">Tambah Informasi Proyek</p> <br>
                     {{ csrf_field() }}
 
                     <div class="content bg1">
-                        <span class="labels">Uraian Pekerjaan</span>
-                        <select name="tipepekerjaan" class="content bg1">
+                        <span class="labels font-subtitle-5">Uraian Pekerjaan</span>
+                        <select name="tipepekerjaan" class="content bg1" style="background-color:white">
                             @foreach($pekerjaan as $tipe)
-                                <option value="{{$tipe->id}}" >{{$tipe->name}}</option>
+                                <option value="{{$tipe->id}}">{{$tipe->name}}</option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="content bg1">
-                        <span class="labels">Deskripsi Tambahan</span>
+                        <span class="labels font-subtitle-5">Deskripsi Tambahan</span>
                         <input type="text" name="description" class="inputs" placeholder="Masukkan Deskripsi Kemajuan Tambahan" data-error=".errorDescription">
                         <div class="errorMessage errorDescription"></div>
                     </div>
     
                     <div class="content bg1">
-                        <span class="labels">Tanggal Informasi</span>
-                        <input type="date" name="reportdate" min="<?php echo $minDate ?>" max = "<?php echo $maxDate ?>" class="inputs" data-error=".errorDate">
+                        <span class="labels font-subtitle-5">Tanggal Informasi</span>
+                        <input type="date" name="reportdate" min="<?php echo $minDate ?>" max = "<?php echo $maxDate ?>" class="inputs" data-error=".errorDate" >
                         <div class="errorMessage errorDate"></div>
                     </div>
 
                     <div class="content bg1">
-                        <span class="labels">Jenis Informasi</span>
-                        <select name="tipekemajuan" class="content bg1">
+                        <span class="labels font-subtitle-5">Jenis Informasi</span>
+                        <select name="tipekemajuan" class="content bg1" style="background-color:white">
                             <option value="1" >Gaji</option>
                             <option value="2" >Belanja</option>
                             <option value="3" >Administrasi</option>
@@ -68,18 +68,18 @@
                     </div>
 
                     <div class="content bg1">
-                        <span class="labels">Nilai Kemajuan</span>
+                        <span class="labels font-subtitle-5">Nilai Kemajuan</span>
                             <input type="number" name="nilai" class="inputs" placeholder="Rp xxx.xxx.xxx" data-error=".errorVal">
                             <div class="errorMessage errorVal"></div>
                     </div>
 
-                    <div class="form-group {{ !$errors->has('file') ?: 'has-error' }}">
-                        <label>Foto</label>
+                    <div class="form-group {{ !$errors->has('file') ?: 'has-error' }} content bg1">
+                        <span class="labels font-subtitle-5">Foto</span>
 
-                        <table class="table table-bordered" id="dynamic_field">  
+                        <table class="table table-borderless" id="dynamic_field">  
                             <tr>  
                                 <td><input type="file" name="file[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>  
-                                <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></td>  
+                                <td><button type="button" name="add" id="add" class="btn" style="background-color:#3378D3;color:white;margin-right:-100px">Tambah Foto Lain</button></td>  
                             </tr>  
                         </table>  
 
@@ -87,24 +87,23 @@
 
                     <br>
 
-                    <div class="container1-btn" style="width:150px; height:5px;">
-                            <a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
-                                <span>
-                                    Batal
-                                    <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                                </span>
-                            </a>
+                    <div class="row">
+                            <div class="col-sm-8"></div>
+                            <div class="col-sm-2">
+                                    <button class="button-disapprove font-approval" data-toggle="modal" data-target="#myModal">
+                                        <span>
+                                            BATAL
+                                        </span>
+                                    </button>
+                            </div>
+                            <div class="col-sm-2">
+                                    <button class="button-approve font-approval" id="simpan">
+                                            <span>
+                                                SIMPAN
+                                            </span>
+                                    </button>
+                            </div>
                     </div>
-                    
-                    <div class="container-btn" style="width:150px; height:5px;">
-                            <button class="container-form-btn" id="simpan">
-                                    <span>
-                                        Simpan
-                                        <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                                    </span>
-                            </button>
-                    </div>
-
                 </form>
             </div>
         
