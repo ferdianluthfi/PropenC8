@@ -267,23 +267,23 @@ class ProyekController extends Controller
             return redirect('/proyek');
         }
     }
-    public function viewDetailProyek($id){
-        $proyek = Proyek::where('id', $id)->first();
-        $statusHuruf;
-        $status = $proyek->approvalStatus; 
-        $pelaksanaan = Pelaksanaan::where('proyek_id', $id)->get();
+//     public function viewDetailProyek($id){
+//         $proyek = Proyek::where('id', $id)->first();
+//         $statusHuruf;
+//         $status = $proyek->approvalStatus; 
+//         $pelaksanaan = Pelaksanaan::where('proyek_id', $id)->get();
         
-        if($status == 0){
-            $statusHuruf = "MENUNGGU PERSETUJUAN";
-        } elseif($status == 1){
-            $statusHuruf = "DISETUJUI";
-        } elseif($status == 2){
-            $statusHuruf = "SEDANG BERJALAN";
-        }elseif($status == 3){
-            $statusHuruf = "DITOLAK";
-        }
-        return view('detail-proyek', ["id" => $id, "proyek" => $proyek, "statusHuruf" => $statusHuruf, 'pelaksanaan' => $pelaksanaan]);
-    }
+//         if($status == 0){
+//             $statusHuruf = "MENUNGGU PERSETUJUAN";
+//         } elseif($status == 1){
+//             $statusHuruf = "DISETUJUI";
+//         } elseif($status == 2){
+//             $statusHuruf = "SEDANG BERJALAN";
+//         }elseif($status == 3){
+//             $statusHuruf = "DITOLAK";
+//         }
+//         return view('detail-proyek', ["id" => $id, "proyek" => $proyek, "statusHuruf" => $statusHuruf, 'pelaksanaan' => $pelaksanaan]);
+//     }
     /**
      * Remove the specified resource from storage.
      *
