@@ -1,36 +1,36 @@
 @extends('layouts.layout')
 <body>
-<link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css') }}"/>		
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>		
-<style>		
-div.gallery {		
-border: 1px solid #ccc;		
-}		
-div.gallery:hover {		
-border: 1px solid #777;		
-}		
-div.gallery img {		
-width: 100%;		
-height: auto;		
-}		
-* {		
-box-sizing: border-box;		
-}		
-.responsive {		
-    height: auto;		
-    width: 24.99999%;		
-}		
-@media only screen and (max-width: 700px) {		
-.responsive {		
-    width: 49.99999%;		
-    margin: 6px 0;		
-}		
-}		
-@media only screen and (max-width: 500px) {		
-.responsive {		
-    width: 100%;		
-}		
-}		
+<link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css') }}"/>    
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>   
+<style>   
+div.gallery {   
+border: 1px solid #ccc;   
+}   
+div.gallery:hover {   
+border: 1px solid #777;   
+}   
+div.gallery img {   
+width: 100%;    
+height: auto;   
+}   
+* {   
+box-sizing: border-box;   
+}   
+.responsive {   
+    height: auto;   
+    width: 24.99999%;   
+}   
+@media only screen and (max-width: 700px) {   
+.responsive {   
+    width: 49.99999%;   
+    margin: 6px 0;    
+}   
+}   
+@media only screen and (max-width: 500px) {   
+.responsive {   
+    width: 100%;    
+}   
+}   
 </style>
 
 @section ('content')
@@ -151,67 +151,87 @@ box-sizing: border-box;
 
 <div class="col-sm-3"></div>
 <!-- approval -->
-@if(Auth::user()->role == 4 && $pelaksanaan->approvalStatus == 0)
+@if(Auth::user()->role == 4)
+@if($pelaksanaan->approvalStatus == 0)
 <div class="card card-review col-sm-3" style="margin-left: 30px;">
       <br>
       <p class="font-subtitle-5">Ubah Status LAPJUSIK</p>
       <hr>
-      <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;">
-        <div class="col-sm-5" >
+      <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;margin-left:-40px;">
+        <div class="col-sm-5" style="margin:10px;">
           <form action="/lapjusik/setujuiLapjusik/tolak/{{ $pelaksanaan->id }}" method="POST" id="reject">
             @csrf
-            <button id="tolak" class="button-disapprove font-approval" style="padding: 8px 8px;margin:5px;margin-left:-15px;">TOLAK</button>
+            <button id="tolak" class="button-disapprove font-approval" style="padding: 8px 8px;">TOLAK</button>
           </form> 
         </div>
-        <div class="col-sm-5" > 
+        <div class="col-sm-5"  style="margin: 10px;"> 
           <form action="/lapjusik/setujuiLapjusik/setuju/{{ $pelaksanaan->id }}" method="POST" id="save">
             @csrf
-            <button id="simpan3" class="button-approve font-approval" style="padding: 8px 8px; margin: 5px; margin-right:15px;">SETUJUI</button>
+            <button id="simpan3" class="button-approve font-approval" style="padding: 8px 8px;">SETUJUI</button>
           </form> 
         </div>
       </div>
 </div>
 
 <div id="mod" class="modal fade">
-    <div class="modal-dialog modal-confirm">
-        <div class="modal-content">
-            <div class="modal-header">				
-                <h4 class="modal-title" style="text-align:center;">Tolak LAPJUSIK</h4>	
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content">
+                    <div class="modal-header">        
+                        <h4 class="modal-title" style="text-align:center;">Tolak LAPJUSIK</h4>  
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">LAPJUSIK berhasil ditolak</p>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <p class="text-center">LAPJUSIK berhasil ditolak</p>
-            </div>
-            <div class="modal-footer text-center">
-                <button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
-            </div>
-        </div>
-    </div>
-</div>  
+    </div>  
     
-<div id="myMod" class="modal fade">
-    <div class="modal-dialog modal-confirm">
-        <div class="modal-content">
-            <div class="modal-header">				
-                <h4 class="modal-title" style="text-align:center;">Setujui LAPJUSIK</h4>	
-            </div>
-            <div class="modal-body">
-                <p class="text-center">LAPJUSIK berhasil disetujui</p>
-            </div>
-            <div class="modal-footer text-center">
-                <button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
+    <div id="myMod" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">        
+                    <h4 class="modal-title" style="text-align:center;">Setujui LAPJUSIK</h4>  
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">LAPJUSIK berhasil disetujui</p>
+                </div>
+                <div class="modal-footer text-center">
+                    <button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
+                </div>
             </div>
         </div>
     </div>
+@else
+<div class="card card-review col-sm-3" style="margin-left: 30px;">
+      <br>
+      <p class="font-subtitle-5">Review Klien</p>
+      <hr>
+<div class="container-fluid" style="padding-left:10px; padding-top:5px; padding-right:10px; padding-bottom:5px; border-radius:5px; border:0.5px solid #ECE9F1; width:250px; min-height:60px;">
+          <p class="font-desc">
+          {{ $displayText }} 
+          </p>
+      </div>
 </div>
-
+@endif
 @else
 <!-- Review -->
 <div class="card card-review col-sm-3" style="margin-left: 30px;">
       <br>
       <p class="font-subtitle-5">Review Klien</p>
       <hr>
-  @if($review == null)
+  @if($review==null)
   <br>
+  <div class="container-fluid" style="padding-left:10px; padding-top:5px; padding-right:10px; padding-bottom:5px; border-radius:5px; border:0.5px solid #ECE9F1; width:250px; min-height:60px;">
+          <p class="font-desc">
+          {{ $displayText }} 
+          </p>
+      </div>
+      <br>
+
+  @if(Auth::user()->role == 8)
       <div class="text-center">
       <button data-toggle="modal" data-target="#add-review" class="button-review font-approval">TAMBAH REVIEW</button>
     </div>
@@ -254,6 +274,7 @@ box-sizing: border-box;
       </div>
     </div>
   </div>
+  @endif
     @else
       <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;">
         <div class="col-sm-6">
@@ -274,12 +295,11 @@ box-sizing: border-box;
           {{ $displayText }} 
           </p>
       </div>
-    @if(Auth::user()->role == 8)
       @if($interval)
-    <div class="text-center">
-        <input type="hidden" name="id" value="{{ $review->id }}"> <br/>
-        <button data-toggle="modal" data-target="#edit-review" class="button-review font-approval">EDIT REVIEW</button>
-    </div>
+      <div class="text-center">
+          <input type="hidden" name="id" value="{{ $review->id }}"> <br/>
+          <button data-toggle="modal" data-target="#edit-review" class="button-review font-approval">EDIT REVIEW</button>
+      </div>
     <div class="modal fade" id="edit-review" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" style="height:800px;" role="document">
     <div class="modal-content">
@@ -316,11 +336,9 @@ box-sizing: border-box;
         </form>   
         </div>
         </div>
-        <div id="enterenter"></div>
       </div>
     </div>
   </div>
-      @endif
       @endif
       @endif
    </div>
@@ -334,7 +352,7 @@ box-sizing: border-box;
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-	<script>
+  <script>
     var __slice = [].slice;
 
 (function($, window) {
@@ -439,7 +457,7 @@ $(function() {
   return $(".starrr").starrr();
 });
 
-	$( document ).ready(function() {
+  $( document ).ready(function() {
         $('#stars').on('starrr:change', function(e, value){
             $('#rating-star').val(value);
         });
@@ -452,7 +470,7 @@ $(function() {
 
         });
         $('.your-class').slick({
-            infinite: true,				
+            infinite: true,       
             lazyLoad: 'ondemand',
             slidesToShow: 2,
             slidesToScroll: 2,
@@ -467,8 +485,8 @@ $(function() {
         });
 
     @if($review==null)    
-		$("#simpan").click(function(e){
-			e.preventDefault();
+    $("#simpan").click(function(e){
+      e.preventDefault();
             var data = {
                 'rating_star': $('#rating-star').val(),
                 'komentar': $('#komentar').val(),
@@ -496,12 +514,12 @@ $(function() {
               $("#enterenter").append('<div><br><br></div>');
               // kirimpesan error
             }
-		
-			
-		});
+    
+      
+    });
     @else
     $("#simpan2").click(function(e){
-			e.preventDefault();
+      e.preventDefault();
             var data = {
                 'rating_star': $('#rating-star').val(),
                 'komentar': $('#komentar').val(),
@@ -509,7 +527,7 @@ $(function() {
                 '_token': "{{ csrf_token() }}"
             }
 
-			$.ajax({
+      $.ajax({
                 url:'/pelaksanaan/detail/{{ $pelaksanaan->id }}/review/edit',
                 method: "POST",
                 data: data,
@@ -520,28 +538,28 @@ $(function() {
                     console.log(error);
                 }
                 })
-			
-		});
+      
+    });
     $('#bintang').starrr({
       rating: parseInt('{{ $review->rating }}'), 
       readOnly: true 
     });
 
     @endif
-		$("#OK").click(unction(e){
-		   $('#save').submit();
-		});
+    $("#OK").click(unction(e){
+       $('#save').submit();
+    });
 
         $("#tolak").click(function(e){
-			e.preventDefault();
-			//checks if it's valid
-		//horray it's valid
-			$("#mod").modal("show");
-			
-		});
-		$("#NO").click(function(e){
-		   $('#reject').submit();
-		});
-  	});
-	</script>
+      e.preventDefault();
+      //checks if it's valid
+    //horray it's valid
+      $("#mod").modal("show");
+      
+    });
+    $("#NO").click(function(e){
+       $('#reject').submit();
+    });
+    });
+  </script>
 @endsection 

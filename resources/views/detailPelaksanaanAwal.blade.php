@@ -202,13 +202,14 @@ box-sizing: border-box;
       <br>
       <p class="font-subtitle-5">Review Klien</p>
       <hr>
-  @if($review->isempty())
+  @if($review==null)
   <br>
   <div class="container-fluid" style="padding-left:10px; padding-top:5px; padding-right:10px; padding-bottom:5px; border-radius:5px; border:0.5px solid #ECE9F1; width:250px; min-height:60px;">
           <p class="font-desc">
           {{ $displayText }} 
           </p>
       </div>
+      <br>
       <div class="text-center">
       <button data-toggle="modal" data-target="#add-review" class="button-review font-approval">TAMBAH REVIEW</button>
     </div>
