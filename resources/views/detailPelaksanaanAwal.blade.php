@@ -132,7 +132,7 @@ box-sizing: border-box;
                 </div>
             </div>
         </div>
-    </div><br>
+    </div>
     @endforeach
 </div>
 
@@ -329,7 +329,6 @@ box-sizing: border-box;
       @endif
       @endif
    </div>
-@endif
 </div>
 </body>
 @endsection

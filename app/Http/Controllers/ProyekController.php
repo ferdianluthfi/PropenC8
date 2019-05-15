@@ -267,23 +267,23 @@ class ProyekController extends Controller
             return redirect('/proyek');
         }
     }
-    public function viewDetailProyek($id){
-        $proyek = Proyek::where('id', $id)->first();
-        $statusHuruf;
-        $status = $proyek->approvalStatus; 
-        $pelaksanaan = Pelaksanaan::where('proyek_id', $id)->get();
+//     public function viewDetailProyek($id){
+//         $proyek = Proyek::where('id', $id)->first();
+//         $statusHuruf;
+//         $status = $proyek->approvalStatus; 
+//         $pelaksanaan = Pelaksanaan::where('proyek_id', $id)->get();
         
-        if($status == 0){
-            $statusHuruf = "MENUNGGU PERSETUJUAN";
-        } elseif($status == 1){
-            $statusHuruf = "DISETUJUI";
-        } elseif($status == 2){
-            $statusHuruf = "SEDANG BERJALAN";
-        }elseif($status == 3){
-            $statusHuruf = "DITOLAK";
-        }
-        return view('detail-proyek', ["id" => $id, "proyek" => $proyek, "statusHuruf" => $statusHuruf, 'pelaksanaan' => $pelaksanaan]);
-    }
+//         if($status == 0){
+//             $statusHuruf = "MENUNGGU PERSETUJUAN";
+//         } elseif($status == 1){
+//             $statusHuruf = "DISETUJUI";
+//         } elseif($status == 2){
+//             $statusHuruf = "SEDANG BERJALAN";
+//         }elseif($status == 3){
+//             $statusHuruf = "DITOLAK";
+//         }
+//         return view('detail-proyek', ["id" => $id, "proyek" => $proyek, "statusHuruf" => $statusHuruf, 'pelaksanaan' => $pelaksanaan]);
+//     }
     /**
      * Remove the specified resource from storage.
      *
@@ -364,34 +364,34 @@ class ProyekController extends Controller
         }
         return view('approveProyekPoten', compact('proyek', 'status'));
     }
-    public function projectDetailWithoutApprove($id){
-        $proyek = DB::table('proyeks') ->select('*') -> where('id', $id) -> get()->first();
-        $formatValue = number_format($proyek->projectValue, 2, ',','.');
-        $proyek->projectValue = $formatValue;
-        $status;
-        $statusNum = $proyek-> approvalStatus;
-        if($statusNum == 1){
-            $status = "MENUNGGU PERSETUJUAN";
-        }
-        elseif($statusNum == 2){
-            $status = "DISETUJUI DIREKSI";
-        }
-        elseif($statusNum == 3){
-            $status = "SEDANG BERJALAN";
-        }
-        elseif($statusNum == 9){
-            $status = "DITOLAK";
-        }
-        $kontrak = DB::table('kontraks')->select('id')->where('proyek_id', $id)->first();
-        // dd($kontrak);
-        if($kontrak != null){
-            $statusKontrak = "true";
-        }
-        else{
-            $statusKontrak = "false";
-        }
-        return view('projectDetail', compact('proyek', 'status', 'statusKontrak'));
-    }
+    // public function projectDetailWithoutApprove($id){
+    //     $proyek = DB::table('proyeks') ->select('*') -> where('id', $id) -> get()->first();
+    //     $formatValue = number_format($proyek->projectValue, 2, ',','.');
+    //     $proyek->projectValue = $formatValue;
+    //     $status="";
+    //     $statusNum = $proyek-> approvalStatus;
+    //     if($statusNum == 1){
+    //         $status = "MENUNGGU PERSETUJUAN";
+    //     }
+    //     elseif($statusNum == 2){
+    //         $status = "DISETUJUI DIREKSI";
+    //     }
+    //     elseif($statusNum == 3){
+    //         $status = "SEDANG BERJALAN";
+    //     }
+    //     elseif($statusNum == 9){
+    //         $status = "DITOLAK";
+    //     }
+    //     $kontrak = DB::table('kontraks')->select('id')->where('proyek_id', $id)->first();
+    //     // dd($kontrak);
+    //     if($kontrak != null){
+    //         $statusKontrak = "true";
+    //     }
+    //     else{
+    //         $statusKontrak = "false";
+    //     }
+    //     return view('projectDetail', compact('proyek', 'status', 'statusKontrak'));
+    // }
     public function approveProject($id){
         $proyekz = DB::table('proyeks')
             ->where('id', $id)
