@@ -85,44 +85,38 @@ box-sizing: border-box;
 
                 <div class="col-sm-8 font-desc">
                     <ul>
-                        <li><p>{{ $pekerjaan->name }}</li> 
-                        <li><p style="color:#00C48C">Rp {{ number_format($pekerjaan->workTotalValue, 2) }}<p></li>
-                        <li><p>{{$pekerjaan->workTotalValue / $valueProyek * 100 }}%<p></li>
-
-                        @foreach($biayaKeluar as $biaya)
+                        <li><p>{{ $pekerjaan->name }}</p></li> 
+                        <li><p>Rp {{ number_format($pekerjaan->workTotalValue, 2) }}</p></li>
+                        <li><p>{{$pekerjaan->workTotalValue / $valueProyek * 100 }}%</p></li>
+                        <li>
+                          @foreach($biayaKeluar as $biaya)
                             @if($pekerjaan->id == $biaya->pekerjaan_id)
                                 @if($biaya->sum == 0)
                                 @else
                                     @if($realisasiLebih == null)
-                                        <li><p style="color:#FF647C">Rp {{number_format($biaya->sum, 2)}}<p></li>
-                                        <li><p> 0 % <p></li>
-                                        <li><p style="color:#00C48C"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
-                                        <li><p style="color:#3378D3"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
                                     @else
                                         @foreach($realisasiLebih as $realisasi)
                                             @if($realisasi->pekerjaan_id == $pekerjaan->id)
-                                                <li><p style="color:#FF647C">Rp {{number_format($biaya->sum, 2)}}<p></li>
-                                                <li><p> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
-                                                <li><p style="color:#00C48C"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} %<p></li>
-                                                <li><p style="color:#3378D3"> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100) + (($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} %<p></li>
+                                                <p> Rp {{number_format($biaya->sum, 2)}} </p>
+                                                <?php 
+                                                
+                                                $realisasiBulanLalu = (($realisasi->sum) / ($pekerjaan->workTotalValue)*100);
+                                                $realisasiBulanIni = (($biaya->sum) / ($pekerjaan->workTotalValue)*100);
+                                                $realisasiSampaiBulanIni = (($realisasi->sum) / ($pekerjaan->workTotalValue)*100) + (($biaya->sum) / ($pekerjaan->workTotalValue)*100);
+
+
+                                                ?>
                                             @endif
                                         @endforeach
                                     @endif
                                 @endif
-                            @else
-                                @if($realisasiLebih == null)
-                                @else
-                                    @foreach($realisasiLebih as $realisasi)
-                                        @if($realisasi->pekerjaan_id == $pekerjaan->id)
-                                            <li><p style="color:#FF647C">Rp {{number_format(0, 2)}}<p></li>
-                                            <li><p> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
-                                            <li><p style="color:#00C48C"> 0 %<p></li>
-                                            <li><p style="color:#3378D3"> {{(($realisasi->sum) / ($pekerjaan->workTotalValue)*100) + 0 }} %<p></li>
-                                        @endif
-                                    @endforeach
-                                @endif
-                            @endif
-                        @endforeach
+                              @endif
+                          @endforeach
+                        </li>
+                      
+                      <li><p>{{$realisasiBulanLalu}} %</p></li>
+                      <li><p>{{$realisasiBulanIni}} %</p></li>
+                      <li><p>{{$realisasiSampaiBulanIni}} %</p></li>
                     </ul>
                 </div>
               

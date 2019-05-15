@@ -60,7 +60,7 @@
 
 <div class="container-fluid card card-kontrak">
     <div class="row judul">
-        <div class="font-subtitle-4" style="text-align:center">Riwayat Foto</div>
+        <p class="font-title" style="text-align:center">Riwayat Foto</p>
     </div>
 <hr>
 <div class="row" style=" margin: 10px; height:400px;">
@@ -86,15 +86,15 @@
 
 <div class="container-fluid" style="width:800px;">  
     <form method="post" action="/foto/submit/{{$kemajuan->id}}" id="addForm" enctype="multipart/form-data" style="background-color:white;">
-    <h2 style="text-align:center;">Tambah Foto Kemajuan</h2> <hr>
+    <p class="font-title" style="text-align:center;margin-top:-27px;">Tambah Foto Kemajuan</p> <br>
     {{ csrf_field() }}
         <div class="form-group {{ !$errors->has('file') ?: 'has-error' }}">
-            <label>Foto</label>
+            <span class="labels font-subtitle-5">Foto</span>
 
-            <table class="table table-bordered" id="dynamic_field" style="height:30px;">  
+            <table class="table table-borderless" id="dynamic_field" style="height:30px;">  
                 <tr>  
                     <td><input type="file" name="file[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>  
-                    <td><center><button type="button" name="add" id="add" class="btn btn-success">Tambah Foto Lain</button></center></td>  
+                    <td><button type="button" name="add" id="add" class="btn" style="background-color:#3378D3;color:white;margin-right:-70px">Tambah Foto Lain</button></td>  
                 </tr>  
             </table>  
         </div><br>
@@ -178,7 +178,7 @@ $( document ).ready(function() {
     var i=1;  
     $('#add').click(function(){  
         i++;  
-        $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" name="file[]" class="help-block text-danger"/></td><td><button type="button" name="remove" id="'+i+'" class="btn" style=" background-color: whitesmoke;  color: red; border: 2px solid">X</button></td></tr>');  
+        $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" name="file[]" class="help-block text-danger"/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"" style=" background-color: whitesmoke;  color: red; border: 2px solid">X</button></td></tr>');  
     });  
     $(document).on('click', '.btn_remove', function(){  
         var button_id = $(this).attr("id");   

@@ -140,17 +140,27 @@ class PelaksanaanController extends Controller
         $tahunPeriode = date('Y', strtotime($pelaksanaan->createdDate));
         $idProyek = $pelaksanaan->proyek_id;
         $proyek = DB::table('proyeks')->select('proyeks.*')->where('id',$idProyek)->first();
+
+        if(\Auth::user()->role == 6) {
+            $manajerPelaksana = \Auth::user()->name;
+        }
+
         $periodeMulai = $this->waktu(date('Y-m-1', strtotime($kemajuanPertama->reportDate)));
         $periodeSelesai = $this->waktu(date('Y-m-t', strtotime($kemajuanPertama->reportDate)));
+        $tanggalPelaksanaan = $this->waktu(date('Y-m-d'));
         $sameIdPelaksanaan = Pelaksanaan::where([['proyek_id','=',$idProyek]])->get();
         $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.*')->where('proyek_id',$idProyek)->get();
         $biayaKeluar = DB::table('kemajuan_proyeks')->where('pelaksanaan_id',$id)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
-        
+        $totalBiaya = DB::table('kemajuan_proyeks')->where('pelaksanaan_id',$id)->sum('value');
+        $totalAnggaranPekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek)->sum('workTotalValue');
+        $idKlien = Assignment::select('assignments.klien_id')->where('proyek_id',$pelaksanaan->proyek_id)->first();
+        $namaKlien = DB::table('users')->select('users.name')->where('id',$idKlien->klien_id)->first()->name;
+
         $realisasiLalu = 0;
         if($pelaksanaan->bulan == 1) {
             $realisasiLebih=null;
-            $pdf = PDF::loadView('downloadPelaksanaanAwal', compact('pelaksanaan','listPekerjaan','biayaKeluar','realisasiLalu','proyek','tahunPeriode','periodeMulai','periodeSelesai'));
-            return $pdf->setPaper('a4','landscape')->download('tesfilepelaksanaan.pdf');
+            $pdf = PDF::loadView('downloadPelaksanaanAwal', compact('pelaksanaan', 'totalAnggaranPekerjaan','manajerPelaksana','listPekerjaan', 'totalBiaya','namaKlien','tanggalPelaksanaan','biayaKeluar','realisasiLalu','proyek','tahunPeriode','periodeMulai','periodeSelesai'));
+            return $pdf->setPaper('a4','landscape')->stream('LAPJUSIK Bulan '. $pelaksanaan->bulan . ' Proyek ' . $proyek->projectName .'.pdf');
         }
         else {
             $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
@@ -158,9 +168,9 @@ class PelaksanaanController extends Controller
             $beforeDate = "$requestedYear-$requestedMonth-01";
             //Sebelum Requested Date
             $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
-            $pdf = PDF::loadView('downlo
-            adPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','proyek','realisasiLebih','tahunPeriode','periodeMulai','periodeSelesai'));
-            return $pdf->setPaper('a4','landscape')->download('tesfilepelaksanaan.pdf');
+            //dd($realisasiLebih);
+            $pdf = PDF::loadView('downloadPelaksanaan', compact('pelaksanaan','totalAnggaranPekerjaan','manajerPelaksana','listPekerjaan', 'totalBiaya', 'namaKlien','tanggalPelaksanaan','biayaKeluar','proyek','realisasiLebih','tahunPeriode','periodeMulai','periodeSelesai'));
+            return $pdf->setPaper('a4','landscape')->stream('LAPJUSIK Bulan '. $pelaksanaan->bulan . ' Proyek ' . $proyek->projectName .'.pdf');
         }
     }
     public function waktu($tanggal){
