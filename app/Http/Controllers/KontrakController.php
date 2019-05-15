@@ -84,6 +84,7 @@ class KontrakController extends Controller
         'path' => $docName,
         'ext' => 'pdf',
         'proyek_id' => $id,
+        'flag_active' => 1,
         'pengguna_id' => $proyek->pengguna_id,
         'created_at' => now('GMT+7'),
         'updated_at' => now('GMT+7')
@@ -98,9 +99,10 @@ class KontrakController extends Controller
         $proyek = DB::table('proyeks')->where('id', $id)->first();
         $arrSurat = $request->surat;
         
-        $key = array_keys($request->surat);
+        
         
         if ($request->surat != null) {
+            $key = array_keys($request->surat);
             for($i = 0 ; $i < sizeOf($arrSurat); $i++) { 
                 try{
                     $namaSurat;
@@ -168,21 +170,25 @@ class KontrakController extends Controller
                         'path' => $path,
                         'ext' => $uploadedFile->getClientOriginalExtension(),
                         'proyek_id' => $id,
+                        'flag_active' => 1,
                         'pengguna_id' => $proyek->pengguna_id,
                         'created_at' => now('GMT+7'),
                         'updated_at' => now('GMT+7')
                     ]); 
                     
                     DB::table('proyeks')->where('id', $id)->update(['approvalStatus' => 5]);
-
+                    return redirect()->route('view-kontrak', ['id' => $id]);
                 }
                 catch(\Exception $e){
                     continue;
                 }
             }
         }
+        else{
+            return redirect()->route('view-kontrak', ['id' => $id]);    
+        }
 
-        return redirect()->route('view-kontrak', ['id' => $id]);    
+            
     }
 
     public function overviewKontrak($id){ #ahmad
@@ -207,7 +213,7 @@ class KontrakController extends Controller
             
         }
         
-
+        // dd($kontrakPasti);
         $tanggalKontrak = $kontrakPasti->created_at; 
         $tanggals = $this->waktu($tanggalKontrak);
 
@@ -244,7 +250,7 @@ class KontrakController extends Controller
         }
         else{
             DB::table('proyeks')->where('id', $proyek->id)->update(['approvalStatus' => 4]);
-            return redirect()->route('detailProyek', ['id' => $proyek->id]);
+            return redirect('/proyek/lihat/'. $proyek->id);
 
         }
         

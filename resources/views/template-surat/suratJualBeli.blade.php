@@ -16,8 +16,10 @@
         <div class="col-sm-6">
             <table>
                 <tr class="col-sm-3">
-                    <td style="text-align:center;">KONTRAK JUAL BELI</td>
+                    <td style="text-align:center;"><center>KONTRAK JUAL BELI<center></td>
                 </tr>
+                <br>
+                <br>
                 <tr class="col-sm-3">
                     <td>Nomor</td>
                     <td>:</td>
@@ -46,7 +48,7 @@
         <div class="col-sm-6">
         <center>ANTARA <center><br>
         PT Nuansa Karisma Djaya <br>
-        <p> &nbsp;&nbsp;&nbsp;&nbsp; Dalam hal ini diwakili oleh : </p>
+        <p> &nbsp;&nbsp;&nbsp;&nbsp;Dalam hal ini diwakili oleh : </p>
 
             <table>
                 <tr class="col-sm-3">
@@ -80,6 +82,11 @@
             <br>
             <p> &nbsp;&nbsp;&nbsp;&nbsp; Yang dalam hal ini bertindak untuk dan atas nama <b>{{$companyName}}</b>, Selanjutnya disebut Pihak Penjual atau <b>PIHAK KEDUA</b>.
     </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
 
     <div class="row">
         <div class="col-sm-6">
