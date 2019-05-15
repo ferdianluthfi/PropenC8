@@ -91,7 +91,18 @@
                 </form>
             </div>
         </div>
-        @elseif ($proyek->approvalStatus === 1 || $proyek->approvalStatus === 2)
+        @elseif ($proyek->approvalStatus === 1)
+        <div class="col-sm-2">
+            <div class="card card-pm" style="margin-left: 90px">
+                <br>
+                <p class="font-subtitle-5">Berkas</p>
+                <hr/>
+                <br>
+                <a class="button-berkas-inactive" style="margin-left: 35px; margin-top: 35px; padding-top: 10px">Lelang</a>
+                <br>
+            </div>
+        </div>
+        @elseif ( $proyek->approvalStatus === 2)
         <div class="col-sm-2">
             <div class="card card-pm" style="margin-left: 90px">
                 <br>
