@@ -40,7 +40,7 @@ class KemajuanProyekController extends Controller
     public function detailProyek($id) {
         $proyek = Proyek::find($id);
         $temp = number_format($proyek->projectValue, 2, ',','.');
-        $proyek->projectValue = $temp;     
+        $proyek->projectValue = $temp;  
 
         return view('detailProyek', compact('proyek'));
     }
@@ -142,6 +142,7 @@ class KemajuanProyekController extends Controller
         $proyekId = $id;
         $allPelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->get();
         $maxDate = date('Y-m-d');
+        $allApproved = true;
 
         if($allPelaksanaan->isempty()) {
             $minDate = Proyek::select('proyeks.created_at')->where('id',$proyekId)->first()->created_at->format('Y-m-d');
@@ -150,10 +151,18 @@ class KemajuanProyekController extends Controller
         else {
             foreach($allPelaksanaan as $pelaksanaan) {
                 if ($pelaksanaan->approvalStatus == 0) {
+                    $allApproved = false;
                     $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
                     $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
                     $minDate = "$requestedYear-$requestedMonth-01";
                 }            
+            }
+
+            //Jika semua pelaksanaan bulan sebelumnya sudah disetujui
+            if ($allApproved == true) {
+                $requestedMonth = date('m', strtotime($maxDate));
+                $requestedYear = date('Y', strtotime($maxDate));
+                $minDate = "$requestedYear-$requestedMonth-01";
             }
         }
         //dd($minDate);
