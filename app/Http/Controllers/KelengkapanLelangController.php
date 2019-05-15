@@ -81,7 +81,7 @@ class KelengkapanLelangController extends Controller
      */
     public function downloadKelengkapanLelang(KelengkapanLelang $file)
     {
-        dd($file->path);
+//        dd($file->path);
         return Storage::download($file->path, $file->filename . '.' . $file->ext);
     }
     public function deleteKelengkapanLelang(KelengkapanLelang $file)
