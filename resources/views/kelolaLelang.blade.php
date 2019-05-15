@@ -26,7 +26,6 @@
             {{ session('success') }}
         </div>
     @endif
-    <br>
     <p class="font-subtitle-1">Rincian Berkas Lelang</p>
     <hr>
     <div>
@@ -172,7 +171,7 @@
 @endsection
 
 <!--INI BUAT STAFF MARKETING-->
-@elseif(Auth::user()->role == 3)
+@elseif(Auth::user()->role == 3 || 2) 
 @section ('content')
 @include('layouts.nav')
 <body>
@@ -184,7 +183,6 @@
         {{ session('success') }}
     </div>
     @endif
-    <br>
     <p class="font-subtitle-1">Rincian Berkas Lelang</p>
     <hr>
     <div>

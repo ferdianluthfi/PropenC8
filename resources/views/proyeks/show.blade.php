@@ -98,7 +98,7 @@
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
                 <br>
-                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-berkas" style="margin-left: 35px; margin-top: 35px; padding-top: 10px">Lelang</a>
+                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-berkas" style="margin-left: 35px; margin-top: 35px; padding-top: 7px">LELANG</a>
                 <br>
             </div>
         </div>
@@ -477,9 +477,9 @@
         <div class="col-sm-7">
             <p class="font-title" style="margin-top: 20px; margin-left: 20px">Detail Proyek {{ $proyek->projectName}}</p>
         </div>
-        <!-- <div class="col-sm-5">
+        <div class="col-sm-5">
             <p style="text-align: right; margin-right: 20px; margin-top: 30px; color: blue">{{ $status }}</p>
-        </div> -->
+        </div>
     </div>
     <hr>
     <div>
@@ -529,20 +529,28 @@
                 <br>
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
+                @if($proyek->approvalStatus == 1 || $proyek->approvalStatus == 2)
 
-                @if($kontrak==null)
-                <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
-                @else
-                <a href="/proyek/{{$proyek->id}}/kontrak"><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
-                @endif
+                        <br>
+                        <a href="/kelolaLelang/{{ $proyek->id }}" class="button-berkas" style="margin-left: 35px; margin-top: 35px; padding-top: 7px">LELANG</a>
+                        <br>
                 
-                @if($pelaksanaan->isempty())
-                <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button>
                 @else
-                <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button></a>
+                    @if($kontrak==null)
+                    <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
+                    @else
+                    <a href="{{ route('view-kontrak', $proyek->id) }}""><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
+                    @endif
+                
+                    @if($pelaksanaan->isempty())
+                    <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button>
+                    @else
+                    <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button></a>
+                    @endif
+
+                    <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LPJ</button>
                 @endif
 
-                <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LPJ</button>
             </div>
         </div>
     </div>

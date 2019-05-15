@@ -143,6 +143,7 @@ class KemajuanProyekController extends Controller
         $allPelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->get();
         $maxDate = date('Y-m-d');
 
+        // dd($allPelaksanaan);
         if($allPelaksanaan->isempty()) {
             $minDate = Proyek::select('proyeks.created_at')->where('id',$proyekId)->first()->created_at->format('Y-m-d');
         }
@@ -156,7 +157,7 @@ class KemajuanProyekController extends Controller
                 }            
             }
         }
-        //dd($minDate);
+        // dd($minDate);
         //dd($maxDate);
         $pekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$proyekId)->get();
         return view('tambahInformasi',compact('pekerjaan','proyekId','minDate','maxDate'));

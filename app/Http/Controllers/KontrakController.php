@@ -129,6 +129,48 @@ class KontrakController extends Controller
         }
         
     }
+
+    public function overviewKontrak($id){ 
+        
+        $listKontrak = DB::table('kontraks')->select('*')->where('proyek_id', $id)->where('flag_active', '1')->get();
+        $kontrakPasti = DB::table('kontraks')->select('*')->where('proyek_id', $id)->where('flag_active', '1')->first();
+    
+        $proyek = DB::table('proyeks')->select('*')->where('id', $id)->first();
+        
+
+        $varNum = ($proyek->projectValue);
+        $nilaiTerbilang = "abc";
+       
+        $uang = ucwords($nilaiTerbilang);
+        $hurufNilai = $uang . ' Rupiah';
+
+        $formatValue = number_format($proyek->projectValue, 2, ',','.');
+        $proyek->projectValue = $formatValue;
+        foreach($listKontrak as $kontrak){
+            $tanggal = $kontrak->created_at;
+            $tgl = $this->waktu($tanggal);
+            $kontrak->created_at = $tgl;
+            
+        }
+        
+        $tanggalKontrak = $kontrakPasti->created_at; 
+        $tanggals = $this->waktu($tanggalKontrak);
+
+        $status = $kontrakPasti->approvalStatus; // ini kontrak belum tentu adakan. kalo dia gapunya nanti returnnya null
+        if($status == 0){
+            $statusHuruf = "MENUNGGU PERSETUJUAN";
+        } 
+        elseif($status == 1){
+            $statusHuruf = "DISETUJUI";
+        } 
+        elseif($status == 2){
+            $statusHuruf = "DITOLAK";
+        }
+        return view('viewKontrak', compact('proyek', 'tanggals', 'statusHuruf', 'listKontrak', 'hurufNilai'));
+    
+        
+    }
+
     public function approveKontrak($id){
         $kontrak = Kontrak::where('proyek_id', $id)->first()->update(['approvalStatus' => 1]);
         $proyek = Proyek::where('id', $id)->first()->update(['approvalStatus' => 6]);
@@ -137,7 +179,7 @@ class KontrakController extends Controller
     }
     public function disapproveKontrak($id){
         $kontrak = Kontrak::where('proyek_id', $id)->first()->update(['approvalStatus' => 2]);
-        $proyek = Proyek::where('id', $id)->first()->update(['approvalStatus' => 4]);
+        $proyek = Proyek::where('id', $id)->first()->update(['approvalStatus' => 9]);
         return redirect('/proyek');
     }
         
