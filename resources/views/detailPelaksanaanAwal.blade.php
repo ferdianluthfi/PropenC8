@@ -112,7 +112,6 @@ box-sizing: border-box;
                                             <div class="responsive" style = "margin-right: 10px;">
                                                 <div class="gallery">
                                                     <a target="_blank">
-                                                        {{$foto->id}} {{$idKemajuan->id}}
                                                         <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
                                                     </a>
                                                 </div>
@@ -123,7 +122,6 @@ box-sizing: border-box;
                                     @endforeach
                             @endif
                         @endif
-                    </div>
                 </div>
             </div>
         </div>
@@ -139,13 +137,13 @@ box-sizing: border-box;
       <p class="font-subtitle-5">Ubah Status LAPJUSIK</p>
       <hr>
       <div class="container-fluid row" style="margin-top:-5px; margin-bottom:5px;">
-        <div class="col-sm-5" >
+        <div class="col-sm-5" style="margin: 5px;">
           <form action="/lapjusik/setujuiLapjusik/tolak/{{ $pelaksanaan->id }}" method="POST" id="reject">
             @csrf
             <button id="tolak" class="button-disapprove font-approval" style="padding: 8px 8px;margin:5px;margin-left:-15px;">TOLAK</button>
           </form> 
         </div>
-        <div class="col-sm-5" style="margin: 10px;"> 
+        <div class="col-sm-5" style="margin: 5px;"> 
           <form action="/lapjusik/setujuiLapjusik/setuju/{{ $pelaksanaan->id }}" method="POST" id="save">
             @csrf
             <button id="simpan3" class="button-approve font-approval" style="padding: 8px 8px; margin: 5px; margin-right:15px;">SETUJUI</button>

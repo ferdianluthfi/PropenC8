@@ -92,9 +92,9 @@
                 <br>
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
-                <button class="card card-button font-button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px; width: 130px; height: 40px">Kontrak</button>
-                <button class="card card-button font-button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px; width: 130px; height: 40px">LAPJUSIK</button>
-                <button class="card card-button font-button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px; width: 130px; height: 40px">LPJ</button>
+                <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">Kontrak</button>
+                <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button>
+                <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LPJ</button>
             </div>
         </div>
     </div>

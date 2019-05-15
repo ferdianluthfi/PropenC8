@@ -130,8 +130,7 @@ box-sizing: border-box;
                                             <div class="responsive" style = "margin-right: 10px;">
                                                 <div class="gallery">
                                                     <a target="_blank">
-                                                        <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
-                                                        
+                                                        <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">                         
                                                     </a>
                                                 </div>
                                             </div>
@@ -528,7 +527,7 @@ $(function() {
     });
 
     @endif
-		$("#OK").click(unction(e){
+		$("#OK").click(function(e){
 		   $('#save').submit();
 		});
 
