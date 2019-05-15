@@ -368,7 +368,7 @@ class ProyekController extends Controller
         $proyek = DB::table('proyeks') ->select('*') -> where('id', $id) -> get()->first();
         $formatValue = number_format($proyek->projectValue, 2, ',','.');
         $proyek->projectValue = $formatValue;
-        $status;
+        $status="";
         $statusNum = $proyek-> approvalStatus;
         if($statusNum == 1){
             $status = "MENUNGGU PERSETUJUAN";
