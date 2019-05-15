@@ -72,6 +72,9 @@ class PenggunaController extends Controller
                 DB::table('assignments')->where('proyek_id', $proyek_id)->update([
                     'pengguna_id' => $request->selected
                 ]);
+                DB::table('proyeks')->where('id',$proyek_id)->update([
+                    'approvalStatus' => 7,
+                ]);
             }
             //add PM baru
             else {
@@ -80,9 +83,7 @@ class PenggunaController extends Controller
                     'proyek_id' => $proyek_id,
                     'assignmentDate' => DB::raw('now()')
                 ]);
-                DB::table('proyeks')->where('id',$proyek_id)->update([
-                    'approvalStatus' => 7,
-                ]);
+                
                 if (($request->desc != null) && ($request->num != null)){
                     $des = $request->desc;
                     $nominal = $request->num;
