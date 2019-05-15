@@ -258,7 +258,7 @@ class ProyekController extends Controller
                 'projectValue' => $request->projectValue,
                 'estimatedTime' => $request->estimatedTime,
                 'projectAddress' => $request->projectAddress,
-                'approvalStatus' => 0,
+                'approvalStatus' => 1,
                 'isLPJExist'=>0,
                 'pengguna_id'=>\Auth::user()->id,
                 'updated_at' => now('GMT+7'),
