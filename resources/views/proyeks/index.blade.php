@@ -432,7 +432,7 @@
 </div>
 <!-- ini adalah Data table dari Proyek -->
 @endsection
-<!--INI PUNYA SI MGR PELAKSANA-->
+<!--INI PUNYA SI MGR PELAKSANA DAN MGR MARKETING-->
 @elseif(Auth::user()->role == 6 or Auth::user()->role == 4)
 @section ('content')
 @include('layouts.nav')

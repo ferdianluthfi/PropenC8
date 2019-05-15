@@ -6,6 +6,8 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Pengguna;
+Use App\Kontrak;
+Use App\Pelaksanaan;
 class ProyekController extends Controller
 {
     /**
@@ -57,7 +59,8 @@ class ProyekController extends Controller
             return view('proyeks.index',compact('proyekPoten'));
         }
         elseif(\Auth::user()->role == 6 or \Auth::user()->role == 4){
-            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 6)->orWhere('approvalStatus', 7)->get();
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus', 5)
+            ->orwhere('approvalStatus', 6)->orWhere('approvalStatus', 7)->get();
             return view('proyeks.index',compact('proyekPoten'));
         }
         elseif(\Auth::user()->role == 2){
@@ -152,8 +155,9 @@ class ProyekController extends Controller
     public function show($id)
     {
         $proyeks = DB::table('proyeks') -> where('id', $id) -> get();
-        $status;
-        $pmName;
+        $kontrak = Kontrak::where('proyek_id', $id)->first();
+        $pelaksanaan = Pelaksanaan::where('proyek_id', $id)->get();
+        $pmName="";
         foreach($proyeks as $proyeg){
             $statusNum = $proyeg-> approvalStatus;
             $temp = number_format($proyeg->projectValue, 2, ',','.');
@@ -169,7 +173,7 @@ class ProyekController extends Controller
                     $choosenPmId = $choosenPmFromAssignment->pengguna_id;
                     $pm = DB::table('users')->where('id', $choosenPmId)->first();
                     $pmName = $pm->name;
-                    return view('proyeks/show',compact('id', 'proyeks', 'status', 'pmName'));
+                    return view('proyeks/show',compact('id', 'proyeks', 'status', 'pmName', 'kontrak', 'pelaksanaan'));
                 }
             }
             elseif($statusNum == 9){

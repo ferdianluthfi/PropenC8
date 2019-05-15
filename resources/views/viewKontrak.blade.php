@@ -131,9 +131,73 @@
     </div>
     <br>
     <br>
+
+@if(Auth::user()->role == 2 && $kontrak->approvalStatus == 0 && $proyek->approvalStatus == 5)
+
+<div class="row" style="margin-top: 20px; ">
+    <div class="col-sm-4"> </div>
+    <div class="col-sm-2"> 
+        <form action="/proyek/{{$id}}/kontrak/disapprove" method="POST" id="reject">
+            @csrf
+            <button id="tolak" class="button-disapprove font-approval">TOLAK</button>
+        </form> 
+    </div>
+    <div class="col-sm-2"> 
+        <form action="/proyek/{{$id}}/kontrak/approve" method="POST" id="save">
+            @csrf
+            <button id="simpan" class="button-approve font-approval">SETUJUI</button>
+        </form>    
+    </div>
+    <div class="col-sm-4"> </div>
+</div>
+    <br>
+    <br>
+    </div>
+</div>
+
+<div id="myMod" class="modal fade">
+		<div class="modal-dialog modal-confirm">
+			<div class="modal-content">
+				<div class="modal-header">
+                    <h4 class="modal-title"></h4>	
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+				</div>
+				<div class="modal-body">
+					<p class="text-center">Kontrak kerja berhasil disetujui.</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-success btn-block" data-dismiss="modal" id="OK">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>     
+
+    <div id="mod" class="modal fade">
+		<div class="modal-dialog modal-confirm">
+			<div class="modal-content">
+				<div class="modal-header">			
+					<h4 class="modal-title"></h4>	
+				</div>
+				<div class="modal-body">
+					<p class="text-center">Kontrak kerja berhasil ditolak.</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>   
+
+@endif
+
+
 </div>
 
 @endsection
+
+
 
     @section('scripts')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
