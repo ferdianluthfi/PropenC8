@@ -182,7 +182,7 @@
 @endsection
 
 <!--INI BUAT STAFF MARKETING-->
-@elseif(Auth::user()->role == 3)
+@elseif(Auth::user()->role == 3 || 2)
 @section ('content')
 @include('layouts.nav')
 <nav aria-label="breadcrumb">
