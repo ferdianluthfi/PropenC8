@@ -269,8 +269,7 @@ class KemajuanProyekController extends Controller
         }
         //dd($adjustedMonth);
 
-        $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId],['approvalStatus','=',0],['bulan','=',$adjustedMonth]])->first();
-        //dd($pelaksanaan);
+        $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId],['approvalStatus','!=',1],['bulan','=',$adjustedMonth]])->first();
 
         //Bikin LAPJUSIK baru
         if($pelaksanaan == null) {
