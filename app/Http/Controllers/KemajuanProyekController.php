@@ -119,7 +119,10 @@ class KemajuanProyekController extends Controller
         $listInformasi = KemajuanProyek::select('kemajuan_proyeks.*')->whereIn('pelaksanaan_id',$idPelaksanaan)->get();
         $listPekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$id)->get();
 
-        return view('listInformasi', compact('listInformasi','listPekerjaan','id'));
+        $approvedPelaksanaan = DB::table('pelaksanaans')->select('id')->where('approvalStatus',1)->where('proyek_id',$id)->get();
+        $approvedIsExist = false;
+
+        return view('listInformasi', compact('listInformasi','listPekerjaan','id','approvedPelaksanaan','approvedIsExist'));
     }
 
     public function detailInfo($id) {
@@ -151,14 +154,15 @@ class KemajuanProyekController extends Controller
 
         else {
             foreach($allPelaksanaan as $pelaksanaan) {
-                if ($pelaksanaan->approvalStatus == 0) {
+                if ($pelaksanaan->approvalStatus == 0 || $pelaksanaan->approvalStatus==2) {
                     $allApproved = false;
                     $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
                     $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
                     $minDate = "$requestedYear-$requestedMonth-01";
+                    $pekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$proyekId)->get();
+                    return view('tambahInformasi',compact('pekerjaan','proyekId','minDate','maxDate'));
                 }            
             }
-
             //Jika semua pelaksanaan bulan sebelumnya sudah disetujui
             if ($allApproved == true) {
                 $requestedMonth = date('m', strtotime($maxDate));
@@ -356,6 +360,9 @@ class KemajuanProyekController extends Controller
 
         $allPelaksanaan = Pelaksanaan::where([['proyek_id','=',$idProyek[0]->proyek_id]])->get();
         $maxDate = date('Y-m-d');
+        $allApproved = true;
+        $bladePekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek[0]->proyek_id)->whereNotIn('id',$editedPekerjaan)->get();
+        $foto = DB::table('listPhoto')->select('listPhoto.*')->where('kemajuan_id',$id)->get();
 
         if($allPelaksanaan->isempty()) {
             $minDate = Proyek::select('proyeks.created_at')->where('id',$proyekId)->first()->created_at->format('Y-m-d');
@@ -363,16 +370,20 @@ class KemajuanProyekController extends Controller
 
         else {
             foreach($allPelaksanaan as $pelaksanaan) {
-                if ($pelaksanaan->approvalStatus == 0) {
+                if ($pelaksanaan->approvalStatus == 0 || $pelaksanaan->approvalStatus==2) {
+                    $allApproved = false;
                     $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
                     $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
                     $minDate = "$requestedYear-$requestedMonth-01";
-                }            
+                    return view('editInformasi',compact('kemajuans','proyek','foto','finalPekerjaan','bladePekerjaan','minDate','maxDate'));
+                }   
+            }
+            if($allApproved=true) {
+                $requestedMonth = date('m', strtotime($maxDate));
+                $requestedYear = date('Y', strtotime($maxDate));
+                $minDate = "$requestedYear-$requestedMonth-01";
             }
         }
-
-        $bladePekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek[0]->proyek_id)->whereNotIn('id',$editedPekerjaan)->get();
-        $foto = DB::table('listPhoto')->select('listPhoto.*')->where('kemajuan_id',$id)->get();
         return view('editInformasi', compact('kemajuans','proyek','foto','finalPekerjaan','bladePekerjaan','minDate','maxDate'));
     }
 

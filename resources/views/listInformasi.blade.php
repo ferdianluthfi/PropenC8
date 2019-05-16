@@ -71,15 +71,34 @@
                                         @endif
                                         <td> {{ date('F d' , strtotime($informasi->reportDate)) }}</td>
                                         <td><a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary">LIHAT</a></td>
-                                        <td><a class="btn" style=" background-color: whitesmoke;  color: blue; border: 2px solid" href="/info/edit/{{$informasi->id}}">UBAH</a></td>
-                                        <td>
-                                        <a class="btn" style=" background-color: whitesmoke;  color: red; border: 2px solid" data-toggle="modal" data-target="#myModal-<?php echo $informasi->id ?>">
-                                            <span>
-                                                HAPUS
-                                            </span>
-                                        </a>
-                                        </td>
+
+                                        @foreach($approvedPelaksanaan as $approved)
+                                            @if($approved->id == $informasi->pelaksanaan_id)
+                                                <?php $approvedIsExist = true; ?>
+                                                <td><a class="btn" style=" background-color: whitesmoke;  color: grey; border: 2px solid" href="/info/edit/{{$informasi->id}}">UBAH</a></td>
+                                                <td>
+                                                <a class="btn" style=" background-color: whitesmoke;  color: grey; border: 2px solid" data-toggle="modal" data-target="#myModal-<?php echo $informasi->id ?>">
+                                                    <span>
+                                                        HAPUS
+                                                    </span>
+                                                </a>
+                                                </td>
+                                            @endif
+                                        @endforeach
+
+                                        @if($approvedIsExist==false)
+                                            <td><a class="btn" style=" background-color: whitesmoke;  color: blue; border: 2px solid" href="/info/edit/{{$informasi->id}}">UBAH</a></td>
+                                            <td>
+                                            <a class="btn" style=" background-color: whitesmoke;  color: red; border: 2px solid" data-toggle="modal" data-target="#myModal-<?php echo $informasi->id ?>">
+                                                <span>
+                                                    HAPUS
+                                                </span>
+                                            </a>
+                                            </td>
+                                        @endif
                                     </tr>
+
+                                    <?php $approvedIsExist = false; ?>
                                     
                                     <div class="modal fade" id="myModal-<?php echo $informasi->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -92,8 +111,8 @@
                                                     <p>Informasi mengenai kemajuan proyek akan dihapus.</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="/info/delete/{{$informasi->id}}" class="btn btn-default" style="color:red;">Hapus</a>
-                                                    <a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary ">Kembali</a>
+                                                    <center><a href="" class="btn btn-primary ">Kembali</a>
+                                                    <a href="/info/delete/{{$informasi->id}}" class="btn btn-default" style="color:red;">Hapus</a></center>
                                                 </div>
                                             </div>
                                         </div>

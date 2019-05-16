@@ -130,8 +130,8 @@
                 <p>Jika proses dibatalkan, foto tidak akan disimpan.</p>
             </div>
             <div class="modal-footer">
-                <a href='/informasi/{{$pelaksanaan->proyek_id}}' class="btn btn-default" style="color:red;">Iya</a>
-                <a href='{{$kemajuan->id}}' class="btn btn-primary ">Tidak</a>
+                <center><a href='' class="btn btn-primary ">Tidak</a>
+                <a href='/informasi/detail/{{$kemajuan->id}}' class="btn btn-default" style="color:red;">Iya</a></center>
             </div>
         </div>
         </div>
