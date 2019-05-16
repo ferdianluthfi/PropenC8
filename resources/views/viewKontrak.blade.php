@@ -129,13 +129,13 @@
 <div class="row" style="margin-top: 20px; ">
     <div class="col-sm-4"> </div>
     <div class="col-sm-2"> 
-        <form action="/proyek/{{$id}}/kontrak/disapprove" method="POST" id="reject">
+        <form action="/proyek/{{$proyek->id}}/kontrak/disapprove" method="POST" id="reject">
             @csrf
             <button id="tolak" class="button-disapprove font-approval">TOLAK</button>
         </form> 
     </div>
     <div class="col-sm-2"> 
-        <form action="/proyek/{{$id}}/kontrak/approve" method="POST" id="save">
+        <form action="/proyek/{{$proyek->id}}/kontrak/approve" method="POST" id="save">
             @csrf
             <button id="simpan" class="button-approve font-approval">SETUJUI</button>
         </form>    
@@ -197,6 +197,10 @@
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/umd/util.js"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
 
     <script>
         $(document).ready( function () {
@@ -206,7 +210,31 @@
                 //horray it's valid
                 $("#myMod").modal("show");
             });
+
+
+            $("#simpan").click(function(e){
+                e.preventDefault();
+                //checks if it's valid
+                //horray it's valid
+                $("#myMod").modal("show");
+                
+            });
+            $("#OK").click(function(e){
+                $('#save').submit();
+            });
+            
+            $("#tolak").click(function(e){
+                e.preventDefault();
+                //checks if it's valid
+                //horray it's valid
+                $("#mod").modal("show");
+            
+            });
+            $("#NO").click(function(e){
+                $('#reject').submit();
+            });
         });
+
     </script>
     @endsection 
 

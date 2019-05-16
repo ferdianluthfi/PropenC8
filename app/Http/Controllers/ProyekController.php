@@ -155,8 +155,9 @@ class ProyekController extends Controller
     public function show($id)
     {
         $proyeks = DB::table('proyeks') -> where('id', $id) -> get();
-        $kontrak = Kontrak::where('proyek_id', $id)->first();
+        $kontrak = Kontrak::where('proyek_id', $id)->first();   
         $pelaksanaan = Pelaksanaan::where('proyek_id', $id)->get();
+        // dd($kontrak);
         $pmName="";
         foreach($proyeks as $proyeg){
             $statusNum = $proyeg-> approvalStatus;

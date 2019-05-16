@@ -285,12 +285,30 @@ class KontrakController extends Controller
         
     }
     public function approveKontrak($id){
-        $kontrak = Kontrak::where('proyek_id', $id)->first()->update(['approvalStatus' => 1]);
+        $kontrak = Kontrak::where('proyek_id', $id)->get();
+        
+        foreach($kontrak as $kontraks){
+           $judul = $kontraks['title'];
+           DB::table('kontraks')->where('title', $judul)->where('proyek_id', $id)
+           ->update(['approvalStatus' => 1]);
+        }
+       
+
+        $proyek = Proyek::where('id', $id)->first()->update(['approvalStatus' => 6]);
         return redirect('/proyek');
     
     }
+
     public function disapproveKontrak($id){
-        $kontrak = Kontrak::where('proyek_id', $id)->first()->update(['approvalStatus' => 2]);
+        $kontrak = Kontrak::where('proyek_id', $id)->get();
+        
+        foreach($kontrak as $kontraks){
+            $judul = $kontraks['title'];
+            DB::table('kontraks')->where('title', $judul)->where('proyek_id', $id)
+            ->update(['approvalStatus' => 2]);
+         }
+
+        $proyek = Proyek::where('id', $id)->first()->update(['approvalStatus' => 9]);
         return redirect('/proyek');
     }
        

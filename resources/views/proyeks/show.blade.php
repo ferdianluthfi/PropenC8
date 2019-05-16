@@ -450,13 +450,13 @@
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
 
-                @if($kontrak==null)
+                @if($proyek->approvalStatus == 3)
                 <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
                 @else
-                <a href="/proyek/{{$proyek->id}}/kontrak"><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
+                <a href="/proyek/{{$proyek->id}}/lihatKontrak/"><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
                 @endif
                 
-                @if($pelaksanaan->isempty())
+                @if($proyek->approvalStatus == 6)
                 <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button>
                 @else
                 <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button></a>
