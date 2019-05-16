@@ -309,12 +309,13 @@
             <div class="card card-info">
                 <div class="row judul">
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
-                    <div class="col-sm-5 font-status-approval" style="margin-left:30px;">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 font-status-approval" style="margin-left:30px;">
                         @if ($proyek->approvalStatus == 6)
-                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right">Tambah PM</a>
+                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right; color:#63A2F6;">+ Tambah PM</a>
                         @elseif ($proyek->approvalStatus == 7)
-                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right">{{$pmName}}</a>
-                        <span class="glyphicon glyphicon-pencil"></span>
+                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right; color:#63A2F6;">{{$pmName}}<span class="glyphicon glyphicon-pencil"></span></a>
+                        
                         @endif
                     </div>
                 </div>
