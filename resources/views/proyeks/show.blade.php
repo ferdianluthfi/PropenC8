@@ -125,7 +125,7 @@
                 <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
                 @elseif( $proyek->approvalStatus === 5 || $proyek->approvalStatus === 6 )
-                <button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
+                <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
                 @elseif( $proyek->approvalStatus === 7 )
