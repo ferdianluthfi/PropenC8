@@ -126,7 +126,7 @@
 
 
     <div class="container-fluid col-md-6" style="width:300px;" >
-        <div  class="row card card-tombol" style="min-height:333px; width:300px; padding:10px;margin-left: 1000px; margin-top:-333px">
+        <div  class="row card card-tombol" style="min-height:295px; width:300px; padding:10px;">
             <div class="row judul">
                 <div class="font-subtitle-5" style="text-align: center;margin-left:-20px;margin-top:-10px">Buat Ulang LAPJUSIK</div>
             </div> <hr>

@@ -30,7 +30,7 @@ class ProyekController extends Controller
     { if(\Auth::user()->role == 3){
             // $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
             $status = "";
-            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',1)->where('pengguna_id', \Auth::user()->id)->get();
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',1)->get();
             $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
             $proyekLelang = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 3)->get();
             $proyekPasca = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus',5) ->orWhere('approvalStatus',6) ->orWhere('approvalStatus',7) ->orWhere('approvalStatus',8) ->orWhere('approvalStatus',9)->get();

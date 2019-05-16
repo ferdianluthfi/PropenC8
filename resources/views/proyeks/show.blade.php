@@ -20,9 +20,9 @@
             <p class="font-title" style="margin-top: 20px; margin-left: 20px">Detail Proyek {{ $proyek->projectName}}</p>
         </div>
         <div class="col-sm-6">
-            @if($status == 'DISETUJUI') <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:blue;">{{$status}}</p>
-            @elseif($status == "SEDANG BERJALAN") <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:green;">{{$status}}</p>
-            @elseif($status == 'DITOLAK') <p style="text-align: right; margin-right: 20px; margin-top: 30px;color:red;">{{$status}}</p>
+            @if($proyek->approvalStatus == 2 || $proyek->approvalStatus == 3 || $proyek->approvalStatus == 5 || $proyek->approvalStatus == 6) <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:blue;">DISETUJUI</p>
+            @elseif($proyek->approvalStatus == 1 || $proyek->approvalStatus == 4 || $proyek->approvalStatus == 7 || $proyek->approvalStatus == 8 ) <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:green;">MENUNGGU PERSETUJUAN</p>
+            @elseif($proyek->approvalStatus == 9) <p style="text-align: right; margin-right: 20px; margin-top: 30px;color:red;">DITOLAK</p>
             @endif
         </div>
     </div>
@@ -565,7 +565,7 @@
                     <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
                     
                     @elseif($proyek->approvalStatus == 7 || $proyek->approvalStatus == 8)
-                    <a href="{{ route('buat-kontrak', $proyek->id) }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">KONTRAK</button></a>
+                    <a href="{{ route('view-kontrak', $proyek->id) }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">KONTRAK</button></a>
                     <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button></a>
                     <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
 
