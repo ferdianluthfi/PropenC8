@@ -1,12 +1,5 @@
 @extends('layouts.layout')
 <body>
-   <!-- Bootstrap CSS CDN -->
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-     <!-- Our Custom CSS -->
-     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css') }}"/>		
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>		
 <style>		
@@ -119,7 +112,7 @@ box-sizing: border-box;
                                             <div class="responsive" style="margin-right:10px;">
                                                 <div class="gallery">
                                                     <a target="_blank">
-                                                       
+                                                        {{$foto->id}} {{$idKemajuan->id}}
                                                         <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
                                                     </a>
                                                 </div>
@@ -225,7 +218,7 @@ box-sizing: border-box;
     </div>
     <div class="modal fade" id="add-review" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" style="height:800px;" role="document">
-    <div class="modal-content-a">
+    <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" style="text-align:center;" id="add-review">Buat Review</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -290,7 +283,7 @@ box-sizing: border-box;
       </div>
     <div class="modal fade" id="edit-review" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" style="height:800px;" role="document">
-    <div class="modal-content-a">
+    <div class="modal-content">
       <div class="modal-header">
         <h5 style="text-align:center;" id="edit-review">Ubah Review</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -330,6 +323,7 @@ box-sizing: border-box;
       @endif
       @endif
    </div>
+@endif
 </div>
 </body>
 @endsection
