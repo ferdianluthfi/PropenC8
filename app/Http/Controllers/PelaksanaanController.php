@@ -115,6 +115,7 @@ class PelaksanaanController extends Controller
             $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
             $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
             $beforeDate = "$requestedYear-$requestedMonth-01";
+            //dd($beforeDate);
             // dd($sameIdPelaksanaan);
             //Sebelum Requested Date
             $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
@@ -224,9 +225,7 @@ class PelaksanaanController extends Controller
            
     }
     public function approveLAPJUSIK($id){
-        DB::table('proyeks')->where('id',$id)->update([
-            'approvalStatus' => 7,
-        ]);
+       
         $pelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.proyek_id')->where('id',$id)->first();
         $proyekz = DB::table('pelaksanaans') ->where('id', $id)->update([
                 'approvalStatus' => 1]
@@ -234,9 +233,7 @@ class PelaksanaanController extends Controller
         return redirect()->action('PelaksanaanController@viewPelaksanaan', ['id' => $pelaksanaan->proyek_id]);
     }
     public function rejectLAPJUSIK($id){
-        DB::table('proyeks')->where('id',$id)->update([
-            'approvalStatus' => 9,
-        ]);
+       
         $pelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.proyek_id')->where('id',$id)->first();
         $proyekw = DB::table('pelaksanaans')->where('id', $id) ->update([
             'approvalStatus' => 2

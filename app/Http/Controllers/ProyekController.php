@@ -82,7 +82,7 @@ class ProyekController extends Controller
             return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'proyekLelang', 'proyekPasca', 'status'));
         }
         elseif(\Auth::user()->role == 5){
-            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->orWhere('approvalStatus', 3)->get();
             return view('proyeks.index',compact('proyekPoten'));
         }
         elseif(\Auth::user()->role == 6 or \Auth::user()->role == 4){
@@ -98,7 +98,7 @@ class ProyekController extends Controller
         }
         
         elseif(\Auth::user()->role == 2){
-            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',1)->where('pengguna_id', \Auth::user()->id)->get();
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',1)->get();
             $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
             $proyekLelang = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 3)->get();
             $proyekPasca = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus',5) 
