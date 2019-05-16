@@ -43,7 +43,9 @@
     <div class="container-fluid card card-kontrak">
         <div class="row judul">
             <div class="col-sm-9 font-subtitle-4">Informasi Umum</div>
+            @if(Auth::user()->role == 3 && $kontrak->approvalStatus == 0 && $kontrak->approvalStatus == 2)
             <a href="{{ route('buat-kontrak', $proyek->id) }}"  class="btn btn-primary" style="margin-left:50px;" >Ubah Kontrak</a><br><br>
+            @endif
         </div>
     <hr>
     <div class="row" >
