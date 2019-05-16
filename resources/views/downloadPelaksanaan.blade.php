@@ -7,6 +7,10 @@ table {
   width: 100%;
 }
 
+.page-break {
+    page-break-after: always;
+}
+
 td, th {
   border: 1px solid black;
   text-align: center;
@@ -118,7 +122,7 @@ td, th {
     </tr>
 </table>
 <br>
-
+<div class="page-break"></div>
 <p style="font-weight:bold;text-align:right">Jakarta, {{$tanggalPelaksanaan}}</p> <br>
 <p class="tab" style="font-weight:bold;text-align:center">Disetujui, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
