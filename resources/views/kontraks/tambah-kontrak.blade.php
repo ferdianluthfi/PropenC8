@@ -1,10 +1,18 @@
 @extends('layouts.layout')
 
 <head>
+
+    <!-- Bootstrap CSS CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+     <!-- Our Custom CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type='text/css'>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />   -->
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
@@ -132,7 +140,7 @@
 			</div>
 			<div class="modal-footer">
 				<a href="/proyek/lihat/{{ $proyek->id }}" class="btn btn-default" style="color:red;">Iya</a>
-				<a href="{{ route('buat-kontrak', $proyek->id) }}" class="btn btn-primary ">Tidak</a>
+				<a data-dismiss="modal" class="btn btn-primary ">Tidak</a>
 			</div>
 		</div>
 		</div>
@@ -154,21 +162,6 @@
 		</div>
 	</div>     
 
-    <div id="mod" class="modal fade">
-		<div class="modal-dialog modal-confirm">
-			<div class="modal-content">
-				<div class="modal-header">			
-					<h4 class="modal-title"></h4>	
-				</div>
-				<div class="modal-body">
-					<p class="text-center">Kontrak kerja berhasil ditolak.</p>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-success btn-block" data-dismiss="modal" id="NO">OK</button>
-				</div>
-			</div>
-		</div>
-	</div>     
 </div>
 @endsection
 

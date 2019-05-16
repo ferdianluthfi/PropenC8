@@ -96,12 +96,12 @@ class KontrakController extends Controller
     public function createKontrak(request $request, $id){
         $proyek = DB::table('proyeks')->where('id', $id)->first();
         $arrSurat = $request->surat;
-        
-        
+        $loop = 0;
         
         if ($request->surat != null) {
             $key = array_keys($request->surat);
-            for($i = 0 ; $i < sizeOf($arrSurat); $i++) { 
+            // dd($key);
+            for($i = 0 ; $i < 16; $i++) { 
                 try{
                     $namaSurat;
                     $nilai = $key[$i];
@@ -159,7 +159,8 @@ class KontrakController extends Controller
                     $uploadedFile = $arrSurat[$nilai];
                     $path = $uploadedFile->storeAs('upload', $uploadedFile->getClientOriginalName());
                     $filename = $proyek->projectName . ' - '. $namaSurat;
-                    
+                    // dd($filename);
+
                     $file = DB::table('kontraks')->updateOrInsert(
                         ['proyek_id' => $id, 'title' => $namaSurat],
                         ['approvalStatus' => 0,
@@ -173,19 +174,25 @@ class KontrakController extends Controller
                         'created_at' => now('GMT+7'),
                         'updated_at' => now('GMT+7')
                     ]); 
+
                     
-                    DB::table('proyeks')->where('id', $id)->update(['approvalStatus' => 5]);
-                    return redirect()->route('view-kontrak', ['id' => $id]);
+                    
+                    
+                   
+                    
                 }
                 catch(\Exception $e){
                     continue;
                 }
+                // $loop = $loop + 1;
             }
         }
         else{
             return redirect()->route('view-kontrak', ['id' => $id]);    
         }
-
+        // dd($loop);
+        DB::table('proyeks')->where('id', $id)->update(['approvalStatus' => 5]);
+        return redirect()->route('view-kontrak', ['id' => $id]);
             
     }
 

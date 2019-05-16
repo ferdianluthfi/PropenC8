@@ -42,7 +42,7 @@ Route::post('proyek/{id}/kontrak/approve', 'KontrakController@approveKontrak')->
 Route::post('proyek/{id}/kontrak/disapprove', 'KontrakController@disapproveKontrak')->name('disapprove-kontrak');
 Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@overviewKontrak')->name('view-kontrak');
 Route::get('/proyek/{id}/kontrak/buat', 'KontrakController@infoUmumTambahInfo')->name('buat-kontrak');
-Route::post('/proyek/{id}/kontrak/buatSurat', 'KontrakController@berkasSurat');
+Route::post('/proyek/{id}/kontrak/buatSurat', 'KontrakController@berkasSurat')->name('berkas-surat');
 Route::post('/proyek/{id}/kontrak/createKontrak', 'KontrakController@createKontrak');
 Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@overviewKontrak')->name('view-kontrak');
 Route::get('/kontrak/{kontrakId}/download', 'KontrakController@downloadSuratKontrak')->name('download-surat-kontrak');

@@ -164,8 +164,8 @@
 				<p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
 			</div>
 			<div class="modal-footer">
-				<a href="/proyek/lihat/{{ $proyek->id }}" class="btn btn-default" style="color:red;">Iya</a>
-				<a href="{{ route('buat-kontrak', $proyek->id) }}" class="btn btn-primary ">Tidak</a>
+				<a href="{{ route('buat-kontrak', $proyek->id) }}" class="btn btn-default" style="color:red;">Iya</a>
+				<a data-dismiss="modal" class="btn btn-primary ">Tidak</a>
 			</div>
 		</div>
 		</div>
