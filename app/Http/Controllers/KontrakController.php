@@ -47,8 +47,6 @@ class KontrakController extends Controller
         $alamatP = $request->alamatKlien;
         $kontakP =$request->contactPerson;
 
-        
-        // return  view('kontraks.daftar-surat', compact('proyek'));
         return $this->generateSurat($id, $alamatP, $kontakP);
     }
 
