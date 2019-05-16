@@ -58,7 +58,7 @@ Route::get('/proyek/setujuiProyek/{id}', 'ProyekController@approveProjectDetail'
 Route::post('/proyek/setujuiProyek/setuju/{id}', 'ProyekController@approveProject');
 Route::post('/proyek/setujuiProyek/tolak/{id}', 'ProyekController@rejectProject');
 Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutApprove');
-Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@viewKontrakz')->name('view-kontrak');
+Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@overviewKontrak')->name('view-kontrak');
 Route::get('/proyek/kalah/{id}', 'ProyekController@kalah');
 Route::get('/proyek/menang/{id}', 'ProyekController@menang');
 
@@ -110,6 +110,11 @@ Route::post('/pm/update', 'PenggunaController@managePm');//update pm
 
 
 
+/**
+ * routing untuk REVIEW
+ */
+Route::post('/pelaksanaan/detail/{id}/review/add', 'ReviewController@add')->name("add-review");
+Route::post('/pelaksanaan/detail/{id}/review/edit', 'ReviewController@edit')->name("edit-review");
 /**
  * Errors
  */

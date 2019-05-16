@@ -3,12 +3,19 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="">
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 
 @section ('content')
 @include('layouts.nav')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb" style="margin-left:150px;">
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/proyek/lihat/{{$proyek_id}}">Detail Proyek</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="#">Kelola PM</a></li>
+    </ol>
+</nav>
 <body>
 
 
@@ -34,7 +41,7 @@
             <tbody>
             @foreach ($pmlist as $pm)
             <tr>
-                <td>{{ $pm->id }}</td>
+                <td>PM{{ $pm->id }}</td>
                 <td>{{ $pm->name }}</td>
                 <td>{{ $pm->total }}</td>
                 <td style="vertical-align: center">
@@ -52,6 +59,23 @@
             @endforeach
             </tbody>
         </table>
+        <br><br>
+        <div>
+            @if ($choosenPmId == 0)
+            <label>Tambahkan kategori pekerjaan pada field di bawah ini</label>
+
+            <table class="table table-bordered" id="dynamic_field">
+                <th>Kategori</th>
+                <th>Nominal</th>
+                <th>Action</th>
+                <tr>
+                    <td><input type="text" name="desc[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>
+                    <td><input type="number" name="num[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>
+                    <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Kategori Lain</button></td>
+                </tr>
+            </table>
+            @endif
+        </div>
 
         <div class="row">
             <div class="col-sm-4"></div>
@@ -93,7 +117,7 @@
                 <p class="text-center">PM berhasil diubah</p>
             </div>
             <div class="modal-footer">
-                <a href="/pm/kelola/" class="btn btn-success">OK</a>
+                <a href="/proyek/lihat/{{ $proyek_id }}" class="btn btn-success">OK</a>
             </div>
         </div>
     </div>
@@ -128,6 +152,22 @@
         });
         $("#NO").click(function(e){
             $('#reject').submit();
+        });
+        var postURL = "<?php echo url('addmore'); ?>";
+        console.log(postURL);
+        var i=1;
+        $('#add').click(function(){
+            i++;
+            $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="desc[]" class="help-block text-danger"></td><td><input type="number" name="num[]" class="help-block text-danger"></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+        });
+        $(document).on('click', '.btn_remove', function(){
+            var button_id = $(this).attr("id");
+            $('#row'+button_id+'').remove();
+        });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
     });
 </script>

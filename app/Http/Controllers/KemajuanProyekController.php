@@ -6,6 +6,7 @@ use App\Proyek;
 use App\Pelaksanaan;
 use App\Assignment;
 use App\ListPhoto;
+use App\TipePekerjaan;
 use DB;
 use Validator;
 use Illuminate\Support\Facades\Storage;
@@ -98,6 +99,7 @@ class KemajuanProyekController extends Controller
         
     }
     public function viewInfo($id){
+        $ldate = date('Y-m-d');
         $idPelaksanaan = Pelaksanaan::select('pelaksanaans.id')->where('proyek_id',$id)->get();
         $listInformasi = KemajuanProyek::select('kemajuan_proyeks.*')->whereIn('pelaksanaan_id',$idPelaksanaan)->get();
         $listPekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$id)->get();
@@ -119,9 +121,11 @@ class KemajuanProyekController extends Controller
     public function tambahInformasi($id){
         $proyekId = $id;
         $allPelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->get();
+        $maxDate = date('Y-m-d');
+
+        // dd($allPelaksanaan);
         if($allPelaksanaan->isempty()) {
-            $minDate = Proyek::select('proyeks.created_at')->where('id',$proyekId)->first()->created_at;
-            $pekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$proyekId)->get();
+            $minDate = Proyek::select('proyeks.created_at')->where('id',$proyekId)->first()->created_at->format('Y-m-d');
         }
         else {
             foreach($allPelaksanaan as $pelaksanaan) {
@@ -131,9 +135,11 @@ class KemajuanProyekController extends Controller
                     $minDate = "$requestedYear-$requestedMonth-01";
                 }            
             }
-            $pekerjaan = DB::table('jenis_pekerjaan')->whereIn('proyek_id',$proyekId)->get();
         }
-        return view('tambahInformasi',compact('pekerjaan','proyekId','minDate'));
+        // dd($minDate);
+        //dd($maxDate);
+        $pekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$proyekId)->get();
+        return view('tambahInformasi',compact('pekerjaan','proyekId','minDate','maxDate'));
     }
     public function tambahFoto($id){
         $kemajuan = KemajuanProyek::find($id);
@@ -152,6 +158,7 @@ class KemajuanProyekController extends Controller
                 $uploadedFile = $file;
                 //dd($uploadedFile);   
                 $path = $uploadedFile->storeAs('upload',$file->getClientOriginalName());
+                //dd($path);
                 $publicPath = \Storage::url($path);
                 //dd($publicPath);
     
@@ -174,7 +181,6 @@ class KemajuanProyekController extends Controller
         $proyekId = $id;
         //Bulan awal
         $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->first();
-        //dd($pelaksanaan);
         if ($pelaksanaan == null) {
             $firstDate = $request->reportdate;
             //dd($firstDate);
@@ -183,10 +189,23 @@ class KemajuanProyekController extends Controller
         }
         else {
             $sameIdPelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId]])->get();
-            $firstDate = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->min('reportDate');
-            //dd($firstDate);
-            $firstMonth = date('m', strtotime($firstDate));
-            $firstYear = date('Y', strtotime($firstDate));
+            if(sizeof($sameIdPelaksanaan)==1) {
+                $firstJob = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->where('pelaksanaan_id',json_decode($sameIdPelaksanaan)[0]->id)->get();
+                if($firstJob->isempty()) {
+                    $firstMonth = date('m', strtotime($request->reportdate));
+                    $firstYear = date('Y', strtotime($request->reportdate));
+                }
+                else {
+                    $firstDate = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->min('reportDate');
+                    $firstMonth = date('m', strtotime($firstDate));
+                    $firstYear = date('Y', strtotime($firstDate));
+                }
+            }
+            else {
+                $firstDate = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.reportDate')->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->min('reportDate');
+                $firstMonth = date('m', strtotime($firstDate));
+                $firstYear = date('Y', strtotime($firstDate));
+            }
         }
         
         //Bulan dari Form
@@ -195,7 +214,7 @@ class KemajuanProyekController extends Controller
         //Konversi Bulan
         $yearGap = $inputYear - $firstYear;
         if ($yearGap == 0) {
-            $adjustedMonth = ($inputMonth - $firstMonth) + 1;    
+            $adjustedMonth = ($inputMonth - $firstMonth) + 1; 
         }
         else if ($yearGap > 0) {
             if ($inputMonth == $firstMonth) {
@@ -225,24 +244,37 @@ class KemajuanProyekController extends Controller
             $pelaksanaan = Pelaksanaan::where([['proyek_id','=',$proyekId],['approvalStatus','=',0],['bulan','=',$adjustedMonth]])->first();
         }
         $validator = Validator::make($request->all(),[
-            'description' => 'required',
+            'tipepekerjaan' => 'required',
             'reportDate' => 'required',
             'tipeKemajuan' => 'required',
             'value' => 'required',
             'pelaksanaan_id' => 'required',
             'file' => 'required|image'
         ]);
- 
+
         DB::table('kemajuan_proyeks')->insert([
     		'description' => $request->description,
             'reportDate' => $request->reportdate,
             'tipeKemajuan' => $request->tipekemajuan,
             'value' => $request->nilai,
-            'pelaksanaan_id' => $id,
+            'pekerjaan_id' => $request->tipepekerjaan,
+            'pelaksanaan_id' => $pelaksanaan->id,
             'created_at' => now('GMT+7'),
             'updated_at' => now('GMT+7')
         ]);
-        $kemajuans = KemajuanProyek::select('kemajuan_proyeks.*')->where('pelaksanaan_id', $id)->get()->last();
+
+        $realValue = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.value')->where('pekerjaan_id',$request->tipepekerjaan)->get();
+        //dd(json_decode($realValue));
+        $combinedValue = 0;
+        foreach($realValue as $value) {
+            $combinedValue += $value->value;
+        }
+
+        DB::table('jenis_pekerjaan')->where('id',$request->tipepekerjaan)->update([
+            'workCurrentValue' => $combinedValue
+        ]);
+
+        $kemajuans = KemajuanProyek::select('kemajuan_proyeks.*')->where('pelaksanaan_id', $pelaksanaan->id)->get()->last();
         $kemajuan_id = $kemajuans->id;
         if ($request->file != null) {
             foreach($request->file as $file) {
@@ -262,7 +294,7 @@ class KemajuanProyekController extends Controller
         /*if($request->file!= null) {
             $path = $uploadedFile->store('/files');
         }*/
-        return redirect()->action('KemajuanProyekController@viewInfo',['id'=>$data[0]->proyek_id]);
+        return redirect()->action('KemajuanProyekController@viewInfo',['id'=>$proyekId]);
     }
     public function editInformasi($id){
         $idPelaksanaan = KemajuanProyek::select('kemajuan_proyeks.pelaksanaan_id')->where('id',$id)->get();
@@ -278,16 +310,24 @@ class KemajuanProyekController extends Controller
             }
         }
         $allPelaksanaan = Pelaksanaan::where([['proyek_id','=',$idProyek[0]->proyek_id]])->get();
-        foreach($allPelaksanaan as $pelaksanaan) {
-            if ($pelaksanaan->approvalStatus == 0) {
-                $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
-                $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
-                $minDate = "$requestedYear-$requestedMonth-01";
-            }            
+        $maxDate = date('Y-m-d');
+
+        if($allPelaksanaan->isempty()) {
+            $minDate = Proyek::select('proyeks.created_at')->where('id',$proyekId)->first()->created_at->format('Y-m-d');
+        }
+
+        else {
+            foreach($allPelaksanaan as $pelaksanaan) {
+                if ($pelaksanaan->approvalStatus == 0) {
+                    $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
+                    $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
+                    $minDate = "$requestedYear-$requestedMonth-01";
+                }            
+            }
         }
         $bladePekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek[0]->proyek_id)->whereNotIn('id',$editedPekerjaan)->get();
         $foto = DB::table('listPhoto')->select('listPhoto.*')->where('kemajuan_id',$id)->get();
-        return view('editInformasi', compact('kemajuans','proyek','foto','finalPekerjaan','bladePekerjaan','minDate'));
+        return view('editInformasi', compact('kemajuans','proyek','foto','finalPekerjaan','bladePekerjaan','minDate','maxDate'));
     }
     public function updateInformasi($id, Request $request){
         //dd($request->listId);
@@ -313,7 +353,6 @@ class KemajuanProyekController extends Controller
         $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$idPelaksanaan)->get();
         $data = json_decode($idProyek);
         $validator = Validator::make($request->all(),[
-            'description' => 'required',
             'reportDate' => 'required',
             'tipeKemajuan' => 'required',
             'value' => 'required',
@@ -321,11 +360,26 @@ class KemajuanProyekController extends Controller
             'file' => 'required|image'
     	]);
         $kemajuans = KemajuanProyek::find($id);
+        //dd($kemajuans);
+        $kemajuans->pekerjaan_id = $request->tipepekerjaan;
         $kemajuans->description = $request->description;
         $kemajuans->reportDate = $request->reportdate;
         $kemajuans->value = $request->nilai;
         $kemajuans->tipeKemajuan = $request->tipekemajuan;
         $kemajuans->save();
+        //dd($kemajuans->pekerjaan_id);
+
+        $realValue = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.value')->where('pekerjaan_id',$kemajuans->pekerjaan_id)->get();
+        //dd(json_decode($realValue));
+        $combinedValue = 0;
+        foreach($realValue as $value) {
+            $combinedValue += $value->value;
+        }
+
+        DB::table('jenis_pekerjaan')->where('id',$kemajuans->pekerjaan_id)->update([
+            'workCurrentValue' => $combinedValue
+        ]);
+
         return redirect()->action('KemajuanProyekController@viewInfo',['id'=>$data[0]->proyek_id]);
     }
     public function hapusInformasi($id){
@@ -333,7 +387,21 @@ class KemajuanProyekController extends Controller
         $idProyek = Pelaksanaan::select('pelaksanaans.proyek_id')->whereIn('id',$idPelaksanaan)->get();
         $data = json_decode($idProyek);
         $kemajuans = KemajuanProyek::find($id);
+        //dd($kemajuans->pekerjaan_id);
         $kemajuans->delete();
+
+        $realValue = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.value')->where('pekerjaan_id',$kemajuans->pekerjaan_id)->get();
+        //dd(json_decode($realValue));
+        $combinedValue = 0;
+        foreach($realValue as $value) {
+            //dd($value->value);
+            $combinedValue += $value->value;
+        }
+        //dd($combinedValue);
+        DB::table('jenis_pekerjaan')->where('id',$kemajuans->pekerjaan_id)->update([
+            'workCurrentValue' => $combinedValue
+        ]);
+
         return redirect()->action('KemajuanProyekController@viewInfo',['id'=>$data[0]->proyek_id]);
     }
     public function waktu($tanggal){

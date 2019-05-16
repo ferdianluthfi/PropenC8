@@ -28,8 +28,6 @@
                 <p>{{session('flash_message')}}</p>
             @endif
 
-            <h2 style="text-align:center;">Ubah Informasi Proyek</h2> <br>
-
             <nav aria-label="breadcrumb" style="margin-left:10px;">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('assignedproyek') }}">Daftar Proyek</a></li>
@@ -38,14 +36,14 @@
                 </ol>
             </nav>
 
-            <form method="post" action="/info/update/{{$kemajuans->id}}" id="editForm">
-
+            <form method="post" action="/info/update/{{$kemajuans->id}}" id="editForm" style="background-color:#fff">
+            <p class="font-title" style="text-align:center;margin-top:-35px;">Ubah Informasi Proyek</p> <br>
                 {{ csrf_field() }}
                 {{ method_field('POST') }}
 
                 <div class="content bg1">
-                    <span class="labels">Uraian Pekerjaan</span>
-                    <select name="tipepekerjaan" class="content bg1">
+                    <span class="labels font-subtitle-5">Uraian Pekerjaan</span>
+                    <select name="tipepekerjaan" class="content bg1" style="background-color:white">
                         <option value="{{$finalPekerjaan->id}}" >{{$finalPekerjaan->name}}</option>
                         @foreach($bladePekerjaan as $tipe)
                             <option value="{{$tipe->id}}" >{{$tipe->name}}</option>
@@ -54,21 +52,21 @@
                 </div>
 
                 <div class="content bg1">
-                    <span class="labels">Deskripsi Tambahan</span>
+                    <span class="labels font-subtitle-5">Deskripsi Tambahan</span>
                     <textarea class="inputs" type="text" name="description" style="height:150px" data-error=".errorDescription"> {{ $kemajuans->description }} </textarea>
                     <div class="errorMessage errorDescription"></div>
                 </div>
 
                 <div class="content bg1">
-                    <span class="labels">Tanggal Informasi</span>
-                    <input type="date" name="reportdate" min="<?php echo $minDate ?>" class="inputs" value="{{ $kemajuans->reportDate }}" data-error=".errorDate">
+                    <span class="labels font-subtitle-5">Tanggal Informasi</span>
+                    <input type="date" name="reportdate" min="<?php echo $minDate ?>" max="<?php echo $maxDate ?>" class="inputs" value="{{ $kemajuans->reportDate }}" data-error=".errorDate">
                     <div class="errorMessage errorDate"></div>
                 </div>
 
                 <div class="content bg1">
-                    <span class="labels">Jenis Informasi</span>
+                    <span class="labels font-subtitle-5">Jenis Informasi</span>
                     @if($kemajuans->tipeKemajuan==1)
-                        <select name="tipekemajuan" class="content bg1">
+                        <select name="tipekemajuan" class="content bg1" style="background-color:white">
                             <option value="1" >Gaji</option>
                             <option value="2" >Belanja</option>
                             <option value="3" >Administrasi</option>
@@ -89,44 +87,46 @@
                 </div>
 
                 <div class="content bg1">
-                    <span class="labels">Nilai</span>
+                    <span class="labels font-subtitle-5">Nilai</span>
                         <input type="number" name="nilai" class="inputs" value="{{$kemajuans->value}}" data-error=".errorVal">
                         <div class="errorMessage errorVal"></div>
                 </div>
                 <br>
 
                 <div class="form-group {{ !$errors->has('photo') ?: 'has-error' }}">
-                    <label>Foto</label>
+                    <span class="labels font-subtitle-5">Foto</span>
                 </div>
-
-                
 
                 @foreach($foto as $fot)
                 <div class="content bg1">
                         <img src="{{asset($fot->path)}}" width="400" height="400">
                         <input name="listId[]" style="display:none" id="input-<?php echo $fot->id?>" value=" {{$fot->id}}">
-                        <a class="btn btn-danger foto" id="button-{{$fot->id}}" onclick="addDeletedPhoto({{$fot->id}})" style="font-size:12pt; font-weight:bolder; align:right;"> Hapus</a>
+                        <a class="btn foto" id="button-{{$fot->id}}" onclick="addDeletedPhoto({{$fot->id}})" style="background-color: whitesmoke;  color: red; border: 2px solid">
+                            <span>
+                                HAPUS
+                            </span>
+                        </a>
                 </div>
                 @endforeach 
                 
 
-                <div class="container1-btn">
-                    <a class="container1-form-btn" data-toggle="modal" data-target="#myModal">
-                        <span>
-                            Batal
-                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                        </span>
-                    </a>
-                </div>
-
-                <div class="container-btn">
-                    <button class="container-form-btn" id="simpan">
-                            <span>
-                                Simpan
-                                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                            </span>
-                    </button>
-                </div>
+                <div class="row">
+                            <div class="col-sm-8"></div>
+                            <div class="col-sm-2">
+                                    <button class="button-disapprove font-approval" data-toggle="modal" data-target="#myModal">
+                                        <span>
+                                            BATAL
+                                        </span>
+                                    </button>
+                            </div>
+                            <div class="col-sm-2">
+                                    <button class="button-approve font-approval" id="simpan">
+                                            <span>
+                                                SIMPAN
+                                            </span>
+                                    </button>
+                            </div>
+                    </div>
 
             </form>
         </div>

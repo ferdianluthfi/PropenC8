@@ -7,6 +7,8 @@ use App\User;
 use Validator;
 use Illuminate\Validation\Rule;
 use Redirect;
+use App\Assignment;
+use App\Proyek;
 
 
 class HomeController extends Controller
@@ -31,6 +33,11 @@ class HomeController extends Controller
         if(\Auth::user()->role == 1){
             $users = User::select('users.*')->get();
             return view('users.homeAccountManager', compact('users'));
+        }
+        elseif(\Auth::user()->role == 7){
+            $idProyek = Assignment::select('assignments.proyek_id')->where('pengguna_id',\Auth::user()->id)->get();
+            $listProyek = Proyek::select('proyeks.*')->whereIn('id',$idProyek)->get(); 
+            return view('listProyek', compact('listProyek'));
         }
         return redirect('/proyek');
     }

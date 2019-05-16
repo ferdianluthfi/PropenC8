@@ -20,7 +20,7 @@ class CreateKontraksTable extends Migration
             $table->string('filename', 100);
             $table->string('path', 100);
             $table->string('ext', 100);
-
+            $table->integer('flag_active')->default(1);
             $table->bigInteger('proyek_id')->unsigned();
             $table->foreign('proyek_id')
             ->references('id')

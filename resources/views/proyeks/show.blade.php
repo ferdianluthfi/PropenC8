@@ -9,7 +9,6 @@
 @foreach($proyeks as $proyek)
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
         <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
         <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek', $id) }}">Detail Proyek {{ $proyek->projectName }}</a></li>
     </ol>
@@ -27,15 +26,15 @@
             @endif
         </div>
     </div>
-    <hr>
-    {{-- <div>
+    <hr><br>
+    <!-- {{-- <div>
         <div class="row">
             <div class="col-sm-10">
                 <p class="font-subtitle-2"></p>
             </div>
         </div>
         <br>
-    </div> --}}
+    </div> --}} -->
     <div class="row ketengahin">
         <div class="col-sm-7">
             <div class="card card-info">
@@ -92,14 +91,25 @@
                 </form>
             </div>
         </div>
-        @elseif ($proyek->approvalStatus === 1 || $proyek->approvalStatus === 2)
+        @elseif ($proyek->approvalStatus === 1)
         <div class="col-sm-2">
             <div class="card card-pm" style="margin-left: 90px">
                 <br>
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
                 <br>
-                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-berkas" style="margin-left: 35px; margin-top: 35px; padding-top: 10px">Lelang</a>
+                <a class="button-berkas-inactive" style="margin-left: 35px; margin-top: 35px; padding-top: 10px">Lelang</a>
+                <br>
+            </div>
+        </div>
+        @elseif ( $proyek->approvalStatus === 2)
+        <div class="col-sm-2">
+            <div class="card card-pm" style="margin-left: 90px">
+                <br>
+                <p class="font-subtitle-5">Berkas</p>
+                <hr/>
+                <br>
+                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-berkas" style="margin-left: 35px; margin-top: 35px; padding-top: 7px">LELANG</a>
                 <br>
             </div>
         </div>
@@ -109,8 +119,8 @@
                 <br>
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
-                @if ($proyek->approvalStatus === 4 || $proyek->approvalStatus === 9 )
-                <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
+                @if ($proyek->approvalStatus === 4)
+                <a href="{{ route('buat-kontrak', $proyek->id) }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">KONTRAK</button></a>
                 <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
                 @elseif( $proyek->approvalStatus === 5 || $proyek->approvalStatus === 6 )
@@ -125,6 +135,10 @@
                 <button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
                 <button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                 <button class="button-berkas" style="margin-left: 35px">LPJ</button>
+                @elseif($proyek-> approvalStatus == 9)
+                <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
+                <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
+                <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
                 @endif
             </div>
         </div>
@@ -173,7 +187,6 @@
 @foreach($proyeks as $proyek)
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
         <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
         <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek', $id) }}">Detail Proyek {{ $proyek->projectName }}</a></li>
     </ol>
@@ -204,62 +217,42 @@
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
                     <div class="col-sm-5 font-status-approval" style="margin-left:30px;">
                         @if ($proyek->approvalStatus == 6)
-                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right">Tambah PM</a>
+                        <a>Belum ada PM</a>
                         @elseif ($proyek->approvalStatus == 7)
-                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right">{{$pmName}}</a>
+                        <a>PM : {{$pmName}}</a>
                         <span class="glyphicon glyphicon-pencil"></span>
                         @endif
                     </div>
                 </div>
                 <hr style="background-color:black;"/>
-                <div class="row">
-                    <div class="col-sm-10">
-                        <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}}</p>
-                    </div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-sm-10">-->
+<!--                        <p class="font-subtitle-2">Detail Proyek {{ $proyek->projectName}}</p>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <br>
-            </div>
-            <div class="row ketengahin">
-                <div class="col-sm-7">
-                    <div class="card card-info">
-                        <div class="row judul">
-                            <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
-                            <div class="col-sm-5 font-status-approval" style="margin-left:15px;">{{$status}}</div>
-                        </div>
-                        <hr style="background-color:black;"/>
-                        <div class="row">
-                            <div class="col-sm-5 font-desc-bold" style="margin-left: 30px;">
-                                <ul>
-                                    <li><p>Nama Staf Marketing</p></li>
-                                    <li><p>Nama Proyek</p></li>
-                                    <li><p>Nama Perusahaan</p></li>
-                                    <li><p>Nilai Proyek</p></li>
-                                    <li><p>Estimasi Waktu Pengerjaan</p></li>
-                                    <li><p>Alamat Proyek</p></li>
-                                    <li><p>Deskripsi Proyek</p></li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6 font-desc" >
-                                <ul>
-                                    <li><p>:   {{ $proyek->name}}<p></li>
-                                    <li><p>:   {{ $proyek->projectName}}<p></li>
-                                    <li><p>:   {{ $proyek->companyName}}<p></li>
-                                    <li><p>:   Rp{{ $proyek->projectValue}}<p></li>
-                                    <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
-                                    <li><p>:   {{ $proyek->projectAddress}}<p></li>
-                                    <li><p class="deskripsi" style="margin-bottom:10px;" >: {{ $proyek->description}}<p></li>
-                                </ul>
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="col-sm-5 font-desc-bold" style="margin-left: 30px;">
+                        <ul>
+                            <li><p>Nama Staf Marketing</p></li>
+                            <li><p>Nama Proyek</p></li>
+                            <li><p>Nama Perusahaan</p></li>
+                            <li><p>Nilai Proyek</p></li>
+                            <li><p>Estimasi Waktu Pengerjaan</p></li>
+                            <li><p>Alamat Proyek</p></li>
+                            <li><p>Deskripsi Proyek</p></li>
+                        </ul>
                     </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="card card-pm">
-                        <br>
-                        <p class="font-subtitle-5">Project Manager</p>
-                        <hr style="background-color:black;"/>
-                        <br> <br> <br>
-                        <p class="font-status-approval" style="text-align: center;">Belum Tersedia.</p>
+                    <div class="col-sm-6 font-desc" >
+                        <ul>
+                            <li><p>:   {{ $proyek->name}}<p></li>
+                            <li><p>:   {{ $proyek->projectName}}<p></li>
+                            <li><p>:   {{ $proyek->companyName}}<p></li>
+                            <li><p>:   Rp{{ $proyek->projectValue}}<p></li>
+                            <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
+                            <li><p>:   {{ $proyek->projectAddress}}<p></li>
+                            <li><p class="deskripsi" style="margin-bottom:10px;" >: {{ $proyek->description}}<p></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -296,8 +289,7 @@
 @foreach($proyeks as $proyek)
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
-        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Daftar Proyek</a></li>
         <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek', $id) }}">Detail Proyek {{ $proyek->projectName }}</a></li>
     </ol>
 </nav>
@@ -311,14 +303,7 @@
             <p style="text-align: right; margin-right: 20px; margin-top: 30px; color: blue">{{ $status }}</p>
         </div>
     </div>
-    <hr>
-    <div>
-        <div class="row">
-            <div class="col-sm-10">
-                <p class="font-subtitle-2"></p>
-            </div>
-        </div> <hr>
-    </div>
+    <hr><br>
     <div class="row ketengahin">
         <div class="col-sm-8">
             <div class="card card-info">
@@ -366,7 +351,11 @@
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
                 <a href="/kelolaLelang/{{ $proyek->id }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button></a>
+                @if ($proyek->approvalStatus == 6)
+                <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
+                @elseif ($proyek->approvalStatus == 7)
                 <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button></a>
+                @endif
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
             </div>
         </div>
@@ -375,4 +364,199 @@
 </div>
 @endforeach
 @endsection
+
+<!--INI PUNYA KLIEN-->
+@elseif(Auth::user()->role == 8)
+@section ('content')
+@include('layouts.nav')
+
+<!-- Breadcrumbs (ini buat navigation yaa) -->
+@foreach($proyeks as $proyek)
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek', $id) }}">Detail Proyek {{ $proyek->projectName }}</a></li>
+    </ol>
+</nav>
+<!-- isinya -->
+<div class="container-fluid card card-detail-proyek">
+    <div class="row">
+        <div class="col-sm-7">
+            <p class="font-title" style="margin-top: 20px; margin-left: 20px">Detail Proyek {{ $proyek->projectName}}</p>
+        </div>
+        <!-- <div class="col-sm-5">
+            <p style="text-align: right; margin-right: 20px; margin-top: 30px; color: blue">{{ $status }}</p>
+        </div> -->
+    </div>
+    <hr>
+    <div>
+        <div class="row">
+            <div class="col-sm-10">
+                <p class="font-subtitle-2"></p>
+            </div>
+        </div> <hr>
+    </div>
+    <div class="row ketengahin">
+        <div class="col-sm-8">
+            <div class="card card-info">
+                <div class="row judul">
+                    <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
+                </div>
+                <hr style="background-color:black;"/>
+                <div class="row">
+                    <div class="col-sm-5 font-desc-bold" style="margin-left: 30px;">
+                        <ul>
+                            <li><p>Nama Staf Marketing</p></li>
+                            <li><p>Nama Proyek</p></li>
+                            <li><p>Nama Perusahaan</p></li>
+                            <li><p>Nilai Proyek</p></li>
+                            <li><p>Estimasi Waktu Pengerjaan</p></li>
+                            <li><p>Alamat Proyek</p></li>
+                            <li><p>Deskripsi Proyek</p></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 font-desc" >
+                        <ul>
+                            <li><p>:   {{ $proyek->name}}<p></li>
+                            <li><p>:   {{ $proyek->projectName}}<p></li>
+                            <li><p>:   {{ $proyek->companyName}}<p></li>
+                            <li><p>:   Rp{{ $proyek->projectValue}}<p></li>
+                            <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
+                            <li><p>:   {{ $proyek->projectAddress}}<p></li>
+                            <li><p class="deskripsi" style="margin-bottom:10px;" >: {{ $proyek->description}}<p></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3">
+            <div class="card card-pm" style="margin-left:-50px">
+                <br>
+                <p class="font-subtitle-5">Berkas</p>
+                <hr/>
+                @if($kontrak==null)
+                <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
+                @else
+                <a href="/proyek/{{$proyek->id}}/kontrak"><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
+                @endif
+                
+                @if($pelaksanaan->isempty())
+                <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button>
+                @else
+                <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button></a>
+                @endif
+
+                <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LPJ</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+@endsection
+
+<!--INI PUNYA DIREKSI-->
+@elseif(Auth::user()->role == 2)
+@section ('content')
+@include('layouts.nav')
+
+<!-- Breadcrumbs (ini buat navigation yaa) -->
+@foreach($proyeks as $proyek)
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek', $id) }}">Detail Proyek {{ $proyek->projectName }}</a></li>
+    </ol>
+</nav>
+<!-- isinya -->
+<div class="container-fluid card card-detail-proyek">
+    <div class="row">
+        <div class="col-sm-7">
+            <p class="font-title" style="margin-top: 20px; margin-left: 20px">Detail Proyek {{ $proyek->projectName}}</p>
+        </div>
+        <div class="col-sm-5">
+            <p style="text-align: right; margin-right: 20px; margin-top: 30px; color: blue">{{ $status }}</p>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <div class="row">
+            <div class="col-sm-10">
+                <p class="font-subtitle-2"></p>
+            </div>
+        </div>
+        <br>
+    </div>
+    <div class="row ketengahin">
+        <div class="col-sm-8">
+            <div class="card card-info">
+                <div class="row judul">
+                    <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
+                </div>
+                <hr style="background-color:black;"/>
+                <div class="row">
+                    <div class="col-sm-5 font-desc-bold" style="margin-left: 30px;">
+                        <ul>
+                            <li><p>Nama Staf Marketing</p></li>
+                            <li><p>Nama Proyek</p></li>
+                            <li><p>Nama Perusahaan</p></li>
+                            <li><p>Nilai Proyek</p></li>
+                            <li><p>Estimasi Waktu Pengerjaan</p></li>
+                            <li><p>Alamat Proyek</p></li>
+                            <li><p>Deskripsi Proyek</p></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 font-desc" >
+                        <ul>
+                            <li><p>:   {{ $proyek->name}}<p></li>
+                            <li><p>:   {{ $proyek->projectName}}<p></li>
+                            <li><p>:   {{ $proyek->companyName}}<p></li>
+                            <li><p>:   Rp{{ $proyek->projectValue}}<p></li>
+                            <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
+                            <li><p>:   {{ $proyek->projectAddress}}<p></li>
+                            <li><p class="deskripsi" style="margin-bottom:10px;" >: {{ $proyek->description}}<p></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3">
+            <div class="card card-pm" style="margin-left:-50px">
+                <br>
+                <p class="font-subtitle-5">Berkas</p>
+                <hr/>
+                @if($proyek->approvalStatus == 1 || $proyek->approvalStatus == 2)
+
+                        <br>
+                        <a href="/kelolaLelang/{{ $proyek->id }}" class="button-berkas" style="margin-left: 35px; margin-top: 35px; padding-top: 7px">LELANG</a>
+                        <br>
+                
+                @else
+                    @if($kontrak==null)
+                    <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
+                    @else
+                    <a href="{{ route('view-kontrak', $proyek->id) }}""><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
+                    @endif
+                
+                    @if($pelaksanaan->isempty())
+                    <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button>
+                    @else
+                    <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button></a>
+                    @endif
+
+                    <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LPJ</button>
+                @endif
+
+            </div>
+        </div>
+
+    </div>
+</div>
+@endforeach
+@endsection
+
+
+
 @endif

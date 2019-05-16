@@ -24,18 +24,24 @@
 
 @section ('content')
 @include('layouts.nav')
+		<nav aria-label="breadcrumb">
+		<ol class="breadcrumb" style="margin-left:100px;">
+			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('homeAccountManager') }}">Beranda</a></li>
+		</ol>
+		</nav>
+
 		<div class="container">
-		<div class="row bigCard">
+		<div class="row bigCard" style="margin 0 auto;">
 			<div id="myTabContent" class="tab-content">
 				<!-- PraLelang -->
 				<div class="tab-pane" id="pra" style="display:block">
 					<div class="col-md-12">
-								<h2 style="text-align:center;">Daftar Akun</h2><br>
+								<h2 class="font-title" style="text-align:center;">Daftar Akun</h2>
 								<hr>
 								<div class="panel-body" style="text-align:center;">
 									<table id="datatable-1" class="table table-striped table-bordered text-center">
 										<thead>
-											<tr class="title" >
+											<tr class="title" style="background-color: whitesmoke;">
 												<th><center>Nama Proyek</th>
 												<th><center>Role</th>
 												<th><center>Status</th>
@@ -44,7 +50,7 @@
 										</thead>
 										<tbody >
 										@foreach($users as $user)
-											<tr style="background-color: whitesmoke;">
+											<tr style="background-color: white;">
 												<td>{{ $user->name }}</td>
 												<td>
 												@switch($user->role)

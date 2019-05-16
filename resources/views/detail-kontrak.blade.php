@@ -45,7 +45,7 @@
                         <li><p>:   {{ $proyek->companyName}}<p></li>
                         <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
                         <li><p>:   {{ $proyek->projectAddress}}<p></li>
-                        <li><p>:   Masih dummy beb<p></li>
+                        <li><p>:   Juanita<p></li>
                         <li><p>:   Rp {{ $formatValue }}
                     </ul>
                 </div>
@@ -60,8 +60,8 @@
                 </div>
                 <div class="col-sm-6 font-desc">
                     <ul>
-                        <li><p>:   {{ $kontrak->contractDate}}<p></li>
-                        <li><p>:   nilaiproyek<p></li>
+                        <li><p>:   12/05/2019<p></li>
+                        <li><p>:   Lima Miliar<p></li>
                         <li><p>:   staf<p></li>
                     </ul>
                 </div>

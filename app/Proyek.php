@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Proyek extends Model
 {
-    //
+    protected $fillable = [
+        'approvalStatus',
+    ];
 
 }

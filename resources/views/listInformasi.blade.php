@@ -8,18 +8,21 @@
         <title>TRAYEK</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" media="screen">
+
+    <!-- Bootstrap CSS CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+     <!-- Our Custom CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    
+
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="">
-        <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type=""> -->
         <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" type=""> -->
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="">
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
     </head>
 
     <body>
@@ -35,9 +38,9 @@
         <div class="container">
             <div class="row bigCard">
                 <div class="col-md-12">
-                    <h2 style="text-align:center;">Daftar Kemajuan Proyek</h2><br>
-                    <div class="card" style=" background-color: whitesmoke;">
-                            <a href="/info/tambah/{{$id}}" class="btn btn-primary" style=" float: right;" >+ Tambah Informasi</a><br><br>
+                    <h2 style="text-align:center;" class="font-title">Daftar Kemajuan Proyek</h2><br>
+                    <div style=" background-color: white;">
+                            <a href="/info/tambah/{{$id}}" class="btn btn-primary" style=" float: right; margin-right:15px" >+ TAMBAH INFORMASI</a><br><br>
                         <div class="panel-body">
                             <table id="datatable" class="table table-striped table-bordered text-center">
                                 <thead>
@@ -67,12 +70,12 @@
                                             @endforeach
                                         @endif
                                         <td> {{ date('F d' , strtotime($informasi->reportDate)) }}</td>
-                                        <td><a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary">Lihat</a></td>
-                                        <td><a class="btn" style=" background-color: whitesmoke;  color: blue; border: 2px solid" href="/info/edit/{{$informasi->id}}">Ubah</a></td>
+                                        <td><a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary">LIHAT</a></td>
+                                        <td><a class="btn" style=" background-color: whitesmoke;  color: blue; border: 2px solid" href="/info/edit/{{$informasi->id}}">UBAH</a></td>
                                         <td>
                                         <a class="btn" style=" background-color: whitesmoke;  color: red; border: 2px solid" data-toggle="modal" data-target="#myModal-<?php echo $informasi->id ?>">
                                             <span>
-                                                Hapus
+                                                HAPUS
                                             </span>
                                         </a>
                                         </td>
