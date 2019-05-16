@@ -86,7 +86,8 @@ class ProyekController extends Controller
             return view('proyeks.index',compact('proyekPoten'));
         }
         elseif(\Auth::user()->role == 6 or \Auth::user()->role == 4){
-            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 6)->orWhere('approvalStatus', 7)->get();
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus', 5)
+            ->orwhere('approvalStatus', 6)->orWhere('approvalStatus', 7)->get();
             return view('proyeks.index',compact('proyekPoten'));
         }
 
@@ -203,6 +204,7 @@ class ProyekController extends Controller
                     $choosenPmId = $choosenPmFromAssignment->pengguna_id;
                     $pm = DB::table('users')->where('id', $choosenPmId)->first();
                     $pmName = $pm->name;
+                    return view('proyeks/show',compact('id', 'proyeks', 'status', 'pmName', 'kontrak', 'pelaksanaan'));
                 }
             }
             elseif($statusNum == 9){

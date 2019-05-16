@@ -4,22 +4,15 @@
 	 viewBox="0 0 500 231.9" style="enable-background:new 0 0 500 231.9;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:url(#SVGID_1_);}
-	.st1{fill:#FFFFFF;}
-	.st2{fill:#3378D3;}
-	.st3{font-family:'Roboto-Regular';}
-	.st4{font-size:5px;}
-	.st5{font-family:'Roboto-Medium';}
 </style>
 <title>Asset 5</title>
 <g id="OBJECTS">
 	
-		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="250.01" y1="166.5" x2="250.01" y2="-3.78" gradientTransform="matrix(1 0 0 -1 0 234)">
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="250.05" y1="833.5" x2="250.05" y2="1003.78" gradientTransform="matrix(1 0 0 1 0 -766)">
 		<stop  offset="0" style="stop-color:#65C7F7"/>
 		<stop  offset="0.88" style="stop-color:#308BE5"/>
 	</linearGradient>
-	<path class="st0" d="M0,0.4c0,0,51.9-8.1,91.3,52.5s91.8,85.7,116.7,69c89.7-60,133.3,7.3,146,19.6c55.6,53.7,146.1,9,146.1,9v81.5
+	<path class="st0" d="M0,0.4c0,0,51.9-8.1,91.3,52.5s91.8,85.7,116.7,69c89.7-60,133.3,7.3,146,19.6c55.6,53.7,146.1,9,146.1,9V232
 		H0V0.4z"/>
 </g>
-<rect y="217.1" class="st1" width="500" height="14.7"/>
-<text transform="matrix(1 0 0 1 179.8279 225.6483)"><tspan x="0" y="0" class="st2 st3 st4">© Developed with passion by </tspan><tspan x="65.5" y="0" class="st2 st5 st4">PROPENSI C8</tspan><tspan x="96.6" y="0" class="st2 st3 st4">. All rights reserved.</tspan></text>
 </svg>

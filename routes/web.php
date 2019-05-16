@@ -27,6 +27,30 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
+Route::get('/kemajuanProyek', 'KemajuanProyekController@viewKemajuan');
+Route::get('/proyek/setujuiProyek/{id}', 'ProyekController@approveProjectDetail');
+Route::post('/proyek/setujuiProyek/setuju/{id}', 'ProyekController@approveProject');
+Route::post('/proyek/setujuiProyek/tolak/{id}', 'ProyekController@rejectProject');
+Route::get('/proyek/', 'ProyekController@viewAllProject');
+Route::get('/proyek/detailProyek/{id}', 'ProyekController@projectDetailWithoutApprove');
+Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@viewKontrakz');
+
+
+
+Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');
+Route::post('proyek/{id}/kontrak/approve', 'KontrakController@approveKontrak')->name('approve-kontrak');
+Route::post('proyek/{id}/kontrak/disapprove', 'KontrakController@disapproveKontrak')->name('disapprove-kontrak');
+Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@overviewKontrak')->name('view-kontrak');
+Route::get('/proyek/{id}/kontrak/buat', 'KontrakController@infoUmumTambahInfo')->name('buat-kontrak');
+Route::post('/proyek/{id}/kontrak/buatSurat', 'KontrakController@berkasSurat')->name('berkas-surat');
+Route::post('/proyek/{id}/kontrak/createKontrak', 'KontrakController@createKontrak');
+Route::get('/proyek/{id}/lihatKontrak/', 'KontrakController@overviewKontrak')->name('view-kontrak');
+Route::get('/kontrak/{kontrakId}/download', 'KontrakController@downloadSuratKontrak')->name('download-surat-kontrak');
+Route::get('/kontrak/{kontrakId}/delete', 'KontrakController@deleteSuratKontrak')->name('delete-surat-kontrak');
+// Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');
+
+
+// Route::get('/kemajuanProyek', 'Kema`juanProyekController@viewKemajuan');
 /**
  * routing untuk kelola lelang
  */
@@ -49,11 +73,8 @@ Route::post('/proyek/store', 'ProyekController@store');
 Route::post('/proyek/update', 'ProyekController@update');
 Route::get('/proyek/ubah/{id}', 'ProyekController@edit');
 Route::get('/proyek/hapus/{id}', 'ProyekController@destroy');
-Route::get('/proyek/lihat/{id}', 'ProyekController@show'); //Fungsi ini adalah untuk lihat detail proyek potensial(belum ikut lelang)
-Route::get('/proyek/{id}', 'ProyekController@viewDetailProyek')->name('detail-proyek'); //Fungsi ini untuk lihat proyek yang sudah diapprove oleh direksi(tappi kontrak kerja belum tentnu dikasih liat)
-Route::get('/proyek/{id}/kontrak', 'KontrakController@viewKontrak')->name('detail-kontrak');
-Route::post('proyek/{id}/kontrak/approve', 'KontrakController@approveKontrak')->name('approve-kontrak');
-Route::post('proyek/{id}/kontrak/disapprove', 'KontrakController@disapproveKontrak')->name('disapprove-kontrak');
+Route::get('/proyek/lihat/{id}', 'ProyekController@show'); //Fungsi ini adalah untuk lihat detail proyek potensial(belum ikut lelang) momo
+Route::get('/proyek/{id}', 'ProyekController@viewDetailProyek')->name('detail-proyek'); //Fungsi ini untuk lihat proyek yang sudah diapprove oleh direksi(tappi kontrak kerja belum tentnu dikasih liat) kirana
 Route::get('/proyek/setujuiProyek/{id}', 'ProyekController@approveProjectDetail');
 Route::post('/proyek/setujuiProyek/setuju/{id}', 'ProyekController@approveProject');
 Route::post('/proyek/setujuiProyek/tolak/{id}', 'ProyekController@rejectProject');

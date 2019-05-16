@@ -39,6 +39,7 @@
         <div class="col-sm-7">
             <div class="card card-info">
                 <div class="row judul">
+                
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
                     <div class="col-sm-5 font-status-approval" style="margin-left:30px;">
                         @if ($proyek->approvalStatus == 7)
@@ -360,13 +361,21 @@
                 <br>
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
-                <a href="/kelolaLelang/{{ $proyek->id }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button></a>
-                @if ($proyek->approvalStatus == 6)
+
+                @if($proyek->approvalStatus == 4)
+                <a href="{{ route('buat-kontrak', $proyek->id) }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">KONTRAK</button></a>
                 <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
-                @elseif ($proyek->approvalStatus == 7)
-                <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button></a>
-                @endif
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
+                @else ($proyek->approvalStatus == 6)
+                <a href="/kelolaLelang/{{ $proyek->id }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button></a>
+                <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
+                <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
+                @elseif ($proyek->approvalStatus == 7)
+                <a href="/kelolaLelang/{{ $proyek->id }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button></a>
+                <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button></a>
+                <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
+                @endif
+                
             </div>
         </div>
 

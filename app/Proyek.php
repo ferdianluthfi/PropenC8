@@ -10,5 +10,4 @@ class Proyek extends Model
     protected $fillable = [
         'approvalStatus',
     ];
-
 }

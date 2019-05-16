@@ -2,8 +2,9 @@
 
 @section ('content')
 @include('layouts.nav')
-
+<!-- direksi -->
 <!-- Breadcrumbs (ini buat navigation yaa) -->
+
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
@@ -11,7 +12,6 @@
 	<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="/proyek/detailProyek/{{ $proyek->id }}">Detail Proyek {{ $proyek->projectName }}</a></li>
   </ol>
 </nav>
-
 <!-- isinya -->
 <div class="container-fluid card card-detail-proyek">
     <div class="row">
@@ -61,7 +61,6 @@
                 </div>
             </div>   
         </div>
-
         <div class="col-sm-2">
             <div class="card card-pm" style="margin-left: 90px">
                 <br>
@@ -72,7 +71,6 @@
                 <button class="button-disapprove" style="margin-left: 35px"><a href="#">LPJ</a></button>
             </div>
         </div>
-
     </div>
     <div>
         <br>

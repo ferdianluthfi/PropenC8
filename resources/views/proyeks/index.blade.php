@@ -206,11 +206,7 @@
 </div>
 </div>
 </div>
-<!-- ini adalah Data table dari Proyek -->	
 @endsection
-
-
-
 <!--INI PUNYA SI PROGRAM MANAGERR-->
 @elseif(Auth::user()->role == 5)
 @section ('content')
@@ -409,11 +405,9 @@
                             @elseif($proyeks->approvalStatus === 7) <td style="color:limegreen;">Sedang dikerjakan</td>
                             @elseif($proyeks->approvalStatus === 8) <td style="color:blue; ">Proyek selesai</td>
                             @endif
-                            @if($proyeks->approvalStatus === 4)
-                            <td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
-                                @else
+                            
                             <td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
-                                @endif
+                                
                         </tr>
                         @elseif($proyeks->approvalStatus === 9)
                         <tr style="background-color: whitesmoke;">

@@ -16,11 +16,20 @@
 
 </head>
 <body>
-
-
+<div class="konten">
+  <div class="konten-inside">
+      
     @yield('content')
     
 
     @yield('scripts')
+
+  </div>
+</div>
+
+<footer class="footer"style="background-color:#fff; padding-top:4px;">
+  <p class="font-desc" style="text-align:center; color:#3378D3;">© Developed with passion by PROPENSI C8. All rights reserved.</p>
+</footer>
+
 </body>
 </html>
