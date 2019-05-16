@@ -160,7 +160,7 @@ class PelaksanaanController extends Controller
         if($pelaksanaan->bulan == 1) {
             $realisasiLebih=null;
             $pdf = PDF::loadView('downloadPelaksanaanAwal', compact('pelaksanaan', 'totalAnggaranPekerjaan','manajerPelaksana','listPekerjaan', 'totalBiaya','namaKlien','tanggalPelaksanaan','biayaKeluar','realisasiLalu','proyek','tahunPeriode','periodeMulai','periodeSelesai'));
-            return $pdf->setPaper('a4','landscape')->stream('LAPJUSIK Bulan '. $pelaksanaan->bulan . ' Proyek ' . $proyek->projectName .'.pdf');
+            return $pdf->setPaper('a4','landscape')->download('LAPJUSIK Bulan '. $pelaksanaan->bulan . ' Proyek ' . $proyek->projectName .'.pdf');
         }
         else {
             $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
@@ -170,7 +170,7 @@ class PelaksanaanController extends Controller
             $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
             //dd($realisasiLebih);
             $pdf = PDF::loadView('downloadPelaksanaan', compact('pelaksanaan','totalAnggaranPekerjaan','manajerPelaksana','listPekerjaan', 'totalBiaya', 'namaKlien','tanggalPelaksanaan','biayaKeluar','proyek','realisasiLebih','tahunPeriode','periodeMulai','periodeSelesai'));
-            return $pdf->setPaper('a4','landscape')->stream('LAPJUSIK Bulan '. $pelaksanaan->bulan . ' Proyek ' . $proyek->projectName .'.pdf');
+            return $pdf->setPaper('a4','landscape')->download('LAPJUSIK Bulan '. $pelaksanaan->bulan . ' Proyek ' . $proyek->projectName .'.pdf');
         }
     }
     public function waktu($tanggal){
