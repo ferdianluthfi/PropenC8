@@ -134,7 +134,7 @@ class KemajuanProyekController extends Controller
         $informasi->value = $temp;
         $tanggalInfo = $informasi->reportDate;
         $tanggal = $this->waktu($tanggalInfo);
-        $foto = DB::table('listPhoto')->where('kemajuan_id',$id)->get();
+        $foto = DB::table('listphoto')->where('kemajuan_id',$id)->get();
 
         $listPekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek[0]->proyek_id)->get();
 
@@ -180,7 +180,7 @@ class KemajuanProyekController extends Controller
         $idPelaksanaan = $kemajuan->pelaksanaan_id;
         $pelaksanaan = Pelaksanaan::find($idPelaksanaan);
         //dd($pelaksanaan);
-        $foto = DB::table('listPhoto')->where('kemajuan_id',$id)->get();
+        $foto = DB::table('listphoto')->where('kemajuan_id',$id)->get();
 
         return view('tambahFoto',compact('kemajuan','pelaksanaan','foto'));
     }
@@ -361,7 +361,7 @@ class KemajuanProyekController extends Controller
         $maxDate = date('Y-m-d');
         $allApproved = true;
         $bladePekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek[0]->proyek_id)->whereNotIn('id',$editedPekerjaan)->get();
-        $foto = DB::table('listPhoto')->select('listPhoto.*')->where('kemajuan_id',$id)->get();
+        $foto = DB::table('listphoto')->select('listphoto.*')->where('kemajuan_id',$id)->get();
 
         if($allPelaksanaan->isempty()) {
             $minDate = Proyek::select('proyeks.created_at')->where('id',$proyekId)->first()->created_at->format('Y-m-d');
@@ -390,22 +390,22 @@ class KemajuanProyekController extends Controller
         //dd($request->listId);
         if ($request->listId!=null) {
 
-            $allId = DB::table('listPhoto')->select('listPhoto.id')->where('kemajuan_id',$id)->whereNotIn('id',$request->listId)->get();
+            $allId = DB::table('listphoto')->select('listphoto.id')->where('kemajuan_id',$id)->whereNotIn('id',$request->listId)->get();
             //dd($allId);
             $deletedId = json_decode($allId);
             //dd($deletedId);
             for($i=0;$i<sizeof($allId);$i++) {
 
-                DB::table('listPhoto')->where('id',$deletedId[$i]->id)->delete();
+                DB::table('listphoto')->where('id',$deletedId[$i]->id)->delete();
             }
         }
         else {
-            $allId = DB::table('listPhoto')->select('listPhoto.id')->where('kemajuan_id',$id)->get();
+            $allId = DB::table('listphoto')->select('listphoto.id')->where('kemajuan_id',$id)->get();
             $deletedId = json_decode($allId);
             //dd($deletedId);
             for($i=0;$i<sizeof($allId);$i++) {
 
-                DB::table('listPhoto')->where('id',$deletedId[$i]->id)->delete();
+                DB::table('listphoto')->where('id',$deletedId[$i]->id)->delete();
             }
         }
         //dd($deletedId[0]->id);

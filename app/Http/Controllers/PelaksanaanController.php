@@ -82,7 +82,7 @@ class PelaksanaanController extends Controller
         }		
 
         $listIdPekerjaan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.pekerjaan_id', 'kemajuan_proyeks.id')->where('pelaksanaan_id',$id)->get(); 
-        $listFoto = DB::table('listPhoto')->select('listPhoto.*')->whereIn('kemajuan_id',$arrayidKemajuan)->get();
+        $listFoto = DB::table('listphoto')->select('listphoto.*')->whereIn('kemajuan_id',$arrayidKemajuan)->get();
         $review = Review::where('pelaksanaan_id', $id)->first();
         $lapjusikStatus = Pelaksanaan::where('id', $id)->first()->approvalStatus;
         $proyek = Proyek::where('id', $idProyek)->first();
