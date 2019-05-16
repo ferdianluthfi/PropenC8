@@ -276,10 +276,6 @@
             @endif
             <h2  class="font-title" style="text-align:center;">Daftar Proyek Potensial</h2><hr>
             <div class="row">
-<<<<<<< HEAD
-
-=======
->>>>>>> dbea38049b482e10ade114b410c48a18a69004f9
                 <div class="col-md-9">
                     <div class="your-class">
                         @foreach($proyekPoten as $proyeks)
