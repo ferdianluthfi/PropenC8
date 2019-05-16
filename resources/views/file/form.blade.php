@@ -22,7 +22,7 @@
                             <input type="hidden" name="proyekId" value="{{ $proyek->id }}">
                             <div class="row">
                                 <div class="col-sm-6 form-group {{ !$errors->has('title') ?: 'has-error' }}">
-                                    <label>Title</label><br>
+                                    <label>Title</label><br><br>
                                     <!--                                    <input type="text" name="title" class="form-control">-->
                                     <select name="title">
                                         <option disabled selected value> -- select an option -- </option>
@@ -34,8 +34,8 @@
                                     <span class="help-block text-danger">{{ $errors->first('title') }}</span>
                                 </div>
                                 <div class="col-sm-6 form-group {{ !$errors->has('file') ?: 'has-error' }}">
-                                    <label>File</label>
-                                    <input type="file" name="file">
+                                    <label style="margin-left: 20px">File</label>
+                                    <input type="file" name="file" class="turncate">
                                     <span class="help-block text-danger">{{ $errors->first('file') }}</span>
                                 </div>
                             </div>

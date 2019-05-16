@@ -72,10 +72,12 @@ class PenggunaController extends Controller
                 DB::table('assignments')->where('proyek_id', $proyek_id)->update([
                     'pengguna_id' => $request->selected
                 ]);
+
             }
             //add PM baru
             else {
-                DB::table('assignments')->where('proyek_id', $proyek_id)->insert([
+//                kalo udh masuk klien dari punya jeki, disini jadi update dan proyek id dan assignment date dikomen aja
+                DB::table('assignments')->insert([
                     'pengguna_id' => $request->selected,
                     'proyek_id' => $proyek_id,
                     'assignmentDate' => DB::raw('now()')

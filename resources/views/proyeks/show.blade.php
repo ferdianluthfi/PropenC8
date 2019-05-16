@@ -109,7 +109,7 @@
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
                 <br>
-                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-berkas" style="margin-left: 35px; margin-top: 35px; padding-top: 10px">Lelang</a>
+                <a href="/kelolaLelang/{{ $proyek->id }}" class="button-berkas" style="margin-left: 35px; margin-top: 35px; padding-top: 7px">LELANG</a>
                 <br>
             </div>
         </div>
@@ -309,12 +309,13 @@
             <div class="card card-info">
                 <div class="row judul">
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
-                    <div class="col-sm-5 font-status-approval" style="margin-left:30px;">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 font-status-approval" style="margin-left:30px;">
                         @if ($proyek->approvalStatus == 6)
-                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right">Tambah PM</a>
+                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right; color:#63A2F6;">+ Tambah PM</a>
                         @elseif ($proyek->approvalStatus == 7)
-                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right">{{$pmName}}</a>
-                        <span class="glyphicon glyphicon-pencil"></span>
+                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right; color:#63A2F6;">{{$pmName}}<span class="glyphicon glyphicon-pencil"></span></a>
+                        
                         @endif
                     </div>
                 </div>
@@ -476,9 +477,9 @@
         <div class="col-sm-7">
             <p class="font-title" style="margin-top: 20px; margin-left: 20px">Detail Proyek {{ $proyek->projectName}}</p>
         </div>
-        <!-- <div class="col-sm-5">
+        <div class="col-sm-5">
             <p style="text-align: right; margin-right: 20px; margin-top: 30px; color: blue">{{ $status }}</p>
-        </div> -->
+        </div>
     </div>
     <hr>
     <div>
@@ -528,20 +529,28 @@
                 <br>
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
+                @if($proyek->approvalStatus == 1 || $proyek->approvalStatus == 2)
 
-                @if($kontrak==null)
-                <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
-                @else
-                <a href="/proyek/{{$proyek->id}}/kontrak"><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
-                @endif
+                        <br>
+                        <a href="/kelolaLelang/{{ $proyek->id }}" class="button-berkas" style="margin-left: 35px; margin-top: 35px; padding-top: 7px">LELANG</a>
+                        <br>
                 
-                @if($pelaksanaan->isempty())
-                <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button>
                 @else
-                <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button></a>
+                    @if($kontrak==null)
+                    <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
+                    @else
+                    <a href="{{ route('view-kontrak', $proyek->id) }}""><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
+                    @endif
+                
+                    @if($pelaksanaan->isempty())
+                    <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button>
+                    @else
+                    <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button></a>
+                    @endif
+
+                    <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LPJ</button>
                 @endif
 
-                <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LPJ</button>
             </div>
         </div>
     </div>

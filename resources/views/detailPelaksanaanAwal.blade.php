@@ -111,6 +111,7 @@ box-sizing: border-box;
                                             <div class="responsive" style="margin-right:10px;">
                                                 <div class="gallery">
                                                     <a target="_blank">
+                                                        {{$foto->id}} {{$idKemajuan->id}}
                                                         <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
                                                     </a>
                                                 </div>
@@ -320,8 +321,8 @@ box-sizing: border-box;
   </div>
       @endif
       @endif
-      @endif
    </div>
+@endif
 </div>
 </body>
 @endsection
