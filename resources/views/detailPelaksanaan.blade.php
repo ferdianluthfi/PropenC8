@@ -44,7 +44,7 @@ box-sizing: border-box;
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb"style="margin-left:120px;">
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="">Daftar Proyek</a></li>  
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/proyek">Daftar Proyek</a></li>  
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/pelaksanaan/{{$pelaksanaan->proyek_id}}">LAPJUSIK Proyek {{$namaProyek}}</a></li>
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="">Detail LAPJUSIK</a></li>
   </ol>
@@ -229,13 +229,13 @@ box-sizing: border-box;
       </div>
       <br>
 
-  @if(Auth::user()->role == 8)
+  @if(Auth::user()->role == 8 && $pelaksanaan->approvalStatus == 1)
       <div class="text-center">
       <button data-toggle="modal" data-target="#add-review" class="button-review font-approval">TAMBAH REVIEW</button>
     </div>
     <div class="modal fade" id="add-review" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" style="height:800px;" role="document">
-    <div class="modal-content">
+    <div class="modal-content modal-content-a">
       <div class="modal-header">
         <h5 class="modal-title" style="text-align:center;" id="add-review">Buat Review</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -301,7 +301,7 @@ box-sizing: border-box;
       </div>
     <div class="modal fade" id="edit-review" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" style="height:800px;" role="document">
-    <div class="modal-content">
+    <div class="modal-content modal-content-a">
       <div class="modal-header">
         <h5 style="text-align:center;" id="edit-review">Ubah Review</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

@@ -20,9 +20,9 @@
             <p class="font-title" style="margin-top: 20px; margin-left: 20px">Detail Proyek {{ $proyek->projectName}}</p>
         </div>
         <div class="col-sm-6">
-            @if($proyek->approvalStatus == 1) <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:blue;">BUTUH PERSETUJUAN</p>
-            @elseif($proyek->approvalStatus == 2) <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:green;">DISETUJUI</p>
-            @elseif($proyek->approvalStatus == 9) <p style="text-align: right; margin-right: 20px; margin-top: 30px;color:red;">DITOLAK</p>
+            @if($status == 'DISETUJUI') <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:blue;">{{$status}}</p>
+            @elseif($status == "SEDANG BERJALAN") <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:green;">{{$status}}</p>
+            @elseif($status == 'DITOLAK') <p style="text-align: right; margin-right: 20px; margin-top: 30px;color:red;">{{$status}}</p>
             @endif
         </div>
     </div>
@@ -35,49 +35,6 @@
         </div>
         <br>
     </div> --}} -->
-    @if($proyek->approvalStatus == 1)
-    <div class="row ketengahin">
-        <div class="col-sm-7">
-            <div class="card card-info"style="width:800px;">
-                <div class="row judul">
-                
-                    <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
-                    <div class="col-sm-5 font-status-approval" style="margin-left:30px;">
-                        @if ($proyek->approvalStatus == 7)
-                        <a>PM : {{$pmName}}</a>
-                        @elseif ($proyek->approvalStatus == 6)
-                        <a href="/pm/kelola/{{$proyek->id}}">Belum ada PM</a>
-                        @endif
-                    </div>
-                </div>
-                <hr style="background-color:black;"/>
-                <div class="row">
-                    <div class="col-sm-5 font-desc-bold" style="margin-left: 30px;">
-                        <ul>
-                            <li><p>Nama Staf Marketing</p></li>
-                            <li><p>Nama Proyek</p></li>
-                            <li><p>Nama Perusahaan</p></li>
-                            <li><p>Nilai Proyek</p></li>
-                            <li><p>Estimasi Waktu Pengerjaan</p></li>
-                            <li><p>Alamat Proyek</p></li>
-                            <li><p>Deskripsi Proyek</p></li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-6 font-desc" >
-                        <ul>
-                            <li><p>:   {{ $proyek->name}}<p></li>
-                            <li><p>:   {{ $proyek->projectName}}<p></li>
-                            <li><p>:   {{ $proyek->companyName}}<p></li>
-                            <li><p>:   Rp{{ $proyek->projectValue}}<p></li>
-                            <li><p>:   {{ $proyek->estimatedTime}} hari<p></li>
-                            <li><p>:   {{ $proyek->projectAddress}}<p></li>
-                            <li><p class="deskripsi" style="margin-bottom:10px;" >: {{ $proyek->description}}<p></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @else
     <div class="row ketengahin">
         <div class="col-sm-7">
             <div class="card card-info">
@@ -119,7 +76,6 @@
                 </div>
             </div>
         </div>
-        @endif
         @if ($proyek->approvalStatus === 3)
         <div class="col-sm-2">
             <div class="card card-pm" style="margin-left: 90px">
@@ -134,6 +90,17 @@
                     @csrf
                     <button id="simpan" class="button-approve font-approval"  style="margin-left: 35px; margin-bottom: 10px">MENANG</button>
                 </form>
+            </div>
+        </div>
+        @elseif ($proyek->approvalStatus === 1)
+        <div class="col-sm-2">
+            <div class="card card-pm" style="margin-left: 90px">
+                <br>
+                <p class="font-subtitle-5">Berkas</p>
+                <hr/>
+                <br>
+                <a class="button-berkas-inactive" style="margin-left: 35px; margin-top: 35px; padding-top: 10px">Lelang</a>
+                <br>
             </div>
         </div>
         @elseif ( $proyek->approvalStatus === 2)
@@ -158,7 +125,7 @@
                 <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
                 @elseif( $proyek->approvalStatus === 5 || $proyek->approvalStatus === 6 )
-                <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
+                <button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
                 @elseif( $proyek->approvalStatus === 7 )
@@ -587,13 +554,13 @@
                         <br>
                 
                 @else
-                    @if($proyek->approvalStatus > 4 && $proyek->approvalStatus < 9)
+                    @if($kontrak==null)
                     <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
                     @else
                     <a href="{{ route('view-kontrak', $proyek->id) }}""><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">KONTRAK</button>
                     @endif
                 
-                    @if($proyek->approvalStatus == 7)
+                    @if($pelaksanaan->isempty())
                     <button class="button-disapprove" style="margin-left: 35px; border:2px solid #b5b5b5; border-radius:10px;color:#b5b5b5;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button>
                     @else
                     <a href="/pelaksanaan/{{$proyek->id}}"><button class="button-disapprove" style="margin-left: 35px;margin-top:5px; margin-bottom:5px;">LAPJUSIK</button></a>

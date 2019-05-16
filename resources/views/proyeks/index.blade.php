@@ -276,10 +276,6 @@
             @endif
             <h2  class="font-title" style="text-align:center;">Daftar Proyek Potensial</h2><hr>
             <div class="row">
-<<<<<<< HEAD
-
-=======
->>>>>>> dbea38049b482e10ade114b410c48a18a69004f9
                 <div class="col-md-9">
                     <div class="your-class">
                         @foreach($proyekPoten as $proyeks)
@@ -522,7 +518,7 @@
 @section ('content')
 @include('layouts.nav')
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb" style="margin-right:450px">
+    <ol class="breadcrumb" style="margin-left:30px">
         <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek') }}">Proyek</a></li>
     </ol>
 </nav>
@@ -537,11 +533,7 @@
                 </button>
             </div>
             @endif
-<<<<<<< HEAD
-            <h2 style="text-align:center;">Daftar Proyek Berjalan</h2><hr><hr>
-=======
             <h2 style="text-align:center;">Daftar Proyek Berjalan</h2><hr>
->>>>>>> dbea38049b482e10ade114b410c48a18a69004f9
             <div class="row">
                 @if(count($proyekPoten) > 0)
                 <div class="col-md-12">
