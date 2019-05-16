@@ -23,7 +23,6 @@
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
         <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
         <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="/proyek/detailProyek/{{ $proyek->id }}">Detail Proyek {{ $proyek->projectName }}</a></li>
     </ol>
@@ -182,9 +181,15 @@
 @endsection
 
 <!--INI BUAT STAFF MARKETING-->
-@elseif(Auth::user()->role == 3 || 2) 
+@elseif(Auth::user()->role == 3 || 2)
 @section ('content')
 @include('layouts.nav')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Proyek</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="/proyek/detailProyek/{{ $proyek->id }}">Detail Proyek {{ $proyek->projectName }}</a></li>
+    </ol>
+</nav>
 <body>
 <!-- isinya -->
 <div class="container-fluid card card-detail-proyek">
@@ -267,7 +272,6 @@
                 <span class="glyphicon glyphicon-eye-open"></span>
             </a>
             <a href="{{ route('file.download', $object->id) }}" title="Download file {{ $object->title }}">
-                <?php echo $object->id?>
                 <i class="glyphicon glyphicon-download"></i>
             </a>
         </td>
