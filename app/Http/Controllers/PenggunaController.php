@@ -106,7 +106,7 @@ class PenggunaController extends Controller
                     'pengguna_id' => $request->selected
                 ]);
             }
-            
+
             session()->flash('flash_message', 'PM telah ditambahkan.');
             return redirect('/proyek/lihat/'. $proyek_id); //GANTI REDIRECT KE HALAMAN DETAIL PROYEK
         }
