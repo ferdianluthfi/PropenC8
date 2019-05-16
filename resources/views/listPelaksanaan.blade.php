@@ -73,14 +73,25 @@
                                             <td>{{ date('F d' , strtotime($pelaksanaan->createdDate)) }}</td>
                                             <td><a href="/pelaksanaan/detail/{{$pelaksanaan->id}}" class="btn btn-primary">Lihat</a></td>
                                             @if(Auth::user()->role == 6)
-                                            <td><a a class="btn" style=" background-color: whitesmoke;  color: orange; border: 1px solid" href="/pelaksanaan/download/{{$pelaksanaan->id}}">Unduh</a></td>
-                                                <td>
-                                                <a class="btn" style=" background-color: whitesmoke;  color: red; border: 1px solid"  data-toggle="modal" data-target="#myModal-<?php echo $pelaksanaan->id ?>">
-                                                    <span>
-                                                        Hapus
-                                                    </span>
-                                                </a>
-                                                </td>
+                                                @if($pelaksanaan->approvalStatus == 1)
+                                                    <td><a a class="btn" style=" background-color: whitesmoke;  color: orange; border: 1px solid" href="/pelaksanaan/download/{{$pelaksanaan->id}}">Unduh</a></td>
+                                                    <td>
+                                                        <a class="btn" style=" background-color: whitesmoke;  color: grey; border: 1px solid">
+                                                            <span>
+                                                                Hapus
+                                                            </span>
+                                                        </a>
+                                                    </td>
+                                                @elseif($pelaksanaan->approvalStatus == 2 || $pelaksanaan->approvalStatus == 0)
+                                                    <td><a a class="btn" style=" background-color: whitesmoke;  color: grey; border: 1px solid">Unduh</a></td>
+                                                    <td>
+                                                        <a class="btn" style=" background-color: whitesmoke;  color: red; border: 1px solid"  data-toggle="modal" data-target="#myModal-<?php echo $pelaksanaan->id ?>">
+                                                            <span>
+                                                                Hapus
+                                                            </span>
+                                                        </a>
+                                                    </td>
+                                                @endif
                                             @endif
                                         </tr>
                                         
