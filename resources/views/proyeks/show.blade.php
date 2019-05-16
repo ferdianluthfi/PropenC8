@@ -366,7 +366,7 @@
                 <a href="{{ route('buat-kontrak', $proyek->id) }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">KONTRAK</button></a>
                 <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
-                @else ($proyek->approvalStatus == 6)
+                @elseif ($proyek->approvalStatus == 6)
                 <a href="/kelolaLelang/{{ $proyek->id }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button></a>
                 <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
