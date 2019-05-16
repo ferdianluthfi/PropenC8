@@ -42,7 +42,7 @@
 									<table id="datatable-1" class="table table-striped table-bordered text-center">
 										<thead>
 											<tr class="title" style="background-color: whitesmoke;">
-												<th><center>Nama Proyek</th>
+												<th><center>Nama Pengguna</th>
 												<th><center>Role</th>
 												<th><center>Status</th>
 												<th><center>Lihat</th>

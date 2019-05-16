@@ -1,5 +1,13 @@
 @extends('layouts.layout')
 <body>
+  <!-- Bootstrap CSS CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+     <!-- Our Custom CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type='text/css'>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    
 <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css') }}"/>		
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>		
 <style>		
@@ -111,7 +119,6 @@ box-sizing: border-box;
                                             <div class="responsive" style="margin-right:10px;">
                                                 <div class="gallery">
                                                     <a target="_blank">
-                                                        {{$foto->id}} {{$idKemajuan->id}}
                                                         <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
                                                     </a>
                                                 </div>
@@ -275,6 +282,7 @@ box-sizing: border-box;
           {{ $displayText }} 
           </p>
       </div>
+      @if(Auth::user()->role == 8)
       @if($interval)
       <div class="text-center">
           <input type="hidden" name="id" value="{{ $review->id }}"> <br/>
@@ -321,8 +329,9 @@ box-sizing: border-box;
   </div>
       @endif
       @endif
+      @endif
+      @endif
    </div>
-@endif
 </div>
 </body>
 @endsection
@@ -334,21 +343,17 @@ box-sizing: border-box;
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 	<script>
     var __slice = [].slice;
-
 (function($, window) {
   var Starrr;
-
   Starrr = (function() {
     Starrr.prototype.defaults = {
       rating: void 0,
       numStars: 5,
       change: function(e, value) {}
     };
-
     function Starrr($el, options) {
       var i, _, _ref,
         _this = this;
-
       this.options = $.extend({}, this.defaults, options);
       this.$el = $el;
       _ref = this.defaults;
@@ -371,17 +376,14 @@ box-sizing: border-box;
       });
       this.$el.on('starrr:change', this.options.change);
     }
-
     Starrr.prototype.createStars = function() {
       var _i, _ref, _results;
-
       _results = [];
       for (_i = 1, _ref = this.options.numStars; 1 <= _ref ? _i <= _ref : _i >= _ref; 1 <= _ref ? _i++ : _i--) {
         _results.push(this.$el.append("<span class='glyphicon .glyphicon-star-empty'></span>"));
       }
       return _results;
     };
-
     Starrr.prototype.setRating = function(rating) {
       if (this.options.rating === rating) {
         rating = void 0;
@@ -390,10 +392,8 @@ box-sizing: border-box;
       this.syncRating();
       return this.$el.trigger('starrr:change', rating);
     };
-
     Starrr.prototype.syncRating = function(rating) {
       var i, _i, _j, _ref;
-
       rating || (rating = this.options.rating);
       if (rating) {
         for (i = _i = 0, _ref = rating - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
@@ -409,18 +409,14 @@ box-sizing: border-box;
         return this.$el.find('span').removeClass('glyphicon-star').addClass('glyphicon-star-empty');
       }
     };
-
     return Starrr;
-
   })();
   return $.fn.extend({
     starrr: function() {
       var args, option;
-
       option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
       return this.each(function() {
         var data;
-
         data = $(this).data('star-rating');
         if (!data) {
           $(this).data('star-rating', (data = new Starrr($(this), option)));
@@ -432,11 +428,9 @@ box-sizing: border-box;
     }
   });
 })(window.jQuery, window);
-
 $(function() {
   return $(".starrr").starrr();
 });
-
 	$( document ).ready(function() {
         $('#stars').on('starrr:change', function(e, value){
             $('#rating-star').val(value);
@@ -445,9 +439,7 @@ $(function() {
         $('#stars-existing').on('starrr:change', function(e, value){
             $('#count-existing').html(value);
         });
-
         $("#add-review").click(function(e){
-
         });
         $('.your-class').slick({
             infinite: true,				
@@ -463,7 +455,6 @@ $(function() {
           $("#myMod").modal("show");
           
         });
-
     @if($review==null)    
 		$("#simpan").click(function(e){
 			e.preventDefault();
@@ -475,7 +466,6 @@ $(function() {
             }
             var rating_star = $("#rating-star").val()
             var komentar = $("#komentar").val()
-
             if (rating_star != "" && komentar != "") {
               $.ajax({
                 url:'/pelaksanaan/detail/{{ $pelaksanaan->id }}/review/add',
@@ -505,7 +495,6 @@ $(function() {
                 'idReview': parseInt('{{$review->id}}'),
                 '_token': "{{ csrf_token() }}"
             }
-
 			$.ajax({
                 url:'/pelaksanaan/detail/{{ $pelaksanaan->id }}/review/edit',
                 method: "POST",
@@ -523,12 +512,10 @@ $(function() {
       rating: parseInt('{{ $review->rating }}'), 
       readOnly: true 
     });
-
     @endif
 		$("#OK").click(function(e){
 		   $('#save').submit();
 		});
-
         $("#tolak").click(function(e){
 			e.preventDefault();
 			//checks if it's valid

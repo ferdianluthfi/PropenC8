@@ -311,11 +311,20 @@
                     <div class="col-sm-6 font-subtitle-4">Informasi Umum</div>
                     <div class="col-sm-2"></div>
                     <div class="col-sm-3 font-status-approval" style="margin-left:30px;">
+                        @if(Auth::user()->role == 4)
+                        @if ($proyek->approvalStatus == 6)
+                        <a>Belum ada PM</a>
+                        @elseif ($proyek->approvalStatus == 7)
+                        <a>PM : {{$pmName}}</a>
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        @endif
+
+                        @else
                         @if ($proyek->approvalStatus == 6)
                         <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right; color:#63A2F6;">+ Tambah PM</a>
                         @elseif ($proyek->approvalStatus == 7)
                         <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right; color:#63A2F6;">{{$pmName}}<span class="glyphicon glyphicon-pencil"></span></a>
-                        
+                        @endif
                         @endif
                     </div>
                 </div>
