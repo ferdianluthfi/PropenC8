@@ -12,6 +12,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use PDF;
 
+use App\Assignment;
 use App\KelengkapanLelang;
 use App\Files;
 use App\ListTemplateSurat;
@@ -43,9 +44,15 @@ class KontrakController extends Controller
     public function berkasSurat(request $request, $id){
         
         $proyek = DB::table('proyeks')->select('*')->where('id', $id)->first();
-        
         $alamatP = $request->alamatKlien;
-        $kontakP =$request->contactPerson;
+        $kontakP =$request->namaKlien;
+
+        DB::table('assignments')->insert([
+            'klien_id' => $kontakP,
+            'proyek_id' => $proyek->id,
+            'assignmentDate' => now('GMT+7')
+        ]);
+    
 
         return $this->generateSurat($id, $alamatP, $kontakP);
     }
