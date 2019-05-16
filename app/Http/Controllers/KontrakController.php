@@ -52,7 +52,6 @@ class KontrakController extends Controller
             'proyek_id' => $proyek->id,
             'assignmentDate' => now('GMT+7')
         ]);
-    
 
         return $this->generateSurat($id, $alamatP, $kontakP);
     }
