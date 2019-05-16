@@ -350,6 +350,7 @@ box-sizing: border-box;
       @endif
    </div>
 </div>
+@endif
 </body>
 @endsection
 

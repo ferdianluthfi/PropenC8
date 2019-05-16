@@ -330,6 +330,7 @@ box-sizing: border-box;
       @endif
    </div>
 </div>
+@endif
 </body>
 @endsection
 
@@ -545,6 +546,7 @@ $(function() {
 		$("#NO").click(function(e){
 		   $('#reject').submit();
 		});
-  	});
+    });
+    
 	</script>
 @endsection 
