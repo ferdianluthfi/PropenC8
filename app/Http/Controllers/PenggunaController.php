@@ -53,6 +53,7 @@ class PenggunaController extends Controller
 //        dd($request->desc);
 //        $proyek_id = 1;
         $proyek_id = $request->proyek_id;
+        $pengguna_id = $request->pengguna_id;
         $proyek = DB::table('proyeks')->where('id',$proyek_id)->first();
 
         $validator = Validator::make($request->all(), [
@@ -67,20 +68,15 @@ class PenggunaController extends Controller
                 ->withInput();
             //    return $request->all();
         } else {
-            //edit PM
-            if (Assignment::where('proyek_id', '=', $proyek_id)->exists()) {
-                DB::table('assignments')->where('proyek_id', $proyek_id)->update([
-                    'pengguna_id' => $request->selected
-                ]);
 
-            }
-            //add PM baru
-            else {
-//                kalo udh masuk klien dari punya jeki, disini jadi update dan proyek id dan assignment date dikomen aja
-                DB::table('assignments')->insert([
-                    'pengguna_id' => $request->selected,
-                    'proyek_id' => $proyek_id,
-                    'assignmentDate' => DB::raw('now()')
+//            $assignment = Assignment::where('proyek_id', '=', $proyek_id);
+//            if ($assignment->pengguna_id)
+
+            //new add pm
+            if ((Assignment::where('proyek_id', '=', $proyek_id)) && ($pengguna_id == 0))
+            {
+                DB::table('assignments')->where('proyek_id',$proyek_id)->update([
+                    'pengguna_id' => $request->selected
                 ]);
                 DB::table('proyeks')->where('id',$proyek_id)->update([
                     'approvalStatus' => 7,
@@ -98,12 +94,56 @@ class PenggunaController extends Controller
                             'weightPercentage' => $nomObj/$val,
                             'workCurrentValue' => 0,
                             'proyek_id' => $proyek_id
-                            ]);
+                        ]);
 //                        dd($nomObj/$val);
                     }
                 }
-
             }
+
+//            new edit pm
+            else {
+                DB::table('assignments')->where('proyek_id', $proyek_id)->update([
+                    'pengguna_id' => $request->selected
+                ]);
+            }
+
+            //edit PM
+//            if (Assignment::where('pengguna_id', '=', $proyek_id)->exists() ) {
+//                DB::table('assignments')->where('proyek_id', $proyek_id)->update([
+//                    'pengguna_id' => $request->selected
+//                ]);
+//
+//            }
+//            //add PM baru
+//            else {
+////                kalo udh masuk klien dari punya jeki, disini jadi update dan proyek id dan assignment date dikomen aja
+//                DB::table('assignments')->insert([
+//                    'pengguna_id' => $request->selected,
+//                    'proyek_id' => $proyek_id,
+//                    'assignmentDate' => DB::raw('now()')
+//                ]);
+//                DB::table('proyeks')->where('id',$proyek_id)->update([
+//                    'approvalStatus' => 7,
+//                ]);
+//                if (($request->desc != null) && ($request->num != null)){
+//                    $des = $request->desc;
+//                    $nominal = $request->num;
+//                    for($i = 0; $i < sizeOf($des); $i++){
+//                        $descObj = $des[$i];
+//                        $nomObj = $nominal[$i];
+//                        $val = $proyek->projectValue;
+//                        DB::table('jenis_pekerjaan')->insert([
+//                            'name' => $descObj,
+//                            'workTotalValue' => $nomObj,
+//                            'weightPercentage' => $nomObj/$val,
+//                            'workCurrentValue' => 0,
+//                            'proyek_id' => $proyek_id
+//                            ]);
+////                        dd($nomObj/$val);
+//                    }
+//                }
+//
+//            }
             session()->flash('flash_message', 'PM telah ditambahkan.');
             return redirect('/proyek/lihat/'. $proyek_id); //GANTI REDIRECT KE HALAMAN DETAIL PROYEK
         }

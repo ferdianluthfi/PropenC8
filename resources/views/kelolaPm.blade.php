@@ -29,6 +29,7 @@
     <p class="font-subtitle-1">Ubah PM</p>
     <form action="/pm/update" method="post" id="editPM">
         <input type="hidden" name="proyek_id" value="{{ $proyek_id }}">
+        <input type="hidden" name="pengguna_id" value="{{ $choosenPmId }}">
         {{ csrf_field() }}
         {{ method_field('post') }}
         <table id="datatable" class="table table-striped table-bordered" >
