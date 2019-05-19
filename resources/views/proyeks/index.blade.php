@@ -186,11 +186,7 @@
                             @elseif($proyeks->approvalStatus === 7) <td style="color:limegreen;">Sedang dikerjakan</td>
                             @elseif($proyeks->approvalStatus === 8) <td style="color:limegreen;">Proyek selesai</td>
                             @endif
-                            @if($proyeks->approvalStatus === 4)
-                            <td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
-                                @else
                             <td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
-                                @endif
                         </tr>
                         @elseif($proyeks->approvalStatus === 9)
                         <tr style="background-color: whitesmoke;">
@@ -210,10 +206,7 @@
 </div>
 </div>
 </div>
-<!-- ini adalah Data table dari Proyek -->	
 @endsection
-
-
 
 <!--INI PUNYA SI PROGRAM MANAGERR-->
 @elseif(Auth::user()->role == 5)
@@ -261,6 +254,7 @@
     <br>
 </div>
 @endsection
+
 <!-- INI PUNYA DIREKSI -->
 @elseif(Auth::user()->role == 2)
 @section ('content')
@@ -445,14 +439,14 @@
 @section ('content')
 @include('layouts.nav')
 	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb" style="margin-left:50px;">
+		<ol class="breadcrumb" style="margin-left:0px;">
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek') }}">Proyek</a></li>
 		</ol>
 	</nav>
 
 	<div class="container">
-		<div class="row bigCard">
+		<div class="row bigCard"style="margin-left:-30px;">
 			<div class="col-md-12">
 				@if(session('flash_message'))
 					<div class="alert alert-success alert-dismissible" style="margin: 15px;" role="alert">
@@ -524,7 +518,7 @@
 @section ('content')
 @include('layouts.nav')
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb" style="margin-right:450px">
+    <ol class="breadcrumb" style="margin-left:30px">
         <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="{{ url('proyek') }}">Proyek</a></li>
     </ol>
 </nav>
@@ -565,6 +559,7 @@
 </div>
 @endsection
 @endif
+
 @section('scripts')
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js" integrity="sha256-+h0g0j7qusP72OZaLPCSZ5wjZLnoUUicoxbvrl14WxM=" crossorigin="anonymous"></script>

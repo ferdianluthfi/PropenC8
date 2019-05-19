@@ -7,6 +7,10 @@ table {
   width: 100%;
 }
 
+.page-break {
+    page-break-after: always;
+}
+
 td, th {
   border: 1px solid black;
   text-align: center;

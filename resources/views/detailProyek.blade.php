@@ -2,7 +2,7 @@
 
 @section ('content')
 @include('layouts.nav')
-
+<!-- kemajuan proyek -->
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('assignedproyek') }}">Daftar Proyek</a></li>

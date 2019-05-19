@@ -66,6 +66,9 @@ class KelengkapanLelangController extends Controller
             'proyek_id' => $request->proyekId
         ]);
         session()->flash('flash_message', 'File %s has been uploaded., $file->title');
+        DB::table('proyeks')->where('id',$proyek->id)->update([
+            'approvalStatus' => 3,
+        ]);
         return $this->kelolaBerkas($proyek->id);
     }
     
@@ -81,7 +84,7 @@ class KelengkapanLelangController extends Controller
      */
     public function downloadKelengkapanLelang(KelengkapanLelang $file)
     {
-        dd($file->path);
+//        dd($file->path);
         return Storage::download($file->path, $file->filename . '.' . $file->ext);
     }
     public function deleteKelengkapanLelang(KelengkapanLelang $file)
@@ -122,6 +125,10 @@ class KelengkapanLelangController extends Controller
         
         $pdf->download($proyek->projectName . ' - ' . $dokumenname . '.pdf');
 
+        DB::table('proyeks')->where('id',$proyek->id)->update([
+            'approvalStatus' => 3,
+        ]);
+
         return redirect()
             ->back()
             ->withSuccess(sprintf('File %s has been generated.', $file->filename));
@@ -155,7 +162,11 @@ class KelengkapanLelangController extends Controller
         ]);
 
         $pdf->download($proyek->projectName . ' - ' . $dokumenname . '.pdf');
-        
+
+        DB::table('proyeks')->where('id',$proyek->id)->update([
+            'approvalStatus' => 3,
+        ]);
+
         return redirect()
             ->back()
             ->withSuccess(sprintf('File %s has been generated.', $file->filename));

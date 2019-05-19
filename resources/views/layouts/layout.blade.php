@@ -10,17 +10,26 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
      <!-- Our Custom CSS -->
-     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type='text/css'>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     
 
 </head>
 <body>
-
-
+<div class="konten">
+  <div class="konten-inside">
+      
     @yield('content')
     
 
     @yield('scripts')
+
+  </div>
+</div>
+
+<footer class="footer"style="background-color:#fff; padding-top:4px;">
+  <p class="font-desc" style="text-align:center; color:#3378D3;">© Developed with passion by PROPENSI C8. All rights reserved.</p>
+</footer>
+
 </body>
 </html>

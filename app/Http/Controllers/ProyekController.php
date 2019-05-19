@@ -30,7 +30,7 @@ class ProyekController extends Controller
     { if(\Auth::user()->role == 3){
             // $proyek = DB::table('proyeks')->orderBy('created_at','desc')->get();
             $status = "";
-            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',1)->where('pengguna_id', \Auth::user()->id)->get();
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',1)->get();
             $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
             $proyekLelang = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 3)->get();
             $proyekPasca = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus',5) ->orWhere('approvalStatus',6) ->orWhere('approvalStatus',7) ->orWhere('approvalStatus',8) ->orWhere('approvalStatus',9)->get();
@@ -82,11 +82,12 @@ class ProyekController extends Controller
             return view('proyeks.index',compact('proyekPoten', 'proyekNonPoten', 'proyekLelang', 'proyekPasca', 'status'));
         }
         elseif(\Auth::user()->role == 5){
-            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->orWhere('approvalStatus', 3)->get();
             return view('proyeks.index',compact('proyekPoten'));
         }
         elseif(\Auth::user()->role == 6 or \Auth::user()->role == 4){
-            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 6)->orWhere('approvalStatus', 7)->get();
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus', 5)
+            ->orwhere('approvalStatus', 6)->orWhere('approvalStatus', 7)->get();
             return view('proyeks.index',compact('proyekPoten'));
         }
 
@@ -97,11 +98,11 @@ class ProyekController extends Controller
         }
         
         elseif(\Auth::user()->role == 2){
-            $proyekPoten = DB::table('proyeks')->select('projectName', 'companyName', 'id')
-                ->where('approvalStatus',1)->get();
+            $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',1)->get();
             $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
             $proyekLelang = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 3)->get();
-            $proyekPasca = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus',5) ->orWhere('approvalStatus',6) ->orWhere('approvalStatus',7) ->orWhere('approvalStatus',8) ->orWhere('approvalStatus',9)->get();
+            $proyekPasca = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus',5) 
+            ->orWhere('approvalStatus',6) ->orWhere('approvalStatus',7) ->orWhere('approvalStatus',8) ->orWhere('approvalStatus',9)->get();
 
             
             foreach($proyekNonPoten as $proyeg){
@@ -203,6 +204,7 @@ class ProyekController extends Controller
                     $choosenPmId = $choosenPmFromAssignment->pengguna_id;
                     $pm = DB::table('users')->where('id', $choosenPmId)->first();
                     $pmName = $pm->name;
+                    return view('proyeks/show',compact('id', 'proyeks', 'status', 'pmName', 'kontrak', 'pelaksanaan'));
                 }
             }
             elseif($statusNum == 9){
@@ -364,34 +366,34 @@ class ProyekController extends Controller
         }
         return view('approveProyekPoten', compact('proyek', 'status'));
     }
-    public function projectDetailWithoutApprove($id){
-        $proyek = DB::table('proyeks') ->select('*') -> where('id', $id) -> get()->first();
-        $formatValue = number_format($proyek->projectValue, 2, ',','.');
-        $proyek->projectValue = $formatValue;
-        $status;
-        $statusNum = $proyek-> approvalStatus;
-        if($statusNum == 1){
-            $status = "MENUNGGU PERSETUJUAN";
-        }
-        elseif($statusNum == 2){
-            $status = "DISETUJUI DIREKSI";
-        }
-        elseif($statusNum == 3){
-            $status = "SEDANG BERJALAN";
-        }
-        elseif($statusNum == 9){
-            $status = "DITOLAK";
-        }
-        $kontrak = DB::table('kontraks')->select('id')->where('proyek_id', $id)->first();
-        // dd($kontrak);
-        if($kontrak != null){
-            $statusKontrak = "true";
-        }
-        else{
-            $statusKontrak = "false";
-        }
-        return view('projectDetail', compact('proyek', 'status', 'statusKontrak'));
-    }
+    // public function projectDetailWithoutApprove($id){
+    //     $proyek = DB::table('proyeks') ->select('*') -> where('id', $id) -> get()->first();
+    //     $formatValue = number_format($proyek->projectValue, 2, ',','.');
+    //     $proyek->projectValue = $formatValue;
+    //     $status="";
+    //     $statusNum = $proyek-> approvalStatus;
+    //     if($statusNum == 1){
+    //         $status = "MENUNGGU PERSETUJUAN";
+    //     }
+    //     elseif($statusNum == 2){
+    //         $status = "DISETUJUI DIREKSI";
+    //     }
+    //     elseif($statusNum == 3){
+    //         $status = "SEDANG BERJALAN";
+    //     }
+    //     elseif($statusNum == 9){
+    //         $status = "DITOLAK";
+    //     }
+    //     $kontrak = DB::table('kontraks')->select('id')->where('proyek_id', $id)->first();
+    //     // dd($kontrak);
+    //     if($kontrak != null){
+    //         $statusKontrak = "true";
+    //     }
+    //     else{
+    //         $statusKontrak = "false";
+    //     }
+    //     return view('projectDetail', compact('proyek', 'status', 'statusKontrak'));
+    // }
     public function approveProject($id){
         $proyekz = DB::table('proyeks')
             ->where('id', $id)

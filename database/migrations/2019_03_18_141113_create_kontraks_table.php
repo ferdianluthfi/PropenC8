@@ -16,17 +16,20 @@ class CreateKontraksTable extends Migration
         Schema::create('kontraks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('approvalStatus'); //ToDo bikin kode buat approval status mau apa
+            // status  = 1 : menunggu persetujuan
+            //         = 2 : Disetujui
+            //         = 3 : Ditolak
             $table->string('title', 100);
             $table->string('filename', 100);
             $table->string('path', 100);
             $table->string('ext', 100);
-
             $table->bigInteger('proyek_id')->unsigned();
             $table->foreign('proyek_id')
             ->references('id')
             ->on('proyeks')
             ->onUpdate('cascade')
             ->onDelete('cascade');
+            $table->integer('flag_active');
 
             /**
              * 
