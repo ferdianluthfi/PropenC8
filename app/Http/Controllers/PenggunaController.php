@@ -62,7 +62,7 @@ class PenggunaController extends Controller
 //            'num[]' => 'required'
         ]);
         if($validator->fails()) {
-            session()->flash('error', 'PM dan Kategori Pekerjaan harus diisi');
+            session()->flash('error', 'PM harus diisi');
             return redirect('/pm/kelola/'.$proyek_id) //GANTI REDIRECT KE HALAMAN DETAIL PROYEK
             ->withErrors($validator)
                 ->withInput();
