@@ -131,8 +131,8 @@ box-sizing: border-box;
                         @endif
                 </div>
             </div>
-        </div>
-    </div>
+        </div> 
+    </div> <br>
     @endforeach
 </div>
 

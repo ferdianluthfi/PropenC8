@@ -14,6 +14,54 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+        }
+
+        /* Tooltip text */
+        .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+
+        /* Position the tooltip text */
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -60px;
+
+        /* Fade in tooltip */
+        opacity: 0;
+        transition: opacity 0.3s;
+        }
+
+        /* Tooltip arrow */
+        .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+        }
+    </style>
 </head>
 
 <body>
@@ -26,6 +74,7 @@
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active">Tambah Informasi Proyek</a></li>
   </ol>
 </nav>
+
             <div class="container" nonvalidate="nonvalidate" id="jqueryvalidation">
 
                 @if(session()->has('flash_message'))
@@ -37,8 +86,25 @@
                 <p class="font-title" style="text-align:center;margin-top:-35px;">Tambah Informasi Proyek</p> <br>
                     {{ csrf_field() }}
 
+                    <?php $strJenis = "Kategori dari pekerjaan yang dilakukan dalam sebuah proyek. Jenis pekerjaan terbagi menjadi 3 jenis yaitu Gaji, Belanja dan Administrasi."?>
+                    <?php $strUraian = "???"?>
+                    <?php $strDeskripsi = "Deskripsi lanjutan yang dapat diberikan untuk memperjelas sebuah informasi kemajuan. Contoh: Lantai 1, Lantai 2, dst."?>
+                    <?php $strTanggal = "Tanggal dimana suatu kemajuan proyek terlaksana."?>
+                    <?php $strNominal = "Total biaya yang dikeluarkan perusahaan untuk pengerjaan suatu kemajuan proyek."?>
+                    <?php $strFoto = "Daftar foto pendukung yang berfungsi sebagai bukti kemajuan pada suatu proyek."?>
+
                     <div class="content bg1">
-                        <span class="labels font-subtitle-5">Uraian Pekerjaan</span>
+                        <span class="labels font-subtitle-5" href="#" data-toggle="tooltip" title="<?php echo $strJenis ?>" data-placement="right">Jenis Informasi</span>
+                        <select name="tipekemajuan" class="content bg1" style="background-color:white">
+                            <option value="1" >Gaji</option>
+                            <option value="2" >Belanja</option>
+                            <option value="3" >Administrasi</option>
+                        </select>
+                    </div>
+
+
+                    <div class="content bg1">
+                        <span class="labels font-subtitle-5" href="#" data-toggle="tooltip" title="<?php echo $strUraian ?>" data-placement="right">Uraian Pekerjaan</span>
                         <select name="tipepekerjaan" class="content bg1" style="background-color:white">
                             @foreach($pekerjaan as $tipe)
                                 <option value="{{$tipe->id}}">{{$tipe->name}}</option>
@@ -47,34 +113,25 @@
                     </div>
 
                     <div class="content bg1">
-                        <span class="labels font-subtitle-5">Deskripsi Tambahan</span>
+                        <span class="labels font-subtitle-5" href="#" data-toggle="tooltip" title="<?php echo $strDeskripsi ?>" data-placement="right">Deskripsi Tambahan</span>
                         <input type="text" name="description" class="inputs" placeholder="Masukkan Deskripsi Kemajuan Tambahan" data-error=".errorDescription">
                         <div class="errorMessage errorDescription"></div>
                     </div>
     
                     <div class="content bg1">
-                        <span class="labels font-subtitle-5">Tanggal Informasi</span>
+                        <span class="labels font-subtitle-5" href="#" data-toggle="tooltip" title="<?php echo $strTanggal ?>" data-placement="right">Tanggal Informasi</span>
                         <input type="date" name="reportdate" min="<?php echo $minDate ?>" max = "<?php echo $maxDate ?>" class="inputs" data-error=".errorDate" >
                         <div class="errorMessage errorDate"></div>
                     </div>
 
                     <div class="content bg1">
-                        <span class="labels font-subtitle-5">Jenis Informasi</span>
-                        <select name="tipekemajuan" class="content bg1" style="background-color:white">
-                            <option value="1" >Gaji</option>
-                            <option value="2" >Belanja</option>
-                            <option value="3" >Administrasi</option>
-                        </select>
-                    </div>
-
-                    <div class="content bg1">
-                        <span class="labels font-subtitle-5">Nilai Kemajuan</span>
+                        <span class="labels font-subtitle-5" href="#" data-toggle="tooltip" title="<?php echo $strNominal ?>" data-placement="right">Nominal</span>
                             <input type="number" name="nilai" class="inputs" placeholder="Rp xxx.xxx.xxx" data-error=".errorVal">
                             <div class="errorMessage errorVal"></div>
                     </div>
 
                     <div class="form-group {{ !$errors->has('file') ?: 'has-error' }} content bg1">
-                        <span class="labels font-subtitle-5">Foto</span>
+                        <span class="labels font-subtitle-5" href="#" data-toggle="tooltip" title="<?php echo $strFoto ?>" data-placement="right">Foto</span>
 
                         <table class="table table-borderless" id="dynamic_field">  
                             <tr>  
@@ -149,6 +206,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
         <script>
         $( document ).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
             var postURL = "<?php echo url('addmore'); ?>";
             console.log(postURL);
             var i=1;  
