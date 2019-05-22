@@ -22,7 +22,7 @@
         <div class="col-sm-6">
             @if($proyek->approvalStatus == 2 || $proyek->approvalStatus == 3 || $proyek->approvalStatus == 5 || $proyek->approvalStatus == 6) <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:blue;">DISETUJUI</p>
             @elseif($proyek->approvalStatus == 1 || $proyek->approvalStatus == 4 || $proyek->approvalStatus == 7 || $proyek->approvalStatus == 8 ) <p style="text-align: right; margin-right: 20px; margin-top: 30px; color:green;">MENUNGGU PERSETUJUAN</p>
-            @elseif($proyek->approvalStatus == 9) <p style="text-align: right; margin-right: 20px; margin-top: 30px;color:red;">DITOLAK</p>
+            @elseif($proyek->approvalStatus == 9 || $proyek->approvalStatus == 10) <p style="text-align: right; margin-right: 20px; margin-top: 30px;color:red;">DITOLAK</p>
             @endif
         </div>
     </div>
@@ -76,7 +76,7 @@
                 </div>
             </div>
         </div>
-        @if ($proyek->approvalStatus === 3)
+        @if ($proyek->approvalStatus == 3)
         <div class="col-sm-2">
             <div class="card card-pm" style="margin-left: 90px">
                 <br>
@@ -92,7 +92,7 @@
                 </form>
             </div>
         </div>
-        @elseif ($proyek->approvalStatus === 1)
+        @elseif ($proyek->approvalStatus == 1)
         <div class="col-sm-2">
             <div class="card card-pm" style="margin-left: 90px">
                 <br>
@@ -103,7 +103,7 @@
                 <br>
             </div>
         </div>
-        @elseif ( $proyek->approvalStatus === 2)
+        @elseif ( $proyek->approvalStatus == 2)
         <div class="col-sm-2">
             <div class="card card-pm" style="margin-left: 90px">
                 <br>
@@ -120,27 +120,27 @@
                 <br>
                 <p class="font-subtitle-5">Berkas</p>
                 <hr/>
-                @if ($proyek->approvalStatus === 4)
+                @if ($proyek->approvalStatus == 4)
                 <a href="{{ route('buat-kontrak', $proyek->id) }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">KONTRAK</button></a>
                 <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
-                @elseif( $proyek->approvalStatus === 5)
+                @elseif( $proyek->approvalStatus == 5)
                 <a href="{{ route('view-kontrak', $proyek->id) }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">KONTRAK</button></a>
                 <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
-                @elseif( $proyek->approvalStatus === 6)
+                @elseif( $proyek->approvalStatus == 6)
                 <a href="{{ route('view-kontrak', $proyek->id) }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">KONTRAK</button></a>
                 <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
-                @elseif( $proyek->approvalStatus === 7 )
+                @elseif( $proyek->approvalStatus == 7 )
                 <button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
                 <button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
-                @elseif( $proyek->approvalStatus === 8 )
+                @elseif( $proyek->approvalStatus == 8 )
                 <button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
                 <button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                 <button class="button-berkas" style="margin-left: 35px">LPJ</button>
-                @elseif($proyek-> approvalStatus === 9)
+                @elseif($proyek-> approvalStatus == 9 || $proyek-> approvalStatus == 10)
                 <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">Kontrak</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                 <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
@@ -417,7 +417,8 @@
             <div class="col-sm-10">
                 <p class="font-subtitle-2"></p>
             </div>
-        </div> <hr>
+        </div>
+        <br>
     </div>
     <div class="row ketengahin">
         <div class="col-sm-8">
@@ -558,7 +559,7 @@
                 
                 @else
 
-                    @if ($proyek->approvalStatus === 5 || $proyek->approvalStatus == 6)
+                    @if ($proyek->approvalStatus == 5 || $proyek->approvalStatus == 6)
                     <a href="{{ route('view-kontrak', $proyek->id) }}"><button class="button-berkas" style="margin-left: 35px; margin-bottom: 10px; margin-top: 5px">KONTRAK</button></a>
                     <button class="button-berkas-inactive" style="margin-left: 35px; margin-bottom: 10px">LAPJUSIK</button>
                     <button class="button-berkas-inactive" style="margin-left: 35px">LPJ</button>
@@ -577,12 +578,9 @@
 
             </div>
         </div>
-
     </div>
 </div>
 @endforeach
 @endsection
-
-
 
 @endif
