@@ -143,8 +143,8 @@
                     <p>Jika proses dibatalkan, perubahan tidak akan disimpan.</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="/informasi/{{$proyek->id}}" class="btn btn-default" style="color:red;">Iya</a>
-                    <a href="/info/edit/{{$kemajuans->id}}" class="btn btn-primary ">Tidak</a>
+                    <center><a href="" class="btn btn-primary ">Tidak</a>
+                    <a href="/informasi/{{$proyek->id}}" class="btn btn-default" style="color:red;">Iya</a></center>
                 </div>
             </div>
             </div>

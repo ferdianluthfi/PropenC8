@@ -75,14 +75,25 @@
                                             <td>{{ date('F d' , strtotime($pelaksanaan->createdDate)) }}</td>
                                             <td><a href="/pelaksanaan/detail/{{$pelaksanaan->id}}" class="btn btn-primary">Lihat</a></td>
                                             @if(Auth::user()->role == 6)
-                                            <td><a a class="btn" style=" background-color: whitesmoke;  color: orange; border: 1px solid" href="/pelaksanaan/download/{{$pelaksanaan->id}}">Unduh</a></td>
-                                                <td>
-                                                <a class="btn" style=" background-color: whitesmoke;  color: red; border: 1px solid"  data-toggle="modal" data-target="#myModal-<?php echo $pelaksanaan->id ?>">
-                                                    <span>
-                                                        Hapus
-                                                    </span>
-                                                </a>
-                                                </td>
+                                                @if($pelaksanaan->approvalStatus == 1)
+                                                    <td><a a class="btn" style=" background-color: whitesmoke;  color: orange; border: 1px solid" href="/pelaksanaan/download/{{$pelaksanaan->id}}">Unduh</a></td>
+                                                    <td>
+                                                        <a class="btn" style=" background-color: whitesmoke;  color: grey; border: 1px solid">
+                                                            <span>
+                                                                Hapus
+                                                            </span>
+                                                        </a>
+                                                    </td>
+                                                @elseif($pelaksanaan->approvalStatus == 2 || $pelaksanaan->approvalStatus == 0)
+                                                    <td><a a class="btn" style=" background-color: whitesmoke;  color: grey; border: 1px solid">Unduh</a></td>
+                                                    <td>
+                                                        <a class="btn" style=" background-color: whitesmoke;  color: red; border: 1px solid"  data-toggle="modal" data-target="#myModal-<?php echo $pelaksanaan->id ?>">
+                                                            <span>
+                                                                Hapus
+                                                            </span>
+                                                        </a>
+                                                    </td>
+                                                @endif
                                             @endif
                                         </tr>
                                         
@@ -115,7 +126,7 @@
 
 
     <div class="container-fluid col-md-6" style="width:300px;" >
-        <div  class="row card card-tombol" style="min-height:333px; width:300px; padding:10px;margin-left: 1000px; margin-top:-333px">
+        <div  class="row card card-tombol" style="min-height:295px; width:300px; padding:10px;">
             <div class="row judul">
                 <div class="font-subtitle-5" style="text-align: center;margin-left:-20px;margin-top:-10px">Buat Ulang LAPJUSIK</div>
             </div> <hr>

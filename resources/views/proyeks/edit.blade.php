@@ -82,22 +82,23 @@
 						<textarea class="inputs" type="text" name="projectAddress" data-error=".errorProjectAdd"> {{ $proyek->projectAddress }} </textarea>
 						<div class="errorMessage errorProjectAdd"></div>
 			</div>
-		<div class="container1-btn" >
-			<a class="container1-form-btn" data-toggle="modal" data-target="#myModal" style="width:150px;margin-top:0px;margin-left:300px;">
-				<span>
-					Batal
-				</span>
-			</a>
-		</div>
-			
-
-		<div class="container-btn">
-			<button class="container-form-btn" id="simpan" style="width:150px;margin-top:0px;margin-left:-400px;">
-					<span>
-						Simpan
-					</span>
-			</button>
-		</div>
+            <div class="row">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-2">
+                <a class="button-disapprove font-approval" data-toggle="modal" data-target="#myModal" style="padding-top: 10px">
+                    <span>
+                        BATAL
+                    </span>
+                </a>
+            </div>
+            <div class="col-sm-2">
+                <button class="button-approve font-approval" id="simpan">
+                    <span>
+                        SIMPAN
+                    </span>
+                </button>
+            </div>
+        </div>
 		</form>
 		@endforeach
 	</div>

@@ -1,5 +1,13 @@
 @extends('layouts.layout')
 <body>
+  <!-- Bootstrap CSS CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+     <!-- Our Custom CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type='text/css'>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    
 <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css') }}"/>		
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>		
 <style>		
@@ -38,7 +46,7 @@ box-sizing: border-box;
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb"style="margin-left:120px;">
-    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="#">Daftar Proyek</a></li>  
+    <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/proyek">Daftar Proyek</a></li>  
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="/pelaksanaan/{{$pelaksanaan->proyek_id}}">LAPJUSIK Proyek {{$namaProyek}}</a></li>
     <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" href="">Detail LAPJUSIK</a></li>
   </ol>
@@ -80,23 +88,23 @@ box-sizing: border-box;
 
                 <div class="col-sm-8 font-desc">
                     <ul>
-                        <li><p>{{ $pekerjaan->name }}</li> 
-                        <li><p style="color:#00C48C">Rp {{ number_format($pekerjaan->workTotalValue, 2) }}<p></li>
-                        <li><p>{{$pekerjaan->workTotalValue / $valueProyek * 100 }}%<p></li>
+                      <li><p>{{ $pekerjaan->name }}</li> 
+                      <li><p>Rp {{ number_format($pekerjaan->workTotalValue, 2) }}<p></li>
+                      <li><p>{{$pekerjaan->workTotalValue / $valueProyek * 100 }}%<p></li>
 
-                        @foreach($biayaKeluar as $biaya)
-                            @if($pekerjaan->id == $biaya->pekerjaan_id)
-                                @if($biaya->sum == 0)
-                                @else
-                                    @if($realisasiLalu == 0)
-                                        <li><p style="color:#FF647C">Rp {{number_format($biaya->sum, 2)}}<p></li>
-                                        <li><p> 0 % <p></li>
-                                        <li><p style="color:#00C48C"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
-                                        <li><p style="color:#3378D3"> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
-                                    @endif
-                                @endif
-                            @endif
-                        @endforeach
+                      @foreach($biayaKeluar as $biaya)
+                          @if($pekerjaan->id == $biaya->pekerjaan_id)
+                              @if($biaya->sum == 0)
+                              @else
+                                  @if($realisasiLalu == 0)
+                                      <li><p>Rp {{number_format($biaya->sum, 2)}}<p></li>
+                                      <li><p> 0 % <p></li>
+                                      <li><p> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                      <li><p> {{(($biaya->sum) / ($pekerjaan->workTotalValue)*100)}} % <p></li>
+                                  @endif
+                              @endif
+                          @endif
+                      @endforeach
                     </ul>
                   </div>
                 </div>
@@ -112,7 +120,6 @@ box-sizing: border-box;
                                             <div class="responsive" style="margin-right:10px;">
                                                 <div class="gallery">
                                                     <a target="_blank">
-                                                        {{$foto->id}} {{$idKemajuan->id}}
                                                         <img src="{{asset($foto->path)}}" style="object-fit:cover;object-position:50% 10%;">
                                                     </a>
                                                 </div>
@@ -212,13 +219,13 @@ box-sizing: border-box;
       </div>
       <br>
 
-  @if(Auth::user()->role == 8)
+  @if(Auth::user()->role == 8 && $pelaksanaan->approvalStatus == 1)
       <div class="text-center">
       <button data-toggle="modal" data-target="#add-review" class="button-review font-approval">TAMBAH REVIEW</button>
     </div>
     <div class="modal fade" id="add-review" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" style="height:800px;" role="document">
-    <div class="modal-content">
+    <div class="modal-content modal-content-a">
       <div class="modal-header">
         <h5 class="modal-title" style="text-align:center;" id="add-review">Buat Review</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -276,6 +283,7 @@ box-sizing: border-box;
           {{ $displayText }} 
           </p>
       </div>
+      @if(Auth::user()->role == 8)
       @if($interval)
       <div class="text-center">
           <input type="hidden" name="id" value="{{ $review->id }}"> <br/>
@@ -283,7 +291,7 @@ box-sizing: border-box;
       </div>
     <div class="modal fade" id="edit-review" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" style="height:800px;" role="document">
-    <div class="modal-content">
+    <div class="modal-content modal-content-a">
       <div class="modal-header">
         <h5 style="text-align:center;" id="edit-review">Ubah Review</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -322,8 +330,9 @@ box-sizing: border-box;
   </div>
       @endif
       @endif
+      @endif
+      @endif
    </div>
-@endif
 </div>
 </body>
 @endsection
@@ -335,21 +344,17 @@ box-sizing: border-box;
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 	<script>
     var __slice = [].slice;
-
 (function($, window) {
   var Starrr;
-
   Starrr = (function() {
     Starrr.prototype.defaults = {
       rating: void 0,
       numStars: 5,
       change: function(e, value) {}
     };
-
     function Starrr($el, options) {
       var i, _, _ref,
         _this = this;
-
       this.options = $.extend({}, this.defaults, options);
       this.$el = $el;
       _ref = this.defaults;
@@ -372,17 +377,14 @@ box-sizing: border-box;
       });
       this.$el.on('starrr:change', this.options.change);
     }
-
     Starrr.prototype.createStars = function() {
       var _i, _ref, _results;
-
       _results = [];
       for (_i = 1, _ref = this.options.numStars; 1 <= _ref ? _i <= _ref : _i >= _ref; 1 <= _ref ? _i++ : _i--) {
         _results.push(this.$el.append("<span class='glyphicon .glyphicon-star-empty'></span>"));
       }
       return _results;
     };
-
     Starrr.prototype.setRating = function(rating) {
       if (this.options.rating === rating) {
         rating = void 0;
@@ -391,10 +393,8 @@ box-sizing: border-box;
       this.syncRating();
       return this.$el.trigger('starrr:change', rating);
     };
-
     Starrr.prototype.syncRating = function(rating) {
       var i, _i, _j, _ref;
-
       rating || (rating = this.options.rating);
       if (rating) {
         for (i = _i = 0, _ref = rating - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
@@ -410,18 +410,14 @@ box-sizing: border-box;
         return this.$el.find('span').removeClass('glyphicon-star').addClass('glyphicon-star-empty');
       }
     };
-
     return Starrr;
-
   })();
   return $.fn.extend({
     starrr: function() {
       var args, option;
-
       option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
       return this.each(function() {
         var data;
-
         data = $(this).data('star-rating');
         if (!data) {
           $(this).data('star-rating', (data = new Starrr($(this), option)));
@@ -433,11 +429,9 @@ box-sizing: border-box;
     }
   });
 })(window.jQuery, window);
-
 $(function() {
   return $(".starrr").starrr();
 });
-
 	$( document ).ready(function() {
         $('#stars').on('starrr:change', function(e, value){
             $('#rating-star').val(value);
@@ -446,9 +440,7 @@ $(function() {
         $('#stars-existing').on('starrr:change', function(e, value){
             $('#count-existing').html(value);
         });
-
         $("#add-review").click(function(e){
-
         });
         $('.your-class').slick({
             infinite: true,				
@@ -464,7 +456,6 @@ $(function() {
           $("#myMod").modal("show");
           
         });
-
     @if($review==null)    
 		$("#simpan").click(function(e){
 			e.preventDefault();
@@ -476,7 +467,6 @@ $(function() {
             }
             var rating_star = $("#rating-star").val()
             var komentar = $("#komentar").val()
-
             if (rating_star != "" && komentar != "") {
               $.ajax({
                 url:'/pelaksanaan/detail/{{ $pelaksanaan->id }}/review/add',
@@ -506,7 +496,6 @@ $(function() {
                 'idReview': parseInt('{{$review->id}}'),
                 '_token': "{{ csrf_token() }}"
             }
-
 			$.ajax({
                 url:'/pelaksanaan/detail/{{ $pelaksanaan->id }}/review/edit',
                 method: "POST",
@@ -524,12 +513,10 @@ $(function() {
       rating: parseInt('{{ $review->rating }}'), 
       readOnly: true 
     });
-
     @endif
 		$("#OK").click(function(e){
 		   $('#save').submit();
 		});
-
         $("#tolak").click(function(e){
 			e.preventDefault();
 			//checks if it's valid

@@ -60,17 +60,14 @@ class PelaksanaanController extends Controller
         $biayaKeluar = DB::table('kemajuan_proyeks')->where('pelaksanaan_id',$id)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get(); 
         $fotoByIdKemajuan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.id')->where('pelaksanaan_id',$id)->get();
         $interval="";
-
         $arrayidKemajuan = array($fotoByIdKemajuan->count());
         $counter=0;
         foreach($fotoByIdKemajuan as $idKemajuan) {
             $arrayidKemajuan[$counter] = $idKemajuan->id;
             $counter++;
         }
-
         $status;		
         $statusNum = $pelaksanaan-> approvalStatus;
-
         if($statusNum == 0){		        
             $status = "SEDANG BERJALAN";		
         }		
@@ -80,9 +77,8 @@ class PelaksanaanController extends Controller
         elseif($statusNum == 2){		
             $status = "DITOLAK";		
         }		
-
         $listIdPekerjaan = DB::table('kemajuan_proyeks')->select('kemajuan_proyeks.pekerjaan_id', 'kemajuan_proyeks.id')->where('pelaksanaan_id',$id)->get(); 
-        $listFoto = DB::table('listPhoto')->select('listPhoto.*')->whereIn('kemajuan_id',$arrayidKemajuan)->get();
+        $listFoto = DB::table('listphoto')->select('listphoto.*')->whereIn('kemajuan_id',$arrayidKemajuan)->get();
         $review = Review::where('pelaksanaan_id', $id)->first();
         $lapjusikStatus = Pelaksanaan::where('id', $id)->first()->approvalStatus;
         $proyek = Proyek::where('id', $idProyek)->first();
@@ -90,9 +86,6 @@ class PelaksanaanController extends Controller
         $createdDate="";
         $rating="";
         $updateDate="";
-
-
-
         //Realisasi Bulan dari tombol Lihat
         $realisasiLalu = 0;
         if($proyek == null  || $pelaksanaan == null){
@@ -114,7 +107,6 @@ class PelaksanaanController extends Controller
             $noww=$now->add(new DateInterval("PT7H"));
             $interval = $noww < $updateDate30m;
         }
-
         if($pelaksanaan->bulan == 1) {
             $realisasiLebih=null;
             return view('detailPelaksanaanAwal', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLalu','listFoto','listIdPekerjaan','displayText', 'lapjusikStatus', 'review', 'createdDate', 'rating', 'interval', 'status', 'namaProyek'));
@@ -123,9 +115,11 @@ class PelaksanaanController extends Controller
             $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
             $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
             $beforeDate = "$requestedYear-$requestedMonth-01";
-            
+            //dd($beforeDate);
+            // dd($sameIdPelaksanaan);
             //Sebelum Requested Date
             $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
+            // dd($realisasiLebih);
             return view('detailPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','valueProyek','realisasiLebih','listFoto','arrayidKemajuan','listIdPekerjaan', 'displayText', 'lapjusikStatus', 'review', 'createdDate', 'updateDate', 'rating','interval', 'status', 'namaProyek'));
         }
     }
@@ -140,17 +134,24 @@ class PelaksanaanController extends Controller
         $tahunPeriode = date('Y', strtotime($pelaksanaan->createdDate));
         $idProyek = $pelaksanaan->proyek_id;
         $proyek = DB::table('proyeks')->select('proyeks.*')->where('id',$idProyek)->first();
+        if(\Auth::user()->role == 6) {
+            $manajerPelaksana = \Auth::user()->name;
+        }
         $periodeMulai = $this->waktu(date('Y-m-1', strtotime($kemajuanPertama->reportDate)));
         $periodeSelesai = $this->waktu(date('Y-m-t', strtotime($kemajuanPertama->reportDate)));
+        $tanggalPelaksanaan = $this->waktu(date('Y-m-d'));
         $sameIdPelaksanaan = Pelaksanaan::where([['proyek_id','=',$idProyek]])->get();
         $listPekerjaan = DB::table('jenis_pekerjaan')->select('jenis_pekerjaan.*')->where('proyek_id',$idProyek)->get();
         $biayaKeluar = DB::table('kemajuan_proyeks')->where('pelaksanaan_id',$id)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
-        
+        $totalBiaya = DB::table('kemajuan_proyeks')->where('pelaksanaan_id',$id)->sum('value');
+        $totalAnggaranPekerjaan = DB::table('jenis_pekerjaan')->where('proyek_id',$idProyek)->sum('workTotalValue');
+        $idKlien = Assignment::select('assignments.klien_id')->where('proyek_id',$pelaksanaan->proyek_id)->first();
+        $namaKlien = DB::table('users')->select('users.name')->where('id',$idKlien->klien_id)->first()->name;
         $realisasiLalu = 0;
         if($pelaksanaan->bulan == 1) {
             $realisasiLebih=null;
-            $pdf = PDF::loadView('downloadPelaksanaanAwal', compact('pelaksanaan','listPekerjaan','biayaKeluar','realisasiLalu','proyek','tahunPeriode','periodeMulai','periodeSelesai'));
-            return $pdf->setPaper('a4','landscape')->download('tesfilepelaksanaan.pdf');
+            $pdf = PDF::loadView('downloadPelaksanaanAwal', compact('pelaksanaan', 'totalAnggaranPekerjaan','manajerPelaksana','listPekerjaan', 'totalBiaya','namaKlien','tanggalPelaksanaan','biayaKeluar','realisasiLalu','proyek','tahunPeriode','periodeMulai','periodeSelesai'));
+            return $pdf->setPaper('a4','landscape')->download('LAPJUSIK Bulan '. $pelaksanaan->bulan . ' Proyek ' . $proyek->projectName .'.pdf');
         }
         else {
             $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
@@ -158,9 +159,9 @@ class PelaksanaanController extends Controller
             $beforeDate = "$requestedYear-$requestedMonth-01";
             //Sebelum Requested Date
             $realisasiLebih = DB::table('kemajuan_proyeks')->where([['reportDate','<',$beforeDate]])->whereIn('pelaksanaan_id',$sameIdPelaksanaan)->groupBy('kemajuan_proyeks.pekerjaan_id')->selectRaw('sum(value) as sum, kemajuan_proyeks.pekerjaan_id')->get();
-            $pdf = PDF::loadView('downlo
-            adPelaksanaan', compact('pelaksanaan','listPekerjaan','biayaKeluar','proyek','realisasiLebih','tahunPeriode','periodeMulai','periodeSelesai'));
-            return $pdf->setPaper('a4','landscape')->download('tesfilepelaksanaan.pdf');
+            //dd($realisasiLebih);
+            $pdf = PDF::loadView('downloadPelaksanaan', compact('pelaksanaan','totalAnggaranPekerjaan','manajerPelaksana','listPekerjaan', 'totalBiaya', 'namaKlien','tanggalPelaksanaan','biayaKeluar','proyek','realisasiLebih','tahunPeriode','periodeMulai','periodeSelesai'));
+            return $pdf->setPaper('a4','landscape')->download('LAPJUSIK Bulan '. $pelaksanaan->bulan . ' Proyek ' . $proyek->projectName .'.pdf');
         }
     }
     public function waktu($tanggal){
@@ -223,9 +224,8 @@ class PelaksanaanController extends Controller
         return($waktoe);   
            
     }
-
     public function approveLAPJUSIK($id){
-
+       
         $pelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.proyek_id')->where('id',$id)->first();
         $proyekz = DB::table('pelaksanaans') ->where('id', $id)->update([
                 'approvalStatus' => 1]
@@ -233,12 +233,11 @@ class PelaksanaanController extends Controller
         return redirect()->action('PelaksanaanController@viewPelaksanaan', ['id' => $pelaksanaan->proyek_id]);
     }
     public function rejectLAPJUSIK($id){
-        
+       
         $pelaksanaan = DB::table('pelaksanaans')->select('pelaksanaans.proyek_id')->where('id',$id)->first();
         $proyekw = DB::table('pelaksanaans')->where('id', $id) ->update([
             'approvalStatus' => 2
         ]);
         return redirect()->action('PelaksanaanController@viewPelaksanaan', ['id' => $pelaksanaan->proyek_id]);
     }
-
 }

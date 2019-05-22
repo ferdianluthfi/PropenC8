@@ -1,13 +1,26 @@
-
 body{
-    margin-bottom:120px;
+    /* margin-bottom:120px; */
     margin-top: 80px;
+    height: 100%;
     background-color: #F5F8F9;
     background-image: url("../img/wave.svg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: left bottom;
     background-size: 100%;
+}
+
+.konten {
+  min-height: 100%;
+}
+.konten-inside {
+  padding: 20px;
+  padding-bottom: 50px;
+  margin-bottom:50px;
+}
+.footer {
+  height: 30px;
+  /* margin-top: -50px; */
 }
 
 .bg-blue {

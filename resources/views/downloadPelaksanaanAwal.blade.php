@@ -7,10 +7,18 @@ table {
   width: 100%;
 }
 
+.page-break {
+    page-break-after: always;
+}
+
 td, th {
-  border: 1px solid #dddddd;
+  border: 1px solid black;
   text-align: center;
   padding: 10px;
+}
+
+.tab{
+    margin-left: 50px;
 }
 </style>
 </head>
@@ -26,32 +34,22 @@ td, th {
 
 <table>
     <tr>
-        <td rowspan="2">NO.</td>
-        <td rowspan="2">URAIAN PEKERJAAN</td>
-        <td>ALOKASI BIAYA</td>
-        <td>BOBOT</td>
-        <td>BIAYA DIKELUARKAN</td>
-        <td>REALISASI BULAN LALU</td>
-        <td>REALISASI BULAN INI</td>
-        <td>REALISASI SAMPAI BULAN INI</td>
+        <td rowspan="2" style="font-weight:bold">NO.</td>
+        <td rowspan="2" style="font-weight:bold">URAIAN PEKERJAAN</td>
+        <td style="font-weight:bold">ALOKASI BIAYA</td>
+        <td style="font-weight:bold">BOBOT</td>
+        <td style="font-weight:bold">BIAYA DIKELUARKAN</td>
+        <td style="font-weight:bold">REALISASI BULAN LALU</td>
+        <td style="font-weight:bold">REALISASI BULAN INI</td>
+        <td style="font-weight:bold">REALISASI SAMPAI BULAN INI</td>
     </tr>
     <tr>
-        <td>Rp</td>
-        <td>(%)</td>
-        <td>Rp</td>
-        <td>(%)</td>
-        <td>(%)</td>
-        <td>(%)</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px;">1</td>
-        <td style="padding: 5px;">2</td>
-        <td style="padding: 5px;">3</td>
-        <td style="padding: 5px;">4</td>
-        <td style="padding: 5px;">5</td>
-        <td style="padding: 5px;">6</td>
-        <td style="padding: 5px;">7</td>
-        <td style="padding: 5px;">8</td>
+        <td style="font-weight:bold">Rp</td>
+        <td style="font-weight:bold">(%)</td>
+        <td style="font-weight:bold">Rp</td>
+        <td style="font-weight:bold">(%)</td>
+        <td style="font-weight:bold">(%)</td>
+        <td style="font-weight:bold">(%)</td>
     </tr>
    
     <tr>
@@ -64,10 +62,11 @@ td, th {
         <td></td>
         <td></td>
     </tr>
-
+    <?php $count = 1 ?>
     @foreach($listPekerjaan as $pekerjaan)
+        
         <tr>
-            <td> 1 </td>
+            <td> {{$count}} </td>
             <td> {{ $pekerjaan->name }} </td> 
             <td> {{ number_format($pekerjaan->workTotalValue, 2) }} </td>
             <td> {{$pekerjaan->weightPercentage }} % </td>
@@ -86,8 +85,32 @@ td, th {
             @endforeach
 
         </tr>
+        <?php $count++ ?>
     @endforeach
+    <tr>
+        <td colspan=2 style="font-weight:bold"> TOTAL KESELURUHAN</td>
+        <td style="font-weight:bold">{{ number_format($totalAnggaranPekerjaan, 2) }}</td>
+        <td></td>
+        <td style="font-weight:bold">{{ number_format($totalBiaya, 2) }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
 </table>
+<br>
+<div class="page-break"></div>
+<p style="font-weight:bold;text-align:right">Jakarta, {{$tanggalPelaksanaan}}</p> <br>
+<p class="tab" style="font-weight:bold;text-align:center">Disetujui, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dibuat,</p>
+
+<br><br><br>
+
+<p class="tab" style="text-align:center">{{$namaKlien}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{$manajerPelaksana}}</p>
 
 </body>
 </html>

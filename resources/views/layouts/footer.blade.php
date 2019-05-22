@@ -1,10 +1,10 @@
-<footer>
+<!-- <footer>
     <br>
     <br>
     <div>
         <p class="font-desc" style="bottom:0; text-align:center; color:#fff; ">Made with love by Propensi C8</p>
     </div>
-</footer>
+</footer> -->
 
 
 
