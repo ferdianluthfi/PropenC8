@@ -57,10 +57,10 @@ box-sizing: border-box;
 <div class="container-fluid card card-detail-lapjusik col-sm-6">
   <div class="row">
     <br>
-    <div class="col-sm-10"> 
-      <p class="font-subtitle-5" style="text-align: center">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
+    <div class="col-sm-8">
+      <p class="font-title">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-4">
         @if($status == 'DISETUJUI') <div class="font-status-approval" style="margin:10px; color:#3378D3;">{{$status}}</div>
         @elseif($status == "SEDANG BERJALAN") <div class="font-status-approval" style="margin:5px; color:#00C48C;">{{$status}}</div>
         @elseif($status == 'DITOLAK') <div class="font-status-approval" style="margin:10px; color:#FF647C;">{{$status}}</div>
