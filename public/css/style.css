@@ -494,7 +494,7 @@ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 .errorMessage {
-color: red;
+color: #c32222;
 font-size: 14px;
 font-family:'Roboto';
 font-weight:400;

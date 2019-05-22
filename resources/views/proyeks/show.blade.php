@@ -85,7 +85,7 @@
                 <hr/><br>
                 <form action="/proyek/kalah/<?php echo $proyek->id ?>" method="GET" id="reject">
                     @csrf
-                    <button id="tolak" class="button-approve" style="border-color: indianred; background-color: indianred; margin-left: 35px; margin-bottom: 10px">KALAH</button>
+                    <button id="tolak" class="button-disapprove" style="border-color: #c32222; margin-left: 35px; margin-bottom: 10px; color: #c32222">KALAH</button>
                 </form>
                 <form action="/proyek/menang/<?php echo $proyek->id ?>" method="GET" id="save">
                     @csrf
