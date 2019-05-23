@@ -101,7 +101,7 @@
                     <label for="password-confirm" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Ulangi Password') }}</label>
 
                     <div class="col-md-6">
-                        <input value="{{ $user->password }}" id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                        <input value="{{ $user->password }}" id="password-confirm" type="password" class="font-desc form-control" name="password_confirmation" required>
                     </div>
                 </div>
 
