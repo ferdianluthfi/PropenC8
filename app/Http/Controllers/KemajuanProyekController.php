@@ -383,16 +383,26 @@ class KemajuanProyekController extends Controller
             foreach($allPelaksanaan as $pelaksanaan) {
                 if ($pelaksanaan->approvalStatus == 0 || $pelaksanaan->approvalStatus==2) {
                     $allApproved = false;
-                    $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
-                    $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
-                    $minDate = "$requestedYear-$requestedMonth-01";
-                    return view('editInformasi',compact('kemajuans','proyek','foto','finalPekerjaan','bladePekerjaan','minDate','maxDate'));
+                    if($pelaksanaan->bulan == 1) {
+                        $minDate = "$pelaksanaan->createdDate";
+                    }
+                    else {
+                        $requestedMonth = date('m', strtotime($pelaksanaan->createdDate));
+                        $requestedYear = date('Y', strtotime($pelaksanaan->createdDate));
+                        $minDate = "$requestedYear-$requestedMonth-01";
+                            
+                    }
                 }   
             }
             if($allApproved=true) {
-                $requestedMonth = date('m', strtotime($maxDate));
-                $requestedYear = date('Y', strtotime($maxDate));
-                $minDate = "$requestedYear-$requestedMonth-01";
+                if(sizeof($allPelaksanaan) == 1) {
+                    $minDate = json_decode($allPelaksanaan[0])->createdDate;
+                }
+                else {
+                    $requestedMonth = date('m', strtotime($maxDate));
+                    $requestedYear = date('Y', strtotime($maxDate));
+                    $minDate = "$requestedYear-$requestedMonth-01"; 
+                }
             }
         }
         return view('editInformasi', compact('kemajuans','proyek','foto','finalPekerjaan','bladePekerjaan','minDate','maxDate'));
