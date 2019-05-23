@@ -66,11 +66,11 @@
                                         <tr style="background-color: whitesmoke;">
                                             <td>LAPJUSIK Bulan {{$pelaksanaan->bulan}}</td>
                                             @if( $pelaksanaan->approvalStatus == 0)
-                                                <td style="color:blue">MENUNGGU PERSETUJUAN</td>
+                                                <td style="color:green">MENUNGGU PERSETUJUAN</td>
                                             @elseif( $pelaksanaan->approvalStatus == 1)
-                                                <td style="color:#00C48C">DISETUJUI</td>
+                                                <td style="color:blue">DISETUJUI</td>
                                             @elseif( $pelaksanaan->approvalStatus == 2)
-                                                <td style="color:#FF647C">DITOLAK</td>
+                                                <td style="color:red">DITOLAK</td>
                                             @endif
                                             <td>{{ date('F d' , strtotime($pelaksanaan->createdDate)) }}</td>
                                             <td><a href="/pelaksanaan/detail/{{$pelaksanaan->id}}" class="btn btn-primary">Lihat</a></td>

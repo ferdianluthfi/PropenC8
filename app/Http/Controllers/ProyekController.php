@@ -33,7 +33,7 @@ class ProyekController extends Controller
             $proyekPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus',1)->get();
             $proyekNonPoten = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 2)->get();
             $proyekLelang = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 3)->get();
-            $proyekPasca = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus',5) ->orWhere('approvalStatus',6) ->orWhere('approvalStatus',7) ->orWhere('approvalStatus',8) ->orWhere('approvalStatus',9)->get();
+            $proyekPasca = DB::table('proyeks')->orderBy('created_at','desc')->where('approvalStatus', 4)->orWhere('approvalStatus',5) ->orWhere('approvalStatus',6) ->orWhere('approvalStatus',7) ->orWhere('approvalStatus',8) ->orWhere('approvalStatus',9)->orWhere('approvalStatus',10)->get();
             foreach($proyekPoten as $proyeg){
                 $statusNum = $proyeg-> approvalStatus;
                 if($statusNum == 0){
@@ -207,7 +207,7 @@ class ProyekController extends Controller
                     return view('proyeks/show',compact('id', 'proyeks', 'status', 'pmName', 'kontrak', 'pelaksanaan'));
                 }
             }
-            elseif($statusNum == 9){
+            elseif($statusNum == 9 || $statusNum == 10){
                 $status = "DITOLAK";
             }
         }
@@ -269,23 +269,6 @@ class ProyekController extends Controller
             return redirect('/proyek');
         }
     }
-//     public function viewDetailProyek($id){
-//         $proyek = Proyek::where('id', $id)->first();
-//         $statusHuruf;
-//         $status = $proyek->approvalStatus; 
-//         $pelaksanaan = Pelaksanaan::where('proyek_id', $id)->get();
-        
-//         if($status == 0){
-//             $statusHuruf = "MENUNGGU PERSETUJUAN";
-//         } elseif($status == 1){
-//             $statusHuruf = "DISETUJUI";
-//         } elseif($status == 2){
-//             $statusHuruf = "SEDANG BERJALAN";
-//         }elseif($status == 3){
-//             $statusHuruf = "DITOLAK";
-//         }
-//         return view('detail-proyek', ["id" => $id, "proyek" => $proyek, "statusHuruf" => $statusHuruf, 'pelaksanaan' => $pelaksanaan]);
-//     }
     /**
      * Remove the specified resource from storage.
      *
@@ -295,9 +278,11 @@ class ProyekController extends Controller
     public function destroy($id)
     {
         // menghapus data [proyek] berdasarkan id yang dipilih
-        DB::table('proyeks')->where('id',$id)->delete();
+        DB::table('proyeks')->where('id',$id)->update([
+            'approvalStatus' => 10,
+        ]);
         // alihkan halaman ke halaman proyek
-        return redirect()->back()->with('flash_message', 'Proyek telah dihapus.');
+        return redirect()->back()->with('flash_message', 'Proyek telah dibatalkan.');
     }
     public function waktu($tanggal){
         $bulan = date("m", strtotime($tanggal));

@@ -138,13 +138,13 @@
                                 <td>{{ $proyeks->created_at }}</td>
                                 <td style="color:limegreen;"> Menunggu hasil lelang </td>
 
-                                @if($proyeks->approvalStatus === 2)
+                                @if($proyeks->approvalStatus == 2)
                                 <td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
                                     @else
                                 <td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
                                     @endif
                             </tr>
-                            {{-- @if($proyeks->approvalStatus === 9)
+                            {{-- @if($proyeks->approvalStatus == 9)
                             <tr style="background-color: whitesmoke;">
                                 <td>{{ $proyeks->projectName }}</td>
                                 <td>{{ $proyeks->created_at }}</td>
@@ -180,19 +180,45 @@
                         <tr style="background-color: whitesmoke;">
                             <td>{{ $proyeks->projectName }}</td>
                             <td>{{ $proyeks->created_at }}</td>
-                            @if($proyeks->approvalStatus === 4) <td style="color:blue; ">Menunggu Kontrak Kerja</td>
-                            @elseif($proyeks->approvalStatus === 5) <td style="color:limegreen;">Menunggu Persetujuan Kontrak kerja</td>
-                            @elseif($proyeks->approvalStatus === 6) <td style="color:limegreen;">Menunggu Penugasan PM</td>
-                            @elseif($proyeks->approvalStatus === 7) <td style="color:limegreen;">Sedang dikerjakan</td>
-                            @elseif($proyeks->approvalStatus === 8) <td style="color:limegreen;">Proyek selesai</td>
+                            @if($proyeks->approvalStatus == 4) <td style="color:blue; ">Menunggu Kontrak Kerja</td>
+                            @elseif($proyeks->approvalStatus == 5) <td style="color:limegreen;">Menunggu Persetujuan Kontrak kerja</td>
+                            @elseif($proyeks->approvalStatus == 6) <td style="color:limegreen;">Menunggu Penugasan PM</td>
+                            @elseif($proyeks->approvalStatus == 7) <td style="color:limegreen;">Sedang dikerjakan</td>
+                            @elseif($proyeks->approvalStatus == 8) <td style="color:limegreen;">Proyek selesai</td>
                             @endif
                             <td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
                         </tr>
-                        @elseif($proyeks->approvalStatus === 9)
+                        @endif
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-title" style="text-align:center;">Riwayat Proyek Tidak Aktif</h4><br>
+                <hr>
+                <div class="panel-body" style="text-align:center;">
+                    <table id="datatable-4" class="table table-striped table-bordered text-center">
+                        <thead>
+                        <tr class="title" >
+                            <th><center>Nama Proyek</th>
+                            <th><center>Waktu</th>
+                            <th><center>Status Proyek</th>
+                            <th><center>Lihat Proyek</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        @foreach($proyekPasca as $proyeks )
+                        @if($proyeks->approvalStatus == 9)
                         <tr style="background-color: whitesmoke;">
                             <td>{{ $proyeks->projectName }}</td>
                             <td>{{ $proyeks->created_at }}</td>
                             <td style="color:red; "> Proyek Tidak Dilanjutkan </td>
+                            <td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
+                        </tr>
+                        @elseif($proyeks->approvalStatus == 10)
+                        <tr style="background-color: whitesmoke;">
+                            <td>{{ $proyeks->projectName }}</td>
+                            <td>{{ $proyeks->created_at }}</td>
+                            <td style="color:orange;"> Proyek Dibatalkan</td>
                             <td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
                         </tr>
                         @endif
@@ -359,13 +385,13 @@
                                 <td>{{ $proyeks->created_at }}</td>
                                 <td style="color:limegreen;"> Menunggu hasil lelang </td>
 
-                                @if($proyeks->approvalStatus === 2)
+                                @if($proyeks->approvalStatus == 2)
                                 <td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
                                     @else
                                 <td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
                                     @endif
                             </tr>
-                            {{-- @if($proyeks->approvalStatus === 9)
+                            {{-- @if($proyeks->approvalStatus == 9)
                             <tr style="background-color: whitesmoke;">
                                 <td>{{ $proyeks->projectName }}</td>
                                 <td>{{ $proyeks->created_at }}</td>
@@ -401,19 +427,19 @@
                         <tr style="background-color: whitesmoke;">
                             <td>{{ $proyeks->projectName }}</td>
                             <td>{{ $proyeks->created_at }}</td>
-                            @if($proyeks->approvalStatus === 4) <td style="color:blue; ">Menunggu Kontrak Kerja</td>
-                            @elseif($proyeks->approvalStatus === 5) <td style="color:limegreen;">Menunggu Persetujuan Kontrak kerja</td>
-                            @elseif($proyeks->approvalStatus === 6) <td style="color:limegreen;">Menunggu Penugasan PM</td>
-                            @elseif($proyeks->approvalStatus === 7) <td style="color:limegreen;">Sedang dikerjakan</td>
-                            @elseif($proyeks->approvalStatus === 8) <td style="color:limegreen;">Proyek selesai</td>
+                            @if($proyeks->approvalStatus == 4) <td style="color:blue; ">Menunggu Kontrak Kerja</td>
+                            @elseif($proyeks->approvalStatus == 5) <td style="color:limegreen;">Menunggu Persetujuan Kontrak kerja</td>
+                            @elseif($proyeks->approvalStatus == 6) <td style="color:limegreen;">Menunggu Penugasan PM</td>
+                            @elseif($proyeks->approvalStatus == 7) <td style="color:limegreen;">Sedang dikerjakan</td>
+                            @elseif($proyeks->approvalStatus == 8) <td style="color:limegreen;">Proyek selesai</td>
                             @endif
-                            @if($proyeks->approvalStatus === 4)
+                            @if($proyeks->approvalStatus == 4)
                             <td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
                                 @else
                             <td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
                                 @endif
                         </tr>
-                        @elseif($proyeks->approvalStatus === 9)
+                        @elseif($proyeks->approvalStatus == 9)
                         <tr style="background-color: whitesmoke;">
                             <td>{{ $proyeks->projectName }}</td>
                             <td>{{ $proyeks->created_at }}</td>
@@ -476,19 +502,19 @@
                                             <tr style="background-color: white;">
                                                 <td>{{ $proyeks->projectName }}</td>
                                                 <td>{{ $proyeks->created_at }}</td>
-                                                @if($proyeks->approvalStatus === 4) <td style="color:blue; ">Menunggu Kontrak Kerja</td>
-                                                @elseif($proyeks->approvalStatus === 5) <td style="color:limegreen;">Menunggu Persetujuan Kontrak kerja</td>
-                                                @elseif($proyeks->approvalStatus === 6) <td style="color:limegreen;">Menunggu Penugasan PM</td>
-                                                @elseif($proyeks->approvalStatus === 7) <td style="color:limegreen;">Sedang dikerjakan</td>
-                                                @elseif($proyeks->approvalStatus === 8) <td style="color:limegreen;">Proyek selesai</td>
+                                                @if($proyeks->approvalStatus == 4) <td style="color:blue; ">Menunggu Kontrak Kerja</td>
+                                                @elseif($proyeks->approvalStatus == 5) <td style="color:limegreen;">Menunggu Persetujuan Kontrak kerja</td>
+                                                @elseif($proyeks->approvalStatus == 6) <td style="color:limegreen;">Menunggu Penugasan PM</td>
+                                                @elseif($proyeks->approvalStatus == 7) <td style="color:limegreen;">Sedang dikerjakan</td>
+                                                @elseif($proyeks->approvalStatus == 8) <td style="color:limegreen;">Proyek selesai</td>
                                                 @endif
-                                                @if($proyeks->approvalStatus === 4)
+                                                @if($proyeks->approvalStatus == 4)
                                                 <td><a class="btn btn-primary" href="/proyek/detailProyek/{{ $proyeks->id }}">Lihat</a>
                                                     @else
                                                 <td><a class="btn btn-primary" href="/proyek/lihat/{{ $proyeks->id }}">Lihat</a>
                                                     @endif
                                             </tr>
-                                            @elseif($proyeks->approvalStatus === 9)
+                                            @elseif($proyeks->approvalStatus == 9)
                                             <tr style="background-color: whitesmoke;">
                                                 <td>{{ $proyeks->projectName }}</td>
                                                 <td>{{ $proyeks->created_at }}</td>
@@ -584,20 +610,22 @@
 			$('#datatable-1').DataTable();
 			document.getElementById("pra").style.display = "block";
 			document.getElementById("lelang").style.display = "none";
-			document.getElementById("pasca").style.display = "none";
+            document.getElementById("pasca").style.display = "none";
 		}
 		function showLelang(){
 			$('#datatable-2').DataTable();
 			document.getElementById("pra").style.display = "none";
 			document.getElementById("lelang").style.display = "block";
-			document.getElementById("pasca").style.display = "none";
+            document.getElementById("pasca").style.display = "none";
 		}
 		function showPascaLelang(){
-			$('#datatable-3').DataTable();
+            $('#datatable-3').DataTable();
+            $('#datatable-4').DataTable();
 			document.getElementById("pra").style.display = "none";
 			document.getElementById("lelang").style.display = "none";
-			document.getElementById("pasca").style.display = "block";
-		}
+            document.getElementById("pasca").style.display = "block";
+        }
+
 	</script>
 @endsection
 </html>

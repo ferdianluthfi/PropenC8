@@ -108,6 +108,7 @@ box-sizing: border-box;
                     </ul>
                   </div>
                 </div>
+              
                 <div class="col-sm-12">
                   <div class="your-class" style="margin:25px;">
                         @if ($listFoto != null)
