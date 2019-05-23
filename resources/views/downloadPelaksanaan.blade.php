@@ -20,6 +20,9 @@ td, th {
 .tab{
     margin-left: 50px;
 }
+.page-break {
+    page-break-after: always;
+}
 </style>
 </head>
 <body>

@@ -69,15 +69,15 @@
                                                 @endif
                                             @endforeach
                                         @endif
-                                        <td> {{ date('F d' , strtotime($informasi->reportDate)) }}</td>
+                                        <td> {{ date('d F Y' , strtotime($informasi->reportDate)) }}</td>
                                         <td><a href="/informasi/detail/{{$informasi->id}}" class="btn btn-primary">LIHAT</a></td>
 
                                         @foreach($approvedPelaksanaan as $approved)
                                             @if($approved->id == $informasi->pelaksanaan_id)
                                                 <?php $approvedIsExist = true; ?>
-                                                <td><a class="btn" style=" background-color: whitesmoke;  color: grey; border: 2px solid" href="/info/edit/{{$informasi->id}}">UBAH</a></td>
+                                                <td><a class="btn" style=" background-color: whitesmoke;  color: grey; border: 2px solid">UBAH</a></td>
                                                 <td>
-                                                <a class="btn" style=" background-color: whitesmoke;  color: grey; border: 2px solid" data-toggle="modal" data-target="#myModal-<?php echo $informasi->id ?>">
+                                                <a class="btn" style=" background-color: whitesmoke;  color: grey; border: 2px solid">
                                                     <span>
                                                         HAPUS
                                                     </span>
@@ -87,7 +87,7 @@
                                         @endforeach
 
                                         @if($approvedIsExist==false)
-                                            <td><a class="btn" style=" background-color: whitesmoke;  color: blue; border: 2px solid" href="/info/edit/{{$informasi->id}}">UBAH</a></td>
+                                            <td><a class="btn" style=" background-color: whitesmoke;  color: orange; border: 2px solid" href="/info/edit/{{$informasi->id}}">UBAH</a></td>
                                             <td>
                                             <a class="btn" style=" background-color: whitesmoke;  color: red; border: 2px solid" data-toggle="modal" data-target="#myModal-<?php echo $informasi->id ?>">
                                                 <span>
