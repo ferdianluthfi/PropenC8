@@ -132,6 +132,11 @@
                 <td>Surat Jaminan Bank</td>
                 <td><input type="file" name="surat[]"></td>
             </tr>
+            <tr>
+                <td>17</td>
+                <td>Surat Kontrak Jual Beli</td>
+                <td><input type="file" name="surat[]"></td>
+            </tr>
             </tbody>
         </table>
         <br>

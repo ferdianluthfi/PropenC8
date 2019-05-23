@@ -68,7 +68,75 @@
     </div>
     <br>
     <br>
-    <form action="/proyek/{{$proyek->id}}/kontrak/buatSurat/" method="POST" id="save">
+
+    <div>
+        <br>
+        <br>
+        <div  class="row ketengahin" style="margin-right: 58px; margin-bottom: 30px">
+            <div class="col-sm-5">
+                <div class="card card-tombol" style="margin-right: 40px; width: 400px; height: 350px">
+                    <form action="/proyek/{{$proyek->id}}/kontrak/generateSurat" method="POST" id="save">
+                             @csrf
+                    <div class="row judul">
+                        <div class="font-subtitle-4" style="margin-left:15px;">Buat Surat Kontrak Jual Beli</div>
+                    </div>
+                    <div style="margin: 30px; height: 60px; position: center">
+                        <span>
+                            <p style="text-align: justify; text-justify: inter-word">Klik tombol di bawah ini untuk membuat Berkas Surat Kontrak Jual Beli dan penugasan klien ke dalam proyek.</p>
+                        </span>
+                        
+                        <div id="variabel">
+                            <br>
+                            <div class="col-sm-5 font-desc-bold" style="margin-left:-15px">
+                                    <ul>
+                                        <li><p>Alamat Perusahaan</p></li>
+                                        <br>
+                                        <li><p>Nama Klien</p></li>
+                                    </ul>
+                            </div>
+                            <div class="col-sm-6 font-desc">
+                                    <div style="border: 0.5px solid #e6e6e6; border-radius: 8px; height: 25px; width:200px;" >
+                                        <input class="inputs font-desc" style="font-size:13px; margin-top:5px; margin-left:10px;" type="text" 
+                                        name="alamatKlien"  placeholder="Masukkan Alamat Perusahaan" data-error=".alamatKlien">
+                                        
+                                    </div>
+                                    <br>
+                                    <select name="namaKlien" class="content bg1" style="width:200px">
+                                            @foreach($klien as $tipe)
+                                                <option value="{{$tipe->id}}">{{$tipe->name}}</option>
+                                            @endforeach
+                                    </select>
+                            </div>
+                        </div>
+                        
+                            <button class="btn btn-primary simpan" style="margin-left: 10px; position:center; width: 300px">Buat Surat Kontrak Jual Beli</button>
+                    </div>
+                    </form> 
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-5" style="margin-left: 20px">
+                <div class="card card-tombol" style="height: 350px">
+                    <div class="row judul">
+                        <div class="font-subtitle-4" style="margin-left:15px;">Upload Berkas Surat Kontrak Kerja</div>
+                    </div>
+                    <div style="margin: 30px; height: 60px; position: center">
+                        <span>
+                        </span>
+                            <p style="text-align: justify; text-justify: inter-word">Klik tombol di bawah ini untuk mengunggah berkas surat kontrak kerja yang telah ditandatangani untuk dibentuk menjadi berkas kontrak kerja.</p>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <a href="/proyek/{{$proyek->id}}/kontrak/berkasSurat" class="btn btn-primary" style="margin-left: 10px; position:center; width: 300px">Upload Berkas Surat Kontrak Kerja</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <form action="/proyek/{{$proyek->id}}/kontrak/buatSurat/" method="POST" id="save">
             @csrf
 
     <div class="container-fluid card card-kontrak">
@@ -116,11 +184,11 @@
            
     </div>
     </form> 
+     -->
     
     
-    
-    <div class="col-sm-4"> </div>
-    </div>
+    <!-- <div class="col-sm-4"> </div> -->
+</div>
     
     <br>
     <br>
