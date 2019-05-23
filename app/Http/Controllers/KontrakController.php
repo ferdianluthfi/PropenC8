@@ -34,6 +34,7 @@ class KontrakController extends Controller
 
     public function infoUmumTambahInfo($id){
         $proyek = DB::table('proyeks')->select('*')->where('id', $id)->first(); 
+        
         $formatValue = number_format($proyek->projectValue, 2, ',','.');
         $proyek->projectValue = $formatValue;
 
@@ -41,27 +42,26 @@ class KontrakController extends Controller
         return view('kontraks.tambah-kontrak', compact('proyek', 'klien'));
     }
     
-    public function berkasSurat(request $request, $id){
+    public function berkasSurat($id){
         
         $proyek = DB::table('proyeks')->select('*')->where('id', $id)->first();
+        
+        return  view('kontraks.daftar-surat', compact('proyek'));
+    }
+
+    public function generateSurat(request $request, $id){
+        $proyek = DB::table('proyeks')->where('id', $id)->first();
+        $waktuNow = now('GMT+7');
+        $tanggal = $this->waktu($waktuNow); 
         $alamatP = $request->alamatKlien;
         $kontakP =$request->namaKlien;
+        
 
         DB::table('assignments')->insert([
             'klien_id' => $kontakP,
             'proyek_id' => $proyek->id,
             'assignmentDate' => now('GMT+7')
         ]);
-
-        return $this->generateSurat($id, $alamatP, $kontakP);
-    }
-
-    public function generateSurat($id, $alamatP, $kontakP){
-        $proyek = DB::table('proyeks')->where('id', $id)->first();
-        $waktuNow = now('GMT+7');
-        $tanggal = $this->waktu($waktuNow); 
-        $alamatP = $alamatP;
-        $kontakP = $kontakP;   
         
         $data = [
             'tanggal' => $tanggal,
@@ -72,31 +72,19 @@ class KontrakController extends Controller
         ];
          
         $pdf = PDF::loadView('template-surat/suratJualBeli', $data);
-        
+        // dd($pdf);
+
         $title = 'Surat Kontrak Jual Beli';
         $docName = $proyek->projectName . ' - Surat Kontrak Jual Beli';
 
-        $tes = Storage::put($docName, $pdf->output());
-
         $ext = 'pdf';
 
-        DB::table('kontraks')->updateOrInsert(
-        ['proyek_id' => $id, 'title' => $title],
-        ['approvalStatus' => 0,
-        'title' =>  $title,
-        'filename' => $docName,
-        'path' => $docName,
-        'ext' => 'pdf',
-        'proyek_id' => $id,
-        'flag_active' => 1,
-        'pengguna_id' => $proyek->pengguna_id,
-        'created_at' => now('GMT+7'),
-        'updated_at' => now('GMT+7')
-        ]); 
-        
-        
-        
-        return  view('kontraks.daftar-surat', compact('proyek'));
+        // $pdf->download($proyek->projectName . ' - ' . $docName . '.pdf');
+
+        $tes = Storage::put($docName, $pdf->output());
+
+
+        return Storage::download($docName, $docName . '.' . $ext);
     }
 
     public function createKontrak(request $request, $id){
@@ -107,7 +95,7 @@ class KontrakController extends Controller
         if ($request->surat != null) {
             $key = array_keys($request->surat);
             // dd($key);
-            for($i = 0 ; $i < 16; $i++) { 
+            for($i = 0 ; $i < 17; $i++) { 
                 try{
                     $namaSurat;
                     $nilai = $key[$i];
@@ -160,6 +148,9 @@ class KontrakController extends Controller
                         case 15;
                             $namaSurat = "Surat Jaminan Bank";
                             break;
+                        case 16;
+                            $namaSurat = "Surat Kontrak Jual Beli";
+                            break;
                         
                     }    
                     $uploadedFile = $arrSurat[$nilai];
@@ -180,9 +171,6 @@ class KontrakController extends Controller
                         'created_at' => now('GMT+7'),
                         'updated_at' => now('GMT+7')
                     ]); 
-
-                    
-                    
                     
                    
                     

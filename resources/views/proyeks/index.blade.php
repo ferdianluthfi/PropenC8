@@ -95,7 +95,7 @@
                             <thead>
                             <tr class="title" >
                                 <th><center>Nama Proyek</th>
-                                <th><center>Waktu</th>
+                                <th><center>Waktu Buat Proyek</th>
                                 <th><center>Status Proyek</th>
                                 <th><center>Lihat Proyek</th>
                             </tr>
@@ -126,7 +126,7 @@
                             <thead>
                             <tr class="title" >
                                 <th><center>Nama Proyek</th>
-                                <th><center>Waktu</th>
+                                <th><center>Waktu Buat Proyek</th>
                                 <th><center>Status Proyek</th>
                                 <th><center>Lihat Proyek</th>
                             </tr>
@@ -168,7 +168,7 @@
                         <thead>
                         <tr class="title" >
                             <th><center>Nama Proyek</th>
-                            <th><center>Waktu</th>
+                            <th><center>Waktu Buat Proyek</th>
                             <th><center>Status Proyek</th>
                             <th><center>Lihat Proyek</th>
                         </tr>
