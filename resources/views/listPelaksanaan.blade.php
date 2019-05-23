@@ -26,6 +26,14 @@
         <!-- Our Custom CSS -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+        <style>
+            .vl {
+                border-left: 1px solid lightgray;
+                height: 280px;
+                margin: 0px 0px 10px 50px;
+            }
+        </style>
     </head>
 
     <body>
@@ -35,101 +43,103 @@
        
         
     @if(Auth::user()->role == 6)
-     <nav aria-label="breadcrumb" style="margin-left:-150px;">
+     <nav aria-label="breadcrumb" style="margin-left:-135px;">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('proyek') }}">Daftar Proyek</a></li>
                 <li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-active" >LAPJUSIK Proyek {{$namaProyek}}</a></li>
             </ol>
         </nav>
-    <div class="row" style="margin-left:200px;">
-        <div class="container-fluid card col-md-6" style="width:750px;min-height:333px;margin:0 30px;">
-            <div class="row">
-                <div class="col-md-12"><br>
-                    <h2 class="font-title" style="text-align:center;">Daftar LAPJUSIK</h2><hr>
-                        <div class="panel-body">
-                            <table id="datatable" class="table table-striped table-bordered text-center">
-                                <thead>
-                                    <tr class="title">
-                                    <th><center> Nama LAPJUSIK</th>
-                                    <th><center> Status LAPJUSIK</th>
-                                    <th><center> Tanggal Dibuat</th>
-                                    <th><center> Lihat </th>
-                                    @if(Auth::user()->role == 6)
-                                        <th><center> Unduh </th>
-                                        <th><center> Hapus </th>
-                                    @endif
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="container-fluid card col-md-8" style="min-height:300px;">
+            <div class="row"><br>
+                <div class="col-md-7" style="margin-right:-50px;">
+                    <h2 class="font-title" style="text-align:center;">Daftar LAPJUSIK</h2>
+                    <div class="panel-body">
+                        <table id="datatable" class="table table-striped table-bordered text-center">
+                            <thead>
+                                <tr class="title">
+                                <th><center> Nama LAPJUSIK</th>
+                                <th><center> Status LAPJUSIK</th>
+                                <th><center> Tanggal Dibuat</th>
+                                <th><center> Lihat </th>
+                                @if(Auth::user()->role == 6)
+                                    <th><center> Unduh </th>
+                                    <th><center> Hapus </th>
+                                @endif
+                                </tr>
+                            </thead>
+                            <tbody >
+                            @foreach($listPelaksanaan as $pelaksanaan)
+                                @if($pelaksanaan->flag == 1)
+                                    <tr style="background-color: whitesmoke;">
+                                        <td>LAPJUSIK Bulan {{$pelaksanaan->bulan}}</td>
+                                        @if( $pelaksanaan->approvalStatus == 0)
+                                            <td style="color:blue">MENUNGGU PERSETUJUAN</td>
+                                        @elseif( $pelaksanaan->approvalStatus == 1)
+                                            <td style="color:#00C48C">DISETUJUI</td>
+                                        @elseif( $pelaksanaan->approvalStatus == 2)
+                                            <td style="color:#FF647C">DITOLAK</td>
+                                        @endif
+                                        <td>{{ date('F d' , strtotime($pelaksanaan->createdDate)) }}</td>
+                                        <td><a href="/pelaksanaan/detail/{{$pelaksanaan->id}}" class="btn btn-primary">Lihat</a></td>
+                                        @if(Auth::user()->role == 6)
+                                            @if($pelaksanaan->approvalStatus == 1)
+                                                <td><a a class="btn" style=" background-color: whitesmoke;  color: orange; border: 1px solid" href="/pelaksanaan/download/{{$pelaksanaan->id}}">Unduh</a></td>
+                                                <td>
+                                                    <a class="btn" style=" background-color: whitesmoke;  color: grey; border: 1px solid">
+                                                        <span>
+                                                            Hapus
+                                                        </span>
+                                                    </a>
+                                                </td>
+                                            @elseif($pelaksanaan->approvalStatus == 2 || $pelaksanaan->approvalStatus == 0)
+                                                <td><a a class="btn" style=" background-color: whitesmoke;  color: grey; border: 1px solid">Unduh</a></td>
+                                                <td>
+                                                    <a class="btn" style=" background-color: whitesmoke;  color: red; border: 1px solid"  data-toggle="modal" data-target="#myModal-<?php echo $pelaksanaan->id ?>">
+                                                        <span>
+                                                            Hapus
+                                                        </span>
+                                                    </a>
+                                                </td>
+                                            @endif
+                                        @endif
                                     </tr>
-                                </thead>
-                                <tbody >
-                                @foreach($listPelaksanaan as $pelaksanaan)
-                                    @if($pelaksanaan->flag == 1)
-                                        <tr style="background-color: whitesmoke;">
-                                            <td>LAPJUSIK Bulan {{$pelaksanaan->bulan}}</td>
-                                            @if( $pelaksanaan->approvalStatus == 0)
-                                                <td style="color:blue">MENUNGGU PERSETUJUAN</td>
-                                            @elseif( $pelaksanaan->approvalStatus == 1)
-                                                <td style="color:#00C48C">DISETUJUI</td>
-                                            @elseif( $pelaksanaan->approvalStatus == 2)
-                                                <td style="color:#FF647C">DITOLAK</td>
-                                            @endif
-                                            <td>{{ date('F d' , strtotime($pelaksanaan->createdDate)) }}</td>
-                                            <td><a href="/pelaksanaan/detail/{{$pelaksanaan->id}}" class="btn btn-primary">Lihat</a></td>
-                                            @if(Auth::user()->role == 6)
-                                                @if($pelaksanaan->approvalStatus == 1)
-                                                    <td><a a class="btn" style=" background-color: whitesmoke;  color: orange; border: 1px solid" href="/pelaksanaan/download/{{$pelaksanaan->id}}">Unduh</a></td>
-                                                    <td>
-                                                        <a class="btn" style=" background-color: whitesmoke;  color: grey; border: 1px solid">
-                                                            <span>
-                                                                Hapus
-                                                            </span>
-                                                        </a>
-                                                    </td>
-                                                @elseif($pelaksanaan->approvalStatus == 2 || $pelaksanaan->approvalStatus == 0)
-                                                    <td><a a class="btn" style=" background-color: whitesmoke;  color: grey; border: 1px solid">Unduh</a></td>
-                                                    <td>
-                                                        <a class="btn" style=" background-color: whitesmoke;  color: red; border: 1px solid"  data-toggle="modal" data-target="#myModal-<?php echo $pelaksanaan->id ?>">
-                                                            <span>
-                                                                Hapus
-                                                            </span>
-                                                        </a>
-                                                    </td>
-                                                @endif
-                                            @endif
-                                        </tr>
-                                        
-                                        <div class="modal fade" id="myModal-<?php echo $pelaksanaan->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        <h4 class="modal-title" style="text-align:center;">Hapus LAPJUSIK?</h4>
-                                                    </div>
-                                                    <div class="modal-body" style="text-align:center;">
-                                                        <p>Pelaksanaan yang sudah terbuat sebelumnya akan dihapus.</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <center><a href="" class="btn btn-primary ">Kembali</a>
-                                                        <a href="/pelaksanaan/delete/{{$pelaksanaan->id}}" class="btn btn-default" style="color:red;">Hapus</a></center>
-                                                    </div>
+                                    
+                                    <div class="modal fade" id="myModal-<?php echo $pelaksanaan->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title" style="text-align:center;">Hapus LAPJUSIK?</h4>
+                                                </div>
+                                                <div class="modal-body" style="text-align:center;">
+                                                    <p>Pelaksanaan yang sudah terbuat sebelumnya akan dihapus.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <center><a href="" class="btn btn-primary ">Kembali</a>
+                                                    <a href="/pelaksanaan/delete/{{$pelaksanaan->id}}" class="btn btn-default" style="color:red;">Hapus</a></center>
                                                 </div>
                                             </div>
                                         </div>
-                                    @endif
-                                @endforeach
+                                    </div>
+                                @endif
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="container-fluid col-md-6" style="width:300px;" >
-            <div  class="row card card-tombol" style="min-height:333px; width:285px; padding:10px; margin-left:-33px">
-                <div class="row judul">
-                    <div class="font-subtitle-5" style="text-align: center;margin-left:-20px;margin-top:-10px">Buat Ulang LAPJUSIK</div>
-                </div> <hr>
+                <div class="col-md-1">
+                    <div class="vl">
+                    </div>
+                </div>
+                <div class="container-fluid col-md-4">
+                <div style="min-height:280px; padding:10px;margin-right:-40px;">
+                <div class="judul">
+                    <div class="font-subtitle-5" style="text-align: center;margin-top:-30px;margin-right:25px;">Buat Ulang LAPJUSIK</div>
+                </div>
                 <div>
-                    <center><span class="labels font-subtitle-5">Bulan Ke</span></center>
+                    <center><span class="labels font-subtitle-5">Bulan Ke</span></center> <br>
                     <select id="changeButton" name="bulanke" class="content bg-1" style="height:38px;"  onchange="myFunction()">
                     @if($draftFlag == null)
                         <option value="" disabled selected>Belum ada LAPJUSIK dihapus</option>
@@ -140,10 +150,10 @@
                             <option value="" disabled selected>-- Pilih Bulan --</option>
                             <option value="{{$flaggedPelaksanaan->id}}" >{{$flaggedPelaksanaan->bulan}}</option>
                             </select>
-                                    Buat Ulang LAPJUSIK
                             <center><p>Sistem akan membuat ulang LAPJUSIK proyek yang sebelumnya telah dihapuskan oleh Manajer Pelaksana</p><br>
                             <a class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                                 <span>
+                                    Buat Ulang LAPJUSIK
                                 </span>
                             </a>
 
@@ -223,14 +233,17 @@
             </div>
         </div>
     </div>
+            </div>
+        </div>
+
+        
         
     <br>
-    <div class="row" style="margin-left:200px;">
-        <div class="container-fluid col-md-10">
-            <div class="row bigCard" style="margin-left:14px">
-                <div class="col-md-12">
-                    <h2 class="font-title" style="text-align:center;">Daftar Informasi Proyek</h2><hr>
-                    <div class="card">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="card col-md-8">
+        <br>
+                    <h2 class="font-title" style="text-align:center;">Daftar Informasi Proyek</h2>
                         <div class="panel-body">
                             <table id="datatable1" class="table table-striped table-bordered text-center">
                                 <thead>
@@ -264,10 +277,8 @@
                                 <tbody >
                             </table>
                         </div>
-                    </div>
                 </div>
-            </div>
-        </div>
+        <div class="col-md-2"></div>
     </div>
 
 
@@ -280,10 +291,10 @@
             </ol>
         </nav>
     <div class="row" style="margin-left: 160px;">
-        <div class="container-fluid card col-md-6" style="width:910px;min-height:300px;margin:0 30px;">
+        <div class="container-fluid card col-md-6" style="width:910px;min-height:280px;margin:0 30px;">
             <div class="row">
                 <div class="col-md-12"><br>
-                    <h2 class="font-title" style="text-align:center;">Daftar LAPJUSIK</h2><hr>
+                    <h2 class="font-title" style="text-align:center;">Daftar LAPJUSIK</h2>
                         <div class="panel-body">
                             <table id="datatable" class="table table-striped table-bordered text-center">
                                 <thead>

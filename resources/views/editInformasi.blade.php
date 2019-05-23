@@ -41,30 +41,15 @@
                 {{ csrf_field() }}
                 {{ method_field('POST') }}
 
-                <div class="content bg1">
-                    <span class="labels font-subtitle-5">Uraian Pekerjaan</span>
-                    <select name="tipepekerjaan" class="content bg1" style="background-color:white">
-                        <option value="{{$finalPekerjaan->id}}" >{{$finalPekerjaan->name}}</option>
-                        @foreach($bladePekerjaan as $tipe)
-                            <option value="{{$tipe->id}}" >{{$tipe->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
+                <?php $strJenis = "Kategori dari pekerjaan yang dilakukan dalam sebuah proyek. Jenis pekerjaan terbagi menjadi 3 jenis yaitu Gaji, Belanja dan Administrasi."?>
+                <?php $strUraian = "???"?>
+                <?php $strDeskripsi = "Deskripsi lanjutan yang dapat diberikan untuk memperjelas sebuah informasi kemajuan. Contoh: Lantai 1, Lantai 2, dst."?>
+                <?php $strTanggal = "Tanggal dimana suatu kemajuan proyek terlaksana."?>
+                <?php $strNominal = "Total biaya yang dikeluarkan perusahaan untuk pengerjaan suatu kemajuan proyek."?>
+                <?php $strFoto = "Daftar foto pendukung yang berfungsi sebagai bukti kemajuan pada suatu proyek."?>
 
                 <div class="content bg1">
-                    <span class="labels font-subtitle-5">Deskripsi Tambahan</span>
-                    <textarea class="inputs" type="text" name="description" style="height:150px" data-error=".errorDescription"> {{ $kemajuans->description }} </textarea>
-                    <div class="errorMessage errorDescription"></div>
-                </div>
-
-                <div class="content bg1">
-                    <span class="labels font-subtitle-5">Tanggal Informasi</span>
-                    <input type="date" name="reportdate" min="<?php echo $minDate ?>" max="<?php echo $maxDate ?>" class="inputs" value="{{ $kemajuans->reportDate }}" data-error=".errorDate">
-                    <div class="errorMessage errorDate"></div>
-                </div>
-
-                <div class="content bg1">
-                    <span class="labels font-subtitle-5">Jenis Informasi</span>
+                    <span class="labels font-subtitle-5" href="#" data-toggle="tooltip" title="<?php echo $strJenis ?>" data-placement="right">Jenis Informasi</span>
                     @if($kemajuans->tipeKemajuan==1)
                         <select name="tipekemajuan" class="content bg1" style="background-color:white">
                             <option value="1" >Gaji</option>
@@ -86,15 +71,38 @@
                     @endif
                 </div>
 
+
                 <div class="content bg1">
-                    <span class="labels font-subtitle-5">Nilai</span>
+                    <span class="labels font-subtitle-5" href="#" data-toggle="tooltip" data-placement="right" title="<?php echo $strUraian ?>">Uraian Pekerjaan</span>
+                    <select name="tipepekerjaan" class="content bg1" style="background-color:white">
+                        <option value="{{$finalPekerjaan->id}}" >{{$finalPekerjaan->name}}</option>
+                        @foreach($bladePekerjaan as $tipe)
+                            <option value="{{$tipe->id}}" >{{$tipe->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="content bg1">
+                    <span class="labels font-subtitle-5" href="#" data-toggle="tooltip" data-placement="right" title="<?php echo $strDeskripsi ?>">Deskripsi Tambahan</span>
+                    <textarea class="inputs" type="text" name="description" style="height:150px" data-error=".errorDescription"> {{ $kemajuans->description }} </textarea>
+                    <div class="errorMessage errorDescription"></div>
+                </div>
+
+                <div class="content bg1">
+                    <span class="labels font-subtitle-5" href="#" data-toggle="tooltip" data-placement="right" title="<?php echo $strTanggal ?>" data-placement="right">Tanggal Informasi</span>
+                    <input type="date" name="reportdate" min="<?php echo $minDate ?>" max="<?php echo $maxDate ?>" class="inputs" value="{{ $kemajuans->reportDate }}" data-error=".errorDate">
+                    <div class="errorMessage errorDate"></div>
+                </div>
+
+                <div class="content bg1">
+                    <span class="labels font-subtitle-5" href="#" data-toggle="tooltip" data-placement="right" title="<?php echo $strNominal ?>" data-placement="right">Nominal</span>
                         <input type="number" name="nilai" class="inputs" value="{{$kemajuans->value}}" data-error=".errorVal">
                         <div class="errorMessage errorVal"></div>
                 </div>
                 <br>
 
                 <div class="form-group {{ !$errors->has('photo') ?: 'has-error' }}">
-                    <span class="labels font-subtitle-5">Foto</span>
+                    <span class="labels font-subtitle-5" href="#" data-toggle="tooltip" data-placement="right" title="<?php echo $strFoto ?>" data-placement="right">Foto</span>
                 </div>
 
                 @foreach($foto as $fot)
@@ -173,6 +181,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
 	<script>
         $( document ).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
             var postURL = "<?php echo url('addmore'); ?>";
             console.log(postURL);
             var i=1;  
