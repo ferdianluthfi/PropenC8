@@ -324,13 +324,6 @@
                         <a>PM : {{$pmName}}</a>
                         <span class="glyphicon glyphicon-pencil"></span>
                         @endif
-
-                        @else
-                        @if ($proyek->approvalStatus == 6)
-                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right; color:#63A2F6;">+ Tambah PM</a>
-                        @elseif ($proyek->approvalStatus == 7)
-                        <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right; color:#63A2F6;">{{$pmName}}<span class="glyphicon glyphicon-pencil"></span></a>
-                        @endif
                         @endif
                     </div>
                 </div>
@@ -338,6 +331,7 @@
                 <div class="row">
                     <div class="col-sm-5 font-desc-bold" style="margin-left: 30px;">
                         <ul>
+                            <li><p>Nama PM</p></li>
                             <li><p>Nama Staf Marketing</p></li>
                             <li><p>Nama Proyek</p></li>
                             <li><p>Nama Perusahaan</p></li>
@@ -349,6 +343,13 @@
                     </div>
                     <div class="col-sm-6 font-desc" >
                         <ul>
+                            <li>
+                                @if ($proyek->approvalStatus == 6)
+                                <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right; color:#63A2F6;">:    + Tambah PM</a>
+                                @elseif ($proyek->approvalStatus == 7)
+                                <a href="/pm/kelola/{{$proyek->id}}" style="text-align: right; color:#63A2F6;">:    {{$pmName}}<span class="glyphicon glyphicon-pencil"></span></a>
+                                @endif
+                            </li>
                             <li><p>:   {{ $proyek->name}}<p></li>
                             <li><p>:   {{ $proyek->projectName}}<p></li>
                             <li><p>:   {{ $proyek->companyName}}<p></li>
