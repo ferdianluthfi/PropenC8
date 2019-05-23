@@ -5,6 +5,13 @@
 @if(Auth::user()->role == 1)
 @section('content')
 @include('layouts.nav')
+
+@if(session('error'))
+			<div class="alert alert-warning alert-dismissible" style="margin: 15px;" role="alert">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<strong> {{ session('error') }} </strong>
+			</div>
+		@endif
 <nav aria-label="breadcrumb">
 		<ol class="breadcrumb" style="margin-left:150px;">
 			<li class="breadcrumb-item" aria-current="page"><a class="font-breadcrumb-inactive" href="{{ url('home') }}">Beranda</a></li>
@@ -14,12 +21,7 @@
 
 <div class="container" nonvalidate="nonvalidate" id="jqueryvalidation">
         
-        @if(session('error'))
-			<div class="alert alert-warning alert-dismissible" style="margin: 15px;" role="alert">
-					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong> {{ session('error') }} </strong>
-			</div>
-		@endif
+        
 
                     <form method="POST" action="{{ route('register') }}" id="addForm" style="height:500px;width:1000px;background:white;padding-top: 8px; margin:0 auto;">
                         <h1 class="font-title" style="text-align:center; margin-top:10px;margin-bottom:10px;">Tambah Akun</h1>
@@ -27,14 +29,14 @@
 			            {{ csrf_field() }}
 						<br>
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Nama') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="font-desc form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong style="color:red">Sudah ada akun dengan nama tersebut!</strong>
                                     </span>
                                 @endif
                             </div>
@@ -48,21 +50,21 @@
 
                                 @if ($errors->has('username'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('username') }}</strong>
+                                        <strong style="color:red">Sudah ada akun dengan username tersebut!</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Alamat E-Mail') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="font-desc form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="font-desc form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}"  required>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong style="color:red">Email sudah pernah digunakan!</strong>
                                     </span>
                                 @endif
                             </div>
@@ -76,14 +78,14 @@
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong style="color:red">Passowrd tidak cocok</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Ulangi Password') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
@@ -91,7 +93,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="role" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Role') }}</label>
+                            <label for="role" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Jabatan') }}</label>
                             <div class="col-md-6 font-desc">
 								<select name="role" class="content bg1">
                            			<option value="1" >Akun Manajer</option>
@@ -231,6 +233,7 @@
 			messages:{
 				name:{
 					required: "Nama  harus diisi",
+					minlength: "Minimal panjang nama adalah 2 huruf"
 				},
 				username:{
 					required: "Username harus diisi",
@@ -256,5 +259,10 @@
 		
   	});
 	</script>
+	<style>
+	.error{
+		color:red;
+	}
+	</style>
 	
 @endsection

@@ -43,14 +43,14 @@
 			<input type="hidden" name="id" value="{{ $user->id }}"> <br/>
 		
 			<div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Nama') }}</label>
 
                             <div class="col-md-6">
                                 <input value="{{ $user->name }}" id="name" type="text" class="font-desc form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+									<strong style="color:red">Sudah ada akun dengan nama tersebut!</strong>
                                     </span>
                                 @endif
                             </div>
@@ -64,21 +64,21 @@
 
                                 @if ($errors->has('username'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('username') }}</strong>
+										<strong style="color:red">Sudah ada akun dengan username tersebut!</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Alamat E-Mail') }}</label>
 
                             <div class="col-md-6">
                                 <input value="{{ $user->email }}"id="email" type="email" class="font-desc form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
+									<strong style="color:red">Email sudah pernah digunakan!</strong>
                                     </span>
                                 @endif
                             </div>
@@ -91,14 +91,14 @@
 
                         @if ($errors->has('password'))
                             <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('password') }}</strong>
+								<strong style="color:red">Passowrd tidak cocok</strong>
                             </span>
                         @endif
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Confirm Password') }}</label>
+                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Ulangi Password') }}</label>
 
                     <div class="col-md-6">
                         <input value="{{ $user->password }}" id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
@@ -106,7 +106,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="role" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Role') }}</label>
+                    <label for="role" class="col-md-4 col-form-label text-md-right font-subtitle-4">{{ __('Jabatan') }}</label>
                     <div class="col-md-6">
 					@switch($user->role)
 					@case(1)
@@ -216,7 +216,7 @@
 						@if($user->status == 0)
 						<a class="button-disapprove font-approval" data-toggle="modal" data-target="#myDeleteModal" style="padding:10px;color:red;border:1.5px solid red;">
 							<span>
-								HAPUS
+								Nonaktifkan
 							</span>
 						</a>
 						@else
@@ -372,6 +372,7 @@
 			messages:{
 				name:{
 					required: "Nama harus diisi",
+					minLength: "Minimal nama adalah 2 huruf"
 				},
 				username:{
 					required: "Username harus diisi",

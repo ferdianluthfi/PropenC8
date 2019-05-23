@@ -47,7 +47,8 @@ class LoginController extends Controller
                 return redirect('/');
             }
             Auth::logout();
-            return 'Akun sudah tidak aktif';
+            session()->flash('error', 'Akun sudah tidak aktif');
+            return Redirect::to('/login');
         }
         else{
             session()->flash('error', 'Username atau Password salah!');

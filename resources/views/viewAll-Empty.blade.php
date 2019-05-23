@@ -20,7 +20,7 @@
     <hr>
     <br><br><br><br><br><br><br><br><br><br>
     <div class="text-center font-title">
-        <h3>Tidak ada proyek yang sedang berjalan :(</h3>
+        <h3>Tidak ada proyek yang sedang berjalan.</h3>
         <a href="/home" style="color:darklateblue">kembali<a>
     </div>
 
