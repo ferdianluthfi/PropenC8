@@ -35,9 +35,12 @@
 <div class="container-fluid card card-detail-proyek">
     <br>
     <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8"><p class="font-subtitle-1">Overview Kontrak Kerja</p></div>
-        <div class="col-sm-2"><p class="font-status-approval" style="margin-top:7px; margin-left:-40px;">{{ $statusHuruf }}</p></div>
+        <div class="col-sm-7">
+            <p class="font-title" style="margin-top: 20px; margin-left: 20px">Overview Kontrak Kerja</p>
+        </div>
+        <div class="col-sm-5">
+            <p style="text-align: right; margin-right: 20px; margin-top: 30px; color: blue">{{ $statusHuruf }}</p>
+        </div>
     </div>
     <br><br>
     <div class="container-fluid card card-kontrak">

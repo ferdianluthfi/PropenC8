@@ -494,7 +494,7 @@ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 .errorMessage {
-color: red;
+color: #c32222;
 font-size: 14px;
 font-family:'Roboto';
 font-weight:400;
@@ -720,9 +720,9 @@ padding: 15px;
 .modal-content{
   position: absolute;
   width: 600px;
-  height: 195px;
-  margin: center;
-  top: 250px;
+  height: auto;
+  /*margin: center;*/
+  top: 250px; 
 }
 
 .deskripsi{
@@ -955,7 +955,7 @@ font-size: 14px;
 }
 
 .modal-content-a {
-  height: 300px;
+  height: auto;
 }
 
 .modal-body .form-horizontal .col-sm-2,

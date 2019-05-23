@@ -80,11 +80,12 @@
         <div class="col-sm-2">
             <div class="card card-pm" style="margin-left: 90px">
                 <br>
-                <p class="font-subtitle-5">Ubah Status Lelang</p>
-                <hr/>
+                <p class="font-subtitle-5">Status Lelang</p>
+                <a href="/kelolaLelang/{{ $proyek->id }}"><button class="button-berkas" style="margin-left: 27px; margin-bottom: 5px; margin-top: 5px; width: 145px; height: 30px; font-size: 12px">LIHAT BERKAS LELANG</button></a>
+                <hr/><br>
                 <form action="/proyek/kalah/<?php echo $proyek->id ?>" method="GET" id="reject">
                     @csrf
-                    <button id="tolak" class="button-disapprove font-approval" style="margin-left: 35px; margin-bottom: 10px; margin-top: 35px">KALAH</button>
+                    <button id="tolak" class="button-disapprove" style="border-color: #c32222; margin-left: 35px; margin-bottom: 10px; color: #c32222">KALAH</button>
                 </form>
                 <form action="/proyek/menang/<?php echo $proyek->id ?>" method="GET" id="save">
                     @csrf

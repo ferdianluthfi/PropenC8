@@ -72,22 +72,22 @@
             </tbody>
         </table>
         <br><br>
-        <div>
-            @if ($choosenPmId == 0)
-            <label>Tambahkan kategori pekerjaan pada field di bawah ini</label>
-
-            <table class="table table-bordered" id="dynamic_field">
-                <th>Kategori</th>
-                <th>Nominal</th>
-                <th>Action</th>
-                <tr>
-                    <td><input type="text" name="desc[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>
-                    <td><input type="number" name="num[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>
-                    <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Kategori Lain</button></td>
-                </tr>
-            </table>
-            @endif
-        </div>
+<!--        <div>-->
+<!--            @if ($choosenPmId == 0)-->
+<!--            <label>Tambahkan kategori pekerjaan pada field di bawah ini</label>-->
+<!---->
+<!--            <table class="table table-bordered" id="dynamic_field">-->
+<!--                <th>Kategori</th>-->
+<!--                <th>Nominal</th>-->
+<!--                <th>Action</th>-->
+<!--                <tr>-->
+<!--                    <td><input type="text" name="desc[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>-->
+<!--                    <td><input type="number" name="num[]" class="help-block text-danger"> {{ $errors->first('file') }}</td>-->
+<!--                    <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Kategori Lain</button></td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--            @endif-->
+<!--        </div>-->
 
         <div class="row">
             <div class="col-sm-4"></div>

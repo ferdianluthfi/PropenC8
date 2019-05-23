@@ -56,7 +56,7 @@ box-sizing: border-box;
   <div class="row">
     <br>
     <div class="col-sm-8"> 
-            <p class="font-subtitle-2" style="text-align: center">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
+            <p class="font-title" style="text-align: center">Detail LAPJUSIK Bulan {{$pelaksanaan->bulan}}</p>
     </div>
     <div class="col-sm-4">
         @if($status == 'DISETUJUI') <div class="font-status-approval" style="margin:10px; color:blue;">{{$status}}</div>

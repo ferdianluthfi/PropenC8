@@ -62,7 +62,7 @@ class PenggunaController extends Controller
 //            'num[]' => 'required'
         ]);
         if($validator->fails()) {
-            session()->flash('error', 'PM dan Kategori Pekerjaan harus diisi');
+            session()->flash('error', 'PM harus diisi');
             return redirect('/pm/kelola/'.$proyek_id) //GANTI REDIRECT KE HALAMAN DETAIL PROYEK
             ->withErrors($validator)
                 ->withInput();
@@ -81,23 +81,23 @@ class PenggunaController extends Controller
                 DB::table('proyeks')->where('id',$proyek_id)->update([
                     'approvalStatus' => 7,
                 ]);
-                if (($request->desc != null) && ($request->num != null)){
-                    $des = $request->desc;
-                    $nominal = $request->num;
-                    for($i = 0; $i < sizeOf($des); $i++){
-                        $descObj = $des[$i];
-                        $nomObj = $nominal[$i];
-                        $val = $proyek->projectValue;
-                        DB::table('jenis_pekerjaan')->insert([
-                            'name' => $descObj,
-                            'workTotalValue' => $nomObj,
-                            'weightPercentage' => $nomObj/$val,
-                            'workCurrentValue' => 0,
-                            'proyek_id' => $proyek_id
-                        ]);
-//                        dd($nomObj/$val);
-                    }
-                }
+//                if (($request->desc != null) && ($request->num != null)){
+//                    $des = $request->desc;
+//                    $nominal = $request->num;
+//                    for($i = 0; $i < sizeOf($des); $i++){
+//                        $descObj = $des[$i];
+//                        $nomObj = $nominal[$i];
+//                        $val = $proyek->projectValue;
+//                        DB::table('jenis_pekerjaan')->insert([
+//                            'name' => $descObj,
+//                            'workTotalValue' => $nomObj,
+//                            'weightPercentage' => $nomObj/$val,
+//                            'workCurrentValue' => 0,
+//                            'proyek_id' => $proyek_id
+//                        ]);
+////                        dd($nomObj/$val);
+//                    }
+//                }
             }
 
 //            new edit pm
