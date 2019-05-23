@@ -14,7 +14,7 @@
         <li><a href="/register" class="font-nav">Tambah Akun</a></li>
         @endif
 
-        @if(Auth::user()->role == 2)
+        @if(Auth::user()->role == 2 || Auth::user()->role == 7)
         <li><a href="/kemajuanProyek" class="font-nav">Kemajuan Proyek</a></li>
         @endif
 

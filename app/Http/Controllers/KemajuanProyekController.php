@@ -99,6 +99,63 @@ class KemajuanProyekController extends Controller
                 return view('viewAll-Empty');
             }
         }
+        elseif(\Auth::user()->role == 7){
+            
+            $idProyeksPM = Assignment::select('assignments.proyek_id')->where('pengguna_id', \Auth::user()->id)->get();
+            $idProyeks = Proyek::select('proyeks.id')->where('isLPJExist', 0)->where('approvalStatus',7)->whereIn('proyeks.id', $idProyeksPM)->get();
+            if($idProyeks->isEmpty() == false){
+                
+                
+                $pelaksanaans = Pelaksanaan::select('pelaksanaans.*','proyeks.*','kemajuan_proyeks.*')
+                ->join('proyeks','proyeks.id','=','pelaksanaans.proyek_id')
+                ->join('kemajuan_proyeks','kemajuan_proyeks.pelaksanaan_id','=','pelaksanaans.id')
+                ->whereIn('proyek_id',$idProyeks)->get();
+                
+                
+                $proyeks = Proyek::select('proyeks.*')->where('isLPJExist', 0)->where('approvalStatus',7)->whereNotIn('id', 
+                
+                Pelaksanaan::select('proyeks.id')
+                ->join('proyeks','proyeks.id','=','pelaksanaans.proyek_id')
+                ->whereIn('proyek_id',$idProyeks)->get())
+                
+                ->whereIn('proyeks.id', $idProyeksPM)->get();
+
+                
+                $proyekDetail = [];
+                $data = $pelaksanaans->groupBy('proyek_id');
+                foreach ($data as $proyek) {
+                    $sumGaji = 0;
+                    $sumBelanja = 0;
+                    $sumAdministrasi = 0;
+                    foreach ($proyek as $kemajuan) {
+                        if ($kemajuan['tipeKemajuan'] == 1) {
+                            $sumGaji += $kemajuan['value'];
+                        }
+                        elseif ($kemajuan['tipeKemajuan'] == 2) {
+                            $sumBelanja += $kemajuan['value'];
+                        }
+                        else {
+                            $sumAdministrasi += $kemajuan['value'];
+                        }
+                    }
+                    $proyekDetail[] = array(
+                        "projectName" => $kemajuan['projectName'],
+                        "totalGaji" => $sumGaji,
+                        "totalBelanja" => $sumBelanja,
+                        "totalAdministrasi" => $sumAdministrasi,
+                        "totalKeseluruhan" => $sumGaji + $sumAdministrasi + $sumBelanja,
+                        "maxValue" => $kemajuan['projectValue'],
+                        "projectKlien" => $kemajuan['companyName'],
+                        "projectId" => $kemajuan['proyek_id'],
+                        
+                    );
+                }
+                return view('viewAll', compact('proyekDetail','proyeks'));
+            }
+            else{
+                return view('viewAll-Empty');
+            }
+        }
         else{
             return view('no-access'); 
         }
